@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microphone Recording</title>
+</head>
+<body>
+  
+    <img src="images/girl0001.jpg" width="300" height="300">
+
+
+
+    <img src="images/boy0001.jpg" width="300" height="300">
+<br>
+    <audio controls>
+        <source src="voice/Sue.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio>
+    <audio controls>
+        <source src="voice/Mike.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+      </audio>
+
+      <br>
+      <br>
+
+     
+  <button id="start-record-btn">Start Recording</button>
+  <button id="stop-record-btn" disabled>Stop Recording</button>
+  <audio id="audio-playback" controls></audio>
+
+  <script>
+    let mediaRecorder;
+    let audioChunks = [];
+
+    const startRecordBtn = document.getElementById('start-record-btn');
+    const stopRecordBtn = document.getElementById('stop-record-btn');
+    const audioPlayback = document.getElementById('audio-playback');
+
+    startRecordBtn.addEventListener('click', async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder = new MediaRecorder(stream);
+      
+      mediaRecorder.start();
+      startRecordBtn.disabled = true;
+      stopRecordBtn.disabled = false;
+
+      mediaRecorder.ondataavailable = event => {
+        audioChunks.push(event.data);
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        audioPlayback.src = audioUrl;
+
+        // Send audio data to server
+        const formData = new FormData();
+        formData.append('audio', audioBlob, 'recording.wav');
+
+        await fetch('upload_audio.php', {
+          method: 'POST',
+          body: formData
+        });
+
+        audioChunks = [];
+        startRecordBtn.disabled = false;
+      };
+    });
+
+    stopRecordBtn.addEventListener('click', () => {
+      mediaRecorder.stop();
+      stopRecordBtn.disabled = true;
+    });
+
+    
+  </script>
+ 
+
+   
+</body>
+
+</html>
