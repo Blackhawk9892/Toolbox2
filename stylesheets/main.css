@@ -1,0 +1,483 @@
+/* 
+My first css Greated: Tim Dumouchel
+  <span style="background-color: #ffcc33;"></span>
+ 
+*/
+
+body
+{
+
+    background-color: #d3d3d3; 
+
+    margin: 1px;
+    font-family: georgia, verdana, sanif ;
+
+}
+
+h1 
+{
+    color: black;
+    style="font-family: georgia, verdana, sanif";
+
+
+}
+
+h3 
+{
+    color: #ff0000;
+    style="font-family: georgia, verdana, sanif";
+
+
+}	 
+
+div#heading
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #d3d3d3;
+    border: 1px solid #ffff33;
+
+}
+div#button
+{
+    float: left;  
+    width: 20%;
+    height:100%;
+
+    margin: 0 auto;
+    padding: 1px;
+
+    background-color: #d3d3d3;
+
+
+}
+div#button2
+{
+    float: right;  
+    width: 21%;
+    height:100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #d3d3d3;
+
+
+}
+
+div#photo
+{
+    float: left;  
+    width: 79%;
+    height:100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #d3d3d3;
+
+
+}
+div#descrip
+{
+    width: 25%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #ff0000;
+
+
+}
+
+
+/*a:link {color:#3300cc;}     unvisited link */
+/*a:visited {color:#ff0000;}  visited link */
+/*a:hover {color:#00ccff;}    mouse over link */
+/*a:active {color:#cc99ff;}   selected link */
+
+
+
+#sidebar
+{
+    float: left;
+    padding:0 50em 1px 1px;
+    background:#cdd0fd ;
+
+}
+
+#content
+{
+
+    float: left;
+    width: 45em ; 
+    margin: 0 0 4em -48em;
+    padding: 3em 0 0 0;
+}
+
+#foot
+{
+    clear: both;
+    width: 100%;
+    margin: 1 auto;
+    padding: 1px;
+    /* background-color: #ff9933; */
+    background-color: #ff0000;
+    border: 1px solid #ffff33;
+
+}
+
+
+#sign
+{
+    /*margin: 1em 15em 1em 15em;*/
+    padding:0em,15em,0em,15em;
+
+} 
+
+
+
+#parts
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #ffff33;
+    border: 1px solid #000000;
+}
+
+#Offer
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #ffff33;
+    border: 1px solid #000000;
+}	
+#red
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #ff0000;
+    border: 1px solid #000000;
+}	
+#white
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+}
+#black
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #000000;
+    border: 1px solid #000000;
+  
+}	
+
+#green
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #99ff33;
+    border: 1px solid #000000;
+}	
+
+#price
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #907b7b;
+    border: 1px solid #000000;
+}	
+
+#lube
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #cc9600;
+    border: 1px solid #000000;
+}	
+
+#white2
+{
+    width: 30%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+}	
+
+#green
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #68df40;
+    border: 1px solid #000000;
+}
+#photos
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #9dcfd3;
+    border: 1px solid #000000;
+}
+
+#lot
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #a7eb91;
+    border: 1px solid #000000;
+}	
+
+#show
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #ff0000;
+    border: 1px solid #000000;
+}	
+
+#show2
+{
+    width: 30%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #ff0000;
+    border: 1px solid #000000;
+}	
+
+#trade
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #d4dd1b;
+    border: 1px solid #000000;
+}	
+
+#detail
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #8997e4;
+    border: 1px solid #000000;
+}
+
+#plate
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #d49dd6;
+    border: 1px solid #000000;
+}	
+
+
+#topper
+{
+
+
+    background-color:#E0E0E0 ;
+    border: 1px solid #000000;
+}
+#replied
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #00ccff;
+    border: 1px solid #000000;
+}
+
+
+#sold
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color:#ffffff;
+    border: 1px solid #000000;
+}
+
+#confirmed
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color:#ff0000;
+    border: 1px solid #000000;
+}
+
+#sheen
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    color:white;
+    background-color:#778114;
+    border: 1px solid #000000;
+}
+
+#violet
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    color:white;
+    background-color:#51097a;
+    border: 1px solid #000000;
+}
+
+#green
+{
+    width: 100%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color:hsl(146, 80%, 84%);
+    border: 1px solid #000000;
+}
+
+#parts2
+{
+    width: 30%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #ffffcc;
+    border: 1px solid #000000;
+}
+
+#Offer2
+{
+    width: 30%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #ffffcc;
+    border: 1px solid #000000;
+}	
+
+#replied2
+{
+    width: 30%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color: #00ccff;
+    border: 1px solid #000000;
+}
+
+
+#sold2
+{
+    width: 30%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color:#ffffff;
+    border: 1px solid #000000;
+}
+
+
+
+#confirmed2
+{
+    width: 30%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color:#ff0000;
+    border: 1px solid #000000;
+}
+#bar1
+{
+    width: 15%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color:#99ccff;
+    border: 1px solid #000000;
+}
+
+#bar2
+{
+    width: 15%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color:#ff0066;
+    border: 1px solid #000000;
+}
+
+#bar3
+{
+    width: 15%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color:#00cc33;
+    border: 1px solid #000000;
+}
+
+#red
+{
+    color: #ff0033;
+    style;"font-family: georgia, verdana, sanif";
+}
+
+#margin
+{
+    margin-right:20px;
+    margin-left:20px;
+
+}     
+#new1
+{
+    width: 20%;
+    margin: 0 auto;
+    padding: 1px;
+    background-color:#ffffff;
+    border: 1px solid #000000;
+}
+.centerheader {
+  text-align: center;
+  font-size: 63px;
+}
+.center {
+  text-align: center;
+}
+.errors {  
+  text-align: center;
+  font-size: 24px;
+  color: red;
+}
+
+.information {  
+    text-align: center;
+    font-size: 24px;
+    color: rgb(20, 93, 52);
+  }
+
+.important{
+    color: red;
+}
+.problem {  
+    text-align: center;
+    font-size: 24px;
+    color: rgba(13, 0, 255, 0.59);
+  }
+ .btn {
+                background-color: DodgerBlue;
+                border: none;
+                color: white;
+                padding: 12px 16px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+            /* Darker background on mouse-over */
+            .btn:hover {
+                background-color: RoyalBlue;
+            }
