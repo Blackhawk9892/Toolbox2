@@ -1,0 +1,21 @@
+
+
+ setcookie(cookieName,data,time()+60*60*24)   // cook set for one day
+ 
+			 
+  md5(md5($user) . $password);     // incripiting a password
+  
+  
+  if(!filter_var($_POST['email'],FILTER_VALIDATE_EMAIL))  // validate an email 
+  
+  
+  if(strlen($_POST['password'])<8)   // if password is grater than 8
+  
+  
+  if(preg_match('`[A-Z`'],$_POST['password']))   // check of at least on capital letter
+  
+  addslashes('password')
+  
+  mysqli_query($con,"update product SET ???????='$xxxxxx' WHERE indexxxxx='$indexxxxxx'" );   // Update a database
+  
+  

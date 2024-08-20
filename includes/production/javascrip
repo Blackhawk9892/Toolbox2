@@ -1,0 +1,250 @@
+
+if(typeof input !== 'number') // get type of varable 
+
+Math.floor(number);    // function returns the largest integer less than or equal to a given number.
+//**********************************************************************
+
+for (let i = 0; i < cars.length; i++) {  // for loop
+  text += cars[i] + "<br>";
+}
+//***********************************************************************
+for (x in person) {            // for in loop
+}
+
+//***********************************************************************
+let address = {              // how to use a for in loop with key
+    steet: '1533',
+    city: 'West Bend',
+    zipCode: '53090'
+   
+} 
+
+function showAddress(address){
+    for(let key in address)
+        console.log(key,address[key]);
+}
+
+showAddress(address);
+
+//************************************************************************************
+ 
+ const numbers =[1,2,3];
+ 
+ for(number of numbers)       for of loop used on arrys
+  console.log(number);
+//************************************************************************************
+
+  const numbers.forEach(number, index) => console.log(index, number) // forEach loop
+  
+
+//************************************************************************************
+let address = createAddress('a', 'b', 'c');       // Factory Function
+
+console.log(address);
+
+function createAddress(street, city, zipCode){
+    return{
+        street,
+        city,
+        zipCode
+    };
+}
+
+//**********************************************************************************************
+                     //Constructor Function
+
+let post = new Post('a', 'b', 'c');
+
+console.log(post);
+
+function Post(title, body, author){
+    this.title = title;
+    this.body = body;
+    this.author = author;
+    this.views = 0;
+    this.comments = [];
+    this.isLive = false;
+}
+
+//**********************************************************************************************
+let priceRanges = [
+{ label: '$', tooltip: 'Inexpensive', MinPerPerson: 0, maxPerPerson: 10},
+{ label: '$$', tooltip: 'Moderate', MinPerPerson: 11, maxPerPerson: 20},
+{ label: '$$$', tooltip: 'Expensive', MinPerPerson: 21, maxPerPerson: 50}
+]
+//***************************************************************************************
+const numbers = [1, 2, 3];
+const joined = numbers.join('*');   // join will add some to the out put of a array
+console.log(joined);
+
+//***********************************************************************************************
+const message = 'This is my first message'; 
+const parts = message.split(' '); //split turns a literal into an array
+console.log(parts);
+
+//*****************************************************************************************************
+
+
+const number = [2,1,6,3,5,4];
+number.sort(); // (sort) sort numbers form low to high
+console.log(number);
+
+//****************************************************************************************************
+
+const alpha = ['d','b','a','c','f'];
+alpha.sort();
+alpha.reverse()// (revers) revers the order of the array
+console.log(alpha);
+
+//******************************************************************************************************
+//  Sorting alpha
+const courses = [
+    {id: 1, name: 'Node.js'},
+    {id: 2, name: 'JavaScript'},
+    {id: 3, name: 'PHP'},
+    {id: 3, name: 'ASA'},   
+];
+
+courses.sort(function(a, b){     // Sorting Array
+    
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    
+    if( nameA < nameB) return -1;
+    if(nameA > nameB) return 1;
+    return 0;
+});
+
+console.log(courses);
+//***************************************************************************************************
+// Turn an array in to HTML
+
+const numbers =[1, -2, 2,3];
+
+const filtered = numbers.filter(n => n >= 0); //filter number more then 0
+                                              // code is a short
+       const items = filtered.map(n => '<li>' + n + '</li>' + '\n');
+       
+       const html = '<ul>' +'\n' + items.join('') + '</ul>';
+       
+console.log(html);
+
+//*****************************************************************************************************
+const numbers =[1, -2, 2,3];
+
+const atLeastOnePositive = numbers.some(value =>{
+    return value >= 0;    // (some) Check if there is at less one Positive 
+}); 
+console.log(atLeastOnePositive);
+const allPositive = numbers.every(function(value){
+    return value >= 0;    // (every) check if all Positive
+})
+console.log(allPositive);
+
+//**********************************************************************************************************************
+////                            move a element in an array
+
+   const numbers =[1, 2, 3, 4, 5, 6, 7, 8];
+
+const output = move(numbers, 1, 7);
+console.log(output);
+
+
+function move(array, index, offset){
+    
+    const position = index + offset;
+    if(position >= array.length || position < 0){
+        console.error('Invalid Offset.');
+        return;
+    }
+    
+    const output = [...array];    // this will clone a array
+    const element =output.splice(index, 1)[0]; // this will remove the item form the and retun it as an array
+    console.log(element);
+    output.splice(position, 0, element);  // put the element in the array
+    return output;
+}
+//********************************************************************************************************************************
+// count the number of accurrences of a slected number
+// Catch an error
+try{
+const numbers =[1, 2, 1, 4, 1, 6, 7, 1];
+const count = countOccurrences(numbers, 1);
+console.log(count);
+}
+catch(e){
+    console.log(e.message);
+}
+
+function countOccurrences(array, searchElement){
+    if(!Array.isArray(array))
+        throw new Error('invalid array.')
+    
+   return array.reduce((accumulator, current) =>{
+        const occurrence = (current === searchElement) ? 1 : 0;
+        return accumulator + occurrence;
+        
+    }, 0);
+}
+//**************************************************************************************************************************************
+
+// Retuns to large number in 
+
+const numbers =[1, 2, 1, 4, 1, 6, 7, 1];
+
+const max = getMax(numbers);
+console.log(max);
+
+
+function getMax(array){
+    if(array.length === 0)
+        return undefined;
+    
+   /* let max = 0;
+     for(number of array){
+         if(number > max)
+            max = number;
+     }
+    return max;*/
+    
+  return array.reduce((max,current) => (max > current) ? max : current);
+     
+}
+
+//************************************************************************************************************************************
+
+/*
+ * 1. All the moies in 20188 with rating > 4
+ * 2. Sort them by their rating
+ * 3. Descending order
+ * 4. Pick their title
+ */
+
+const movies = [
+    {title: 'a', year: 2018, rating: 4.5},
+    {title: 'b', year: 2018, rating: 4.7},
+    {title: 'c', year: 2018, rating: 3},
+    {title: 'd', year: 2017, rating: 4.5}
+];
+
+const titles = movies
+        .filter(m => m.year === 2018 && m.rating >= 4)   // 1
+        .sort((a, b) => a.rating - b.rating)             // 2
+        .reverse()                                       // 3
+        .map(m => m.title)                               // 4
+   
+   console.log(titles);
+   
+   //****************************************************************************************************************************************
+   
+   // 1. crate a function the calulates the some 
+//    2. also make it will work with an Array
+
+console.log(sum([1,2,3,4]));
+
+function sum(...items){
+    if(items.length === 1 && Array.isArray(items[0]))  // 2
+        items = [...items[0]];
+    
+ return items.reduce((a,b) => a +b);                   // 1
+}
