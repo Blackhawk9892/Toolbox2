@@ -16,8 +16,8 @@ session_start();
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <style>
             body  {
-                background-image: url("images/backround.jpg");
-                height: 800px;
+                background-image: url("photos/Solid-Colors-Wallpaper-Background-.jpg");
+                height: 900px;
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: cover;
@@ -292,7 +292,7 @@ session_start();
 
                     </div>
                     <div class="col-sm-9 ">
-                        <img src="../images/Shelby.jpg"  width="1600" height="1000"> 
+                        <img src="photos/couple buying a vehicle.webp"  width="1450" height="1250"> 
                     </div>
                 </div>
             </div>
