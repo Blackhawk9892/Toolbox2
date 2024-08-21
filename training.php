@@ -23,7 +23,51 @@ require("includes/connection.php");
 require("includes/database_rows.php");
 
 require("toolbar_sales.php");
+/////////////////////////////////////////////////////////////////////////////////////
 
+
+
+if(isset($_POST['submit'])){
+  
+  $name = $_SESSION['name'];
+  $emp_id = $_SESSION['emp_id'];
+   $script = $_SESSION['script'];
+  
+  if(isset($_SESSION['audioName'])){
+    $audioName = $_SESSION['audioName'];
+  }else{
+    $errors[] ='You submit without a recording. You now have new customers. Please get there names before moving on ';
+  
+  }
+  
+  
+  if (!empty($errors)) {
+  
+    foreach ($errors as $value) {
+        echo "<div class=\"errors\">$value</div>";
+    }
+  } else {
+
+    $custStamp = $_SESSION['custStamp'];
+
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp')";
+    
+    
+          if (!mysqli_query($con, $sql)) {
+              die('Error training 57: ' . mysqli_error($con));
+          }
+  
+          $custStamp = $_SESSION['custStamp'];
+  
+        //  header("Location: training.php?find=$custStamp");
+         // exit;
+  
+          unset($_SESSION['audioName']);
+      }
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////
 
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
@@ -37,6 +81,8 @@ $position = $emp_arry[2];
 $emp_id = $emp_arry[3];
 $dealer_id = $emp_arry[4];
 $name = $first . ' ' . $last;
+$_SESSION['name'] = $name;
+$_SESSION['emp_id'] = $emp_id;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -115,6 +161,9 @@ while($row = mysqli_fetch_array($result_set)){
   $script_audio = $script_audio_arry[$cust_points];
   
   echo "<h3>$script</h3>";
+     $_SESSION['script'] = $script;
+  
+ 
 
   ?>
  <button id="start-record-btn">Start Recording</button>
@@ -350,7 +399,7 @@ $row = mysqli_fetch_array($result_set);
       echo "      </audio>";
        }
     
-      ////////////////////////////////////////////////////////////////////////////////
+ 
 
   
  

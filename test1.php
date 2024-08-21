@@ -202,7 +202,7 @@ if(isset($_POST['submit'])){
        if(isset($_POST[$equip_index])){
         $check = $_POST[$equip_index];
      
-        $test3 = strstr($test,"$check");
+        $test3 = strstr($test, $check);
 
           if(empty($test3)){
             $score++;

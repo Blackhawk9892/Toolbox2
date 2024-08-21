@@ -116,10 +116,10 @@ if(isset($_POST['submit'])){
         echo "<div class=\"errors\">$value</div>";
     }
   } else {
-   
+    $custStamp = $_SESSION['custStamp'];
   
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce) 
-    VALUES('$emp_id','$name','$script','$audioName')";
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp')";
     
     
           if (!mysqli_query($con, $sql)) {
