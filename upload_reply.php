@@ -355,7 +355,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
    
     <form action="upload_reply.php" method="post" enctype="multipart/form-data">
-    <center><a href="test1.php?find=setup" target="_blank"><h2>Vehicle Setup</h2></a> </center>
+    <center><a href="test1.php?find=setup" target="_blank"><h2>Page For Vehicle Setup</h2></a> </center>
     <table>
 
    
@@ -407,31 +407,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </textarea>
 
     <br> <br>
-
+<h3>Anything entered blow here must be entered through Page For Vehicle Setup</h3>
        
     <tr><td>Options:</td><td>
-                        <textarea rows="6" cols="150" name="options" wrap="wrap " >
+                        <textarea rows="6" cols="150" name="options" wrap="wrap " readonly>
                           <?php if (isset($_POST['options'])) echo $_POST['options'] ?>
                         </textarea>
 
     <br> <br>
+  
    
 
 
         <tr><td>Price:</td><td>     
-        <input type="number" name="price" size="10" value="<?php if (isset($_POST['price'])) echo $_POST['price'] ?>"	/>
+        <input type="number" name="price" size="10" value="<?php if (isset($_POST['price'])) echo $_POST['price'] ?>" readonly/>
         <br> <br>
         <tr><td>Payment:</td><td>     
-        <input type="number" name="payment" size="10" value="<?php if (isset($_POST['payment'])) echo $_POST['payment'] ?>"	/>
+        <input type="number" name="payment" size="10" value="<?php if (isset($_POST['payment'])) echo $_POST['payment'] ?>" readonly/>
         <br> <br>
         <tr><td>Miles:</td><td>     
-        <input type="number" name="miles" size="10" value="<?php if (isset($_POST['miles'])) echo $_POST['miles'] ?>"	/>
+        <input type="number" name="miles" size="10" value="<?php if (isset($_POST['miles'])) echo $_POST['miles'] ?>"readonly/>
         <br> <br>
         <tr><td>Preferred Colors:</td><td>     
-        <input type="text" name="preferredColors" size="100" value="<?php if (isset($_POST['preferredColors'])) echo Remove_Whites($_POST['preferredColors']) ?>"	/>
+        <input type="text" name="preferredColors" size="100" value="<?php if (isset($_POST['preferredColors'])) echo Remove_Whites($_POST['preferredColors']) ?>"readonly/>
         <br> <br>
         <tr><td>Avoid Colors:</td><td>     
-        <input type="text" name="avoidColors" size="100" value="<?php if (isset($_POST['avoidColors'])) echo Remove_Whites($_POST['avoidColors']) ?>"	/>
+        <input type="text" name="avoidColors" size="100" value="<?php if (isset($_POST['avoidColors'])) echo Remove_Whites($_POST['avoidColors']) ?>"readonly/>
         <br> <br>
 
         </td>
@@ -442,7 +443,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input   type="submit" name="submit" value="Upload Reply"/>
 </div>
 </table>
-<h3>Colors that may be used:( Red  Orenge  Yellow  Green  Blue  Indigo  Purple  Gray  Black  White  Pink  Brown )</h3>
+
     </form>
 
 </body>

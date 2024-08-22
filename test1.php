@@ -1,8 +1,10 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <?php
 // Start the session
 session_start();
 ?>
+
+<!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -46,7 +48,7 @@ session_start();
         echo "<div class=\"errors\">$value</div>";
         unset($_SESSION['message']);
     }
-
+    $colors_array = array("Blue","Black","Brown","Gray","Green","Indigo","Orenge","Pink","Purple","Red","White","Yellow");
     ////////////////////////////Employee Info////////////////////////////////////
 //                     
 if(isset($_COOKIE["userId"])){
@@ -109,17 +111,36 @@ if(isset($_COOKIE["userId"])){
             $veh_array[] = $_POST['miles'];
          }
 
-         if(empty($_POST['preferredColors'])){
-            $veh_array[] = 'none';
-         }else{
-            $veh_array[] = $_POST['preferredColors'];
-         }
+        
+            $color = '';
+            foreach ($colors_array as $x) {
+              
+              if(isset($_POST[$x])){
+               $newColor = $_POST[$x];
+               $color .= $newColor . ',';
+              }
+             
+             }
+             if(empty($color)){
+               $veh_array[] = 'none';
+            }else{
+              $veh_array[] = $color;
+            }
 
-         if(empty($_POST['avoidColors'])){
-            $veh_array[] = 'none';
-         }else{
-            $veh_array[] = $_POST['avoidColors'];
-         }
+            $color = '';
+            foreach ($colors_array as $x) {
+               $x = $x . 'A';
+              if(isset($_POST[$x])){
+               $newColor = $_POST[$x];
+               $color .= $newColor . ',';
+              }
+              
+             }
+             if(empty($color)){
+               $veh_array[] = 'none';
+            }else{
+              $veh_array[] = $color;
+            }
          
 $equip = '';
         $query = "SELECT * ";
@@ -185,6 +206,22 @@ $equip = '';
 
 //////////////////////////////////////////Submit/////////////////////////////////////////
 if(isset($_POST['submit'])){
+
+   
+   $query = "SELECT * ";
+   $query .= "FROM recording ";
+   $query .= "WHERE record_cust_data = '{$cust_find}' ";
+  
+
+   $result_set = mysqli_query($con, $query)
+           or die('Query failed408: ' . mysqli_error($con));
+
+   while ($row = mysqli_fetch_array($result_set)) {
+       $equip_index = $row['equip_index'];
+   }
+
+  /////////////////////////////////////////////////////////////////////////////
+
     $score = 0;
     $query = "SELECT * ";
     $query .= "FROM code_equip ";
@@ -201,6 +238,8 @@ if(isset($_POST['submit'])){
         
        if(isset($_POST[$equip_index])){
         $check = $_POST[$equip_index];
+
+        
      
         $test3 = strstr($test, $check);
 
@@ -237,6 +276,7 @@ if($find == "setup"){
 
 
         <div style="padding-left: 37px;">
+         
 
             <table>	
                 
@@ -253,11 +293,9 @@ if($find == "setup"){
             <tr><td>Miles:</td><td>
                         <input type="number" name="miles" value="<?php if (isset($_POST['miles'])) echo $_POST['miles'] ?>"	/>
 
-            <tr><td>Preferred Colors:</td><td>
-                        <input type="text" name="preferredColors" size="100" value="<?php if (isset($_POST['preferredColors'])) echo $_POST['preferredColors'] ?>"	/>
+          
 
-            <tr><td>Avoid Colors:</td><td>
-                        <input type="text" name="avoidColors" size="100" value="<?php if (isset($_POST['avoidColors'])) echo $_POST['avoidColors'] ?>"	/>
+        
 </td>
 
            
@@ -265,7 +303,92 @@ if($find == "setup"){
                          
                         <br>
             </table>
-            <h3>Colors that may be used:( Red  Orenge  Yellow  Green  Blue  Indigo  Purple  Gray  Black  White  Pink  Brown )</h3>
+            
+            <h3>Selcect Preferred Colors:</h3>
+
+            <input type="checkbox" id="Blue" name="Blue" value="Blue">
+            <label for="Blue">Blue</label>
+
+            <input type="checkbox" id="Black" name="Black" value="Black">
+            <label for="Black">Black</label>
+
+            <input type="checkbox" id="Brown" name="Brown" value="Brown">
+            <label for="Brown">Brown</label>
+
+            <input type="checkbox" id="Gray" name="Gray" value="Gray">
+            <label for="Gray">Gray</label>
+
+            <input type="checkbox" id="Green" name="Green" value="Green">
+            <label for="Green">Green</label>
+
+            <input type="checkbox" id="Indigo" name="Indigo" value="Indigo">
+            <label for="Indigo">Indigo</label>
+
+            <input type="checkbox" id="Orenge" name="Orenge" value="Orenge">
+            <label for="Orenge">Orenge</label>
+
+            <input type="checkbox" id="Pink" name="Pink" value="Pink">
+            <label for="Pink">Pink</label>
+
+            <input type="checkbox" id="Purple" name="Purple" value="Purple">
+            <label for="Purple">Purple</label>
+
+            <input type="checkbox" id="Red" name="Red" value="Red">
+            <label for="Red">Red</label>
+
+            <input type="checkbox" id="White" name="White" value="White">
+            <label for="White">White</label>
+
+            <input type="checkbox" id="Yellow" name="Yellow" value="Yellow">
+            <label for="Yellow">Yellow</label>
+
+
+
+<h3>Selcect Avoid Colors:</h3>
+
+<input type="checkbox" id="BlueA" name="BlueA" value="Blue">
+<label for="BlueA">Blue</label>
+
+<input type="checkbox" id="BlackA" name="BlackA" value="Black">
+<label for="BlackA">Black</label>
+
+<input type="checkbox" id="BrownA" name="BrownA" value="Brown">
+<label for="BrownA">Brown</label>
+
+<input type="checkbox" id="GrayA" name="GrayA" value="Gray">
+<label for="GrayA">Gray</label>
+
+<input type="checkbox" id="GreenA" name="GreenA" value="Green">
+<label for="GreenA">Green</label>
+
+<input type="checkbox" id="IndigoA" name="IndigoA" value="Indigo">
+<label for="IndigoA">Indigo</label>
+
+<input type="checkbox" id="OrengeA" name="OrengeA" value="Orenge">
+<label for="OrengeA">Orenge</label>
+
+<input type="checkbox" id="PinkA" name="PinkA" value="Pink">
+<label for="PinkA">Pink</label>
+
+<input type="checkbox" id="PurpleA" name="PurpleA" value="Purple">
+<label for="PurpleA">Purple</label>
+
+<input type="checkbox" id="RedA" name="RedA" value="Red">
+<label for="RedA">Red</label>
+
+<input type="checkbox" id="WhiteA" name="WhiteA" value="White">
+<label for="WhiteA">White</label>
+
+<input type="checkbox" id="YellowA" name="YellowA" value="Yellow">
+<label for="YellowA">Yellow</label>
+
+
+          
+
+
+           
+
+           
             </br>
             <?php
              if($find == "setup"){

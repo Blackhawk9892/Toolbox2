@@ -49,9 +49,15 @@ if(isset($_POST['submit'])){
   } else {
 
     $custStamp = $_SESSION['custStamp'];
+    if(isset($_SESSION['options'])){
+      $options = $_SESSION['options'];
+    }else{
+      $options = '';
+    }
+     
 
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp')";
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options')";
     
     
           if (!mysqli_query($con, $sql)) {
@@ -64,6 +70,7 @@ if(isset($_POST['submit'])){
          // exit;
   
           unset($_SESSION['audioName']);
+          unset($_SESSION['options']);
       }
     }
 
@@ -194,17 +201,16 @@ while($row = mysqli_fetch_array($result_set)){
    
   if($script_audio == 'Vehicle Driven'){
     $drive = 'Vehicle Driven';
-   
+
     $query = "SELECT * ";
     $query .= "FROM audio ";
     $query .= "WHERE audio_group   = '{$comp_group}' ";
     $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
     $query .= "AND audio_drive_type   = '{$drive}' ";
-  
    
-    
     $result_set = mysqli_query($con, $query)
-            or die('Query failed scrip: ' . mysqli_error($con));
+    or die('Query failed scrip: ' . mysqli_error($con));
+
     while($row = mysqli_fetch_array($result_set)){
       $audio_drive_type = $row['audio_drive_type'];
       $audio_id = $row['audio_id'];
@@ -212,6 +218,7 @@ while($row = mysqli_fetch_array($result_set)){
       $driven_arry[] = $audio_id;
     
   }
+   
   
 $countDriven = count($driven_arry) - 1;
 $randDriven = rand(0, $countDriven);
@@ -347,6 +354,9 @@ $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 $row = mysqli_fetch_array($result_set);
   $audio_location = $row['audio_location'];
+  $_SESSION['options'] = $row['audio_options'];
+
+  
   
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
@@ -364,12 +374,13 @@ $query .= "FROM audio ";
 $query .= "WHERE audio_group    = '{$comp_group}' ";
 $query .= "AND audio_id    = '{$cust_secondary}' ";
 
-
-
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 $row = mysqli_fetch_array($result_set);
   $audio_location = $row['audio_location'];
+  $_SESSION['options'] = $row['audio_options'];
+
+  
   
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";

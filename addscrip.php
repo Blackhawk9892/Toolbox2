@@ -416,44 +416,33 @@ $Temp = "<td width = 6%>$script_template </td>";
             <br>
             <form action="addscrip.php" method="post">
 
-        
+ <div style="padding-left: 37px;">
+         <input type="submit" name="loadScript" value="Load Script for company"/>   
 
-
-       
-
-
-                <center>
-                    <table>
-<?php
+         <table>   
+         <?php
 
 print( "<tr><td>Company Name:</td><td>\n");
 print( "<select name=\"dealer\">");
 print_r($dealer_arr);
 
 ?>
- <div style="padding-left: 37px;">
-         <input type="submit" name="loadScript" value="Load Script for company"/>              
-         <table>        
                         <tr><td>Scrip:</td><td>
                         <textarea rows="6" cols="150" name="scrip" wrap="wrap " >
                           <?php if (isset($_POST['scrip'])) echo $_POST['scrip'] ?>
                         </textarea>
                       
                        
-                        <h5 style="color:red;">When first entering a Scrip Order number an interval of 10 is recommended. If later a script needs to be inserted in front of this scrip it can be done without renumbering this scrip. </h5>
+                      
                      
                         <tr><td>Scrip Order:</td><td>
                                 <input type="number" name="order" size="30" value="<?php if (isset($_POST['order'])) echo $_POST['order'] ?>" />
 
                       
-
-                                 <?php
-
-                    
-        ?>
+                                </table>
                        
                    
-                    <h2>Select the recording to be used with this scrip</h2>
+                   <h2>Select type of Record </h2>
                     <input type="radio" id="none" name="recording" value="None">
                     <label for="none">None</label>
                     <input type="radio" id="Vehicle Driven" name="recording" value="Vehicle Driven">
@@ -499,7 +488,7 @@ print_r($dealer_arr);
                 }
             }
                 ?>
-</table> 
+ 
         </div>
         
     </body>
