@@ -94,52 +94,52 @@ if(isset($_COOKIE["userId"])){
         $veh_array = array();
 
          if(empty($_POST['price'])){
-            $veh_array[] = 'none';
+            $veh_array[] = 'None';
          }else{
             $veh_array[] = $_POST['price'];
          }
 
          if(empty($_POST['payment'])){
-            $veh_array[] = 'none';
+            $veh_array[] = 'None';
          }else{
             $veh_array[] = $_POST['payment'];
          }
 
          if(empty($_POST['miles'])){
-            $veh_array[] = 'none';
+            $veh_array[] = 'None';
          }else{
             $veh_array[] = $_POST['miles'];
          }
 
         
-            $color = '';
+            $colorP = '';
             foreach ($colors_array as $x) {
-              
+            
               if(isset($_POST[$x])){
                $newColor = $_POST[$x];
-               $color .= $newColor . ',';
+               $colorP .= $newColor . ',';
               }
              
              }
-             if(empty($color)){
-               $veh_array[] = 'none';
+             if(empty($colorP)){
+               $veh_array[] = 'None';
             }else{
-              $veh_array[] = $color;
+              $veh_array[] = $colorP;
             }
 
-            $color = '';
+            $colorA = '';
             foreach ($colors_array as $x) {
                $x = $x . 'A';
               if(isset($_POST[$x])){
                $newColor = $_POST[$x];
-               $color .= $newColor . ',';
+               $colorA .= $newColor . ',';
               }
               
              }
-             if(empty($color)){
-               $veh_array[] = 'none';
+             if(empty($colorA)){
+               $veh_array[] = 'None';
             }else{
-              $veh_array[] = $color;
+              $veh_array[] = $colorA;
             }
          
 $equip = '';
@@ -207,54 +207,113 @@ $equip = '';
 //////////////////////////////////////////Submit/////////////////////////////////////////
 if(isset($_POST['submit'])){
 
+ 
+   if($cust_primary == 0){
+      $errors[] = "The primary customer information is incomplete";
+   }
+
+   if($cust_secondary == 0){
+      $errors[] = "The secondary customer information is incomplete";
+   }
+  
+
+   
+   if (!empty($errors)) {
+
+      foreach ($errors as $value) {
+          echo "<div class=\"errors\">$value</div>";
+      }
+  } else {
+
    
    $query = "SELECT * ";
-   $query .= "FROM recording ";
-   $query .= "WHERE record_cust_data = '{$cust_find}' ";
+   $query .= "FROM audio ";
+   $query .= "WHERE audio_id = '{$cust_primary}' ";
   
 
    $result_set = mysqli_query($con, $query)
            or die('Query failed408: ' . mysqli_error($con));
 
-   while ($row = mysqli_fetch_array($result_set)) {
-       $equip_index = $row['equip_index'];
-   }
+   $row = mysqli_fetch_array($result_set);
+       $audio_reply = $row['audio_reply'];
+       $optionsPrim = explode(",",$audio_reply);
+
+       $audio_price = $row['audio_price'];
+       $audio_payment = $row['audio_payment'];
+       $audio_miles = $row['audio_miles'];
+
+       $audio_color_liked = $row['audio_color_liked'];
+       $colorPrefer = explode(",",$audio_color_liked);
+
+       $audio_color_dislike = $row['audio_color_dislike'];
+       $colorAvoid = explode(",",$audio_reply);
+
+       $audio_vehicle_type = $row['audio_vehicle_type'];
+
+       $query = "SELECT * ";
+       $query .= "FROM audio ";
+       $query .= "WHERE audio_id = '{$cust_secondary}' ";
+      
+    
+       $result_set = mysqli_query($con, $query)
+               or die('Query failed408: ' . mysqli_error($con));
+    
+       $row = mysqli_fetch_array($result_set);
+           $audio_reply = $row['audio_reply'];
+           $optionsSecond = explode(",",$audio_reply);
+           foreach ($optionsSecond as $x) {
+            if($x == "None"){
+               continue;
+            }else{
+               $optionsPrim[] = $x;
+            }
+          }
+
+ 
 
   /////////////////////////////////////////////////////////////////////////////
-
-    $score = 0;
-    $query = "SELECT * ";
-    $query .= "FROM code_equip ";
-    $query .= "WHERE equip_group_num  = '{$dealer_group}' ";
-    $query .= "ORDER BY equip_list  ASC ";
-
-    $result_set = mysqli_query($con, $query)
-            or die('Query failed408: ' . mysqli_error($con));
-
-    while ($row = mysqli_fetch_array($result_set)) {
-        $equip_index = $row['equip_index'];
-        $equip_list = $row['equip_list'];
-        $equip_category = $row['equip_category'];
-        
-       if(isset($_POST[$equip_index])){
-        $check = $_POST[$equip_index];
-
-        
-     
-        $test3 = strstr($test, $check);
-
-          if(empty($test3)){
-            $score++;
-           }else{
-             $score--;
+ 
+  if(isset($_SESSION['vehicle'])){
+   $i = 0;
+     foreach ($_SESSION['vehicle'] as $x) {
+         $i++;
+         switch ($i) {
+             case 1:
+                 $_POST['price'] = $x;
+               break;
+             case 2:
+                 $_POST['payment'] = $x;
+                 break;
+             case 3:
+                 $_POST['miles'] = $x;
+                 break;  
+             case 4:
+                 $_POST['preferredColors'] = $x;
+                 break;
+             case 5:
+                 $_POST['avoidColors'] = $x;
+                 break; 
+             case 6:
+                 $_POST['options'] = $x;
+                 break; 
+             default:
+               //code block
            }
-    
+         unset($_SESSION['vehicle']);
        }
-       
+   }
+
+ echo 'Price: ' . $_POST['price'] . ' ### ' . $audio_price . '<br>';
+ echo 'Payment: ' . $_POST['payment'] . ' ### ' . $audio_payment . '<br>';
+ echo 'Miles: ' . $_POST['miles'] . ' ### ' . $audio_miles . '<br>';
+ echo 'Prefer Colors: ' . $_POST['preferredColors'] . ' ### ' . $audio_color_liked . '<br>';
+ echo 'Avoid Colors: ' . $_POST['avoidColors']. ' ### ' . $audio_color_dislike . '<br>';
+ 
+  
+
+
     }
-   $newScore = $cust_points + $score;
-    }
-   
+}
   
 
 //////////////////////////////////////////////////////////////////////////////////////////

@@ -101,54 +101,54 @@ session_start();
 
                 switch ($emp_position) {
                     case "sales":
-                        $positionPage = 'interduction.php';
+                        $positionPage = 'home.php';
                         break;
                         case "Sales":
-                            $positionPage = 'interduction.php';
+                            $positionPage = 'home.php';
                             break;  
                     case "service":
-                        $positionPage = 'interduction.php';
+                        $positionPage = 'home.php';
                         break;
                     case "finance":
-                        $positionPage = 'interduction.php';
+                        $positionPage = 'home.php';
                         break;
                     case "manager":
-                        $positionPage = 'interduction.php';                    
+                        $positionPage = 'home.php';                    
                         break;
                     case "mechanic":
-                        $positionPage = 'interduction.php';                    
+                        $positionPage = 'home.php';                    
                             break;
                     case "photographer":
-                        $positionPage = 'interduction.php';
+                        $positionPage = 'home.php';
                         break;
                     case "lot attendant":
-                        $positionPage = 'interduction.php';
+                        $positionPage = 'home.php';
                         break;
                      case "lot":
-                        $positionPage = 'interduction.php';
+                        $positionPage = 'home.php';
                         break;
                     case "detailer":
-                        $positionPage = 'interduction.php';
+                        $positionPage = 'home.php';
                         break;
                     case "receptionist":
-                        $positionPage = 'interduction.php';
+                        $positionPage = 'home.php';
                         break;
                     case "call center":
-                        $positionPage = 'interduction.php';
+                        $positionPage = 'home.php';
                             break;
                     case "bdc":
-                        $positionPage = 'interduction.php';
+                        $positionPage = 'home.php';
                                 break;
                     case "robotics":
-                        $positionPage = 'interduction.php';
+                        $positionPage = 'home.php';
                         break;
                     
                         case "pfd":
-                            $positionPage = 'interduction.php';
+                            $positionPage = 'home.php';
                             break;
                     default:
                     
-                    $positionPage = 'interduction.php';
+                    $positionPage = 'home.php';
                     //    $errors[] = 'not a valid position 1';
                 }
             
@@ -232,7 +232,7 @@ session_start();
                 $_POST['userName'] = '';
                 $_POST['password'] = '';
           */   
-          $positionPage = 'interduction.php';
+          $positionPage = 'home.php';
 
                 header("Location: $positionPage");
                 exit;

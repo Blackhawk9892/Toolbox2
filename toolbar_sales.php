@@ -65,8 +65,8 @@ $tb_descrip = 'Equipment Setup';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
-$tb_program = 'test1.php';
-$tb_descrip = 'Test1';
+$tb_program = 'interduction.php';
+$tb_descrip = 'Start Memory Program';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 

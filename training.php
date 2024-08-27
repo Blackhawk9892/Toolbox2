@@ -240,7 +240,7 @@ mysqli_query($con, "UPDATE customer_data SET cust_driven = '$idDriven'
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-if($script_audio == 'primary'){
+if($script_audio == 'PrimaryName'){
 
   $primary_arry = array();
 
@@ -285,7 +285,7 @@ if($script_audio == 'primary'){
   }
 
 }
-
+print_r($primary_arry) . '<br>';
     $countPrimary = count($primary_arry) - 1;
  
     $randPrimary = rand(0, $countPrimary);
@@ -300,7 +300,7 @@ if($script_audio == 'primary'){
 
     mysqli_query($con, "UPDATE customer_data SET cust_primary = '$idPrimary'
                   WHERE cust_id  = '$cust_id' ");
-
+print_r($secondary_arry) . '<br>';
 $countSecondary = count($secondary_arry) - 1;
 $randSecondary = rand(0, $countSecondary);
 
