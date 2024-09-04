@@ -166,6 +166,9 @@ $equip = '';
          }else{
             $veh_array[] = $equip;
          }
+         echo " Color: " . $colorA;
+         echo " Equip: " . $equip;
+
         
          $_SESSION['vehicle'] = $veh_array;
          $value = "Information has been sent to Upload Reply Recording page. Close this page and reload  Upload Reply Recording page.";
@@ -215,7 +218,11 @@ if(isset($_POST['submit'])){
    if($cust_secondary == 0){
       $errors[] = "The secondary customer information is incomplete";
    }
-  
+   if(isset($_POST['typeVehicle'])){
+    $typeVehicle = $_POST['typeVehicle'];
+  }else{
+    $errors = 'A Vehicle Type must be selected';
+  }
 
    
    if (!empty($errors)) {
@@ -225,6 +232,23 @@ if(isset($_POST['submit'])){
       }
   } else {
 
+    if(isset($_POST['price'])){
+      $price = $_POST['price'];
+    }else{
+      $price = '';
+    }
+
+    if(isset($_POST['payment'])){
+      $payment = $_POST['payment'];
+    }else{
+      $payment = '';
+    }
+
+    if(isset($_POST['miles'])){
+      $miles = $_POST['miles'];
+    }else{
+      $miles = '';
+    }
    
    $query = "SELECT * ";
    $query .= "FROM audio ";
@@ -237,6 +261,7 @@ if(isset($_POST['submit'])){
    $row = mysqli_fetch_array($result_set);
        $audio_reply = $row['audio_reply'];
        $optionsPrim = explode(",",$audio_reply);
+       $audio_options1 = $row['audio_options'];
 
        $audio_price = $row['audio_price'];
        $audio_payment = $row['audio_payment'];
@@ -250,6 +275,10 @@ if(isset($_POST['submit'])){
 
        $audio_vehicle_type = $row['audio_vehicle_type'];
 
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
        $query = "SELECT * ";
        $query .= "FROM audio ";
        $query .= "WHERE audio_id = '{$cust_secondary}' ";
@@ -259,7 +288,8 @@ if(isset($_POST['submit'])){
                or die('Query failed408: ' . mysqli_error($con));
     
        $row = mysqli_fetch_array($result_set);
-           $audio_reply = $row['audio_reply'];
+           $audio_reply2 = $row['audio_reply'];
+           $audio_options2 = $row['audio_options'];
            $optionsSecond = explode(",",$audio_reply);
            foreach ($optionsSecond as $x) {
             if($x == "None"){
@@ -269,52 +299,224 @@ if(isset($_POST['submit'])){
             }
           }
 
- 
-
-  /////////////////////////////////////////////////////////////////////////////
- 
-  if(isset($_SESSION['vehicle'])){
-   $i = 0;
-     foreach ($_SESSION['vehicle'] as $x) {
-         $i++;
-         switch ($i) {
-             case 1:
-                 $_POST['price'] = $x;
-               break;
-             case 2:
-                 $_POST['payment'] = $x;
-                 break;
-             case 3:
-                 $_POST['miles'] = $x;
-                 break;  
-             case 4:
-                 $_POST['preferredColors'] = $x;
-                 break;
-             case 5:
-                 $_POST['avoidColors'] = $x;
-                 break; 
-             case 6:
-                 $_POST['options'] = $x;
-                 break; 
-             default:
-               //code block
+          $colorP = '';
+          foreach ($colors_array as $x) {
+          
+            if(isset($_POST[$x])){
+             $newColor = $_POST[$x];
+             $colorP .= $newColor . ',';
+            }
+           
            }
-         unset($_SESSION['vehicle']);
-       }
-   }
+           if(empty($colorP)){
+             $veh_array[] = 'None';
+          }else{
+            $veh_array[] = $colorP;
+          }
+     
+          $colorA = '';
+          foreach ($colors_array as $x) {
+             $x = $x . 'A';
+            if(isset($_POST[$x])){
+             $newColor = $_POST[$x];
+             $colorA .= $newColor . ',';
+            }
+            
+           }
+           if(empty($colorA)){
+             $veh_array[] = 'None';
+          }else{
+            $veh_array[] = $colorA;
+          }
+       
 
- echo 'Price: ' . $_POST['price'] . ' ### ' . $audio_price . '<br>';
- echo 'Payment: ' . $_POST['payment'] . ' ### ' . $audio_payment . '<br>';
- echo 'Miles: ' . $_POST['miles'] . ' ### ' . $audio_miles . '<br>';
- echo 'Prefer Colors: ' . $_POST['preferredColors'] . ' ### ' . $audio_color_liked . '<br>';
- echo 'Avoid Colors: ' . $_POST['avoidColors']. ' ### ' . $audio_color_dislike . '<br>';
- 
-  
+          $equip = '';
+          $query = "SELECT * ";
+          $query .= "FROM code_equip ";
+          $query .= "WHERE equip_group_num  = '{$dealer_group}' ";
+          $query .= "ORDER BY equip_list  ASC ";
+      
+          $result_set = mysqli_query($con, $query)
+                  or die('Query failed98: ' . mysqli_error($con));
+      
+          while ($row = mysqli_fetch_array($result_set)) {
+              $equip_index = $row['equip_index'];
+           
+              if(isset($_POST[$equip_index])){
+              
+                  $equip .= $_POST[$equip_index] ;
+                  $equip .= ", ";
+              }
+          }
+         echo "Equipment: " . $equip . "<br>";
+          if(empty($equip)){
+              $veh_array[] = 'none';
+           }else{
+              $veh_array[] = $equip;
+           }
+         print_r($veh_array);
+          
+          if($audio_options1 == 'NONE,'){
+            $options = '';
+          }else{
+            $options = $audio_options1;
+          }
+
+          if($audio_options1 == 'NONE,'){
+           
+          }else{
+            $options .= $audio_options1;
+          }
+
+
+          echo 'Vehilce Type: ' . $typeVehicle . ' ### ' . $audio_vehicle_type . '<br>';
+          echo 'Price: ' . $price . ' ### ' . $audio_price . '<br>';
+          echo 'Payment: ' . $payment . ' ### ' . $audio_payment . '<br>';
+          echo 'Miles: ' . $miles . ' ### ' . $audio_miles . '<br>';
+          echo 'Prefer Colors: ' . $colorP . ' ### ' . $audio_color_liked . '<br>';
+          echo 'Avoid Colors: ' . $colorA . ' ### ' . $audio_color_dislike . '<br>';
+          echo 'Equipment: ' . $equip . ' ### ' .  $options . '<br>';
+
+          $count = 0;
+
+          if($typeVehicle == $audio_vehicle_type){
+            $count++;
+          }else{
+            $count--;
+          }
+
+          if($price == $audio_price){
+            $count++;
+          }else{
+            $count--;
+          }
+
+          if($payment == $audio_payment){
+            $count++;
+          }else{
+            $count--;
+          }
+
+          if($miles == $audio_miles ){
+            $count++;
+          }else{
+            $count--;
+          }
+
+  $count3 = 0;      
+  $count2 = 0;
+          foreach ($colors_array as $x) {
+            $test = strchr($audio_color_liked,$x);
+
+             if(empty($test)){
+                echo "Not Found: " . $x . "<br>";
+                }else{
+              echo "found: " . $x  . "<br>";
+              $match = strchr($colorP,$x);
+              if(empty($match)){
+                $count2--;
+              }else{
+                $count2++;
+              }
+                }
+
+                $test1 = strchr($colorP,$x);
+
+                if(!empty($test1)){
+              
+                 $match1 = strchr($audio_color_liked,$x);
+                 if(empty($match1)){
+                   $count3--;
+                 }
+                   }
+         
+          }
+          echo "Count: " . $count2 . "<br>";
+          echo "Count: " . $count3 . "<br>";
+          $preferCount = $count2 + $count3;
+          echo "Prefer Count: " . $preferCount;
+          echo "<br> <br>";
+
+          $count3 = 0;      
+          $count2 = 0;
+                  foreach ($colors_array as $x) {
+                    $test = strchr($audio_color_dislike,$x);
+        
+                     if(!empty($test)){
+                      
+                      $match = strchr($colorP,$x);
+                      if(empty($match)){
+                        $count2--;
+                      }else{
+                        $count2++;
+                      }
+                        }
+        
+                        $test1 = strchr($colorP,$x);
+        
+                        if(!empty($test1)){
+                         
+                         
+                         $match1 = strchr($audio_color_liked,$x);
+                         if(empty($match1)){
+                           $count3--;
+                         }
+                           }
+                 
+                  }
+                  echo "Count: " . $count2 . "<br>";
+                  echo "Count: " . $count3 . "<br>";
+                  $avoidCount = $count2 + $count3;
+                  echo "Avoid Count: " . $avoidCount;
+                  echo "<br> <br>";
 
 
     }
 }
+
+
+  /////////////////////////////////////////////////////////////////////////////////
+
+  $blank = '';
+  if (isset($_POST['typeVehicle'])) {
+      $typeVehicle = $_POST['typeVehicle'];
+      $typeVehicle_arr[] = "\n<option value=\"$typeVehicle\">$typeVehicle</option>\n";
+  } else {
+      $typeVehicle_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+  }
+  $place = 'Wagon';
+  $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
   
+  $place = 'Convertible';
+  $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+  $place = 'Small SUV';
+  $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+  
+  $place = 'Midsize SUV';
+  $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
+  $place = 'Large SUV';
+  $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+  
+  $place = 'Coupe';
+  $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+  $place = 'Sedan';
+  $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+  
+  $place = 'Hatchback';
+  $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+  $place = 'Regular cab Truck';
+  $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+  $place = 'Extended Cab Truck';
+  $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+  
+  $place = 'Crew Cab';
+  $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -323,6 +525,8 @@ if($find == "setup"){
  }else{
     echo "<center><h1>Vehicle Test </h1></center>";
  }
+
+
     ?>
 
 
@@ -338,7 +542,13 @@ if($find == "setup"){
          
 
             <table>	
-                
+            <label for="Vehicle Type">Vehicle Type:</label>   
+        <select name="typeVehicle">
+                                <?php
+                                print_r($typeVehicle_arr);
+                                ?>
+                    </select>
+                              
             
 
             <tr><td>Price:</td><td>

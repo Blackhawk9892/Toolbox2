@@ -33,9 +33,24 @@ session_start();
 <?php
 
 
-
+require("includes/database_rows.php");
 require("toolbar_sales.php");
 
+if(isset($_COOKIE["userId"])){
+  $userId = $_COOKIE["userId"];
+ 
+$emp_arry = Employee($userId);
+$first = $emp_arry[0];
+$last = $emp_arry[1];      
+$position = $emp_arry[2];
+$emp_id = $emp_arry[3];
+$dealer_id = $emp_arry[4];
+$name = $first . ' ' . $last;
+}else{
+  header("Location: index.php");
+  exit;
+  $_SESSION['message'] = "Invalid user";
+}
 
   ?>
 

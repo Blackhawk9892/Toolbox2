@@ -45,7 +45,7 @@ session_start();
            }
 
      
-
+         
         if (isset($_SESSION['message'])) {
             $message = $_SESSION['message'];
             echo "<div class=\"errors\">$message</div>";

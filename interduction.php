@@ -23,7 +23,7 @@ require("includes/database_rows.php");
 
 require("toolbar_sales.php");
 
-
+ 
 
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
