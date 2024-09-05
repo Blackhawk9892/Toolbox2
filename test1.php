@@ -340,13 +340,31 @@ if(isset($_POST['submit'])){
                   or die('Query failed98: ' . mysqli_error($con));
       
           while ($row = mysqli_fetch_array($result_set)) {
-              $equip_index = $row['equip_index'];
-           
-              if(isset($_POST[$equip_index])){
+              $x = $row['equip_index'];
+
               
-                  $equip .= $_POST[$equip_index] ;
-                  $equip .= ", ";
-              }
+
+              $test = strchr($audio_color_liked,$x);
+
+              if(!empty($test)){
+               $match = strchr($colorP,$x);
+               if(empty($match)){
+                 $count2--;
+               }else{
+                 $count2++;
+               }
+                 }
+ 
+                 $test1 = strchr($colorP,$x);
+ 
+                 if(!empty($test1)){
+               
+                  $match1 = strchr($audio_color_liked,$x);
+                  if(empty($match1)){
+                    $count3--;
+                  }
+                    }
+              
           }
          echo "Equipment: " . $equip . "<br>";
           if(empty($equip)){
@@ -408,10 +426,7 @@ if(isset($_POST['submit'])){
           foreach ($colors_array as $x) {
             $test = strchr($audio_color_liked,$x);
 
-             if(empty($test)){
-                echo "Not Found: " . $x . "<br>";
-                }else{
-              echo "found: " . $x  . "<br>";
+             if(!empty($test)){
               $match = strchr($colorP,$x);
               if(empty($match)){
                 $count2--;

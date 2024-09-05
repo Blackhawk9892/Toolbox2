@@ -127,7 +127,9 @@ if(isset($_COOKIE["userId"])){
                 $_POST['dealer'] = $script_comp_num . '-' .  $script_comp_name;
                 $_POST['scrip'] = $row['script_template'];
                 $_POST['order']= $row['script_order'];
-             
+                $_POST['tone']= $row['script_tone'];
+                $_POST['recording']= $row['script_audio'];
+                
                 $_SESSION['oldDealer'] = $_POST['dealer'] ;
             }
         
@@ -167,6 +169,12 @@ if(isset($_COOKIE["userId"])){
                     $errors[] = 'Order is empty';
                 }
 
+                if(isset($_POST['tone'])){
+                    $Tone = $_POST['tone'];
+                }else{
+                    $errors[] = 'Tone Of Voice is empty';
+                }
+
                 if(isset($_POST['recording'])){
                     $recording = $_POST['recording'];
                 }else{
@@ -184,6 +192,7 @@ if(isset($_COOKIE["userId"])){
 
                 $scrip = $_POST['scrip'];
                 $order = $_POST['order'];
+                $tone = $_POST['tone'];
                 $recording = $_POST['recording'];
 
                 mysqli_query($con, "UPDATE script SET script_template = '$scrip'
@@ -191,6 +200,9 @@ if(isset($_COOKIE["userId"])){
                  
 
                 mysqli_query($con, "UPDATE script SET script_order = '$order'
+                  WHERE script_index  = '$index' ");
+
+               mysqli_query($con, "UPDATE script SET script_tone = '$tone'
                   WHERE script_index  = '$index' ");
                    
 
@@ -208,6 +220,7 @@ if(isset($_COOKIE["userId"])){
               $_POST['recording'] = '';
               $_POST['scrip'] = '';
               $_POST['order'] = '';
+              $_POST['tone'] = '';
               unset($_SESSION['index']);
             }
         }
@@ -295,6 +308,12 @@ if(isset($_COOKIE["userId"])){
                 }else{
                     $errors[] = 'Must select a recording for this scrip';
                 }
+
+                if(isset($_POST['tone'])){
+                    $toen = $_POST['tone'];
+                }else{
+                    $errors[] = 'Tone Of Voice is empty';
+                }
                
                 $id = explode("-",$dealer);
                
@@ -315,8 +334,8 @@ if(isset($_COOKIE["userId"])){
                    
                   
 
-                    $sql = "INSERT INTO script(script_group, script_comp_num, script_comp_name, script_template, script_order, script_changed, script_audio ) 
-              VALUES('$dealer_group','$compNum','$company','$scrip','$order','$name','$recording')";
+                    $sql = "INSERT INTO script(script_group, script_comp_num, script_comp_name, script_template, script_order, script_changed, script_audio, script_tone ) 
+              VALUES('$dealer_group','$compNum','$company','$scrip','$order','$name','$recording','$tone')";
 
 
                     if (!mysqli_query($con, $sql)) {
@@ -384,6 +403,7 @@ if(isset($_COOKIE["userId"])){
                 $script_comp_num = $row['script_comp_num'];
                 $script_comp_name = $row['script_comp_name'];
                 $script_template = $row['script_template'];
+                $script_tone = $row['script_tone'];
                 $script_order = $row['script_order'];
     
   
@@ -395,6 +415,7 @@ if(isset($_COOKIE["userId"])){
                
 $File = "<td width = 1%><a  href=addscrip.php?index=$script_index>Edit</td>";
 $Order = "<td width = 1%>$script_order</td>";
+$Tone = "<td width = 1%>$script_tone</td>";
 $Temp = "<td width = 6%>$script_template </td>";
 
 
@@ -402,12 +423,70 @@ $Temp = "<td width = 6%>$script_template </td>";
 
        
       //  $bid_satus = 'green';
-        $rows[] = "\n<div id=\"$bid_satus\"><table width='100%'><tr>$File $Order $Temp </tr></table></div>\n";
+        $rows[] = "\n<div id=\"$bid_satus\"><table width='100%'><tr>$File $Order $Tone $Temp </tr></table></div>\n";
                
             } // end while
 
             }
+             /////////////////////////////////////////////////////////////////////////////////
+
+    $blank = '';
+    if (isset($_POST['tone'])) {
+        $tone = $_POST['tone'];
+        $tone_arr[] = "\n<option value=\"$tone\">$tone</option>\n";
+        $tone_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+    } else {
+        $tone_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+    }
+    $place = 'Confused';
+    $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'Curiosity';
+    $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+    $place = 'Excitement';
+    $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'Jokingly';
+    $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+    $place = 'Informational';
+    $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
+    $place = 'Surprise';
+    $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+               
+    
+    /////////////////////////////////////////////////////////////////////////////////
+
+                $blank = '';
+                if (isset($_POST['recording'])) {
+                    $recordType = $_POST['recording'];
+                    $recordType_arr[] = "\n<option value=\"$recordType\">$recordType</option>\n";
+                    $recordType_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+                } else {
+                    $tone_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+                }
+                $place = 'None';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
             
+                $place = 'PrimaryName';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                
+                $place = 'PrimaryRequest';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+            
+                $place = 'SecondaryReques';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                
+                $place = 'Vehicle Driven';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+            
+            
+                
+   
 
             ?>
 
@@ -442,18 +521,27 @@ print_r($dealer_arr);
                                 </table>
                        
                    
-                   <h2>Select type of Record </h2>
-                    <input type="radio" id="none" name="recording" value="None">
-                    <label for="none">None</label>
-                    <input type="radio" id="Vehicle Driven" name="recording" value="Vehicle Driven">
-                    <label for="Vehicle Driven">How vehicle will be used</label>
-                    <input type="radio" id="primaryname" name="recording" value="PrimaryName">
-                    <label for="primaryname">Primary User Name</label>
-                    <input type="radio" id="primaryrequest" name="recording" value="PrimaryRequest">
-                    <label for="primaryrequest">Primary Request</label>
-                    <input type="radio" id="secondaryrequest" name="recording" value="SecondaryRequest">
-                    <label for="secondaryrequest">Secondary Request</label><br><br>
-                   
+                 
+<br>
+                                <label for="tone">Tone Of Voice:</label>   
+        <select name="tone">
+                                <?php
+                                print_r($tone_arr);
+                                ?>
+                    </select>
+                                <br>
+                                <br>
+
+                                <br>
+                                <label for="recording">Select type of Record:</label>   
+        <select name="recording">
+                                <?php
+                                print_r($recordType_arr);
+                                ?>
+                    </select>
+                                <br>
+                                <br>
+                    
                     
                    
                

@@ -151,6 +151,7 @@ $result_set = mysqli_query($con, $query)
 while($row = mysqli_fetch_array($result_set)){
   $script_arry[] = $row['script_template'];
   $script_audio_arry[] = $row['script_audio'];
+  $tone_arry[] = $row['script_tone'];
 }  
 
      $count = count($script_arry) - 1;
@@ -161,7 +162,9 @@ while($row = mysqli_fetch_array($result_set)){
       exit;
      }
  
-
+     $tone = $tone_arry[$cust_points];
+$useTone = 'Record using a voice tone of: ' . $tone;
+  echo "<h2 style='background-color:Orange;'>$useTone</h2>";
 
 
   $script = $script_arry[$cust_points];

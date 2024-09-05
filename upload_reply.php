@@ -310,45 +310,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      /////////////////////////////////////////////////////////////////////////////////
 
     $blank = '';
-    if (isset($_POST['typeVehicle'])) {
-        $typeVehicle = $_POST['typeVehicle'];
-        $typeVehicle_arr[] = "\n<option value=\"$typeVehicle\">$typeVehicle</option>\n";
+    if (isset($_POST['tone'])) {
+        $tone = $_POST['tone'];
+        $tone_arr[] = "\n<option value=\"$tone\">$tone</option>\n";
     } else {
         $typeVehicle_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
     }
-    $place = 'Wagon';
+    $place = 'Confused';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
     
-    $place = 'Convertible';
+    $place = 'Excitement';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-    $place = 'Small SUV';
+    $place = 'Jokingly';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
     
-    $place = 'Midsize SUV';
+    $place = 'Informational';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
 
-    $place = 'Large SUV';
+    $place = 'Surprise';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
     
-    $place = 'Coupe';
-    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
-    $place = 'Sedan';
-    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
-    
-    $place = 'Hatchback';
-    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
-    $place = 'Regular cab Truck';
-    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
-    $place = 'Extended Cab Truck';
-    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
-    
-    $place = 'Crew Cab';
-    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+   
 ?>
 
  <h1>Upload Reply Recording</h1>
@@ -396,6 +380,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <select name="typeVehicle">
                                 <?php
                                 print_r($typeVehicle_arr);
+                                ?>
+                    </select>
+                                <br>
+                                <br>
+                                <label for="tone">Tone Of Voice:</label>   
+        <select name="tone">
+                                <?php
+                                print_r($tone_arr);
                                 ?>
                     </select>
                                 <br>

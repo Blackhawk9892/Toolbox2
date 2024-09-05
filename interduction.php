@@ -48,7 +48,11 @@ $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 while($row = mysqli_fetch_array($result_set)){
   $script_arry[] = $row['script_template'];
+  $tone_arry[] = $row['script_tone'];
 }  
+$tone = $tone_arry[0];
+$useTone = 'Record using a voice tone of: ' . $tone;
+  echo "<h2 style='background-color:Orange;'>$useTone</h2>";
 
   $script = $script_arry[0];
   echo "<h3>$script</h3>";
