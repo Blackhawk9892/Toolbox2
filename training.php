@@ -210,7 +210,7 @@ $useTone = 'Record using a voice tone of: ' . $tone;
     $query .= "WHERE audio_group   = '{$comp_group}' ";
     $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
     $query .= "AND audio_drive_type   = '{$drive}' ";
-   
+  
     $result_set = mysqli_query($con, $query)
     or die('Query failed scrip: ' . mysqli_error($con));
 
@@ -265,7 +265,7 @@ if($script_audio == 'PrimaryName'){
   $query .= "FROM audio ";
   $query .= "WHERE audio_group   = '{$comp_group}' ";
   $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
-
+  
   
   $result_set = mysqli_query($con, $query)
           or die('Query failed scrip: ' . mysqli_error($con));
@@ -288,7 +288,7 @@ if($script_audio == 'PrimaryName'){
   }
 
 }
-print_r($primary_arry) . '<br>';
+
     $countPrimary = count($primary_arry) - 1;
  
     $randPrimary = rand(0, $countPrimary);
@@ -303,7 +303,7 @@ print_r($primary_arry) . '<br>';
 
     mysqli_query($con, "UPDATE customer_data SET cust_primary = '$idPrimary'
                   WHERE cust_id  = '$cust_id' ");
-print_r($secondary_arry) . '<br>';
+
 $countSecondary = count($secondary_arry) - 1;
 $randSecondary = rand(0, $countSecondary);
 
@@ -319,7 +319,6 @@ mysqli_query($con, "UPDATE customer_data SET cust_secondary = '$idSecondary'
               WHERE cust_id  = '$cust_id' ");
   
   ///////////////////////////////////////////////////////////////////////////////////////////
-
 
 
 if($cust_primary_user == 1){

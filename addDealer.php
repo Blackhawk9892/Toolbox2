@@ -164,7 +164,7 @@ Add Dealer to stock tag program
                             print( "<tr><td>Dealer Group:</td><td>\n");
                             print( "<select name=\"dGroup\">");
 
-                            print_r($dealer_group_arr);
+                           // print_r($dealer_group_arr);
                             ?>
                             <tr><td>Dealer Name:</td><td>
                                     <input type="text" name="dealer" size="50" value="<?php if (isset($_POST['dealer'])) echo $_POST['dealer'] ?>"	/>

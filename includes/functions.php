@@ -22,8 +22,8 @@ function autority_insert_into($field1, $field2 = 'emty') {  // START FUNCTION
 
 
     $row = mysql_fetch_array($result_set);
-    echo"test";
-    print_r($row);
+   // echo"test";
+  //  print_r($row);
     $custId = $row['customer_number'];
     $hash_password = $row['hash_password'];
     $user_name = $row[user_name];

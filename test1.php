@@ -400,8 +400,7 @@ if(isset($_POST['submit'])){
 
         foreach ($testOptions as $i) {
           echo $x . ' == ' . $i . '<br>';
-          if($x == $i){
-            
+          if($x == $i){   
             $firstCount++;
             echo $x . ' $x and $i ' . $i . ' Count 1 ' . $firstCount;
             break;
