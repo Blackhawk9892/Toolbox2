@@ -307,32 +307,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $place = 'Crew Cab';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-     /////////////////////////////////////////////////////////////////////////////////
-
-    $blank = '';
-    if (isset($_POST['tone'])) {
-        $tone = $_POST['tone'];
-        $tone_arr[] = "\n<option value=\"$tone\">$tone</option>\n";
-    } else {
-        $typeVehicle_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
-    }
-    $place = 'Confused';
-    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
     
-    $place = 'Excitement';
-    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
-    $place = 'Jokingly';
-    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
-    
-    $place = 'Informational';
-    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
-
-    $place = 'Surprise';
-    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
-    
-   
 ?>
 
  <h1>Upload Reply Recording</h1>
@@ -383,15 +358,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 ?>
                     </select>
                                 <br>
-                                <br>
-                                <label for="tone">Tone Of Voice:</label>   
-        <select name="tone">
-                                <?php
-                                print_r($tone_arr);
-                                ?>
-                    </select>
-                                <br>
-                                <br>
+                    
 
         <tr><td>Scrip:</td><td>
                         <textarea rows="6" cols="150" name="scrip" wrap="wrap " >

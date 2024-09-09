@@ -210,6 +210,7 @@ $equip = '';
 //////////////////////////////////////////Submit/////////////////////////////////////////
 if(isset($_POST['submit'])){
 
+  $testOptions = array();
  
    if($cust_primary == 0){
       $errors[] = "The primary customer information is incomplete";
@@ -271,7 +272,7 @@ if(isset($_POST['submit'])){
        $colorPrefer = explode(",",$audio_color_liked);
 
        $audio_color_dislike = $row['audio_color_dislike'];
-       $colorAvoid = explode(",",$audio_reply);
+       $colorAvoid = explode(",",$audio_color_dislike);
 
        $audio_vehicle_type = $row['audio_vehicle_type'];
 
@@ -290,7 +291,7 @@ if(isset($_POST['submit'])){
        $row = mysqli_fetch_array($result_set);
            $audio_reply2 = $row['audio_reply'];
            $audio_options2 = $row['audio_options'];
-           $optionsSecond = explode(",",$audio_reply);
+           $optionsSecond = explode(",",$audio_reply2);
            foreach ($optionsSecond as $x) {
             if($x == "None"){
                continue;
@@ -341,7 +342,9 @@ if(isset($_POST['submit'])){
       
           while ($row = mysqli_fetch_array($result_set)) {
               $x = $row['equip_index'];
-
+              if(isset($_POST[$x])){
+                $testOptions[] = $_POST[$x];
+              }
               
 
               $test = strchr($audio_color_liked,$x);
@@ -366,13 +369,13 @@ if(isset($_POST['submit'])){
                     }
               
           }
-         echo "Equipment: " . $equip . "<br>";
+        
           if(empty($equip)){
               $veh_array[] = 'none';
            }else{
               $veh_array[] = $equip;
            }
-         print_r($veh_array);
+     
           
           if($audio_options1 == 'NONE,'){
             $options = '';
@@ -386,6 +389,42 @@ if(isset($_POST['submit'])){
             $options .= $audio_options1;
           }
 
+          echo "<br> <br>";
+       $oPrim =  explode(",",$audio_options1);
+       $oSecond =  explode(",",$audio_options2);
+       $optionsPrim = array_merge($oPrim,$oSecond);
+
+       $firstCount = 0;
+       foreach ($optionsPrim as $x) {
+       // echo "$x <br>";
+
+        foreach ($testOptions as $i) {
+          echo $x . ' == ' . $i . '<br>';
+          if($x == $i){
+            
+            $firstCount++;
+            echo $x . ' $x and $i ' . $i . ' Count 1 ' . $firstCount;
+            break;
+          }
+          
+        }
+      }
+      
+/*
+$result1=array_diff($optionsPrim,$testOptions);
+print_r($optionsPrim);
+echo "<br>";
+$customerOpt = count($result1);
+
+echo "<br> <br>";
+
+$result2=array_diff($testOptions,$optionsPrim);
+print_r($testOptions);
+echo "<br>";
+$testOpt = count($result2);
+
+echo "customer Opt = " . $customerOpt . "<br>";
+echo "test Opt = " . $testOpt . "<br>";*/
 
           echo 'Vehilce Type: ' . $typeVehicle . ' ### ' . $audio_vehicle_type . '<br>';
           echo 'Price: ' . $price . ' ### ' . $audio_price . '<br>';
@@ -688,17 +727,7 @@ if($find == "setup"){
             </br>
         </div> 
 
-<?php
-/*
-$result = count($equip_arr);
-$count = 0;
-while ($count <= $result) {
-    $load = @$equip_arr[$count];
-    echo $load;
 
-    $count++;
-}*/
-?>			
 
     </div>
 

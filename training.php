@@ -61,7 +61,7 @@ if(isset($_POST['submit'])){
     
     
           if (!mysqli_query($con, $sql)) {
-              die('Error training 57: ' . mysqli_error($con));
+              die('Error training 64: ' . mysqli_error($con));
           }
   
           $custStamp = $_SESSION['custStamp'];
