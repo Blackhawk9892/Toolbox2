@@ -83,10 +83,12 @@ $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group   = '{$comp_group}' ";
 
+
 $result_set = mysqli_query($con, $query)
         or die('Query failed emp: ' . mysqli_error($con));
 while($row = mysqli_fetch_array($result_set)){
   $audio_vehicle_type = $row['audio_vehicle_type'];
+  
        if(empty($audio_vehicle_type)){
         continue;
        }else{
@@ -121,6 +123,29 @@ if(isset($_POST['submit'])){
     }
   } else {
     $custStamp = $_SESSION['custStamp'];
+
+    $dateStamp =  date("Ymdhis");
+ $custStamp = $emp_id . $dateStamp . $dealer_id;
+ $_SESSION['custStamp'] = $custStamp;
+ $points = 1;
+ $primaryUser = rand(1,2);
+
+ $vehicle = $_SESSION['vehicle'];
+ $custStamp = $_SESSION['custStamp'];
+ $malePhoto = $_SESSION['photoMale'];
+ $femalePhoto = $_SESSION['photoFemale'];
+ $maleVoice = $_SESSION['voiceMale']; 
+ $maleVoiceName = $_SESSION['voiceMaleName'];
+ $femaleVoice = $_SESSION['voiceFemale'];
+ $femaleVoiceName =$_SESSION['voiceFemaleName'];
+ 
+ $sql = "INSERT INTO customer_data(cust_group,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
+ VALUES('$comp_group','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
+ 
+ 
+       if (!mysqli_query($con, $sql)) {
+           die('Error customer _data 206: ' . mysqli_error($con));
+       }
   
     $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data) 
     VALUES('$emp_id','$name','$script','$audioName','$custStamp')";
@@ -130,7 +155,7 @@ if(isset($_POST['submit'])){
               die('Error recording 216: ' . mysqli_error($con));
           }
   
-          $custStamp = $_SESSION['custStamp'];
+          
   
           header("Location: training.php?find=$custStamp");
           exit;
@@ -154,6 +179,7 @@ $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 while($row = mysqli_fetch_array($result_set)){
   $photoMale[] = $row['photo_location'];
+  
 }  
 $count = count($photoMale);
 $n = rand(0, $count) - 1;
@@ -162,6 +188,7 @@ if($n < 0){
 }
 
 $malePhoto = $photoMale[$n];
+$_SESSION['photoMale'] = $malePhoto;
 
 
 echo " <img src=\"$malePhoto\" width=\"300\" height=\"300\">\n";
@@ -183,6 +210,7 @@ $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 while($row = mysqli_fetch_array($result_set)){
   $photoFemale[] = $row['photo_location'];
+  
 }  
 
 $count = count($photoFemale);
@@ -192,6 +220,7 @@ if($n < 0){
 }
 
 $femalePhoto = $photoFemale[$n];
+$_SESSION['photoFemale'] = $femalePhoto;
 
 echo "    <img src=\"$femalePhoto\" width=\"300\" height=\"300\">";
 
@@ -210,6 +239,7 @@ $result_set = mysqli_query($con, $query)
 while($row = mysqli_fetch_array($result_set)){
   $voiceMale[] = $row['voice_location'];
   $maleVoiceName[] = $row['voice_name'];
+  
 }     
 
 $count = count($voiceMale);
@@ -220,7 +250,8 @@ if($n < 0){
 
 $maleVoice = $voiceMale[$n];
 $maleVoiceName = $maleVoiceName[$n];
-
+$_SESSION['voiceMale'] = $maleVoice;
+$_SESSION['voiceMaleName'] = $maleVoiceName;
 
 echo "<br>";
 echo " <audio controls>\n";
@@ -245,6 +276,7 @@ $result_set = mysqli_query($con, $query)
 while($row = mysqli_fetch_array($result_set)){
   $voiceFemale[] = $row['voice_location'];
   $femaleVoiceName[] = $row['voice_name'];
+ 
 }     
 
 $count = count($voiceFemale);
@@ -254,6 +286,9 @@ if($n < 0){
 }
 $femaleVoice = $voiceFemale[$n];
 $femaleVoiceName = $femaleVoiceName[$n];
+$_SESSION['voiceFemale'] = $femaleVoice;
+$_SESSION['voiceFemaleName'] = $femaleVoiceName;
+
 
 echo "    <audio controls>\n";
 echo "        <source src=\"$femaleVoice\" type=\"audio/mpeg\">\n";
@@ -261,7 +296,7 @@ echo "      Your browser does not support the audio element.\n";
 echo "      </audio>";
 //////////////////////////////////////////////////////////////////////////////////
 
-
+/*
  $dateStamp =  date("Ymdhis");
  $custStamp = $emp_id . $dateStamp . $dealer_id;
  $_SESSION['custStamp'] = $custStamp;
@@ -278,7 +313,7 @@ echo "      </audio>";
            die('Error customer _data 206: ' . mysqli_error($con));
        }
 
-
+*/
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

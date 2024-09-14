@@ -394,20 +394,47 @@ if(isset($_POST['submit'])){
        $oSecond =  explode(",",$audio_options2);
        $optionsPrim = array_merge($oPrim,$oSecond);
 
+       
+       $result1=array_intersect($optionsPrim,$testOptions );
+       $countArry1 = count($result1);
+       $countOptions1 = count($optionsPrim);
+       $total1 = $countOptions1 -  $countArry1;
+
+       echo 'countArry1: ' . $countArry1 .'<br>';
+       echo 'countOptions1: ' . $countOptions1 .'<br>';
+       echo 'total1: ' . $total1 .'<br>';
+
+       $result2=array_intersect($testOptions,$optionsPrim);
+       $countArry2 = count($result1);
+       $countOptions2 = count($testOptions);
+       $total2 = $countOptions2 - $countArry2; 
+
+       echo 'countArry2: ' . $countArry2 .'<br>';
+       echo 'countOptions2: ' . $countOptions2 .'<br>';
+       echo 'total2: ' . $total2 .'<br>';
+       echo "<br>";
+       echo "<br>";
+
+       print_r($optionsPrim);
+       echo "<br>";
+       print_r($testOptions);
+       /*
        $firstCount = 0;
        foreach ($optionsPrim as $x) {
-       // echo "$x <br>";
-
-        foreach ($testOptions as $i) {
-          echo $x . ' == ' . $i . '<br>';
+       echo "$x <br>";
+  foreach ($testOptions as $i) {
+          echo "$i <br>";
+         echo $x . ' == ' . $i . '<br>';
           if($x == $i){   
             $firstCount++;
             echo $x . ' $x and $i ' . $i . ' Count 1 ' . $firstCount;
             break;
+          }else{
+            echo $x . ' * ==  * ' . $i . '<br>';
           }
           
         }
-      }
+      }*/
       
 /*
 $result1=array_diff($optionsPrim,$testOptions);

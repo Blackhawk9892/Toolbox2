@@ -5,9 +5,12 @@ session_start();
 ?>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Microphone Recording</title>
+<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="stylesheets/main.css" /> 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Customer Inerview</title>
+ 
 </head>
 <body>
 
@@ -23,8 +26,14 @@ require("includes/connection.php");
 require("includes/database_rows.php");
 
 require("toolbar_sales.php");
-/////////////////////////////////////////////////////////////////////////////////////
 
+if($_GET['find']){
+  $_SESSION['find'] = $_GET['find'];
+
+}
+$find = $_SESSION['find'];
+
+/////////////////////////////////////////////////////////////////////////////////////
 
 
 if(isset($_POST['submit'])){
@@ -42,9 +51,19 @@ if(isset($_POST['submit'])){
   
   
   if (!empty($errors)) {
+
+   $cust_id = $_SESSION['cust_id'];
+    $cust_points = $_SESSION['cust_points'];
+  echo 'this is points: ' .  $cust_points . '<br>';
+    mysqli_query($con, "UPDATE customer_data SET cust_points = '$cust_points'
+     WHERE cust_id = '$cust_id' ");
   
     foreach ($errors as $value) {
-        echo "<div class=\"errors\">$value</div>";
+
+      
+      $cust_points = $_SESSION['cust_points'];
+
+        $errorMassage = "<div class=\"errors\">$value</div>";
     }
   } else {
 
@@ -107,11 +126,7 @@ $comp_group = $row['comp_group'];
 
 ///////////////////////////////////////////////////////////////////////////////////
 
-if($_GET['find']){
-  $_SESSION['find'] = $_GET['find'];
 
-}
-$find = $_SESSION['find'];
 
 
       $query = "SELECT * ";
@@ -131,8 +146,10 @@ $find = $_SESSION['find'];
   $cust_female_photo = $row['cust_female_photo'];
 
   $cust_points = $row['cust_points'];
+  $_SESSION['cust_points'] = $row['cust_points'];
+  echo  'points from Database: ' . $_SESSION['cust_points'] ;
    $cust_id = $row['cust_id'];
-   $_SESSION['cust_id'] = $cust_id;
+   $_SESSION['cust_id'] = $row['cust_id'];
    $cust_find = $row['cust_find'];
    $cust_primary_user = $row['cust_primary_user'];
    $cust_primary = $row['cust_primary'];
@@ -172,8 +189,10 @@ $useTone = 'Record using a voice tone of: ' . $tone;
   
   echo "<h3>$script</h3>";
      $_SESSION['script'] = $script;
-  
- 
+  if(isset($errorMassage)){
+    echo $errorMassage;
+  }
+     
 
   ?>
  <button id="start-record-btn">Start Recording</button>
@@ -193,7 +212,7 @@ $useTone = 'Record using a voice tone of: ' . $tone;
    //////////////////////////////////////////////////////////////////////////////////////////
 
 
-
+  
 
   $cust_points = $cust_points + 1;
   
@@ -413,8 +432,8 @@ $row = mysqli_fetch_array($result_set);
        }
     
  
-
-  
+   
+       
  
 ?>
 
