@@ -33,7 +33,7 @@ session_start();
 
     <body>
 
-    
+        
 
     <?php
     require_once("includes/connection.php");
