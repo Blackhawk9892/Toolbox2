@@ -42,6 +42,7 @@ session_start();
     require_once("toolbar_sales.php");
     require("includes/security.php");
     require("includes/datafile.php");
+    require("includes/functions.php");
 
     if(isset($_SESSION['message'])){
         $value = $_SESSION['message'];
@@ -157,7 +158,7 @@ $equip = '';
             if(isset($_POST[$equip_index])){
             
                 $equip .= $_POST[$equip_index] ;
-                $equip .= ", ";
+                $equip .= ",";
             }
         }
        
@@ -166,8 +167,8 @@ $equip = '';
          }else{
             $veh_array[] = $equip;
          }
-         echo " Color: " . $colorA;
-         echo " Equip: " . $equip;
+       //  echo " Color: " . $colorA;
+       //  echo " Equip: " . $equip;
 
         
          $_SESSION['vehicle'] = $veh_array;
@@ -236,13 +237,13 @@ if(isset($_POST['submit'])){
     if(isset($_POST['price'])){
       $price = $_POST['price'];
     }else{
-      $price = '';
+      $price = 0;
     }
 
     if(isset($_POST['payment'])){
       $payment = $_POST['payment'];
     }else{
-      $payment = '';
+      $payment = 0;
     }
 
     if(isset($_POST['miles'])){
@@ -261,9 +262,10 @@ if(isset($_POST['submit'])){
 
    $row = mysqli_fetch_array($result_set);
        $audio_reply = $row['audio_reply'];
-       $optionsPrim = explode(",",$audio_reply);
+       
        $audio_options1 = $row['audio_options'];
-
+       $optionsPrim = explode(",",$audio_options1);
+       
        $audio_price = $row['audio_price'];
        $audio_payment = $row['audio_payment'];
        $audio_miles = $row['audio_miles'];
@@ -291,7 +293,7 @@ if(isset($_POST['submit'])){
        $row = mysqli_fetch_array($result_set);
            $audio_reply2 = $row['audio_reply'];
            $audio_options2 = $row['audio_options'];
-           $optionsSecond = explode(",",$audio_reply2);
+           $optionsSecond = explode(",",$audio_options2);
            foreach ($optionsSecond as $x) {
             if($x == "None"){
                continue;
@@ -375,25 +377,95 @@ if(isset($_POST['submit'])){
            }else{
               $veh_array[] = $equip;
            }
-     
+//************************************************************************************************* */
+
+$test1 = "BACKUP CAMERA,CHROME WHEELS,MEMORY SEAT,NAVIGATION SYSTEM,STABILITY CONTROL,TRACTION CONTROL,BACKUP CAMERA, CHROME WHEELS,MEMORY SEAT.NAVIGATION SYSTEM,STABILITY CONTROL,TRACTION CONTROL";
+$a1 = explode(",",$test1);
+echo "<br>";
+print_r($a1);
+echo "<br>";
+echo "<br>";
+
+$test2 = "A/C DUAL-ZONE,BACKUP CAMERA,TRACTION CONTROL,THEFT RECOVERY SYSTEM";
+$a2= explode(",",$test2);
+echo "<br>";
+print_r($a2);
+echo "<br>";
+echo "<br>";
+
+$result1=array_diff($a1,$a2);
+$count1 = count($result1);
+
+$result2=array_diff($a2,$a1);
+$count2 = count($result2);
+
+echo 'Array1: ' . '<br';
+
+print_r($result1);
+echo '<br>';
+echo 'Count1: ' . $count1;
+echo '<br>';
+echo '<br>';
+
+echo 'Array2: ' . '<br';
+
+print_r($result2);
+echo '<br>';
+echo 'Count2: ' . $count2;
+echo '<br>';
+echo '<br>';
+
+ //************************************************************************************************************ */    
           
           if($audio_options1 == 'NONE,'){
-            $options = '';
+            
           }else{
             $options = $audio_options1;
           }
+   /*       
+   $str1 = bin2hex($optionsPrim[0]);
+   $str2 = bin2hex($testOptions[0]);
 
-          if($audio_options1 == 'NONE,'){
-           
-          }else{
-            $options .= $audio_options1;
-          }
+  echo($str1) . $optionsPrim[0]; 
+  echo '<br>';
+  echo($str2) . $testOptions[0];  
+  echo '<br>'; 
+print_r($optionsPrim);
+echo '<br>';
+echo '<br>';
+print_r($testOptions);
+echo '<br>';
+echo '<br>';
+ */        
+$result1=array_diff($optionsPrim,$testOptions);
+$count1 = count($result1);
+
+$result2=array_diff($testOptions,$optionsPrim);
+$count2 = count($result2);
+
+print_r($result1);
+echo '<br>';
+echo 'Count1: ' . $count1;
+echo '<br>';
+echo '<br>';
+
+print_r($result2);
+echo '<br>';
+echo 'Count2: ' . $count2;
+echo '<br>';
+echo '<br>';
 
           echo "<br> <br>";
+
+          
+ /*        
+
+
        $oPrim =  explode(",",$audio_options1);
-       $oSecond =  explode(",",$audio_options2);
+       $oSecond =  explode(",",$audio_options1);
        $optionsPrim = array_merge($oPrim,$oSecond);
 
+      echo count($testOptions) . 'count <br>';
        
        $result1=array_intersect($optionsPrim,$testOptions );
        $countArry1 = count($result1);
@@ -405,7 +477,7 @@ if(isset($_POST['submit'])){
        echo 'total1: ' . $total1 .'<br>';
 
        $result2=array_intersect($testOptions,$optionsPrim);
-       $countArry2 = count($result1);
+       $countArry2 = count($result2);
        $countOptions2 = count($testOptions);
        $total2 = $countOptions2 - $countArry2; 
 
@@ -418,19 +490,40 @@ if(isset($_POST['submit'])){
        print_r($optionsPrim);
        echo "<br>";
        print_r($testOptions);
-       /*
+       echo "<br>";
+       echo "<br>";
+      echo $optionsPrim[0];
+      echo bin2hex($optionsPrim[0]);
+      echo "<br>";
+      echo $testOptions[0];
+      echo bin2hex($testOptions[0]);
+      echo "<br>";
+      echo "<br>";
+    
+
        $firstCount = 0;
        foreach ($optionsPrim as $x) {
-       echo "$x <br>";
+     //  echo "$x <br>";
   foreach ($testOptions as $i) {
-          echo "$i <br>";
-         echo $x . ' == ' . $i . '<br>';
+        //  echo "$i <br>";
+       //  echo $x . ' == ' . $i . '<br>';
+       removeWhiteSpace($x);
+       removeWhiteSpace($i);
+       $newX = $x;
+       $newI = $i;
+       
+       $strX = bin2hex($newX);
+       $stri = bin2hex($newI);
+       echo ord($x)."<br>";
+       echo ord($i)."<br>";
+       echo '<br>';
+       echo '$x: ' . $strX . ' $i: ' . $stri;
           if($x == $i){   
             $firstCount++;
-            echo $x . ' $x and $i ' . $i . ' Count 1 ' . $firstCount;
+            echo $x . ' == ' . $i . ' Count 1 ' . $firstCount . '<br>';
             break;
           }else{
-            echo $x . ' * ==  * ' . $i . '<br>';
+            echo $x . ' * ==  * ' . $i . '<br><br>';
           }
           
         }
@@ -458,7 +551,7 @@ echo "test Opt = " . $testOpt . "<br>";*/
           echo 'Miles: ' . $miles . ' ### ' . $audio_miles . '<br>';
           echo 'Prefer Colors: ' . $colorP . ' ### ' . $audio_color_liked . '<br>';
           echo 'Avoid Colors: ' . $colorA . ' ### ' . $audio_color_dislike . '<br>';
-          echo 'Equipment: ' . $equip . ' ### ' .  $options . '<br>';
+        //  echo 'Equipment: ' . $equip . ' ### ' .  $options . '<br>';
 
           $count = 0;
 

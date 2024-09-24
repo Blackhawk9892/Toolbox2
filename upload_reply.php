@@ -25,6 +25,7 @@ session_start();
   require_once("toolbar_sales.php");
   require("includes/security.php");
   require("includes/datafile.php");
+  require("includes/functions.php");
 
 ////////////////////////////Employee Info////////////////////////////////////
 // 
@@ -92,6 +93,7 @@ if(isset($_COOKIE["userId"])){
           }
         unset($_SESSION['vehicle']);
       }
+      
   }
   
 
@@ -368,12 +370,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <br> <br>
 <h3>Anything entered blow here must be entered through Page For Vehicle Setup</h3>
        
-    <tr><td>Options:</td><td>
-                        <textarea rows="6" cols="150" name="options" wrap="wrap " readonly>
-                          <?php if (isset($_POST['options'])) echo $_POST['options'] ?>
-                        </textarea>
+<tr><td>Options:</td><td>     
+        <input type="text" name="options" size="200" value=" <?php if (isset($_POST['options'])) echo $_POST['options'] ?>"readonly/>
+        <br> <br>
 
-    <br> <br>
+   
   
    
 
@@ -393,7 +394,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <tr><td>Avoid Colors:</td><td>     
         <input type="text" name="avoidColors" size="100" value="<?php if (isset($_POST['avoidColors'])) echo Remove_Whites($_POST['avoidColors']) ?>"readonly/>
         <br> <br>
-
+       
         </td>
 
 
