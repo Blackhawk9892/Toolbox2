@@ -121,6 +121,8 @@ $result_set = mysqli_query($con, $query)
 $row = mysqli_fetch_array($result_set);
 
 $comp_group = $row['comp_group'];
+$comp_name = $row['comp_name'];
+$comp_product = $row['comp_product'];
 
 
 
@@ -172,12 +174,17 @@ while($row = mysqli_fetch_array($result_set)){
 }  
 
      $count = count($script_arry) - 1;
+   
+    $cName = 'products/' . $comp_product;
+   
+     
+     $testPage =  $cName . '/test' . $dealer_id . '.php';
 
      if($cust_points  > $count ){
       $find = $_SESSION['find'];
-      header("Location: test1.php?find=$find");
+      header("Location: $testPage?find=$find");
       exit;
-     }
+     }                  
  
      $tone = $tone_arry[$cust_points];
 $useTone = 'Record using a voice tone of: ' . $tone;

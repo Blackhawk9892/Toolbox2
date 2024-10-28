@@ -36,12 +36,12 @@ session_start();
         
 
     <?php
-    require_once("includes/connection.php");
-    require("includes/database_rows.php");
-    require("includes/pull_downs.php");
-    require_once("toolbar_sales.php");
-    require("includes/security.php");
-    require("includes/datafile.php");
+    require_once("../../includes/connection.php");
+    require("../../includes/database_rows.php");
+    require("../../includes/pull_downs.php");
+    require_once("../../toolbar_test.php");
+    require("../../includes/security.php");
+    require("../../includes/datafile.php");
 
     if(isset($_SESSION['message'])){
         $value = $_SESSION['message'];
@@ -236,19 +236,19 @@ if(isset($_POST['submit'])){
     if(isset($_POST['price'])){
       $price = $_POST['price'];
     }else{
-      $price = '';
+      $price = 0;
     }
 
     if(isset($_POST['payment'])){
       $payment = $_POST['payment'];
     }else{
-      $payment = '';
+      $payment = 0;
     }
 
     if(isset($_POST['miles'])){
       $miles = $_POST['miles'];
     }else{
-      $miles = '';
+      $miles = 0;
     }
    
    $query = "SELECT * ";
@@ -277,8 +277,29 @@ if(isset($_POST['submit'])){
        $audio_vehicle_type = $row['audio_vehicle_type'];
 
 
+       if($audio_price == $price){
+        $countPrice = 1;
+       }else{
+        $countPrice = -1;
+       }
+
+       if($audio_payment == $payment){
+        $countPayment = 1;
+       }else{
+        $countPayment = -1;
+       }
+
+       if($audio_miles == $miles){
+        $countMiles = 1;
+       }else{
+        $countMiles = -1;
+       }
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 
+$count2 = 0;
+$count3 = 0;
 
        $query = "SELECT * ";
        $query .= "FROM audio ";
@@ -292,6 +313,7 @@ if(isset($_POST['submit'])){
            $audio_reply2 = $row['audio_reply'];
            $audio_options2 = $row['audio_options'];
            $optionsSecond = explode(",",$audio_reply2);
+
            foreach ($optionsSecond as $x) {
             if($x == "None"){
                continue;
@@ -330,6 +352,7 @@ if(isset($_POST['submit'])){
             $veh_array[] = $colorA;
           }
        
+
 
           $equip = '';
           $query = "SELECT * ";
@@ -390,16 +413,50 @@ if(isset($_POST['submit'])){
           }
 
           echo "<br> <br>";
-       $oPrim =  explode(",",$audio_options1);
+
+          $bothValue = $audio_options1 . $audio_options2;
+          $total1 = 0;
+          $total2 = 0;
+
+        
+
+          foreach ($testOptions as $x) {
+            $test = substr_count($bothValue,$x);
+
+            
+            if($test > 0){
+              echo "MATCH " . $x  . "<br>";
+              $total1++;
+            }else{
+             echo "no Match " . $x  . "<br>";
+             $total2--;
+            }
+
+          }
+
+          $total = $cust_points + $total1 + $total2 + $countPrice + $countPayment + $countMiles + $count2 + $count3;
+
+
+echo $total . ' = ' . $cust_points . ' + '. $total1 . ' + ' . $total2 . ' + ' . $countPrice . ' + '  . $countMiles . ' + ' . $count2 . ' + ' . $count3;
+echo "<br> <br>";
+     /*  $oPrim =  explode(",",$audio_options1);
        $oSecond =  explode(",",$audio_options2);
        $optionsPrim = array_merge($oPrim,$oSecond);
 
+print_r($optionsPrim);
+echo "<br> <br>";
+print_r($testOptions);
        
-       $result1=array_intersect($optionsPrim,$testOptions );
+       $result1=array_intersect($optionsPrim,$testOptions);
+
+      echo "<br> <br>";
+      echo "test result1: ";
+      print_r($result1);
+      echo "<br> <br>";
        $countArry1 = count($result1);
        $countOptions1 = count($optionsPrim);
        $total1 = $countOptions1 -  $countArry1;
-
+/*
        echo 'countArry1: ' . $countArry1 .'<br>';
        echo 'countOptions1: ' . $countOptions1 .'<br>';
        echo 'total1: ' . $total1 .'<br>';
@@ -418,7 +475,7 @@ if(isset($_POST['submit'])){
        print_r($optionsPrim);
        echo "<br>";
        print_r($testOptions);
-       /*
+     
        $firstCount = 0;
        foreach ($optionsPrim as $x) {
        echo "$x <br>";
@@ -458,7 +515,7 @@ echo "test Opt = " . $testOpt . "<br>";*/
           echo 'Miles: ' . $miles . ' ### ' . $audio_miles . '<br>';
           echo 'Prefer Colors: ' . $colorP . ' ### ' . $audio_color_liked . '<br>';
           echo 'Avoid Colors: ' . $colorA . ' ### ' . $audio_color_dislike . '<br>';
-          echo 'Equipment: ' . $equip . ' ### ' .  $options . '<br>';
+         // echo 'Equipment: ' . $equip . ' ### ' .  $options . '<br>';
 
           $count = 0;
 
@@ -936,7 +993,7 @@ if($find == "setup"){
   </div>
   <div class="grid-item">
   
-   <input type="checkbox" id="1027" name="1027" value="ALLOY WHEELS">
+  <input type="checkbox" id="1027" name="1027" value="ALLOY WHEELS">
   <label for="1027">ALLOY WHEELS</label><br>
 
   <input type="checkbox" id="1055" name="1055" value="CHROME WHEELS">

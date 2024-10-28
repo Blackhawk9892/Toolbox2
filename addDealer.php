@@ -22,6 +22,7 @@ Add Dealer to stock tag program
             if (isset($_POST['clear'])) {
 
                 $_POST['dGroup'] = '';
+                $_POST['product'] = '';
                 $_POST['dealer'] = '';
                 $_POST['address'] = '';
                 $_POST['city'] = '';
@@ -52,6 +53,12 @@ Add Dealer to stock tag program
                     $dealer = ucwords($_POST['dealer']);
                 } else {
                     $errors[] = "Must select dealer.";
+                }
+
+                if (isset($_POST['dealer'])) {
+                    $product = ucwords($_POST['product']);
+                } else {
+                    $errors[] = "Must select product.";
                 }
 
                 if (isset($_POST['address'])) {
@@ -111,6 +118,7 @@ Add Dealer to stock tag program
                         }
                     } else {
                         $dealer = mysqli_real_escape_string($con, $dealer);
+                        $product = mysqli_real_escape_string($con, $product);
                         $address = mysqli_real_escape_string($con, $address);
                         $city = mysqli_real_escape_string($con, $city);
                         $state = mysqli_real_escape_string($con, $state);
@@ -120,8 +128,8 @@ Add Dealer to stock tag program
                         $billing = mysqli_real_escape_string($con, $billing);
                         $send = mysqli_real_escape_string($con, $send);
 
-                        $sql = "INSERT INTO company(comp_group, comp_name, comp_address, comp_city, comp_state, comp_zip, comp_phone, comp_email, comp_billing_type, comp_send ) 
-                        VALUES('$dealerGroup','$dealer','$address','$city','$state','$zip','$phone','$email','$billing','$send')";
+                        $sql = "INSERT INTO company(comp_group, comp_name, comp_address, comp_city, comp_state, comp_zip, comp_phone, comp_email, comp_billing_type, comp_send, comp_product ) 
+                        VALUES('$dealerGroup','$dealer','$address','$city','$state','$zip','$phone','$email','$billing','$send','$product')";
 
 
                         if (!mysqli_query($con, $sql)) {
@@ -130,6 +138,7 @@ Add Dealer to stock tag program
 
                         $_POST['dGroup'] = '';
                         $_POST['dealer'] = '';
+                        $_POST['product'] = '';
                         $_POST['address'] = '';
                         $_POST['city'] = '';
                         $_POST['state'] = '';
@@ -164,10 +173,14 @@ Add Dealer to stock tag program
                             print( "<tr><td>Dealer Group:</td><td>\n");
                             print( "<select name=\"dGroup\">");
 
-                           // print_r($dealer_group_arr);
+                            print_r($dealer_group_arr);
+                            print( "</select>");
                             ?>
                             <tr><td>Dealer Name:</td><td>
                                     <input type="text" name="dealer" size="50" value="<?php if (isset($_POST['dealer'])) echo $_POST['dealer'] ?>"	/>
+
+                            <tr><td>Product:</td><td>
+                                    <input type="text" name="product" size="50" value="<?php if (isset($_POST['product'])) echo $_POST['product'] ?>"	/>
 
                             <tr><td>Address:</td><td>
                                     <input type="text" name="address" size="75" value="<?php if (isset($_POST['address'])) echo $_POST['address'] ?>"	/>

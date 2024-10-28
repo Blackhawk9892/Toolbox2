@@ -24,54 +24,53 @@ $department_array = array();
     $menu_array = array();
     $mantenance_array = array();
 
-    
 
 
 /////////////////////////////////////////////////////////////////////////////// 
 
-$tb_program = 'addDealerGroup.php';
+$tb_program = '../../addDealerGroup.php';
 $tb_descrip = 'Add A Dealer Group';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
-$tb_program = 'addDealer.php';
+$tb_program = '../../addDealer.php';
 $tb_descrip = 'Add A Dealer';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 
-$tb_program = 'select_employee.php';
+$tb_program = '../../select_employee.php';
 $tb_descrip = 'Employee Maintenance';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
-$tb_program = 'addscrip.php';
+$tb_program = '../../addscrip.php';
 $tb_descrip = 'Add Company Scrips';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 
-$tb_program = 'upload_reply.php';
+$tb_program = '../../upload_reply.php';
 $tb_descrip = 'Upload Reply To Scrip';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
-$tb_program = 'upload_photo.php';
+$tb_program = '../../upload_photo.php';
 $tb_descrip = ' Upload Photo';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
-$tb_program = 'upload_name.php';
+$tb_program = '../../upload_name.php';
 $tb_descrip = ' Upload Names';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
-$tb_program = 'equipment_setup.php';
+$tb_program = '../../equipment_setup.php';
 $tb_descrip = 'Equipment Setup';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
-$tb_program = 'interduction.php';
+$tb_program = '../../interduction.php';
 $tb_descrip = 'Start Memory Program';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
@@ -113,7 +112,7 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
   //  print "</ul>\n";
 
 
-  $dealer_name = "Sales Tool Box ";
+  $dealer_name = "Sales Tool Box";
 
    print "</ul>";
    // print "\n";
@@ -125,8 +124,8 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
     print "<li><a href=\"../video_training.php?video=page\"target=_blank>Help for current page</a></li> 	\n";
    // print "<li><a href=\"../help_page.php?page=sales\">Help Page</a></li>\n";
     print "</ul>\n";
-    print "<li><a style=\"color:yellow;\" href=\"emailform.php\">Feed Back</a></li>\n";
-    print "<li><a style=\"color:yellow;\" href=\"logg_off.php\">Log out</a></li>";
+    print "<li><a style=\"color:yellow;\" href=\"../../emailform.php\">Feed Back</a></li>\n";
+    print "<li><a style=\"color:yellow;\" href=\"../../logg_off.php\">Log out</a></li>";
     print "</ul>\n";
  
     print "</div>\n";
