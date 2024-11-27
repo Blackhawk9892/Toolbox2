@@ -149,7 +149,7 @@ $comp_product = $row['comp_product'];
 
   $cust_points = $row['cust_points'];
   $_SESSION['cust_points'] = $row['cust_points'];
-  echo  'points from Database: ' . $_SESSION['cust_points'] ;
+ 
    $cust_id = $row['cust_id'];
    $_SESSION['cust_id'] = $row['cust_id'];
    $cust_find = $row['cust_find'];
@@ -175,10 +175,12 @@ while($row = mysqli_fetch_array($result_set)){
 
      $count = count($script_arry) - 1;
    
-    $cName = 'products/' . $comp_product;
+    //$cName = 'products/' . $comp_product;
    
-     
-     $testPage =  $cName . '/test' . $dealer_id . '.php';
+     $cName = '/toolbox/toolbox2/'; 
+
+    // $testPage = '/test' . $dealer_id . '.php';
+     $testPage =  $cName . 'test' . $dealer_id . '.php';
 
      if($cust_points  > $count ){
       $find = $_SESSION['find'];

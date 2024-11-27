@@ -36,12 +36,12 @@ session_start();
         
 
     <?php
-    require_once("../../includes/connection.php");
-    require("../../includes/database_rows.php");
-    require("../../includes/pull_downs.php");
-    require_once("../../toolbar_test.php");
-    require("../../includes/security.php");
-    require("../../includes/datafile.php");
+    require_once("includes/connection.php");
+    require("includes/database_rows.php");
+    require("includes/pull_downs.php");
+    require_once("toolbar_sales.php");
+    require("includes/security.php");
+    require("includes/datafile.php");
 
     if(isset($_SESSION['message'])){
         $value = $_SESSION['message'];
@@ -179,7 +179,7 @@ $equip = '';
             $query = "SELECT * ";
             $query .= "FROM customer_data ";
             $query .= "WHERE cust_find  = '{$find}' ";
-      
+  
             $result_set = mysqli_query($con, $query)
                     or die('Query failed emp: ' . mysqli_error($con));
             $row = mysqli_fetch_array($result_set);
@@ -197,9 +197,7 @@ $equip = '';
          $cust_find = $row['cust_find'];
          $cust_primary_user = $row['cust_primary_user'];
          $cust_primary = $row['cust_primary'];
-         $_SESSION[cust_primary] = $cust_primary;
          $cust_secondary = $row['cust_secondary'];
-         $_SESSION[cust_secondary] = $cust_secondary;
 
         $_POST['make'] = 'USED';
         $_POST['model'] = 'USED';
@@ -213,10 +211,6 @@ $equip = '';
 if(isset($_POST['submit'])){
 
   $testOptions = array();
-
-  $cust_primary = $_SESSION[cust_primary];
-        
-  $cust_secondary = $_SESSION[cust_secondary];
  
    if($cust_primary == 0){
       $errors[] = "The primary customer information is incomplete";
@@ -541,11 +535,20 @@ $testOpt = count($result2);
 
                   mysqli_query($con, "UPDATE customer_data SET cust_points = '$total'
                   WHERE cust_id  = '$cust_id' ");
+
+//$testPage = '/name.php';
+$testPage = '/toolbox/toolbox2/name.php';
+
+
+
+  $find = $_SESSION['find'];
+  header("Location: $testPage?find=$find");
+  exit;
         
-    }
+  
 
 }
-
+}
 
   /////////////////////////////////////////////////////////////////////////////////
 
