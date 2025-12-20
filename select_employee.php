@@ -87,7 +87,7 @@ $_SESSION['page'] = 'select_employee.php';
            }
            
             $rows[] = "\n<div id=\"$bid_satus\"><a href=editEmployee.php?employee=$emp_id><table><tr><td width = 300px>$demp_first_name</td> <td>$emp_last_name</td></tr></table></a> </div>";
-        } // end while
+           
     }
        
         ?>	

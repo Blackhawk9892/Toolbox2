@@ -36,6 +36,12 @@ session_start();
 require("includes/database_rows.php");
 require("toolbar_sales.php");
 
+if(isset($_SESSION['message'])){
+  $message = $_SESSION['message'];
+  echo "<h2>$message</h2>";
+  unset($_SESSION['message']);
+}
+
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
  

@@ -148,13 +148,13 @@ if (isset($_POST['submit'])) {
   if(isset($_POST['Male'])){
     $Male = $_POST['Male'];
   }else{
-    $errors[] "A Male name must be selected"
+    $errors[] = "A Male name must be selected";
   }
 
   if(isset($_POST['Female'])){
     $Female = $_POST['Female'];
   }else{
-    $errors[] "A Female name must be selected"
+    $errors[] = "A Female name must be selected";
   }
  
   if (!empty($errors)) {
@@ -182,7 +182,7 @@ if (isset($_POST['submit'])) {
     WHERE cust_id  = '$cust_id' ");
 
 //$testPage = '/name.php';    // This is for Production
-$testPage = '/toolbox/toolbox2/name.php'; // This is for Testing
+$testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
 
 
 

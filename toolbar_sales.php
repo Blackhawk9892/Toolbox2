@@ -23,12 +23,7 @@
 $department_array = array();
     $menu_array = array();
     $mantenance_array = array();
-
-    
-
-
-/////////////////////////////////////////////////////////////////////////////// 
-
+  
 $tb_program = 'addDealerGroup.php';
 $tb_descrip = 'Add A Dealer Group';
 
@@ -69,6 +64,7 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 $tb_program = 'equipment_setup.php';
 $tb_descrip = 'Equipment Setup';
 
+
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 $tb_program = 'interduction.php';
@@ -76,6 +72,11 @@ $tb_descrip = 'Start Memory Program';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
+
+$tb_program = 'select_vehicles.php';
+$tb_descrip = 'For testing sleect vehicles';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 
 
@@ -109,6 +110,8 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
         $count++;
     }
+
+    
    // print "</ul>\n";
   //  print "</ul>\n";
 
