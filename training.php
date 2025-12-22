@@ -179,7 +179,7 @@ while($row = mysqli_fetch_array($result_set)){
    
      $cName = '/toolbox/toolbox2/'; 
 
-    // $testPage = '/test' . $dealer_id . '.php';
+     $testPage = '/test' . $dealer_id . '.php';
      $testPage =  $cName . 'test' . $dealer_id . '.php';
 
      if($cust_points  > $count ){

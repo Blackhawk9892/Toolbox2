@@ -101,9 +101,10 @@ $find = $_SESSION['find'];
       $cust_female_photo = $row['cust_female_photo'];
       $cust_points = $row['cust_points'];
       $_SESSION['cust_points'] = $row['cust_points'];
-      $cust_male_photo = $row['cust_male_name'];
-      $cust_female_photo = $row['cust_female_name'];
+      $cust_male_name = $row['cust_male_name'];
+      $cust_female_name = $row['cust_female_name'];
 
+      
 
 echo " <img src=\"$cust_male_photo\" width=\"300\" height=\"300\">Customer 1\n";
    echo "     \n";
@@ -153,6 +154,7 @@ if (isset($_POST['submit'])) {
 
   if(isset($_POST['Female'])){
     $Female = $_POST['Female'];
+
   }else{
     $errors[] = "A Female name must be selected";
   }
@@ -181,8 +183,8 @@ if (isset($_POST['submit'])) {
     mysqli_query($con, "UPDATE customer_data SET cust_points = '$total'
     WHERE cust_id  = '$cust_id' ");
 
-//$testPage = '/name.php';    // This is for Production
-$testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
+$testPage = '/select_vehicles.php';    // This is for Production
+//$testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
 
 
 

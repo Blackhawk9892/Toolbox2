@@ -35,6 +35,7 @@ Add Dealer to stock tag program
             if (isset($_POST['submit'])) {
 
                 $stock = strtoupper($_POST['stock']);
+                $year = $_POST['year'];
                 $make = ucwords($_POST['make']);
                 $model = ucwords($_POST['model']);
                 $trim = strtoupper($_POST['trim']);
@@ -42,6 +43,7 @@ Add Dealer to stock tag program
                 $miles = $_POST['miles'];
 
                 $stockS = strtoupper($_POST['stockS']);
+                $yearS = $_POST['yearS'];
                 $makeS = ucwords($_POST['makeS']);
                 $modelS = ucwords($_POST['modelS']);
                 $trimS = strtoupper($_POST['trimS']);
@@ -50,12 +52,14 @@ Add Dealer to stock tag program
 
 
                 $_POST['stock'] = $stock;
+                $_POST['year'] = $year;
                 $_POST['make'] = $make ;
                 $_POST['model'] = $model;
                 $_POST['trim'] = $trim;
                 $_POST['reason'] = $reason;
 
                 $_POST['stockS'] = $stockS;
+                $_POST['yearS'] = $yearS;
                 $_POST['makeS'] = $makeS ;
                 $_POST['modelS'] = $modelS;
                 $_POST['trimS'] = $trimS;
@@ -71,7 +75,7 @@ Add Dealer to stock tag program
 
 
 
-
+/*
                 $required_fields = array('stock', 'make', 'model', 'reason', 'miles', 'stockS', 'makeS', 'modelS', 'reasonS', 'milesS');
 
                 foreach ($required_fields as $fieldname) {
@@ -114,7 +118,7 @@ Add Dealer to stock tag program
 
                         $errors[] = $fieldname;
                     }
-                }
+                } */
 
 
                 if (!empty($errors)) {
@@ -123,6 +127,7 @@ Add Dealer to stock tag program
                         echo "<div class=\"errors\">$value</div>";
                     }
                 } else {
+                    $year = mysqli_real_escape_string($con, $year);
                     $stock = mysqli_real_escape_string($con, $stock);
                     $make = mysqli_real_escape_string($con, $make);
                     $model = mysqli_real_escape_string($con, $model);
@@ -130,6 +135,7 @@ Add Dealer to stock tag program
                     $reason = mysqli_real_escape_string($con, $reason);
                     $miles = mysqli_real_escape_string($con, $miles);
 
+                    $yearS = mysqli_real_escape_string($con, $yearS);
                     $stockS = mysqli_real_escape_string($con, $stockS);
                     $makeS = mysqli_real_escape_string($con, $makeS);
                     $modelS = mysqli_real_escape_string($con, $modelS);
@@ -138,8 +144,8 @@ Add Dealer to stock tag program
                     $milesS = mysqli_real_escape_string($con, $milesS);
 
 
-                    $sql = "INSERT INTO selceted_vehicles(sv_find, sv_stock, sv_make, sv_model, sv_trim, sv_reason, sv_miles, sv_stock_sec, sv_make_sec,sv_model_sec, sv_trim_sec, sv_reason_sec, sv_miles_sec) 
-              VALUES('$find','$stock','$make','$model','$trim','$reason','$miles','$stockS','$makeS','$modelS','$trimS','$reasonS','$milesS')";
+                    $sql = "INSERT INTO selceted_vehicles(sv_find, sv_stock, sv_year, sv_make, sv_model, sv_trim, sv_reason, sv_miles, sv_stock_sec, sv_year_sec, sv_make_sec, sv_model_sec, sv_trim_sec, sv_reason_sec, sv_miles_sec) 
+              VALUES('$find','$stock','$year','$make','$model','$trim','$reason','$miles','$stockS','$yearS','$makeS','$modelS','$trimS','$reasonS','$milesS')";
 
 
                     if (!mysqli_query($con, $sql)) {
@@ -147,6 +153,7 @@ Add Dealer to stock tag program
                     }
 
                $_POST['stock'] = '';
+               $_POST['year'] = '';
                $_POST['make'] = '';
                 $_POST['model'] = '';
                 $_POST['trim'] = '';
@@ -154,6 +161,7 @@ Add Dealer to stock tag program
                 $_POST['miles'] = '';
 
                 $_POST['stockS'] = '';
+                $_POST['yearS'] = '';
                 $_POST['makeS'] = '';
                 $_POST['modelS'] = '';
                 $_POST['trimS'] = '';
@@ -162,7 +170,8 @@ Add Dealer to stock tag program
 
 
                     $_SESSION['message'] = "<h1>You have completed your memory test for today</h1>";
-                    $testPage = '/toolbox/toolbox2/home.php';
+                    $testPage = '/toolbox/toolbox2/home.php';   // For Test
+                   // $testPage = '/home.php';  // For production
 
 
 
@@ -189,6 +198,8 @@ Add Dealer to stock tag program
                         
                         <tr><td>Stock Number:</td><td>
                                 <input type="text" name="stock" size="20" value="<?php if (isset($_POST['stock'])) echo $_POST['stock'] ?>"	/>
+                        <tr><td>Year:</td><td>
+                                <input type="number" name="year" size="4" value="<?php if (isset($_POST['year'])) echo $_POST['year'] ?>"	/>
 
                         <tr><td>Make:</td><td>
                                 <input type="text" name="make" size="50" value="<?php if (isset($_POST['make'])) echo $_POST['make'] ?>"	/>
@@ -212,7 +223,9 @@ Add Dealer to stock tag program
                         
                         <tr><td>Stock Number:</td><td>
                                 <input type="text" name="stockS" size="20" value="<?php if (isset($_POST['stockS'])) echo $_POST['stockS'] ?>"	/>
-
+                        
+                        <tr><td>Year:</td><td>
+                                <input type="number" name="yearS" size="4" value="<?php if (isset($_POST['yearS'])) echo $_POST['yearS'] ?>"	/>
                         <tr><td>Make:</td><td>
                                 <input type="text" name="makeS" size="50" value="<?php if (isset($_POST['makeS'])) echo $_POST['makeS'] ?>"	/>
 
