@@ -67,23 +67,24 @@ $tb_descrip = 'Equipment Setup';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
+
+//###################################Sales Menu ########################################################################
 //$tb_program = 'interduction.php';
+$tb_program = 'interduction.php';
+$tb_descrip = 'Floor UP';
+
+
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+
 $tb_program = 'load_test.php';
-$tb_descrip = 'Start Memory Program';
+$tb_descrip = 'Phone Call';
+
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
-
-
-$tb_program = 'select_vehicles.php';
-$tb_descrip = 'For testing sleect vehicles';
-
-$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
-
-
-
-
-      
 
     print "\n";
     print "<nav class=\"navbar navbar-inverse\">\n";
@@ -97,10 +98,27 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 
 
+    print_r($department_array);
+
+
+    print "<li class=\"dropdown\"><a style=\"color:yellow;\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Sales Menu<span class=\"caret\"></span></a>\n";
+    print "<ul class=\"dropdown-menu\">\n";
+    //print_r($menu_array);
+    $result = count($sales_array);
+    $count = 0;
+
+    while ($count <= $result) {
+
+        $load = @$sales_array[$count];
+        echo $load;
+
+        $count++;
+    }
+
     print "        </ul>\n";
 
-    print "<li class=\"dropdown\"><a style=\"color:yellow;\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Menu Maintenance <span class=\"caret\"></span></a>";
-    print "<ul class=\"dropdown-menu\">";
+    print "<li class=\"dropdown\"><a style=\"color:yellow;\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Menu Maintenance <span class=\"caret\"></span></a>\n";
+    print "<ul class=\"dropdown-menu\">\n";
     // print_r($mantenance_array);
     $result = count($mantenance_array);
     $count = 0;
@@ -112,18 +130,15 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
         $count++;
     }
-
-    
-   // print "</ul>\n";
-  //  print "</ul>\n";
+    print "</ul>\n";
+    print "</ul>\n";
 
 
-  $dealer_name = "Sales Tool Box ";
-
-   print "</ul>";
-   // print "\n";
-   // print "\n";
-    print "<ul class=\"nav navbar-nav navbar-right\">";
+$dealer_name = "Sales Tool Box ";
+    print "</ul>\n";
+    print "\n";
+    print "\n";
+    print "<ul class=\"nav navbar-nav navbar-right\">\n";
     print "<li class=\"active\"><a style=\"color:yellow; font-size: 30px;\" href=\"#\"> $dealer_name </a></li>\n";
     print "<li class=\"dropdown\"><a style=\"color:yellow;\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Help<span class=\"caret\"></span></a>\n";
     print "<ul class=\"dropdown-menu\">\n";
@@ -131,7 +146,7 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
    // print "<li><a href=\"../help_page.php?page=sales\">Help Page</a></li>\n";
     print "</ul>\n";
     print "<li><a style=\"color:yellow;\" href=\"emailform.php\">Feed Back</a></li>\n";
-    print "<li><a style=\"color:yellow;\" href=\"logg_off.php\">Log out</a></li>";
+    print "<li><a style=\"color:yellow;\" href=\"../public/logg_off.php\">Log out</a></li>					               \n";
     print "</ul>\n";
  
     print "</div>\n";
@@ -139,6 +154,8 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
     print "</div>\n";
     print "		</div>\n";
     print "</nav>";
+//#######################################################################################################################################
+
     ?>
 					
 

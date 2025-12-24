@@ -16,71 +16,33 @@ session_start();
         
         
           require("toolbar_sales.php");
-
-        
-if(isset($_POST['setType'])){
-  $_SESSION['setType'] = $_POST['setType'];
-   header("Location: interduction.php");
-          exit;
-}
-                /////////////////////////////////////////////////////////////////////////////////
-
-                $blank = '';
-                if (isset($_POST['setType'])) {
-                    $setType = $_POST['typeScrip'];
-                    $setType_arr[] = "\n<option value=\"$typeScrip\">$typeScrip</option>\n";
-                    $setType_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
-                } else {
-                    $setType_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
-                }
                
             
-                $place = 'sales';
-                $setType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-                
-                $place = 'phone';
-                $setType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-            
-                $place = 'callback';
-                $setType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-                
-                ####################################################################################################
 
+/*
+print "         <h2><a href=\"https://salesmemory.com/phoneintro.php?type=first\">Phone Up</a></h2>\n";
+print "         <h2><a href=\"https://salesmemory.com/phoneintro.php?type=price\">Callback Price</a></h2>\n";
+print "         <h2><a href=\"https://salesmemory.com/phoneintro.php?type=payment\">Callback Payments</a></h2>\n";
+print "         <h2><a href=\"https://salesmemory.com/phoneintro.php?type=vehicle\">Callback Vehicle</a></h2>\n";
+print "         <h2><a href=\"https://salesmemory.com/phoneintro.php?type=know\">Callback Don't know</a></h2>\n";
+print "\n";
+*/
 
-
+print "         \n";
+print "         <h2><a href=\"http://localhost/toolbox/toolbox2/phoneintro.php?type=first\">Phone Up</a></h2>\n";
+print "         <h2><a href=\"http://localhost/toolbox/toolbox2/phoneintro.php?type=price\">Callback Price</a></h2>\n";
+print "         <h2><a href=\"http://localhost/toolbox/toolbox2/phoneintro.php?type=payment\">Callback Payments</a></h2>\n";
+print "         <h2><a href=\"http://localhost/toolbox/toolbox2/phoneintro.php?type=vehicle\">Callback Vehicle</a></h2>\n";
+print "         <h2><a href=\"http://localhost/toolbox/toolbox2/phoneintro.php?type=know\">Callback Don't know</a></h2>\n";
+print "           ";
 
 
 
                
             
             ?>
+      
 
-            
-            <form action="load_test.php" method="post">
-
-                
-                    <table>
-                      <select>
-     <br>
-                              <tr><td>Type of Scrip:</td><td>  
-                                <select name="setType">
-                                <?php
-                                print_r($setType_arr);
-                                ?> 
-
-                               <br> </select>
-                                <br>
-                                <br>
-
-                    </table>    
-           
-
-                <br />
-                <br />			
-
-               
-                    <input type="submit" name="submit" value="Submit"/>
-                    
                     
                 
 

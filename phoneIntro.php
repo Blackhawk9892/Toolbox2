@@ -2,6 +2,7 @@
 session_start();
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +24,14 @@ require("includes/database_rows.php");
 
 require("toolbar_sales.php");
 $type = 'sales';
+
+if(isset($_GET["type"])){
+  $_SESSION["type"] = $_GET["type"];
+}
+
+if(isset($_SESSION["type"])){
+  $type = $_SESSION["type"];
+}
 
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
