@@ -280,7 +280,7 @@ if(isset($_COOKIE["userId"])){
             }
  
 
-            echo $dealer_group;
+          
 
             if (isset($_POST['submit'])) {
 
@@ -491,13 +491,31 @@ $Temp = "<td width = 6%>$script_template </td>";
                
             
                 $place = 'sales';
-                $typeScrip_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                $description = "New customer at dealership";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
                 
-                $place = 'phone';
-                $typeScrip_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                $place = 'first';
+                $description = "Incoming call";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
             
-                $place = 'callback';
-                $typeScrip_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                $place = 'price';
+                $description = "Callback left dealership because of price";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+
+                $place = 'payment';
+                $description = "Callback left dealership because of payments";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+
+                $place = 'vehicle';
+                $description = "Callback left dealership because of vehicle";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+
+                $place = 'know';
+                $description = "Callback don't know why they left the dealership";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+                
+                
+                
                 
                
             

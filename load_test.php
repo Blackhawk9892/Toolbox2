@@ -18,8 +18,10 @@ session_start();
           require("toolbar_sales.php");
                
             
-
 /*
+
+//################################    Production   ##########################################################
+
 print "         <h2><a href=\"https://salesmemory.com/phoneintro.php?type=first\">Phone Up</a></h2>\n";
 print "         <h2><a href=\"https://salesmemory.com/phoneintro.php?type=price\">Callback Price</a></h2>\n";
 print "         <h2><a href=\"https://salesmemory.com/phoneintro.php?type=payment\">Callback Payments</a></h2>\n";
@@ -27,6 +29,9 @@ print "         <h2><a href=\"https://salesmemory.com/phoneintro.php?type=vehicl
 print "         <h2><a href=\"https://salesmemory.com/phoneintro.php?type=know\">Callback Don't know</a></h2>\n";
 print "\n";
 */
+
+
+//##################################    Test   ##########################################################
 
 print "         \n";
 print "         <h2><a href=\"http://localhost/toolbox/toolbox2/phoneintro.php?type=first\">Phone Up</a></h2>\n";
