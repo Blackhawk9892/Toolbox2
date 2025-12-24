@@ -27,6 +27,10 @@ require("includes/database_rows.php");
 
 require("toolbar_sales.php");
 
+if(isset($_SESSION['setType'] )){
+ $setType = $_SESSION['setType'];
+}
+
 if($_GET['find']){
   $_SESSION['find'] = $_GET['find'];
 
@@ -162,6 +166,7 @@ $comp_product = $row['comp_product'];
 $query = "SELECT * ";
 $query .= "FROM script ";
 $query .= "WHERE script_group   = '{$comp_group}' ";
+$query .= "AND script_type   = '{$setType}' ";
 $query .= "ORDER BY script_order ";
 
 

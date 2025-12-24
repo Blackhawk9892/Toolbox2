@@ -23,6 +23,9 @@ require("includes/database_rows.php");
 
 require("toolbar_sales.php");
 
+if(isset($_SESSION['setType'] )){
+ $setType = $_SESSION['setType'];
+}
  
 
 if(isset($_COOKIE["userId"])){
@@ -41,6 +44,7 @@ $name = $first . ' ' . $last;
 $query = "SELECT * ";
 $query .= "FROM script ";
 $query .= "WHERE script_comp_num   = '{$dealer_id}' ";
+$query .= "AND script_type   = '{$setType}' ";
 $query .= "ORDER BY script_order ";
 
 
@@ -190,8 +194,10 @@ if($n < 0){
 $malePhoto = $photoMale[$n];
 $_SESSION['photoMale'] = $malePhoto;
 
+if( $setType == 'sales'){
+  echo " <img src=\"$malePhoto\" width=\"300\" height=\"300\">\n";
+}
 
-echo " <img src=\"$malePhoto\" width=\"300\" height=\"300\">\n";
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -222,7 +228,10 @@ if($n < 0){
 $femalePhoto = $photoFemale[$n];
 $_SESSION['photoFemale'] = $femalePhoto;
 
-echo "    <img src=\"$femalePhoto\" width=\"300\" height=\"300\">";
+if( $setType == 'sales'){
+  echo "    <img src=\"$femalePhoto\" width=\"300\" height=\"300\">";
+}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////
 

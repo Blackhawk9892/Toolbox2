@@ -114,6 +114,7 @@ if(isset($_COOKIE["userId"])){
 
                 $query = "SELECT * ";
                 $query .= "FROM script ";
+
                 $query .= "WHERE script_index  = '{$index}' ";
                 $query .= "ORDER BY script_order";
         
@@ -126,6 +127,7 @@ if(isset($_COOKIE["userId"])){
                 $script_comp_name = $row['script_comp_name'];
                 $_POST['dealer'] = $script_comp_num . '-' .  $script_comp_name;
                 $_POST['scrip'] = $row['script_template'];
+                $_POST['typeScrip'] = $row['script_type'];
                 $_POST['order']= $row['script_order'];
                 $_POST['tone']= $row['script_tone'];
                 $_POST['recording']= $row['script_audio'];
@@ -148,11 +150,18 @@ if(isset($_COOKIE["userId"])){
        
             if (isset($_POST['clear'])) {
 
-              
+                $_POST['type'] = '';
                 $_POST['scrip'] = '';
                 $_POST['order'] = '';
+                $_POST['tone'] = '';
                 unset($_SESSION['index']);
             }
+
+              if(isset($_POST['typeScrip'])){
+                    $typeScrip = $_POST['typeScrip'];
+                }else{
+                    $errors[] = 'Scrip Type was not selected';
+                }
 
             if (isset($_POST['update'])) {
 
@@ -189,7 +198,7 @@ if(isset($_COOKIE["userId"])){
                 } else {
 
                 $index = $_SESSION['index'];
-
+             $typeScrip = $_POST['typeScrip'];
                 $scrip = $_POST['scrip'];
                 $order = $_POST['order'];
                 $tone = $_POST['tone'];
@@ -238,6 +247,7 @@ if(isset($_COOKIE["userId"])){
                 $_POST['recording'] = '';
                 $_POST['scrip'] = '';
                 $_POST['order'] = '';
+                $_POST['tone'] = '';
                 unset($_SESSION['index']);
             }
 
@@ -289,6 +299,12 @@ if(isset($_COOKIE["userId"])){
                     $errors[] = 'A Company was not selected';
                 }
 
+                if(isset($_POST['typeScrip'])){
+                    $typeScrip = $_POST['typeScrip'];
+                }else{
+                    $errors[] = 'Scrip Type was not selected';
+                }
+
                 
                 if(isset($_POST['scrip'])){
                     $scrip = $_POST['scrip'];
@@ -334,8 +350,8 @@ if(isset($_COOKIE["userId"])){
                    
                   
 
-                    $sql = "INSERT INTO script(script_group, script_comp_num, script_comp_name, script_template, script_order, script_changed, script_audio, script_tone ) 
-              VALUES('$dealer_group','$compNum','$company','$scrip','$order','$name','$recording','$tone')";
+                    $sql = "INSERT INTO script(script_group, script_comp_num, script_comp_name, script_type, script_template, script_order, script_changed, script_audio, script_tone ) 
+              VALUES('$dealer_group','$compNum','$company','$typeScrip','$scrip','$order','$name','$recording','$tone')";
 
 
                     if (!mysqli_query($con, $sql)) {
@@ -349,9 +365,9 @@ if(isset($_COOKIE["userId"])){
                     $_POST['scrip'] = '';
                     $_POST['order'] = '';
                   
+                    $_POST['tone'] = '';
+                    $_POST['recording'] = '';
                  
-
-                   
 
                    
                    
@@ -385,23 +401,25 @@ if(isset($_COOKIE["userId"])){
                 $id = explode("-",$dealer);
                
                 $compNum = $id[0];
-                //$company = $id[1];
+                $typeScrip = $_POST['typeScrip'];
+         
                 $bid_satus = 'photos';
 
                 $query = "SELECT * ";
             $query .= "FROM script ";
-            $query .= "WHERE script_comp_num = '{$compNum}' ";
-            $query .= "ORDER BY script_order";
-    
+            $query .= "WHERE script_comp_num = '{$compNum}' ";    
+            $query .= "AND script_type = '{$typeScrip}' ";
+            $query .= "ORDER BY  script_order";
   
             $result_set = mysqli_query($con, $query)
                     or die('Query failed: ' . mysql_error());
-    
+  
             while ($row = mysqli_fetch_array($result_set)) { // start while
-    
+           
                 $script_index = $row['script_index'];      
                 $script_comp_num = $row['script_comp_num'];
                 $script_comp_name = $row['script_comp_name'];
+                $script_type = $row['script_type'];
                 $script_template = $row['script_template'];
                 $script_tone = $row['script_tone'];
                 $script_order = $row['script_order'];
@@ -414,6 +432,7 @@ if(isset($_COOKIE["userId"])){
                }
                
 $File = "<td width = 1%><a  href=addscrip.php?index=$script_index>Edit</td>";
+$Type = "<td width = 1%>$script_type</td>";
 $Order = "<td width = 1%>$script_order</td>";
 $Tone = "<td width = 1%>$script_tone</td>";
 $Temp = "<td width = 6%>$script_template </td>";
@@ -422,11 +441,12 @@ $Temp = "<td width = 6%>$script_template </td>";
 
 
        
-      //  $bid_satus = 'green';
-        $rows[] = "\n<div id=\"$bid_satus\"><table width='100%'><tr>$File $Order $Tone $Temp </tr></table></div>\n";
+        $bid_satus = 'green';
+        $rows[] = "\n<div id=\"$bid_satus\"><table width='100%'><tr>$File $Type $Order $Tone $Temp </tr></table></div>\n";
                
             } // end while
 
+           
             }
              /////////////////////////////////////////////////////////////////////////////////
 
@@ -456,6 +476,31 @@ $Temp = "<td width = 6%>$script_template </td>";
 
     $place = 'Surprise';
     $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
+     /////////////////////////////////////////////////////////////////////////////////
+
+                $blank = '';
+                if (isset($_POST['typeScrip'])) {
+                    $typeScrip = $_POST['typeScrip'];
+                    $typeScrip_arr[] = "\n<option value=\"$typeScrip\">$typeScrip</option>\n";
+                    $typeScrip_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+                } else {
+                    $typeScrip_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+                }
+               
+            
+                $place = 'sales';
+                $typeScrip_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                
+                $place = 'phone';
+                $typeScrip_arr[] = "\n<option value=\"$place\">$place</option>\n";
+            
+                $place = 'callback';
+                $typeScrip_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                
+               
+            
     
                
     
@@ -467,7 +512,7 @@ $Temp = "<td width = 6%>$script_template </td>";
                     $recordType_arr[] = "\n<option value=\"$recordType\">$recordType</option>\n";
                     $recordType_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
                 } else {
-                    $tone_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+                    $recordType_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
                 }
                 $place = 'None';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
@@ -506,6 +551,20 @@ print( "<select name=\"dealer\">");
 print_r($dealer_arr);
 
 ?>
+
+<select>
+     <br>
+                              <tr><td>Type of Scrip:</td><td>  
+                                <select name="typeScrip">
+                                <?php
+                                print_r($typeScrip_arr);
+                                ?> 
+
+                               <br> </select>
+                                <br>
+                                <br>
+                 
+
                         <tr><td>Scrip:</td><td>
                         <textarea rows="6" cols="150" name="scrip" wrap="wrap " >
                           <?php if (isset($_POST['scrip'])) echo $_POST['scrip'] ?>
@@ -520,9 +579,8 @@ print_r($dealer_arr);
                       
                                 </table>
                        
-                   
-                 
-<br>
+     <br>
+   
                                 <label for="tone">Tone Of Voice:</label>   
         <select name="tone">
                                 <?php
