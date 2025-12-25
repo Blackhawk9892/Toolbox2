@@ -70,15 +70,34 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 //###################################Sales Menu ########################################################################
 //$tb_program = 'interduction.php';
-$tb_program = 'interduction.php';
-$tb_descrip = 'Floor UP';
-
+$tb_program = 'interduction.php?type=sales';
+$tb_descrip = "New customer at dealership";
 
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 
-$tb_program = 'load_test.php';
-$tb_descrip = 'Phone Call';
+$tb_program = 'phoneintro.php?type=first';
+$tb_descrip = "Incoming call";
+
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'phoneintro.php?type=price';
+$tb_descrip = "Callback left dealership because of price";
+
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'phoneintro.php?type=payment';
+$tb_descrip = "Callback left dealership because of payment";
+
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'phoneintro.php?type=vehicle';
+$tb_descrip = "Callback left dealership because of vehicle";
+
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'phoneintro.php?type=know';
+$tb_descrip = "Callback don't know why they left the dealership";
 
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 

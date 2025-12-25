@@ -326,7 +326,7 @@ if(isset($_COOKIE["userId"])){
                 }
 
                 if(isset($_POST['tone'])){
-                    $toen = $_POST['tone'];
+                    $tone = $_POST['tone'];
                 }else{
                     $errors[] = 'Tone Of Voice is empty';
                 }
@@ -494,7 +494,7 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $description = "New customer at dealership";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
                 
-                $place = 'first';
+                $place = 'incoming';
                 $description = "Incoming call";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
             
@@ -545,6 +545,18 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
                 
                 $place = 'Vehicle Driven';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'Phone Price';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                
+                $place = 'Phone Payment';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+            
+                $place = 'Phone Vehicle';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                
+                $place = 'Phone Know';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
             
             
