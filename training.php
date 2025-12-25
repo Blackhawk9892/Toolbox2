@@ -56,7 +56,7 @@ if(isset($_POST['submit'])){
 
    $cust_id = $_SESSION['cust_id'];
     $cust_points = $_SESSION['cust_points'];
-  echo 'this is points: ' .  $cust_points . '<br>';
+  
     mysqli_query($con, "UPDATE customer_data SET cust_points = '$cust_points'
      WHERE cust_id = '$cust_id' ");
   
@@ -205,7 +205,7 @@ $useTone = 'Record using a voice tone of: ' . $tone;
     echo $errorMassage;
   }
      
-
+echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
   ?>
  <button id="start-record-btn">Start Recording</button>
   <button id="stop-record-btn" disabled>Stop Recording</button>
@@ -354,7 +354,7 @@ mysqli_query($con, "UPDATE customer_data SET cust_secondary = '$idSecondary'
 
 if($cust_primary_user == 1){
 
-  echo "<br>";
+ echo "<h1 style='background-color:DodgerBlue;'>Primary driver</h1>";
   echo " <audio controls>\n";
   echo "  <source src=\" $cust_male_voice \" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -362,7 +362,7 @@ if($cust_primary_user == 1){
   echo "      </audio>\n";
 
   }else{
- 
+ echo "<h1 style='background-color:DodgerBlue;'>Primary driver</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$cust_female_voice\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -390,7 +390,7 @@ $row = mysqli_fetch_array($result_set);
   $_SESSION['options'] = $row['audio_options'];
 
   
-  
+  echo "<h1 style='background-color:DodgerBlue;'>What the primary driver would like</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -414,7 +414,7 @@ $row = mysqli_fetch_array($result_set);
   $_SESSION['options'] = $row['audio_options'];
 
   
-  
+  echo "<h1 style='background-color:DodgerBlue;'>Anything the secondary drive would like</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -436,7 +436,8 @@ $row = mysqli_fetch_array($result_set);
             or die('Query failed scrip: ' . mysqli_error($con));
     $row = mysqli_fetch_array($result_set);
       $audio_location = $row['audio_location'];
-      
+
+      echo "<h1 style='background-color:DodgerBlue;'>How the customers are going to the vehicle</h1>";
       echo "    <audio controls>\n";
       echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
       echo "      Your browser does not support the audio element.\n";

@@ -51,12 +51,12 @@ while($row = mysqli_fetch_array($result_set)){
   $tone_arry[] = $row['script_tone'];
 }  
 $tone = $tone_arry[0];
-$useTone = 'Record using a voice tone of: ' . $tone;
-  echo "<h2 style='background-color:Orange;'>$useTone</h2>";
+$useTone = 'Record this script using a voice tone of: ' . $tone;
+  echo "<h1 style='background-color:Orange;'>$useTone</h1>";
 
   $script = $script_arry[0];
   echo "<h3>$script</h3>";
-
+echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
   ?>
 
 <button id="start-record-btn">Start Recording</button>
@@ -256,7 +256,7 @@ $maleVoiceName = $maleVoiceName[$n];
 $_SESSION['voiceMale'] = $maleVoice;
 $_SESSION['voiceMaleName'] = $maleVoiceName;
 
-echo "<br>";
+echo "<h1 style='background-color:DodgerBlue;'>Names of customers</h1>";
 echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";

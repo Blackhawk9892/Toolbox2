@@ -76,7 +76,7 @@ $tb_descrip = "New customer at dealership";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 
-$tb_program = 'phoneintro.php?type=first';
+$tb_program = 'phoneintro.php?type=incoming';
 $tb_descrip = "Incoming call";
 
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";

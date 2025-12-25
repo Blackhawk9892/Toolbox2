@@ -60,12 +60,12 @@ while($row = mysqli_fetch_array($result_set)){
   $tone_arry[] = $row['script_tone'];
 }  
 $tone = $tone_arry[0];
-$useTone = 'Record using a voice tone of: ' . $tone;
-  echo "<h2 style='background-color:Orange;'>$useTone</h2>";
+$useTone = 'Record this script using a voice tone of: ' . $tone;
+  echo "<h1 style='background-color:Orange;'>$useTone</h1>";
 
   $script = $script_arry[0];
   echo "<h3>$script</h3>";
-
+echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
   ?>
 
 <button id="start-record-btn">Start Recording</button>
@@ -166,78 +166,18 @@ if(isset($_POST['submit'])){
   
           
   
-          header("Location: training.php?find=$custStamp");
+          header("Location: phone_training.php?find=$custStamp");
           exit;
   
           unset($_SESSION['audioName']);
       }
     }
 
-/////////////////////////////////////////////////////////////////////////////////////
-
-
-$photoMale = array();
-
-$type = 'Male';
-
-$query = "SELECT * ";
-$query .= "FROM photos ";
-$query .= "WHERE photo_gender   = '{$type}' ";
-
-$result_set = mysqli_query($con, $query)
-        or die('Query failed scrip: ' . mysqli_error($con));
-while($row = mysqli_fetch_array($result_set)){
-  $photoMale[] = $row['photo_location'];
-  
-}  
-$count = count($photoMale);
-$n = rand(0, $count) - 1;
-if($n < 0){
-  $n = 0;
-}
-
-$malePhoto = $photoMale[$n];
-$_SESSION['photoMale'] = $malePhoto;
-
-  echo " <img src=\"$malePhoto\" width=\"300\" height=\"300\">\n";
-
-
-
-////////////////////////////////////////////////////////////////////////////////////////////
-
-echo "\n";
-echo "\n";
-echo "\n";
-
-$photoFemale = array();
-$type = 'Female';
-
-$query = "SELECT * ";
-$query .= "FROM photos ";
-$query .= "WHERE photo_gender   = '{$type}' ";
-
-$result_set = mysqli_query($con, $query)
-        or die('Query failed scrip: ' . mysqli_error($con));
-while($row = mysqli_fetch_array($result_set)){
-  $photoFemale[] = $row['photo_location'];
-  
-}  
-
-$count = count($photoFemale);
-$n = rand(0, $count) - 1 ;
-if($n < 0){
-  $n = 0;
-}
-
-$femalePhoto = $photoFemale[$n];
-$_SESSION['photoFemale'] = $femalePhoto;
-
-  echo "    <img src=\"$femalePhoto\" width=\"300\" height=\"300\">";
-
-
 
 //////////////////////////////////////////////////////////////////////////////////////////
+$voiceUsed = rand(1,2);
 
+if($voiceUsed == 1){
 $voiceMale = array();
 
 $type = 'Male';
@@ -264,8 +204,8 @@ $maleVoice = $voiceMale[$n];
 $maleVoiceName = $maleVoiceName[$n];
 $_SESSION['voiceMale'] = $maleVoice;
 $_SESSION['voiceMaleName'] = $maleVoiceName;
+echo "<h1 style='background-color:DodgerBlue;'>Name of person that aswered the phone</h1>";
 
-echo "<br>";
 echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
@@ -273,7 +213,7 @@ echo "      Your browser does not support the audio element.\n";
 echo "      </audio>\n";
 
 /////////////////////////////////////////////////////////////////////////////////////////
-
+}else{
 
 
 $voiceFemale = array();
@@ -301,11 +241,12 @@ $femaleVoiceName = $femaleVoiceName[$n];
 $_SESSION['voiceFemale'] = $femaleVoice;
 $_SESSION['voiceFemaleName'] = $femaleVoiceName;
 
-
+echo "<h1 style='background-color:DodgerBlue;'>Name of person that aswered the phone</h1>";
 echo "    <audio controls>\n";
 echo "        <source src=\"$femaleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
 echo "      </audio>";
+}
 //////////////////////////////////////////////////////////////////////////////////
 
 /*
@@ -395,7 +336,7 @@ echo "      </audio>";
 
 <?php
 
-echo "<form action=\"interduction.php\" method=\"post\">";
+echo "<form action=\"phoneintro.php\" method=\"post\">";
 
 ?>
 <br />
