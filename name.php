@@ -183,8 +183,8 @@ if (isset($_POST['submit'])) {
     mysqli_query($con, "UPDATE customer_data SET cust_points = '$total'
     WHERE cust_id  = '$cust_id' ");
 
-$testPage = '/select_vehicles.php';    // This is for Production
-//$testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
+//$testPage = '/select_vehicles.php';    // This is for Production
+$testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
 
 
 

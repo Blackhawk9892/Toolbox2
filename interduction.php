@@ -22,7 +22,14 @@ require("includes/connection.php");
 require("includes/database_rows.php");
 
 require("toolbar_sales.php");
-$type = 'sales';
+
+if(isset($_GET["type"])){
+  $_SESSION["type"] = $_GET["type"];
+}
+
+if(isset($_SESSION["type"])){
+  $type = $_SESSION["type"];
+}
 
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
@@ -139,8 +146,8 @@ if(isset($_POST['submit'])){
  $femaleVoice = $_SESSION['voiceFemale'];
  $femaleVoiceName =$_SESSION['voiceFemaleName'];
  
- $sql = "INSERT INTO customer_data(cust_group,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
- VALUES('$comp_group','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
+ $sql = "INSERT INTO customer_data(cust_group,cust_type,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
+ VALUES('$comp_group','$type','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
  
  
        if (!mysqli_query($con, $sql)) {

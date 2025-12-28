@@ -116,9 +116,9 @@ Add Dealer to stock tag program
                            
                           }
 
-                        $errors[] = $fieldname;
-                    }
-                } */
+                        
+                    }*/
+                } 
 
 
                 if (!empty($errors)) {
@@ -142,7 +142,7 @@ Add Dealer to stock tag program
                     $trimS = mysqli_real_escape_string($con, $trimS);
                     $reasonS = mysqli_real_escape_string($con, $reasonS);
                     $milesS = mysqli_real_escape_string($con, $milesS);
-
+                    $find = mysqli_real_escape_string($con, $find);
 
                     $sql = "INSERT INTO selceted_vehicles(sv_find, sv_stock, sv_year, sv_make, sv_model, sv_trim, sv_reason, sv_miles, sv_stock_sec, sv_year_sec, sv_make_sec, sv_model_sec, sv_trim_sec, sv_reason_sec, sv_miles_sec) 
               VALUES('$find','$stock','$year','$make','$model','$trim','$reason','$miles','$stockS','$yearS','$makeS','$modelS','$trimS','$reasonS','$milesS')";
@@ -179,7 +179,7 @@ Add Dealer to stock tag program
   header("Location: $testPage?find=$find");
   exit;
                 }
-            }
+           // }
             
             ?>
 

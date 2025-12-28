@@ -543,6 +543,15 @@ $Temp = "<td width = 6%>$script_template </td>";
             
                 $place = 'SecondaryReques';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'PhoneName';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'PhoneNumber';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'PhoneRequest';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
                 
                 $place = 'Vehicle Driven';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";

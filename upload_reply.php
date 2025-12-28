@@ -252,6 +252,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $place = 'Vehicle Driven';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+    $place = 'Phone Number';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'Phone Vehicle';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
     /////////////////////////////////////////////////////////////////////////////////
     $blank = '';
     if (isset($_POST['gender'])) {

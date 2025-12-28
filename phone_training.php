@@ -27,7 +27,14 @@ require("includes/database_rows.php");
 
 require("toolbar_sales.php");
 
-$type = 'sales';
+if(isset($_GET["type"])){
+  $_SESSION["type"] = $_GET["type"];
+}
+
+if(isset($_SESSION["type"])){
+  $type = $_SESSION["type"];
+}
+
 
 if($_GET['find']){
   $_SESSION['find'] = $_GET['find'];
@@ -214,13 +221,6 @@ $useTone = 'Record using a voice tone of: ' . $tone;
 <br>
 <?php
 
-
-  echo " <img src=\"$cust_male_photo\" width=\"300\" height=\"300\">Customer 1\n";
-   echo "     \n";
-   echo "\n";
-   echo "\n";
-   echo "    <img src=\"$cust_female_photo\" width=\"300\" height=\"300\">Customer 2";
-
    //////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -232,16 +232,17 @@ $useTone = 'Record using a voice tone of: ' . $tone;
    WHERE cust_find = '$cust_find' ");
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-   
-  if($script_audio == 'Vehicle Driven'){
-    $drive = 'Vehicle Driven';
+ 
+  if($script_audio == 'PhoneNumber'){
+    echo "entered in to PhoneNumber: ";
+    $drive = 'PhoneNumber';
 
     $query = "SELECT * ";
     $query .= "FROM audio ";
     $query .= "WHERE audio_group   = '{$comp_group}' ";
     $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
     $query .= "AND audio_drive_type   = '{$drive}' ";
-  
+  echo $query;
     $result_set = mysqli_query($con, $query)
     or die('Query failed scrip: ' . mysqli_error($con));
 

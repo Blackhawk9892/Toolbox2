@@ -148,9 +148,11 @@ if(isset($_POST['submit'])){
  $femaleVoice = $_SESSION['voiceFemale'];
  $femaleVoiceName =$_SESSION['voiceFemaleName'];
  
- $sql = "INSERT INTO customer_data(cust_group,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
- VALUES('$comp_group','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
+ $sql = "INSERT INTO customer_data(cust_group,cust_type,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
+ VALUES('$comp_group','$type','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
  
+ 
+
  
        if (!mysqli_query($con, $sql)) {
            die('Error customer _data 206: ' . mysqli_error($con));
@@ -164,7 +166,7 @@ if(isset($_POST['submit'])){
               die('Error recording 216: ' . mysqli_error($con));
           }
   
-          
+          echo "<h1> test </h1>";
   
           header("Location: phone_training.php?find=$custStamp");
           exit;
@@ -204,7 +206,7 @@ $maleVoice = $voiceMale[$n];
 $maleVoiceName = $maleVoiceName[$n];
 $_SESSION['voiceMale'] = $maleVoice;
 $_SESSION['voiceMaleName'] = $maleVoiceName;
-echo "<h1 style='background-color:DodgerBlue;'>Name of person that aswered the phone</h1>";
+echo "<h1 style='background-color:DodgerBlue;'>Name of person that answered the phone</h1>";
 
 echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
