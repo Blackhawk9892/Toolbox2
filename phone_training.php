@@ -192,9 +192,11 @@ while($row = mysqli_fetch_array($result_set)){
    
      $cName = '/toolbox/toolbox2/'; 
 
-     $testPage = '/test' . $dealer_id . '.php';
-     $testPage =  $cName . 'test' . $dealer_id . '.php';
+    // $testPage = '/test' . $dealer_id . '.php';
+    // $testPage =  $cName . 'test' . $dealer_id . '.php';
 
+    $_SESSION['message'] = "<h1>You have completed incomming call script</h1>";
+    $testPage = "home.php";
      if($cust_points  > $count ){
       $find = $_SESSION['find'];
       header("Location: $testPage?find=$find");
