@@ -155,7 +155,7 @@ if(isset($_POST['submit'])){
 
  
        if (!mysqli_query($con, $sql)) {
-           die('Error customer _data 206: ' . mysqli_error($con));
+           die('Error customer _data 158: ' . mysqli_error($con));
        }
   
     $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data) 
