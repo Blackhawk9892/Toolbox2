@@ -184,6 +184,7 @@ $voiceMale = array();
 
 $type = 'Male';
 
+
 $query = "SELECT * ";
 $query .= "FROM voice ";
 $query .= "WHERE voice_gender   = '{$type}' ";
@@ -249,30 +250,8 @@ echo "        <source src=\"$femaleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
 echo "      </audio>";
 }
-//////////////////////////////////////////////////////////////////////////////////
 
-/*
- $dateStamp =  date("Ymdhis");
- $custStamp = $emp_id . $dateStamp . $dealer_id;
- $_SESSION['custStamp'] = $custStamp;
- $points = 1;
- $primaryUser = rand(1,2);
-
- $vehicle = $_SESSION['vehicle'];
- 
- $sql = "INSERT INTO customer_data(cust_group,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
- VALUES('$comp_group','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
- 
- 
-       if (!mysqli_query($con, $sql)) {
-           die('Error customer _data 206: ' . mysqli_error($con));
-       }
-
-*/
-
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+$_SESSION['voiceGender'] = $type;
 ?>
  <br>
       <br>

@@ -252,10 +252,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $place = 'Vehicle Driven';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-    $place = 'Phone Number';
+    $place = 'PhoneNumber';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-    $place = 'Phone Vehicle';
+    $place = 'PhoneRequest';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
     /////////////////////////////////////////////////////////////////////////////////

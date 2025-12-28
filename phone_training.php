@@ -27,9 +27,12 @@ require("includes/database_rows.php");
 
 require("toolbar_sales.php");
 
-if(isset($_GET["type"])){
-  $_SESSION["type"] = $_GET["type"];
+if(isset($_SESSION['voiceGender'])){
+  $voice_gender = $_SESSION['voiceGender'];
 }
+
+
+
 
 if(isset($_SESSION["type"])){
   $type = $_SESSION["type"];
@@ -94,7 +97,7 @@ if(isset($_POST['submit'])){
   
           $custStamp = $_SESSION['custStamp'];
   
-        //  header("Location: training.php?find=$custStamp");
+        //  header("Location: phone_training.php?find=$custStamp");
          // exit;
   
           unset($_SESSION['audioName']);
@@ -232,17 +235,17 @@ $useTone = 'Record using a voice tone of: ' . $tone;
    WHERE cust_find = '$cust_find' ");
 
 ////////////////////////////////////////////////////////////////////////////////////////////
- 
+
   if($script_audio == 'PhoneNumber'){
-    echo "entered in to PhoneNumber: ";
+
     $drive = 'PhoneNumber';
 
     $query = "SELECT * ";
     $query .= "FROM audio ";
     $query .= "WHERE audio_group   = '{$comp_group}' ";
-    $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
+    $query .= "AND audio_gender   = '{$voice_gender}' ";
     $query .= "AND audio_drive_type   = '{$drive}' ";
-  echo $query;
+ 
     $result_set = mysqli_query($con, $query)
     or die('Query failed scrip: ' . mysqli_error($con));
 
@@ -251,6 +254,7 @@ $useTone = 'Record using a voice tone of: ' . $tone;
       $audio_id = $row['audio_id'];
       $audio_gender  = $row['audio_gender'];
       $driven_arry[] = $audio_id;
+      $location_arry[] = $row['audio_location'];
     
   }
    
@@ -264,17 +268,83 @@ if($randDriven < 0){
 
 
 
+
 $idDriven = $driven_arry[$randDriven];
+$audio_voice = $location_arry[$randDriven];
+
+echo "<h1 style='background-color:DodgerBlue;'>Write down customer's phone number. Your goal is to write it down the first time you listen</h1>";
+
+ echo "<br>";
+  echo " <audio controls>\n";
+  echo "  <source src=\" $audio_voice \" type=\"audio/mpeg\">\n";
+  echo "      Your browser does not support the audio element.\n";
+  
+  echo "      </audio>\n";
 
 mysqli_query($con, "UPDATE customer_data SET cust_driven = '$idDriven'
               WHERE cust_id  = '$cust_id' ");
+  
+ }
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
+
+  if($script_audio == 'PhoneRequest'){
+   
+    $drive = 'PhoneRequest';
+
+    $query = "SELECT * ";
+    $query .= "FROM audio ";
+    $query .= "WHERE audio_group   = '{$comp_group}' ";
+    $query .= "AND audio_gender   = '{$voice_gender}' ";
+    $query .= "AND audio_drive_type   = '{$drive}' ";
+ 
+    $result_set = mysqli_query($con, $query)
+    or die('Query failed scrip: ' . mysqli_error($con));
+
+    while($row = mysqli_fetch_array($result_set)){
+      $audio_drive_type = $row['audio_drive_type'];
+      $audio_id = $row['audio_id'];
+      $audio_gender  = $row['audio_gender'];
+      $driven_arry[] = $audio_id;
+      $location_arry[] = $row['audio_location'];
     
+  }
+   
+  
+$countDriven = count($driven_arry) - 1;
+$randDriven = rand(0, $countDriven);
+
+if($randDriven < 0){
+  $randDriven = 0;
+}
+
+
+
+
+$idDriven = $driven_arry[$randDriven];
+$audio_voice = $location_arry[$randDriven];
+
+
+//echo "<h1 style='background-color:DodgerBlue;'>Wait for about a minute to simulate searching for the vehicle</h1>";
+echo "<h1 style='background-color:DodgerBlue;'>Write down information</h1>";
+
+ echo "<br>";
+  echo " <audio controls>\n";
+  echo "  <source src=\" $audio_voice \" type=\"audio/mpeg\">\n";
+  echo "      Your browser does not support the audio element.\n";
+  
+  echo "      </audio>\n";
+
+mysqli_query($con, "UPDATE customer_data SET cust_driven = '$idDriven'
+              WHERE cust_id  = '$cust_id' ");
+  
  }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 if($script_audio == 'PrimaryName'){
 
   $primary_arry = array();
@@ -349,7 +419,7 @@ $idSecondary = $secondary_arry[$randSecondary];
 
 mysqli_query($con, "UPDATE customer_data SET cust_secondary = '$idSecondary'
               WHERE cust_id  = '$cust_id' ");
-  
+
   ///////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -374,22 +444,34 @@ if($cust_primary_user == 1){
 }
   //////////////////////////////////////////////////////////////////////////////////
 
-  if($script_audio == 'PrimaryRequest'){
+  if($script_audio == 'PhoneVehicle'){
 
     
 $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group    = '{$comp_group}' ";
-$query .= "AND audio_id    = '{$cust_primary}' ";
+$query .= "AND audio_gender   = '{$voice_gender}' ";
+$query .= "AND audio_drive_type   = '{$script_audio}' ";
 
 
 
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 $row = mysqli_fetch_array($result_set);
-  $audio_location = $row['audio_location'];
-  $_SESSION['options'] = $row['audio_options'];
+ $location_arry[] = $row['audio_location'];
+  
+$countDriven = count($location_arry) - 1;
+$randDriven = rand(0, $countDriven);
 
+if($randDriven < 0){
+  $randDriven = 0;
+}
+
+
+
+
+
+$audio_voice = $location_arry[$randDriven];
   
   
   echo "    <audio controls>\n";
@@ -407,7 +489,7 @@ $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group    = '{$comp_group}' ";
 $query .= "AND audio_id    = '{$cust_secondary}' ";
-
+echo $query . 'audio 2';
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 $row = mysqli_fetch_array($result_set);
@@ -430,7 +512,7 @@ $row = mysqli_fetch_array($result_set);
     $query .= "FROM audio ";
     $query .= "WHERE audio_group    = '{$comp_group}' ";
     $query .= "AND audio_id  = '{$idDriven}' ";
-    
+    echo $query . 'audio 3';
     
     
     $result_set = mysqli_query($con, $query)
@@ -445,7 +527,7 @@ $row = mysqli_fetch_array($result_set);
        }
     
  
-   
+   */
        
  
 ?>
@@ -506,7 +588,7 @@ $row = mysqli_fetch_array($result_set);
 
    <?php
 $find = $_SESSION['find'];
-echo "<form action=\"training.php?find=$find\" method=\"post\">";
+echo "<form action=\"phone_training.php?find=$find\" method=\"post\">";
 
 ?>
 
