@@ -536,8 +536,8 @@ $testOpt = count($result2);
                   mysqli_query($con, "UPDATE customer_data SET cust_points = '$total'
                   WHERE cust_id  = '$cust_id' ");
 
-//$testPage = '/name.php';
-$testPage = '/toolbox/toolbox2/name.php';
+//$testPage = '/name.php'; //For Production
+$testPage = '/toolbox/toolbox2/name.php'; //For Test
 
 
 

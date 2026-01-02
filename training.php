@@ -178,12 +178,13 @@ while($row = mysqli_fetch_array($result_set)){
 
      $count = count($script_arry) - 1;
    
-    //$cName = 'products/' . $comp_product;
-   
-     $cName = '/toolbox/toolbox2/'; 
+    $cName =  $comp_product; 
 
-     $testPage = '/test' . $dealer_id . '.php';
-     $testPage =  $cName . 'test' . $dealer_id . '.php';
+  
+     $cName = '/toolbox/toolbox2/'; // For Test
+
+    // $testPage = '/test' . $dealer_id . '.php';  //For Production
+     $testPage =  $cName . 'test' . $dealer_id . '.php'; 
 
      if($cust_points  > $count ){
       $find = $_SESSION['find'];

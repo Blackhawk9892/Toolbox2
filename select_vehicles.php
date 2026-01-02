@@ -75,7 +75,7 @@ Add Dealer to stock tag program
 
 
 
-/*
+
                 $required_fields = array('stock', 'make', 'model', 'reason', 'miles', 'stockS', 'makeS', 'modelS', 'reasonS', 'milesS');
 
                 foreach ($required_fields as $fieldname) {
@@ -117,7 +117,7 @@ Add Dealer to stock tag program
                           }
 
                         
-                    }*/
+                    }
                 } 
 
 
@@ -179,7 +179,7 @@ Add Dealer to stock tag program
   header("Location: $testPage?find=$find");
   exit;
                 }
-           // }
+            }
             
             ?>
 

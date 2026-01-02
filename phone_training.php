@@ -188,9 +188,9 @@ while($row = mysqli_fetch_array($result_set)){
 
      $count = count($script_arry) - 1;
    
-    //$cName = 'products/' . $comp_product;
+    $cName = 'products/' . $comp_product; // production environment
    
-     $cName = '/toolbox/toolbox2/'; 
+    // $cName = '/toolbox/toolbox2/'; // test environment
 
     // $testPage = '/test' . $dealer_id . '.php';
     // $testPage =  $cName . 'test' . $dealer_id . '.php';
