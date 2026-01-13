@@ -14,7 +14,6 @@ session_start();
 <body>
 
 
-
 <?php
 
 require_once("includes/constants.php");
@@ -33,8 +32,6 @@ if(isset($_SESSION["type"])){
 
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
-
-
   
 $emp_arry = Employee($userId);
 $first = $emp_arry[0];
@@ -44,6 +41,72 @@ $emp_id = $emp_arry[3];
 $dealer_id = $emp_arry[4];
 $name = $first . ' ' . $last;
 }
+
+ ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+if(isset($_POST['submit'])){
+
+  
+  if(isset($_SESSION['audioName'])){
+    $audioName = $_SESSION['audioName'];
+  }else{
+    $errors[] ='You submit without a recording. You now have new customers. Please get there names before moving on ';
+  
+  }
+  
+  
+  if (!empty($errors)) {
+  
+    foreach ($errors as $value) {
+        echo "<div class=\"errors\">$value</div>";
+    }
+  } else {
+    $custStamp = $_SESSION['custStamp'];
+
+    $dateStamp =  date("Ymdhis");
+ $custStamp = $emp_id . $dateStamp . $dealer_id;
+ $_SESSION['custStamp'] = $custStamp;
+ $points = $_SESSION['points'];
+ $primaryUser = rand(1,2);
+
+ $vehicle = $_SESSION['vehicle'];
+ $custStamp = $_SESSION['custStamp'];
+ $malePhoto = $_SESSION['photoMale'];
+ $femalePhoto = $_SESSION['photoFemale'];
+ $maleVoice = $_SESSION['voiceMale']; 
+ $maleVoiceName = $_SESSION['voiceMaleName'];
+ $femaleVoice = $_SESSION['voiceFemale'];
+ $femaleVoiceName =$_SESSION['voiceFemaleName'];
+
+ 
+ $sql = "INSERT INTO customer_data(cust_group,cust_type,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
+ VALUES('$comp_group','$type','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
+ 
+ 
+       if (!mysqli_query($con, $sql)) {
+           die('Error customer _data 206: ' . mysqli_error($con));
+       }
+  
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp')";
+    
+    
+          if (!mysqli_query($con, $sql)) {
+              die('Error recording 177: ' . mysqli_error($con));
+          }
+  
+         
+  
+          header("Location: training.php?find=$custStamp");
+          exit;
+  
+          unset($_SESSION['audioName']);
+      }
+    }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 $query = "SELECT * ";
 $query .= "FROM script ";
 $query .= "WHERE script_comp_num   = '{$dealer_id}' ";
@@ -61,8 +124,27 @@ $tone = $tone_arry[0];
 $useTone = 'Record this script using a voice tone of: ' . $tone;
   echo "<h1 style='background-color:Orange;'>$useTone</h1>";
 
-  $script = $script_arry[0];
+  //$script = $script_arry[0];
+ 
+  if(isset($_POST['show'])){
+      $_SESSION["script"] = $script_arry[0];
+      $_SESSION['points'] = 1;
+     
+  }else{
+       $_SESSION["script"] = "Press the (Show Script) button at the bottom of the page to display the script. 
+       If you display a script, it will cost 1/2 of your points for the script shown.
+       On this page only show script will create new customers";
+       $_SESSION['points'] = 2;
+       
+  }
+ 
+  //unset($_POST['show']);
+  
+
+  $script = $_SESSION["script"];
   echo "<h3>$script</h3>";
+
+
 echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
   ?>
 
@@ -111,65 +193,6 @@ $random_keys=array_rand($veh_array);
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-
-if(isset($_POST['submit'])){
-
-  
-  if(isset($_SESSION['audioName'])){
-    $audioName = $_SESSION['audioName'];
-  }else{
-    $errors[] ='You submit without a recording. You now have new customers. Please get there names before moving on ';
-  
-  }
-  
-  
-  if (!empty($errors)) {
-  
-    foreach ($errors as $value) {
-        echo "<div class=\"errors\">$value</div>";
-    }
-  } else {
-    $custStamp = $_SESSION['custStamp'];
-
-    $dateStamp =  date("Ymdhis");
- $custStamp = $emp_id . $dateStamp . $dealer_id;
- $_SESSION['custStamp'] = $custStamp;
- $points = 1;
- $primaryUser = rand(1,2);
-
- $vehicle = $_SESSION['vehicle'];
- $custStamp = $_SESSION['custStamp'];
- $malePhoto = $_SESSION['photoMale'];
- $femalePhoto = $_SESSION['photoFemale'];
- $maleVoice = $_SESSION['voiceMale']; 
- $maleVoiceName = $_SESSION['voiceMaleName'];
- $femaleVoice = $_SESSION['voiceFemale'];
- $femaleVoiceName =$_SESSION['voiceFemaleName'];
- 
- $sql = "INSERT INTO customer_data(cust_group,cust_type,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
- VALUES('$comp_group','$type','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
- 
- 
-       if (!mysqli_query($con, $sql)) {
-           die('Error customer _data 206: ' . mysqli_error($con));
-       }
-  
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp')";
-    
-    
-          if (!mysqli_query($con, $sql)) {
-              die('Error recording 216: ' . mysqli_error($con));
-          }
-  
-          
-  
-          header("Location: training.php?find=$custStamp");
-          exit;
-  
-          unset($_SESSION['audioName']);
-      }
-    }
 
 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -229,7 +252,7 @@ if($n < 0){
 
 $femalePhoto = $photoFemale[$n];
 $_SESSION['photoFemale'] = $femalePhoto;
-echo "female Photo: " . $femalePhoto;
+//echo "female Photo: " . $femalePhoto;
   echo "    <img src=\"$femalePhoto\" width=\"300\" height=\"300\">";
 
 
@@ -263,7 +286,7 @@ $maleVoiceName = $maleVoiceName[$n];
 $_SESSION['voiceMale'] = $maleVoice;
 $_SESSION['voiceMaleName'] = $maleVoiceName;
 
-echo "malevoice: " . $maleVoice;
+//echo "malevoice: " . $maleVoice;
 echo "<h1 style='background-color:DodgerBlue;'>Names of customers</h1>";
 echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
@@ -300,34 +323,14 @@ $femaleVoiceName = $femaleVoiceName[$n];
 $_SESSION['voiceFemale'] = $femaleVoice;
 $_SESSION['voiceFemaleName'] = $femaleVoiceName;
 
-echo "femalevoice: " . $femaleVoice;
+//echo "femalevoice: " . $femaleVoice;
 echo "    <audio controls>\n";
 echo "        <source src=\"$femaleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
 echo "      </audio>";
 //////////////////////////////////////////////////////////////////////////////////
 
-/*
- $dateStamp =  date("Ymdhis");
- $custStamp = $emp_id . $dateStamp . $dealer_id;
- $_SESSION['custStamp'] = $custStamp;
- $points = 1;
- $primaryUser = rand(1,2);
 
- $vehicle = $_SESSION['vehicle'];
- 
- $sql = "INSERT INTO customer_data(cust_group,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
- VALUES('$comp_group','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
- 
- 
-       if (!mysqli_query($con, $sql)) {
-           die('Error customer _data 206: ' . mysqli_error($con));
-       }
-
-*/
-
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ?>
  <br>
@@ -379,9 +382,10 @@ echo "      </audio>";
       stopRecordBtn.disabled = true;
     });
 
+  
     
   </script>
-
+ 
       <br>
       <br>
 
@@ -400,9 +404,11 @@ echo "<form action=\"interduction.php\" method=\"post\">";
 <br />
 
 <input   type="submit" name="submit" value="Submit"/>
+<input   type="submit" name="show" value="Show Script"/>
 
 
 <br />
 <h1 style="background-color: Red;">After listening to your recording press the submit button.
    If you do not listen to your recording you will not receive points. You may do as many recordings as you like. The only one that will be count is the one you submit.</h1>";
 </html>
+ 
