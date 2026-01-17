@@ -66,7 +66,7 @@ if(isset($_POST['submit'])){
     $dateStamp =  date("Ymdhis");
  $custStamp = $emp_id . $dateStamp . $dealer_id;
  $_SESSION['custStamp'] = $custStamp;
- $points = $_SESSION['points'];
+ $points = 1;
  $primaryUser = rand(1,2);
 
  $vehicle = $_SESSION['vehicle'];
@@ -78,7 +78,8 @@ if(isset($_POST['submit'])){
  $femaleVoice = $_SESSION['voiceFemale'];
  $femaleVoiceName =$_SESSION['voiceFemaleName'];
 
- 
+ $page = 1;
+
  $sql = "INSERT INTO customer_data(cust_group,cust_type,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
  VALUES('$comp_group','$type','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
  
@@ -95,12 +96,12 @@ if(isset($_POST['submit'])){
               die('Error recording 177: ' . mysqli_error($con));
           }
   
-         
+          unset($_SESSION['audioName']);
   
           header("Location: training.php?find=$custStamp");
           exit;
   
-          unset($_SESSION['audioName']);
+         
       }
     }
 
@@ -119,29 +120,18 @@ $result_set = mysqli_query($con, $query)
 while($row = mysqli_fetch_array($result_set)){
   $script_arry[] = $row['script_template'];
   $tone_arry[] = $row['script_tone'];
+  $description_arry[] = $row['script_description'];
 }  
+$script_description = $description_arry[0];
 $tone = $tone_arry[0];
-$useTone = 'Record this script using a voice tone of: ' . $tone;
+$useTone = 'Record this script using a voice tone of: ' . $tone ;
   echo "<h1 style='background-color:Orange;'>$useTone</h1>";
 
-  //$script = $script_arry[0];
  
-  if(isset($_POST['show'])){
-      $_SESSION["script"] = $script_arry[0];
-      $_SESSION['points'] = 1;
-     
-  }else{
-       $_SESSION["script"] = "Press the (Show Script) button at the bottom of the page to display the script. 
-       If you display a script, it will cost 1/2 of your points for the script shown.
-       On this page only show script will create new customers";
-       $_SESSION['points'] = 2;
-       
-  }
- 
-  //unset($_POST['show']);
+
   
 
-  $script = $_SESSION["script"];
+  $script = $script_arry[0];
   echo "<h3>$script</h3>";
 
 
@@ -220,7 +210,7 @@ if($n < 0){
 $malePhoto = $photoMale[$n];
 $_SESSION['photoMale'] = $malePhoto;
 
-  echo " <img src=\"$malePhoto\" width=\"300\" height=\"300\">\n";
+  echo " <img src=\"$malePhoto\" alt=$malePhoto width=\"300\" height=\"300\">\n";
 
 
 
@@ -253,7 +243,7 @@ if($n < 0){
 $femalePhoto = $photoFemale[$n];
 $_SESSION['photoFemale'] = $femalePhoto;
 //echo "female Photo: " . $femalePhoto;
-  echo "    <img src=\"$femalePhoto\" width=\"300\" height=\"300\">";
+  echo "    <img src=\"$femalePhoto\" alt=$femalePhoto width=\"300\" height=\"300\">";
 
 
 
@@ -404,7 +394,7 @@ echo "<form action=\"interduction.php\" method=\"post\">";
 <br />
 
 <input   type="submit" name="submit" value="Submit"/>
-<input   type="submit" name="show" value="Show Script"/>
+
 
 
 <br />

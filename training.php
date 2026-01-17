@@ -166,7 +166,7 @@ $query .= "FROM script ";
 $query .= "WHERE script_group   = '{$comp_group}' ";
 $query .= "AND script_type   = '{$type}' ";
 $query .= "ORDER BY script_order ";
-echo "script type: " . $query . "</br>";
+
 
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
@@ -183,7 +183,7 @@ while($row = mysqli_fetch_array($result_set)){
   
      $cName = '/toolbox/toolbox2/'; // For Test
 
-     //$testPage = '/test' . $dealer_id . '.php';  //For Production
+    // $testPage = '/test' . $dealer_id . '.php';  //For Production
      $testPage =  $cName . 'test' . $dealer_id . '.php'; // For Test
 
      if($cust_points  > $count ){
@@ -215,13 +215,12 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
 <br>
 <?php
 
-  echo "This is cust_id: " . $cust_id;
-  echo "</br>";
-  echo " <img src=\"$cust_male_photo\" width=\"300\" height=\"300\">Customer 1\n";
+
+  echo " <img src=\"$cust_male_photo\" alt=$cust_id width=\"300\" height=\"300\">\n";
    echo "     \n";
    echo "\n";
    echo "\n";
-   echo "    <img src=\"$cust_female_photo\"  width=\"300\" height=\"300\">Customer 2";
+   echo "    <img src=\"$cust_female_photo\" alt=$cust_id width=\"300\" height=\"300\">";
 
    //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -237,13 +236,13 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
    
   if($script_audio == 'Vehicle Driven'){
     $drive = 'Vehicle Driven';
-    
+
     $query = "SELECT * ";
     $query .= "FROM audio ";
     $query .= "WHERE audio_group   = '{$comp_group}' ";
     $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
     $query .= "AND audio_drive_type   = '{$drive}' ";
-  echo "Vehicle Driven: " . $query . "</br>";
+  
     $result_set = mysqli_query($con, $query)
     or die('Query failed scrip: ' . mysqli_error($con));
 
@@ -298,7 +297,7 @@ if($script_audio == 'PrimaryName'){
   $query .= "FROM audio ";
   $query .= "WHERE audio_group   = '{$comp_group}' ";
   $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
-  echo "PrimaryName: " . $query . "</br>";
+  
   
   $result_set = mysqli_query($con, $query)
           or die('Query failed scrip: ' . mysqli_error($con));
@@ -379,14 +378,13 @@ if($cust_primary_user == 1){
   //////////////////////////////////////////////////////////////////////////////////
 
   if($script_audio == 'PrimaryRequest'){
-    
-$audio_location = " ";
+
     
 $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group    = '{$comp_group}' ";
 $query .= "AND audio_id    = '{$cust_primary}' ";
- echo "PrimaryRequest: " . $query . "</br>";
+
 
 
 $result_set = mysqli_query($con, $query)
@@ -408,13 +406,10 @@ $row = mysqli_fetch_array($result_set);
    
     if($script_audio == 'SecondaryRequest'){
 
-$audio_location = " ";
-
 $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group    = '{$comp_group}' ";
 $query .= "AND audio_id    = '{$cust_secondary}' ";
-echo "SecondaryRequest: " . $query . "</br>";
 
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
@@ -439,7 +434,6 @@ $row = mysqli_fetch_array($result_set);
     $query .= "WHERE audio_group    = '{$comp_group}' ";
     $query .= "AND audio_id  = '{$idDriven}' ";
     
-   echo "Vehicle Driven: " . $query . "</br>"; 
     
     $result_set = mysqli_query($con, $query)
             or die('Query failed scrip: ' . mysqli_error($con));

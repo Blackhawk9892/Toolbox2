@@ -82,22 +82,7 @@ if(isset($_COOKIE["userId"])){
   $_SESSION['name'] = $name;
   }
 
-  
-    $query = "SELECT * ";
-    $query .= "FROM company ";
-    $query .= "WHERE comp_id    = '{$dealer_id}' ";
 
-    $result_set = mysqli_query($con, $query)
-            or die('Query failed2: ' . mysqli_error($con));
-    $row = mysqli_fetch_array($result_set);
-
-    $dealer_name = $row['comp_name'];
-    $dealer_address = $row['comp_address'];
-    $dealer_city = $row['comp_city'];
-    $dealer_state = $row['comp_state'];
-    $dealer_zip = $row['comp_zip'];
-    $dealer_group = $row['comp_group'];
-   
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -113,10 +98,10 @@ if(isset($_COOKIE["userId"])){
                 $_SESSION['index'] = $index;
 
                 $query = "SELECT * ";
-                $query .= "FROM script ";
+                $query .= "FROM objections ";
 
-                $query .= "WHERE script_index  = '{$index}' ";
-                $query .= "ORDER BY script_order";
+                $query .= "WHERE obj_index  = '{$index}' ";
+                $query .= "ORDER BY obj_order";
         
       
                 $result_set = mysqli_query($con, $query)
@@ -124,24 +109,20 @@ if(isset($_COOKIE["userId"])){
                 $row = mysqli_fetch_array($result_set);
             
 
-                $script_comp_num = $row['script_comp_num'];
-                $script_comp_name = $row['script_comp_name'];
-                $_POST['dealer'] = $script_comp_num . '-' .  $script_comp_name;
-                $_POST['scrip'] = $row['script_template'];
-                $_POST['typeScrip'] = $row['script_type'];
-                $_POST['order']= $row['script_order'];
-                $_POST['tone']= $row['script_tone'];
-                $_POST['recording']= $row['script_audio'];
-                $_POST['description']= $row['script_description'];
+                $obj_corporate_name  = $row['obj_corporate_name'];
+                $obj_corporate_number = $row['obj_corporate_number'];
+                $_POST['dealer'] = $obj_corporate_number. '-' .  $obj_corporate_name;
+                $_POST['scrip'] = $row['obj_script'];
+                $_POST['typeScrip'] = $row['obj_type_script'];
+                $_POST['order']= $row['obj_order'];
+                $_POST['tone']= $row['obj_tone'];
+                $_POST['recording']= $row['obj_order'];
+                
                 
                 $_SESSION['oldDealer'] = $_POST['dealer'] ;
             }
         
-           
-         if(isset($_SESSION['dealer'])){
-            $_POST['dealer'] = $_SESSION['dealer'];
-            unset($_SESSION['dealer']);
-         }
+         
             
            
     
@@ -151,20 +132,19 @@ if(isset($_COOKIE["userId"])){
        
        
             if (isset($_POST['clear'])) {
-
+                $_POST['dealer'] = '';
                 $_POST['type'] = '';
                 $_POST['scrip'] = '';
                 $_POST['order'] = '';
                 $_POST['tone'] = '';
-                $_POST['description'] = '';
+                $_POST['typeScrip'] = '';
+
                 unset($_SESSION['index']);
             }
 
-              if(isset($_POST['typeScrip'])){
-                    $typeScrip = $_POST['typeScrip'];
-                }else{
-                    $errors[] = 'Scrip Type was not selected';
-                }
+
+
+             
 
             if (isset($_POST['update'])) {
 
@@ -187,18 +167,14 @@ if(isset($_COOKIE["userId"])){
                     $errors[] = 'Tone Of Voice is empty';
                 }
 
-                if(isset($_POST['description'])){
-                    $scriptDescription = $_POST['description'];
+                 if(isset($_POST['typeScrip'])){
+                    $typeScrip = $_POST['typeScrip'];
                 }else{
-                    $errors[] = 'Tone Of Voice is empty';
+                    $errors[] = 'Scrip Type was not selected';
                 }
 
 
-                if(isset($_POST['recording'])){
-                    $recording = $_POST['recording'];
-                }else{
-                    $errors[] = 'Must select a recording for this scrip';
-                }
+                
 
                 if (!empty($errors)) {
 
@@ -208,43 +184,44 @@ if(isset($_COOKIE["userId"])){
                 } else {
 
                 $index = $_SESSION['index'];
-             $typeScrip = $_POST['typeScrip'];
+               $typeScrip = $_POST['typeScrip'];
                 $scrip = $_POST['scrip'];
                 $order = $_POST['order'];
                 $tone = $_POST['tone'];
-                $scriptDescription = $_POST['description'];
-                $recording = $_POST['recording'];
+               
+              
 
-                mysqli_query($con, "UPDATE script SET script_template = '$scrip'
-                  WHERE script_index  = '$index' ");
+                mysqli_query($con, "UPDATE objections SET obj_script = '$scrip'
+                  WHERE obj_index  = '$index' ");
                  
 
-                mysqli_query($con, "UPDATE script SET script_order = '$order'
-                  WHERE script_index  = '$index' ");
+                mysqli_query($con, "UPDATE objections SET obj_order = '$order'
+                  WHERE obj_index  = '$index' ");
 
-               mysqli_query($con, "UPDATE script SET script_tone = '$tone'
-                  WHERE script_index  = '$index' ");
-
-                mysqli_query($con, "UPDATE script SET script_description = '$scriptDescription'
-                  WHERE script_index  = '$index' ");
+               mysqli_query($con, "UPDATE objections SET obj_tone = '$tone'
+                  WHERE obj_index  = '$index' ");
                    
 
-                mysqli_query($con, "UPDATE script SET script_audio = '$recording'
-                  WHERE script_index  = '$index' ");
 
                 $name = $_SESSION['name'];
               
-                mysqli_query($con, "UPDATE script SET script_changed = '$name'
-                  WHERE script_index  = '$index' ");
+                mysqli_query($con, "UPDATE objections SET obj_changed = '$name'
+                  WHERE obj_index  = '$index' ");
+
                 
+
+
                 $value = "Record order number " . $order . " has been changed";
                 echo "<div class=\"problem\">$value</div>";
 
+
+              $_POST['dealer'] = '';
               $_POST['recording'] = '';
               $_POST['scrip'] = '';
               $_POST['order'] = '';
               $_POST['tone'] = '';
-              $_POST['description'] = '';
+              $_POST['typeScrip'] = '';
+              
               unset($_SESSION['index']);
             }
         }
@@ -253,48 +230,46 @@ if(isset($_COOKIE["userId"])){
 
                 $index = $_SESSION['index'];
 
-                mysqli_query($con, "DELETE FROM script WHERE script_index  = '$index' ");
+                mysqli_query($con, "DELETE FROM objections  WHERE obj_index   = '$index' ");
                   
               
                 $value = "Record number " . $index . " has been deleted";
                 echo "<div class=\"problem\">$value</div>";
-
+                 $_POST['dealer'] = '';
                 $_POST['recording'] = '';
                 $_POST['scrip'] = '';
                 $_POST['order'] = '';
                 $_POST['tone'] = '';
-                $_POST['description'] = '';
+                $_POST['typeScrip'] = '';
                 unset($_SESSION['index']);
             }
 
 
             $blank = '';
-            if (isset($_POST['dealer'])) {
-                $dealer_arr[] = "\n<option value=\"$_POST[dealer]\">$_POST[dealer]</option>\n";
-            } else {
-                $dealer_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
-            }
+ if (isset($_POST['dealer'])) {
+        $dealer = $_POST['dealer'];
+        $dealer_arr[] = "\n<option value=\"$dealer\">$dealer</option>\n";
+        $dealer_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+    } else {
+        $dealer_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+    }
 
-            $query = "SELECT * ";
-            $query .= "FROM company ";
-           
-            if($position != 'PFD'){
-            $query .= "WHERE comp_id   = '{$dealer_id}' ";
-            }
-            $query .= "ORDER BY comp_name";
+   $query = "SELECT * ";
+    $query .= "FROM dealer_group ";
 
-            $result_set = mysqli_query($con, $query)
-                    or die('Query failed: ' . mysqli_error($con));
+
+    $result_set = mysqli_query($con, $query)
+            or die('Query failed 90: ' . mysqli_error($con));
 
             while ($row = mysqli_fetch_array($result_set)) {
-                $comp_id = $row['comp_id'];
-                $comp_name = $row['comp_name'];
-                $dealer = $comp_id . '-' . $comp_name;
-                
-                $dealer_arr[] = "\n<option value=\"$dealer\">$dealer</option>\n";
-               
-            }
- 
+
+    $dg_id = $row['dg_id'];
+    $dg_name = $row['dg_name'];
+    
+     $dealer = $dg_id . '-' . $dg_name ;
+   
+    $dealer_arr[] = "\n<option value=\"$dealer\">$dealer</option>\n";
+    }
 
           
 
@@ -311,6 +286,7 @@ if(isset($_COOKIE["userId"])){
 
                 if(isset($_POST['dealer'])){
                     $dealer = $_POST['dealer'];
+                    
                 }else{
                     $errors[] = 'A Company was not selected';
                 }
@@ -321,12 +297,7 @@ if(isset($_COOKIE["userId"])){
                     $errors[] = 'Scrip Type was not selected';
                 }
 
-                echo $_POST['description'];
-                if(isset($_POST['description'])){
-                    $scriptDescription = $_POST['description'];
-                }else{
-                    $errors[] = 'Scrip description is empty';
-                }
+               
                 
                 if(isset($_POST['scrip'])){
                     $scrip = $_POST['scrip'];
@@ -341,12 +312,7 @@ if(isset($_COOKIE["userId"])){
                     $errors[] = 'Order is empty';
                 }
 
-                if(isset($_POST['recording'])){
-                    $recording = $_POST['recording'];
-                }else{
-                    $errors[] = 'Must select a recording for this scrip';
-                }
-
+               
                 if(isset($_POST['tone'])){
                     $tone = $_POST['tone'];
                 }else{
@@ -369,53 +335,67 @@ if(isset($_COOKIE["userId"])){
                         echo "<div class=\"errors\">$value</div>";
                     }
                 } else {
-                   
+                    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_FILES['voice']) && $_FILES['voice']['error'] == UPLOAD_ERR_OK) {
+        // Directory where the uploaded file will be saved
+        $uploadDir = 'voice/';
+        }
+
+        // Create the directory if it doesn't exist
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        // Get the file information
+        $uploadFile = $uploadDir . basename($_FILES['voice']['name']);
+      
+        // Check if the file is an image
+        $fileType = mime_content_type($_FILES['voice']['tmp_name']);
+        if (strpos($fileType, 'audio') === false) {
+            echo 'File is not an voice!';
+        } else {
+            // Move the uploaded file to the target directory
+            $newName = 'voice/' . date("Ymdhis") . '.mp3';
+            if (move_uploaded_file($_FILES['voice']['tmp_name'], $newName)) {
+                $value = 'File is valid, and was successfully uploaded.'; 
+                echo "<div class=\"problem\">$value</div>";     
+                }
+
+     
+              
+
+                   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                   
-
-                    $sql = "INSERT INTO script(script_group, script_comp_num, script_comp_name, script_type, script_template, script_order, script_changed, script_audio, script_tone, script_description) 
-              VALUES('$dealer_group','$compNum','$company','$typeScrip','$scrip','$order','$name','$recording','$tone','$scriptDescription')";
-
+                    $name = $_SESSION['name'];
+                
+                    $sql = "INSERT INTO objections(obj_corporate_number,obj_corporate_name,obj_type_script,obj_script,obj_tone,obj_audio,obj_order,obj_changed) 
+              VALUES('$compNum','$company','$typeScrip','$scrip','$tone','$newName','$order','$name')";
+                
 
                     if (!mysqli_query($con, $sql)) {
-                        die('Error employee 161: ' . mysqli_error($con));
+                        die('Error objections 377 : ' . mysqli_error($con));
                     }
 
 
                     echo "<div class=\"problem\">Script order number $order has been added to $company</div>";
 
-                   // $_POST['dealer'] = '';
+                    $_POST['dealer'] = '';
                     $_POST['scrip'] = '';
                     $_POST['order'] = '';
                     $_POST['tone'] = '';
-                    $_POST['description'] = '';
-                    $_POST['recording'] = '';
+                    $_POST['typeScrip'] = '';
                  
 
                    
-                   
+                     }
                 }
             }
+        }
             ////////////////////////////////////////////////////////////////////////////////
           
-            $blank = '';
            
-            if (isset($_POST['position'])) {
-                $position = $_POST['position'];
-                $position_arr[] = "\n<option value=\"$position\">$position</option>\n";
-            } else {
-                $position_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
-            }
-            $place = 'Sales';
-            $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
-           
-            $place = 'Manager';
-            $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
-           
-          
-            if($emp_position = 'pfd'){
-            $place = 'Sales Tool Box';
-            $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
-            }
            
             
             if(isset($_POST['dealer'])){
@@ -428,24 +408,24 @@ if(isset($_COOKIE["userId"])){
                 $bid_satus = 'photos';
 
                 $query = "SELECT * ";
-            $query .= "FROM script ";
-            $query .= "WHERE script_comp_num = '{$compNum}' ";    
-            $query .= "AND script_type = '{$typeScrip}' ";
-            $query .= "ORDER BY  script_order";
+            $query .= "FROM objections ";
+            $query .= "WHERE obj_corporate_number = '{$compNum}' ";    
+            $query .= "AND obj_type_script = '{$typeScrip}' ";
+            $query .= "ORDER BY  obj_order";
      
             $result_set = mysqli_query($con, $query)
                     or die('Query failed: ' . mysql_error());
   
             while ($row = mysqli_fetch_array($result_set)) { // start while
            
-                $script_index = $row['script_index'];      
-                $script_comp_num = $row['script_comp_num'];
-                $script_comp_name = $row['script_comp_name'];
-                $script_type = $row['script_type'];
-                $script_template = $row['script_template'];
-                $script_tone = $row['script_tone'];
-                $script_order = $row['script_order'];
-                $script_description = $row['script_description'];
+                $script_index = $row['obj_index'];      
+                $script_comp_num = $row['obj_corporate_number'];
+                $script_comp_name = $row['obj_corporate_name'];
+                $script_type = $row['obj_type_script'];
+                $script_template = $row['obj_script'];
+                $script_tone = $row['obj_tone'];
+                $script_order = $row['obj_order'];
+               
     
   
                if($bid_satus == 'photos'){
@@ -454,7 +434,7 @@ if(isset($_COOKIE["userId"])){
                 $bid_satus = 'photos';
                }
                
-$File = "<td width = 1%><a  href=addscrip.php?index=$script_index>Edit</td>";
+$File = "<td width = 1%><a  href=objscript.php?index=$script_index>Edit</td>";
 $Type = "<td width = 1%>$script_type</td>";
 $Order = "<td width = 1%>$script_order</td>";
 $Tone = "<td width = 1%>$script_tone</td>";
@@ -500,8 +480,7 @@ $Temp = "<td width = 6%>$script_template </td>";
     $place = 'Surprise';
     $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-
-    $place = 'Sincere';
+     $place = 'Sincere';
     $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
 
@@ -517,31 +496,37 @@ $Temp = "<td width = 6%>$script_template </td>";
                 }
                
             
-                $place = 'sales';
-                $description = "New customer at dealership";
-                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
-                
-                $place = 'incoming';
-                $description = "Incoming call";
-                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
             
-                $place = 'price';
-                $description = "Callback left dealership because of price";
-                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
-
-                $place = 'payment';
-                $description = "Callback left dealership because of payments";
-                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
-
-                $place = 'vehicle';
-                $description = "Callback left dealership because of vehicle";
-                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
-
-                $place = 'know';
-                $description = "Callback don't know why they left the dealership";
-                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+                $description = "Benjamin Franklin";
+                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
                 
+               
+                $description = "Taking it down to the ridiculous";
+                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+            
+                $description = "Need to talk to somebody";
+                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+
                 
+                $description = "Payments is to high";
+                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+
+               
+                $description = "I don't have time right now";
+                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+
+             
+                $description = "The price is too high";
+                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+
+          
+                $description = "Need to go to other dealers";
+                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+
+                
+                $description = "Not enough for my trade-in";
+                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+
                 
                 
                
@@ -559,60 +544,44 @@ $Temp = "<td width = 6%>$script_template </td>";
                 } else {
                     $recordType_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
                 }
-                $place = 'None';
+                $place = 'Vehicle';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
             
-                $place = 'PrimaryName';
+                $place = 'real_estate';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
                 
-                $place = 'PrimaryRequest';
+                $place = 'retail';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
             
-                $place = 'SecondaryReques';
+                $place = 'Phone';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'PhoneName';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'PhoneNumber';
+               $place = 'business_to_business';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
-                 $place = 'PhoneRequest';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-                
-                $place = 'Vehicle Driven';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
-                 $place = 'Phone Price';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-                
-                $place = 'Phone Payment';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-            
-                $place = 'Phone Vehicle';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-                
-                $place = 'Phone Know';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-            
+               
             
                 
    
 
             ?>
+<center><h1>Add and Maintain Objections</h1></center>
 
-            <center><h1>Add and Maintain Script</h1></center>
             <br>
             <br>
-            <form action="addscrip.php" method="post">
+           
 
+<form action="objscript.php" method="post" enctype="multipart/form-data">
  <div style="padding-left: 37px;">
+  
+    <input type="file" name="voice" accept="voice/*">
+ 
          <input type="submit" name="loadScript" value="Load Script for company"/>   
 
          <table>   
          <?php
 
-print( "<tr><td>Company Name:</td><td>\n");
+print( "<tr><td>Corporate Name:</td><td>\n");
 print( "<select name=\"dealer\">");
 print_r($dealer_arr);
 
@@ -627,11 +596,7 @@ print_r($dealer_arr);
                                 ?> 
 
                                 </select>
-                               
-                   <tr><td>Scrip Description:</td><td>
-                                <input type="text" name="description" size="120" value="<?php if (isset($_POST['description'])) echo $_POST['description'] ?>" />
- 
-                                <br>
+                
                                 <br>
 
                         <tr><td>Scrip:</td><td>
@@ -659,20 +624,13 @@ print_r($dealer_arr);
                                 <br>
                                 <br>
 
-                                <br>
-                                <label for="recording">Select type of Record:</label>   
-        <select name="recording">
-                                <?php
-                                print_r($recordType_arr);
-                                ?>
-                    </select>
-                                <br>
-                                <br>
+              
                     
                     
-                   
+               
                
 <?php if(isset($_SESSION['index'])){  ?>
+ <h3 style="color:Tomato;">Audio will not be updated </h3>
                <br />
                     <input type="submit" name="update" value="Update"/>
                 <br />
@@ -690,7 +648,7 @@ print_r($dealer_arr);
                 </center> 
               
                 <?php
-           if(isset($_POST['dealer'])){
+           if(isset($_POST['loadScript'])){
 
                 $result = count($rows);
                 $count = 0;

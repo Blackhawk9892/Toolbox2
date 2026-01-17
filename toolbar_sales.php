@@ -66,6 +66,14 @@ $tb_descrip = 'Equipment Setup';
 
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+
+$tb_program = 'objscript.php';
+$tb_descrip = 'Objections script Setup';
+
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+ 
  
 
 
