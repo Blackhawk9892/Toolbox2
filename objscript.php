@@ -461,6 +461,10 @@ $Temp = "<td width = 6%>$script_template </td>";
     } else {
         $tone_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
     }
+
+    $place = 'Confidence';
+    $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
     $place = 'Confused';
     $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
