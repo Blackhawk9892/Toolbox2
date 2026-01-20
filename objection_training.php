@@ -27,7 +27,8 @@ require("includes/database_rows.php");
 
 require("toolbar_sales.php");
 
-$type = 'sales';
+
+
 
 if($_GET['find']){
   $_SESSION['find'] = $_GET['find'];
@@ -47,7 +48,7 @@ if(isset($_POST['submit'])){
   if(isset($_SESSION['audioName'])){
     $audioName = $_SESSION['audioName'];
   }else{
-    $errors[] ='You submit without a recording. You now have new customers. Please get there names before moving on ';
+    $errors[] ='You submit without a recording.  ';
   
   }
   
@@ -76,7 +77,7 @@ if(isset($_POST['submit'])){
       $options = '';
     }
      
-
+echo "it just wrote a record";
     $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options) 
     VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options')";
     
@@ -161,19 +162,42 @@ $comp_product = $row['comp_product'];
    $cust_vehicle = $row['cust_vehicle'];
 ////////////////////////////////////////////////////////////////////////////////
 
+if(isset($_SESSION['type'])){
+$type = $_SESSION['type'];
+}else{
+  $query = "SELECT * ";
+$query .= "FROM objections ";
+$query .= "WHERE obj_corporate_number	  = '{$comp_group}' ";
+
+$result_set = mysqli_query($con, $query)
+        or die('Query failed scrip: ' . mysqli_error($con));
+while($row = mysqli_fetch_array($result_set)){
+    $type_arry[] = $row['obj_type_script'];
+}
+$c = count($type_arry) -1;
+  $x = rand(0,$c);
+  $_SESSION['type'] = $type_arry[$x];
+
+$type = $_SESSION['type'];
+
+}
+
+
+
 $query = "SELECT * ";
-$query .= "FROM script ";
-$query .= "WHERE script_group   = '{$comp_group}' ";
-$query .= "AND script_type   = '{$type}' ";
-$query .= "ORDER BY script_order ";
+$query .= "FROM objections ";
+$query .= "WHERE obj_corporate_number	  = '{$comp_group}' ";
+$query .= "AND obj_type_script   = '{$type}' ";
+$query .= "ORDER BY obj_order ";
 
 
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 while($row = mysqli_fetch_array($result_set)){
-  $script_arry[] = $row['script_template'];
-  $script_audio_arry[] = $row['script_audio'];
-  $tone_arry[] = $row['script_tone'];
+  $script_arry[] = $row['obj_script'];
+  $script_audio_arry[] = $row['obj_audio'];
+  $tone_arry[] = $row['obj_tone'];
+  
 }  
 
      $count = count($script_arry) - 1;
@@ -192,14 +216,25 @@ while($row = mysqli_fetch_array($result_set)){
       exit;
      }                  
  
-     $tone = $tone_arry[$cust_points];
-$useTone = 'Record using a voice tone of: ' . $tone;
-  echo "<h2 style='background-color:Orange;'>$useTone</h2>";
+    
 
 
   $script = $script_arry[$cust_points];
   $script_audio = $script_audio_arry[$cust_points];
-  
+  echo $cust_points . "</br>";
+  print_r($script_audio_arry);
+
+   echo "<h1 style='background-color:DodgerBlue;'>Listen to customer</h1>";
+  echo "    <audio controls>\n";
+  echo "  <source src=\"$script_audio\" type=\"audio/mpeg\">\n";
+  echo "      Your browser does not support the audio element.\n";
+  echo "      </audio>";
+
+
+   $tone = $tone_arry[$cust_points];
+$useTone = 'Record using a voice tone of: ' . $tone;
+  echo "<h2 style='background-color:Orange;'>$useTone</h2>";
+
   echo "<h3>$script</h3>";
      $_SESSION['script'] = $script;
   if(isset($errorMassage)){
@@ -233,223 +268,8 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
    WHERE cust_find = '$cust_find' ");
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-   
-  if($script_audio == 'Vehicle Driven'){
-    $drive = 'Vehicle Driven';
-
-    $query = "SELECT * ";
-    $query .= "FROM audio ";
-    $query .= "WHERE audio_group   = '{$comp_group}' ";
-    $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
-    $query .= "AND audio_drive_type   = '{$drive}' ";
   
-    $result_set = mysqli_query($con, $query)
-    or die('Query failed scrip: ' . mysqli_error($con));
 
-    while($row = mysqli_fetch_array($result_set)){
-      $audio_drive_type = $row['audio_drive_type'];
-      $audio_id = $row['audio_id'];
-      $audio_gender  = $row['audio_gender'];
-      $driven_arry[] = $audio_id;
-    
-  }
-   
-  
-$countDriven = count($driven_arry) - 1;
-$randDriven = rand(0, $countDriven);
-
-if($randDriven < 0){
-  $randDriven = 0;
-}
-
-
-
-$idDriven = $driven_arry[$randDriven];
-
-mysqli_query($con, "UPDATE customer_data SET cust_driven = '$idDriven'
-              WHERE cust_id  = '$cust_id' ");
-    
- }
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////////////////////////
-
-if($script_audio == 'PrimaryName'){
-
-  $primary_arry = array();
-
-    $secondary_arry = array();
-
-    $driven_arry = array();
-
-  if($cust_primary_user == 1){
-      $primary = "Male";
-      $secondary = "Female";
-  }else{
-      $primary = "Female";
-      $secondary = "Male";
-  }
-
-   
- 
-  $query = "SELECT * ";
-  $query .= "FROM audio ";
-  $query .= "WHERE audio_group   = '{$comp_group}' ";
-  $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
-  
-  
-  $result_set = mysqli_query($con, $query)
-          or die('Query failed scrip: ' . mysqli_error($con));
-  while($row = mysqli_fetch_array($result_set)){
-    $audio_drive_type = $row['audio_drive_type'];
-    $audio_id = $row['audio_id'];
-    $audio_gender  = $row['audio_gender'];
-
-    if($audio_drive_type == 'Primary Driver'){     
-    if($audio_gender == $primary){
-  
-         $primary_arry[] = $audio_id;
-    }
-  }
-
-  if($audio_drive_type == 'Secondary Driver'){
-    if($audio_gender == $secondary){
-      $secondary_arry[] = $audio_id;
-    }
-  }
-
-}
-
-    $countPrimary = count($primary_arry) - 1;
- 
-    $randPrimary = rand(0, $countPrimary);
-   
-
-    if($randPrimary < 0){
-      $randPrimary = 0;
-    }
-   
-   
-    $idPrimary = $primary_arry[$randPrimary];
-
-    mysqli_query($con, "UPDATE customer_data SET cust_primary = '$idPrimary'
-                  WHERE cust_id  = '$cust_id' ");
-
-$countSecondary = count($secondary_arry) - 1;
-$randSecondary = rand(0, $countSecondary);
-
-if($randSecondary < 0){
-  $randSecondary = 0;
-}
-
-print_r($secondary_arry);
-
-$idSecondary = $secondary_arry[$randSecondary];
-
-echo "</br>";
-echo $idSecondary;
-
-mysqli_query($con, "UPDATE customer_data SET cust_secondary = '$idSecondary'
-              WHERE cust_id  = '$cust_id' ");
-  
-  ///////////////////////////////////////////////////////////////////////////////////////////
-
-
-if($cust_primary_user == 1){
-
- echo "<h1 style='background-color:DodgerBlue;'>Primary driver</h1>";
-  echo " <audio controls>\n";
-  echo "  <source src=\" $cust_male_voice \" type=\"audio/mpeg\">\n";
-  echo "      Your browser does not support the audio element.\n";
-  
-  echo "      </audio>\n";
-
-  }else{
- echo "<h1 style='background-color:DodgerBlue;'>Primary driver</h1>";
-  echo "    <audio controls>\n";
-  echo "  <source src=\"$cust_female_voice\" type=\"audio/mpeg\">\n";
-  echo "      Your browser does not support the audio element.\n";
-  echo "      </audio>";
-  
-  }
-
-}
-  //////////////////////////////////////////////////////////////////////////////////
-
-  if($script_audio == 'PrimaryRequest'){
-
-    
-$query = "SELECT * ";
-$query .= "FROM audio ";
-$query .= "WHERE audio_group    = '{$comp_group}' ";
-$query .= "AND audio_id    = '{$cust_primary}' ";
-
-
-
-$result_set = mysqli_query($con, $query)
-        or die('Query failed scrip: ' . mysqli_error($con));
-$row = mysqli_fetch_array($result_set);
-  $audio_location = $row['audio_location'];
-  $_SESSION['options'] = $row['audio_options'];
-
-  
-  echo "<h1 style='background-color:DodgerBlue;'>What the primary driver would like</h1>";
-  echo "    <audio controls>\n";
-  echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
-  echo "      Your browser does not support the audio element.\n";
-  echo "      </audio>";
-  }
-
-   //////////////////////////////////////////////////////////////////////////////////
-
-   
-    if($script_audio == 'SecondaryRequest'){
-
-$query = "SELECT * ";
-$query .= "FROM audio ";
-$query .= "WHERE audio_group    = '{$comp_group}' ";
-$query .= "AND audio_id    = '{$cust_secondary}' ";
-
-$result_set = mysqli_query($con, $query)
-        or die('Query failed scrip: ' . mysqli_error($con));
-$row = mysqli_fetch_array($result_set);
-  $audio_location = $row['audio_location'];
-  $_SESSION['options'] = $row['audio_options'];
-
-  
-  echo "<h1 style='background-color:DodgerBlue;'>Anything the secondary drive would like</h1>";
-  echo "    <audio controls>\n";
-  echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
-  echo "      Your browser does not support the audio element.\n";
-  echo "      </audio>";
-   }
-
-  ////////////////////////////////////////////////////////////////////////////////
-
-  if($script_audio == 'Vehicle Driven'){
-        
-    $query = "SELECT * ";
-    $query .= "FROM audio ";
-    $query .= "WHERE audio_group    = '{$comp_group}' ";
-    $query .= "AND audio_id  = '{$idDriven}' ";
-    
-    
-    $result_set = mysqli_query($con, $query)
-            or die('Query failed scrip: ' . mysqli_error($con));
-    $row = mysqli_fetch_array($result_set);
-      $audio_location = $row['audio_location'];
-
-      echo "<h1 style='background-color:DodgerBlue;'>How the customers are going to the vehicle</h1>";
-      echo "    <audio controls>\n";
-      echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
-      echo "      Your browser does not support the audio element.\n";
-      echo "      </audio>";
-       }
-    
- 
-   
-       
  
 ?>
 
@@ -509,7 +329,7 @@ $row = mysqli_fetch_array($result_set);
 
    <?php
 $find = $_SESSION['find'];
-echo "<form action=\"training.php?find=$find\" method=\"post\">";
+echo "<form action=\"objection_training.php?find=$find\" method=\"post\">";
 
 ?>
 

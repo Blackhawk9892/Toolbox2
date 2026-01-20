@@ -168,8 +168,8 @@ Add Dealer to stock tag program
                 $_POST['reasonS'] = '';
                $_POST['milesS'] = '';
 
-
-                    $_SESSION['message'] = "<h1>You have completed your memory test for today</h1>";
+                    unset($_SESSION['type']);
+                   // $_SESSION['message'] = "<h1>You have completed your memory test for today</h1>";
                     $testPage = '/toolbox/toolbox2/objection_training.php';   // For Test
                    // $testPage = '/home.php';  // For production
 
