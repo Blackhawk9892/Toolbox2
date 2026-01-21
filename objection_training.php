@@ -208,7 +208,7 @@ while($row = mysqli_fetch_array($result_set)){
      $cName = '/toolbox/toolbox2/'; // For Test
 
     // $testPage = '/test' . $dealer_id . '.php';  //For Production
-     $testPage =  $cName . 'test' . $dealer_id . '.php'; // For Test
+     $testPage =  $cName . 'objection_training' . '.php'; // For Test
 
      if($cust_points  > $count ){
       $find = $_SESSION['find'];

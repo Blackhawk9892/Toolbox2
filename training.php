@@ -186,6 +186,7 @@ while($row = mysqli_fetch_array($result_set)){
     // $testPage = '/test' . $dealer_id . '.php';  //For Production
      $testPage =  $cName . 'test' . $dealer_id . '.php'; // For Test
 
+
      if($cust_points  > $count ){
       $find = $_SESSION['find'];
       header("Location: $testPage?find=$find");
