@@ -19,7 +19,7 @@ session_start();
 require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
-
+require("includes/functions.php");
 require("toolbar_sales.php");
 
 if(isset($_GET["type"])){
@@ -242,7 +242,7 @@ if($n < 0){
 
 $femalePhoto = $photoFemale[$n];
 $_SESSION['photoFemale'] = $femalePhoto;
-//echo "female Photo: " . $femalePhoto;
+
   echo "    <img src=\"$femalePhoto\" alt=$femalePhoto width=\"300\" height=\"300\">";
 
 
@@ -276,7 +276,7 @@ $maleVoiceName = $maleVoiceName[$n];
 $_SESSION['voiceMale'] = $maleVoice;
 $_SESSION['voiceMaleName'] = $maleVoiceName;
 
-//echo "malevoice: " . $maleVoice;
+
 echo "<h1 style='background-color:DodgerBlue;'>Names of customers</h1>";
 echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
@@ -313,7 +313,7 @@ $femaleVoiceName = $femaleVoiceName[$n];
 $_SESSION['voiceFemale'] = $femaleVoice;
 $_SESSION['voiceFemaleName'] = $femaleVoiceName;
 
-//echo "femalevoice: " . $femaleVoice;
+
 echo "    <audio controls>\n";
 echo "        <source src=\"$femaleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";

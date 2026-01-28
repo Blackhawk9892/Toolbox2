@@ -21,7 +21,7 @@ Add Dealer to stock tag program
             require_once("includes/constants.php");
             require("includes/connection.php");
             require("includes/database_rows.php");
-         
+            require("includes/functions.php");
             require("toolbar_sales.php");
 
             if(isset($_SESSION['message'])){
@@ -564,6 +564,9 @@ $Temp = "<td width = 6%>$script_template </td>";
                     $recordType_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
                 }
                 $place = 'None';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'particular';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
             
                 $place = 'PrimaryName';

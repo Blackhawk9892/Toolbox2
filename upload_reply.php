@@ -243,6 +243,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $typeDriver_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
     }
+
+    $place = 'particular';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
     $place = 'Primary Driver';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
     

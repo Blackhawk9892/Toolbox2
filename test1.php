@@ -42,6 +42,7 @@ session_start();
     require_once("toolbar_sales.php");
     require("includes/security.php");
     require("includes/datafile.php");
+    require("includes/functions.php");
 
     if(isset($_SESSION['message'])){
         $value = $_SESSION['message'];

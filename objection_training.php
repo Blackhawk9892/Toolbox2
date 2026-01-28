@@ -24,11 +24,36 @@ session_start();
 require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
+require("includes/functions.php");
+
+
+
 
 require("toolbar_sales.php");
 
+if(isset($_SESSION['type'])){
+   $type = $_SESSION['type'];
+}else{
+  $save_type_script = "";
+$query = "SELECT * ";
+$query .= "FROM objections ";
 
 
+$result_set = mysqli_query($con, $query)
+        or die('Query failed scrip: ' . mysqli_error($con));
+while($row = mysqli_fetch_array($result_set)){
+
+ $obj_type_script = $row['obj_type_script'];
+   if($save_type_script != $obj_type_script){
+      $type_script_arry[] = $obj_type_script;
+   }
+}  
+      $count = count($type_script_arry) - 1;
+      $i = rand(0, $count);
+     $_SESSION['type'] = $type_script_arry[$i];
+     $type = $_SESSION['type'];
+}
+    
 
 if($_GET['find']){
   $_SESSION['find'] = $_GET['find'];
@@ -43,12 +68,19 @@ if(isset($_POST['submit'])){
   
   $name = $_SESSION['name'];
   $emp_id = $_SESSION['emp_id'];
-   $script = $_SESSION['script'];
+
+  if(isset($_SESSION['script'])){
+    $script = $_SESSION['script'];
+    $script = replace_apostrophes($script);  // Replace apostrophes with * for putting into SQL
+  }else{
+    $errors[] ='Script is empty';
+  }
+   
   
   if(isset($_SESSION['audioName'])){
     $audioName = $_SESSION['audioName'];
   }else{
-    $errors[] ='You submit without a recording.  ';
+    $errors[] ='You submit without a recording. You now have new customers. Please get there names before moving on ';
   
   }
   
@@ -77,14 +109,15 @@ if(isset($_POST['submit'])){
       $options = '';
     }
      
-echo "it just wrote a record";
+
     $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options) 
     VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options')";
     
     
           if (!mysqli_query($con, $sql)) {
-              die('Error training 64: ' . mysqli_error($con));
+              die('Error training 107: ' . mysqli_error($con));
           }
+  
   
           $custStamp = $_SESSION['custStamp'];
   
@@ -162,31 +195,11 @@ $comp_product = $row['comp_product'];
    $cust_vehicle = $row['cust_vehicle'];
 ////////////////////////////////////////////////////////////////////////////////
 
-if(isset($_SESSION['type'])){
-$type = $_SESSION['type'];
-}else{
-  $query = "SELECT * ";
-$query .= "FROM objections ";
-$query .= "WHERE obj_corporate_number	  = '{$comp_group}' ";
 
-$result_set = mysqli_query($con, $query)
-        or die('Query failed scrip: ' . mysqli_error($con));
-while($row = mysqli_fetch_array($result_set)){
-    $type_arry[] = $row['obj_type_script'];
-}
-$c = count($type_arry) -1;
-  $x = rand(0,$c);
-  $_SESSION['type'] = $type_arry[$x];
-
-$type = $_SESSION['type'];
-
-}
-
-
-
+$countLeave = 0;
 $query = "SELECT * ";
 $query .= "FROM objections ";
-$query .= "WHERE obj_corporate_number	  = '{$comp_group}' ";
+$query .= "WHERE 	obj_corporate_number   = '{$comp_group}' ";
 $query .= "AND obj_type_script   = '{$type}' ";
 $query .= "ORDER BY obj_order ";
 
@@ -195,10 +208,24 @@ $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 while($row = mysqli_fetch_array($result_set)){
   $script_arry[] = $row['obj_script'];
-  $script_audio_arry[] = $row['obj_audio'];
+  $script_audio_arry[] = $row['obj_script'];
   $tone_arry[] = $row['obj_tone'];
-  
+  $index_arry[] = $row['obj_index'];
+  $audio_arry[] = $row['obj_audio'];
+  $audio2_arry[] = $row['obj_audio2'];
+  $voice_type_arry[] = $row['obj_voice_type'];
+  $countLeave++;
 }  
+
+ echo $_SESSION['counter'] . " >= " . $_SESSION['countLeave'];
+ if($_SESSION['counter'] > $_SESSION['countLeave'] and $_SESSION['counter'] > 0){
+        
+      $_SESSION['message'] = "Your points for today have been recorded. You may train as many times as you want, but only your first time counts for points.";
+    
+      header("Location: home.php");
+      exit;
+   }
+
 
      $count = count($script_arry) - 1;
    
@@ -208,33 +235,28 @@ while($row = mysqli_fetch_array($result_set)){
      $cName = '/toolbox/toolbox2/'; // For Test
 
     // $testPage = '/test' . $dealer_id . '.php';  //For Production
-     $testPage =  $cName . 'objection_training' . '.php'; // For Test
+     $testPage =  $cName . 'test1'  . '.php'; // For Test
+
 
      if($cust_points  > $count ){
       $find = $_SESSION['find'];
-      header("Location: $testPage?find=$find");
-      exit;
-     }                  
- 
+    //  header("Location: $testPage?find=$find");
+     // exit;
+     }  
+     
+     $counter = $_SESSION['counter'];
     
-
-
-  $script = $script_arry[$cust_points];
-  $script_audio = $script_audio_arry[$cust_points];
-  echo $cust_points . "</br>";
-  print_r($script_audio_arry);
-
-   echo "<h1 style='background-color:DodgerBlue;'>Listen to customer</h1>";
-  echo "    <audio controls>\n";
-  echo "  <source src=\"$script_audio\" type=\"audio/mpeg\">\n";
-  echo "      Your browser does not support the audio element.\n";
-  echo "      </audio>";
-
-
-   $tone = $tone_arry[$cust_points];
+   
+     $index = $index_arry[$counter];
+    
+     $tone = $tone_arry[$counter];
 $useTone = 'Record using a voice tone of: ' . $tone;
   echo "<h2 style='background-color:Orange;'>$useTone</h2>";
 
+
+  $script = $script_arry[$counter];
+  $script_audio = $script_audio_arry[$counter];
+  
   echo "<h3>$script</h3>";
      $_SESSION['script'] = $script;
   if(isset($errorMassage)){
@@ -258,18 +280,50 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
    echo "    <img src=\"$cust_female_photo\" alt=$cust_id width=\"300\" height=\"300\">";
 
    //////////////////////////////////////////////////////////////////////////////////////////
+   
+    $audio = $audio_arry[$counter];
+ //////////////////////////////////////Audio 1/////////////////////////////////////////////
 
+    $voice_type = $voice_type_arry[$counter];
 
+    if($voice_type == 'Starting'){
+       echo "<h1 style='background-color:DodgerBlue;'>Prospect Objection</h1>";
+    }else{
+       echo "<h1 style='background-color:DodgerBlue;'>Answer To Question</h1>";
+    }
+  echo " <audio controls>\n";
+  echo "  <source src=\" $audio \" type=\"audio/mpeg\">\n";
+  echo "      Your browser does not support the audio element.\n";
   
+  echo "      </audio>\n";
+
+  ////////////////////////////////////Audio 2//////////////////////////////////
+
+
+
+  if($voice_type == 'Starting'){
+     $audio2 = $audio2_arry[$counter];
+  echo "<h1 style='background-color:DodgerBlue;'>Answer To Question</h1>";
+  echo " <audio controls>\n";
+  echo "  <source src=\" $audio2 \" type=\"audio/mpeg\">\n";
+  echo "      Your browser does not support the audio element.\n";
+  
+  echo "      </audio>\n";
+  }
+////////////////////////////////////////////////////////////////////////////
+  $_SESSION['counter'] = $_SESSION['counter'] + 1;
 
   $cust_points = $cust_points + 1;
   
   mysqli_query($con, "UPDATE customer_data SET cust_points = '$cust_points'
    WHERE cust_find = '$cust_find' ");
 
-////////////////////////////////////////////////////////////////////////////////////////////
-  
+   $_SESSION['countLeave'] = $countLeave;
+ 
 
+////////////////////////////////////////////////////////////////////////////////////////////
+
+       
  
 ?>
 

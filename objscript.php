@@ -21,6 +21,7 @@ Add Dealer to stock tag program
             require_once("includes/constants.php");
             require("includes/connection.php");
             require("includes/database_rows.php");
+            require("includes/functions.php");
          
             require("toolbar_sales.php");
 
@@ -138,7 +139,7 @@ if(isset($_COOKIE["userId"])){
                 $_POST['order'] = '';
                 $_POST['tone'] = '';
                 $_POST['typeScrip'] = '';
-
+                $_POST['voiceScript'] = '';
                 unset($_SESSION['index']);
             }
 
@@ -173,6 +174,11 @@ if(isset($_COOKIE["userId"])){
                     $errors[] = 'Scrip Type was not selected';
                 }
 
+               if(isset($_POST['voiceScript'])){
+                    $voiceScript = $_POST['voiceScript'];
+                }else{
+                    $errors[] = 'Voice Type is empty';
+                }
 
                 
 
@@ -190,7 +196,7 @@ if(isset($_COOKIE["userId"])){
                 $tone = $_POST['tone'];
                
               
-
+                $scrip = replace_apostrophes($scrip); // Replace apostrophes with * for putting into SQL
                 mysqli_query($con, "UPDATE objections SET obj_script = '$scrip'
                   WHERE obj_index  = '$index' ");
                  
@@ -200,7 +206,10 @@ if(isset($_COOKIE["userId"])){
 
                mysqli_query($con, "UPDATE objections SET obj_tone = '$tone'
                   WHERE obj_index  = '$index' ");
-                   
+
+                $voiceScript = replace_apostrophes($voiceScript);  // Replace apostrophes with * for putting into SQL
+                mysqli_query($con, "UPDATE objections SET obj_voice_type = '$voiceScript'
+                  WHERE obj_index  = '$index' ");
 
 
                 $name = $_SESSION['name'];
@@ -221,7 +230,7 @@ if(isset($_COOKIE["userId"])){
               $_POST['order'] = '';
               $_POST['tone'] = '';
               $_POST['typeScrip'] = '';
-              
+              $_POST['voiceScript'] = '';
               unset($_SESSION['index']);
             }
         }
@@ -301,6 +310,8 @@ if(isset($_COOKIE["userId"])){
                 
                 if(isset($_POST['scrip'])){
                     $scrip = $_POST['scrip'];
+                    $scrip = replace_apostrophes($scrip); // Replace apostrophes with * for putting into SQL
+                
                 }else{
                     $errors[] = 'Scrip is empty';
                 }
@@ -317,6 +328,14 @@ if(isset($_COOKIE["userId"])){
                     $tone = $_POST['tone'];
                 }else{
                     $errors[] = 'Tone Of Voice is empty';
+                }
+
+                 if(isset($_POST['voiceScript'])){
+                    $voiceScript = $_POST['voiceScript'];
+                    //$voiceScript = replace_apostrophes($voiceScript); // Replace apostrophes with * for putting into SQL
+
+                }else{
+                    $errors[] = 'Voice Type is empty';
                 }
                
                 $id = explode("-",$dealer);
@@ -370,8 +389,8 @@ if(isset($_COOKIE["userId"])){
                   
                     $name = $_SESSION['name'];
                 
-                    $sql = "INSERT INTO objections(obj_corporate_number,obj_corporate_name,obj_type_script,obj_script,obj_tone,obj_audio,obj_order,obj_changed) 
-              VALUES('$compNum','$company','$typeScrip','$scrip','$tone','$newName','$order','$name')";
+                    $sql = "INSERT INTO objections(obj_corporate_number,obj_corporate_name,obj_type_script,obj_script,obj_tone,obj_audio,obj_order,obj_changed,obj_voice_type) 
+              VALUES('$compNum','$company','$typeScrip','$scrip','$tone','$newName','$order','$name','$voiceScript')";
                 
 
                     if (!mysqli_query($con, $sql)) {
@@ -386,7 +405,7 @@ if(isset($_COOKIE["userId"])){
                     $_POST['order'] = '';
                     $_POST['tone'] = '';
                     $_POST['typeScrip'] = '';
-                 
+                    $_POST['voiceScript'] = '';
 
                    
                      }
@@ -422,7 +441,9 @@ if(isset($_COOKIE["userId"])){
                 $script_comp_num = $row['obj_corporate_number'];
                 $script_comp_name = $row['obj_corporate_name'];
                 $script_type = $row['obj_type_script'];
+                $script_type = replace_star($script_type); // Replace star with ' for taking out of SQL
                 $script_template = $row['obj_script'];
+                $script_template = replace_star($script_template); // Replace star with ' for taking out of SQL
                 $script_tone = $row['obj_tone'];
                 $script_order = $row['obj_order'];
                
@@ -529,16 +550,48 @@ $Temp = "<td width = 6%>$script_template </td>";
 
                 
                 $description = "Not enough for my trade-in";
-                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
-
-                
-                
+                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";         
+    
+               
+    
+    ///////////////////////////////////////Voice for script////////////////////////////////////////////////////////////
+                        
+                $blank = '';
+                if (isset($_POST['voiceScript'])) {
+                    $voiceScript = $_POST['voiceScript'];
+                    $voiceScript_arr[] = "\n<option value=\"$voiceScript\">$voiceScript</option>\n";
+                    $voiceScript_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+                } else {
+                    $voiceScript_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+                }
                
             
-    
+            
+                $description = "Starting";
+                $voiceScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
+                
                
-    
-    /////////////////////////////////////////////////////////////////////////////////
+                $description = "Second";
+                $voiceScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
+            
+                $description = "Third";
+                $voiceScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
+
+                
+                $description = "Fourth";
+                $voiceScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
+
+               
+                $description = "Fifth";
+                $voiceScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
+
+             
+                $description = "Sixth";
+                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+
+          
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
 
                 $blank = '';
                 if (isset($_POST['recording'])) {
@@ -593,10 +646,19 @@ print_r($dealer_arr);
 
 <select>
      <br>
-                              <tr><td>Type of Scrip:</td><td>  
+                              <tr><td>Type of Close:</td><td>  
                                 <select name="typeScrip">
                                 <?php
                                 print_r($typeScrip_arr);
+                                ?> 
+
+                                </select>
+
+                                  <br>
+                              <tr><td>Voice Type:</td><td>  
+                                <select name="voiceScript">
+                                <?php
+                                print_r($voiceScript_arr);
                                 ?> 
 
                                 </select>

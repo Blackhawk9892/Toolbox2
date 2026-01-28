@@ -24,7 +24,7 @@ session_start();
 require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
-
+require("includes/functions.php");
 require("toolbar_sales.php");
 
 $type = 'sales';
@@ -184,7 +184,7 @@ while($row = mysqli_fetch_array($result_set)){
      $cName = '/toolbox/toolbox2/'; // For Test
 
     // $testPage = '/test' . $dealer_id . '.php';  //For Production
-     $testPage =  $cName . 'test' . $dealer_id . '.php'; // For Test
+     $testPage =  $cName . 'test1'  . '.php'; // For Test
 
 
      if($cust_points  > $count ){
@@ -298,7 +298,7 @@ if($script_audio == 'PrimaryName'){
   $query .= "FROM audio ";
   $query .= "WHERE audio_group   = '{$comp_group}' ";
   $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
-  
+
   
   $result_set = mysqli_query($con, $query)
           or die('Query failed scrip: ' . mysqli_error($con));
@@ -321,7 +321,7 @@ if($script_audio == 'PrimaryName'){
   }
 
 }
-
+  
     $countPrimary = count($primary_arry) - 1;
  
     $randPrimary = rand(0, $countPrimary);
@@ -344,12 +344,11 @@ if($randSecondary < 0){
   $randSecondary = 0;
 }
 
-print_r($secondary_arry);
+
 
 $idSecondary = $secondary_arry[$randSecondary];
 
-echo "</br>";
-echo $idSecondary;
+
 
 mysqli_query($con, "UPDATE customer_data SET cust_secondary = '$idSecondary'
               WHERE cust_id  = '$cust_id' ");
@@ -434,7 +433,7 @@ $row = mysqli_fetch_array($result_set);
     $query .= "FROM audio ";
     $query .= "WHERE audio_group    = '{$comp_group}' ";
     $query .= "AND audio_id  = '{$idDriven}' ";
-    
+  
     
     $result_set = mysqli_query($con, $query)
             or die('Query failed scrip: ' . mysqli_error($con));

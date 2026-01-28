@@ -20,6 +20,8 @@ Add Dealer to stock tag program
           require("includes/connection.php");
           require("includes/pull_downs.php");
           require("toolbar_sales.php");
+           require("includes/functions.php");
+          $_SESSION['counter'] = 0;
 
           if(isset($_GET['find'])){
             $_SESSION['find'] = $_GET['find'];
