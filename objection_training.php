@@ -196,7 +196,7 @@ $comp_product = $row['comp_product'];
 ////////////////////////////////////////////////////////////////////////////////
 
 
-$countLeave = 0;
+$_SESSION['countLeave'] = 0;
 $query = "SELECT * ";
 $query .= "FROM objections ";
 $query .= "WHERE 	obj_corporate_number   = '{$comp_group}' ";
@@ -214,11 +214,11 @@ while($row = mysqli_fetch_array($result_set)){
   $audio_arry[] = $row['obj_audio'];
   $audio2_arry[] = $row['obj_audio2'];
   $voice_type_arry[] = $row['obj_voice_type'];
-  $countLeave++;
+  $_SESSION['countLeave']++;
 }  
 
- echo $_SESSION['counter'] . " >= " . $_SESSION['countLeave'];
- if($_SESSION['counter'] > $_SESSION['countLeave'] and $_SESSION['counter'] > 0){
+
+ if($_SESSION['counter'] >= $_SESSION['countLeave'] and $_SESSION['counter'] > 0){
         
       $_SESSION['message'] = "Your points for today have been recorded. You may train as many times as you want, but only your first time counts for points.";
     
@@ -250,7 +250,7 @@ while($row = mysqli_fetch_array($result_set)){
      $index = $index_arry[$counter];
     
      $tone = $tone_arry[$counter];
-$useTone = 'Record using a voice tone of: ' . $tone;
+$useTone = 'Record using a voice inflection of: ' . $tone;
   echo "<h2 style='background-color:Orange;'>$useTone</h2>";
 
 
@@ -318,7 +318,7 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
   mysqli_query($con, "UPDATE customer_data SET cust_points = '$cust_points'
    WHERE cust_find = '$cust_find' ");
 
-   $_SESSION['countLeave'] = $countLeave;
+   
  
 
 ////////////////////////////////////////////////////////////////////////////////////////////

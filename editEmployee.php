@@ -21,8 +21,8 @@ Add Dealer to stock tag program
            
             require("toolbar_sales.php");
             require("includes/database_rows.php");
-           // require("../includes/pull_downs.php");
-           // require("../includes/security.php");
+
+          echo "<center><h1>Edit Employee</h1></center>";
 
            if (isset($_POST['back'])) {
             header("Location: select_employee.php");
@@ -76,7 +76,7 @@ Add Dealer to stock tag program
                 $_POST['first'] = '';
                 $_POST['last'] = '';
                 $_POST['position'] = '';
-              
+                $_POST['manager'] = '';
                 $_POST['password'] = '';
                 $_POST['password2'] = '';
             }
@@ -91,7 +91,14 @@ Add Dealer to stock tag program
                 $last = ucwords($_POST['last']);
                 $position = $_POST['position'];
                
-            
+                if(isset($_POST['manager'])){
+
+                  $manager = $_POST['manager'];
+                  $d = explode("-",$manager);
+                  $managerId = $d[0];
+                  $managerName = $d[1];  
+                }
+                    
 
                 $required_fields = array('first', 'last', 'position');
 
@@ -134,6 +141,15 @@ Add Dealer to stock tag program
 
                     mysqli_query($con, "UPDATE employee SET emp_position = '$position'
                                          WHERE emp_id = '$id' ");
+                    /////////////////////////////////////////////emp_assigned_man_num/////////////////////////////////////////////////////////////////
+
+
+                    mysqli_query($con, "UPDATE employee SET emp_assigned_man_num = '$managerId'
+                                         WHERE emp_id = '$id' ");
+                    /////////////////////////////////////////////emp_position/////////////////////////////////////////////////////////////////
+
+                    mysqli_query($con, "UPDATE employee SET emp_assigned_man_name = '$managerName'
+                                         WHERE emp_id = '$id' ");
                     /////////////////////////////////////////////emp_email/////////////////////////////////////////////////////////////////
 
 
@@ -144,10 +160,12 @@ Add Dealer to stock tag program
                     $_POST['first'] = '';
                     $_POST['last'] = '';
                     $_POST['position'] = '';
+                    $_POST['manager'] = '';
+                  
                    
 
 
-                    echo "<div class=\"errors\">Employee $first $last  has been added</div>";
+                    echo "<div class=\"errors\">Employee $first $last  has been updated</div>";
                 }
             }
             ////////////////////////////////////////////////////////////////////////////////
@@ -164,16 +182,44 @@ Add Dealer to stock tag program
            
             $place = 'Manager';
             $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+              $place = 'Corporate';
+            $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
            
-            if ($emp_position = 'pfd') {
-                $place = 'Sales Tool Box';
+            if ($emp_position = 'PFD') {
+                $place = 'PFD';
                 $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
             }
-          //  $place = 'Corporate';
-          //  $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
+ 
+
 
         
+             $blank = '';
+            if (isset($_POST['manager'])) {
+                $manager = $_POST['manager'];
+                $manager_arr[] = "\n<option value=\"$manager\">$manager</option>\n";
+            }
+                $position_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+          
+            if(isset($dealer_id)){ 
+            $empType = "manager";
+            $query = "SELECT * ";
+            $query .= "FROM employee "; 
+            $query .= "WHERE emp_dealer_id = '{$dealer_id}' ";
+            $query .= "AND emp_position = '{$empType}' ";
+            $query .= "ORDER BY emp_first_name, emp_last_name";
 
+            $result_set = mysqli_query($con, $query)
+                    or die('Query failed: ' . mysqli_error($con));
+
+            while ($row = mysqli_fetch_array($result_set)) {
+                $emp_id = $row['emp_id'];
+                $emp_first_name = $row['emp_first_name'];
+                $emp_last_name = $row['emp_last_name'];
+                $manager = $emp_id . '-' . $emp_first_name . ' ' . $emp_last_name;
+                $manager_arr[] = "\n<option value=\"$manager\">$manager</option>\n";
+            }
+        }
             ?>
 
 
@@ -197,6 +243,16 @@ Add Dealer to stock tag program
                                     <?php
                                     print_r($position_arr);
                                     ?>
+                                </select>
+
+                                
+                              <tr><td>Manager:</td><td>
+                
+                            <select name="manager">
+                                <?php
+                                print_r($manager_arr);
+                                ?>
+                             </select>
 
 
 

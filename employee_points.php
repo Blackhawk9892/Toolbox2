@@ -27,7 +27,7 @@ $_SESSION['page'] = 'select_employee.php';
        // require("includes/pull_downs.php");
         require("toolbar_sales.php");
 
-      echo "<center><h1>Employee Maintenance</h1></center>";
+      echo "<center><h1>Employee Points</h1></center>";
 
         require("includes/security.php");
 
@@ -90,7 +90,7 @@ $_SESSION['page'] = 'select_employee.php';
             $bid_satus = 'photos';
            }
            
-            $rows[] = "\n<div id=\"$bid_satus\"><a href=editEmployee.php?employee=$emp_id><table><tr><td width = 300px>$demp_first_name</td> <td>$emp_last_name</td></tr></table></a> </div>";
+            $rows[] = "\n<div id=\"$bid_satus\"><a href=points.php?employee=$emp_id><table><tr><td width = 300px>$demp_first_name</td> <td>$emp_last_name</td></tr></table></a> </div>";
            
        }
     }   
@@ -98,7 +98,7 @@ $_SESSION['page'] = 'select_employee.php';
         
 
         
-            <form action="select_employee.php" method="post">
+            <form action="employee_points.php" method="post">
 
 
 <div id="content">

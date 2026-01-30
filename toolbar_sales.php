@@ -75,7 +75,10 @@ $tb_descrip = 'Objections script Setup';
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
  
  
+$tb_program = 'employee_points.php';
+$tb_descrip = 'Employee Points';
 
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 //###################################Sales Menu ########################################################################
 //$tb_program = 'interduction.php';
@@ -112,6 +115,8 @@ $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 $tb_program = 'phoneintro.php?type=know';
 $tb_descrip = "Callback don't know why they left the dealership";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

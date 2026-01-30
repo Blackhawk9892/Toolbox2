@@ -47,10 +47,12 @@ if(isset($_POST['submit'])){
   if(isset($_SESSION['audioName'])){
     $audioName = $_SESSION['audioName'];
   }else{
-    $errors[] ='You submit without a recording. You now have new customers. Please get there names before moving on ';
+    $errors[] ='You submitted without recording or listening to your recording';
   
   }
   
+ 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   if (!empty($errors)) {
 
@@ -93,6 +95,8 @@ if(isset($_POST['submit'])){
           unset($_SESSION['audioName']);
           unset($_SESSION['options']);
       }
+         
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -194,7 +198,7 @@ while($row = mysqli_fetch_array($result_set)){
      }                  
  
      $tone = $tone_arry[$cust_points];
-$useTone = 'Record using a voice tone of: ' . $tone;
+$useTone = 'Record using a voice inflection of: ' . $tone;
   echo "<h2 style='background-color:Orange;'>$useTone</h2>";
 
 

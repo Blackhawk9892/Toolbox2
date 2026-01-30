@@ -124,7 +124,7 @@ while($row = mysqli_fetch_array($result_set)){
 }  
 $script_description = $description_arry[0];
 $tone = $tone_arry[0];
-$useTone = 'Record this script using a voice tone of: ' . $tone ;
+$useTone = 'Record this script using a voice inflection of: ' . $tone ;
   echo "<h1 style='background-color:Orange;'>$useTone</h1>";
 
  

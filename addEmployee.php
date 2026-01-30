@@ -23,7 +23,9 @@ Add Dealer to stock tag program
             require("includes/database_rows.php");
          
             require("toolbar_sales.php");
-           
+
+           echo "<center><h1>Add Employee</h1></center>";
+
             if (isset($_POST['back'])) {
                 header("Location: select_employee.php");
                 exit;
@@ -53,6 +55,7 @@ Add Dealer to stock tag program
                 $_POST['first'] = '';
                 $_POST['last'] = '';
                 $_POST['position'] = '';
+                $_POST['manager'] = '';
                 $_POST['email'] = '';
                 $_POST['phone'] = '';
                 $_POST['password'] = '';
@@ -69,8 +72,8 @@ Add Dealer to stock tag program
 
             $query = "SELECT * ";
             $query .= "FROM company ";
-           
-            if($emp_position != 'PFD'){
+          
+            if($position != 'PFD'){
             $query .= "WHERE comp_id   = '{$position}' ";
             }
             $query .= "ORDER BY comp_name";
@@ -82,7 +85,7 @@ Add Dealer to stock tag program
                 $comp_id = $row['comp_id'];
                 $comp_name = $row['comp_name'];
                 $dealer = $comp_id . '-' . $comp_name;
-                
+               
                 $dealer_arr[] = "\n<option value=\"$dealer\">$dealer</option>\n";
                
             }
@@ -97,13 +100,18 @@ Add Dealer to stock tag program
                 $first = ucwords($_POST['first']);
                 $last = ucwords($_POST['last']);
                 $position = $_POST['position'];
-               
+                $manager = $_POST['manager'];
                 $password = $_POST['password'];
                 $password2 = $_POST['password2'];
+
                 $d = explode("-",$dealer);
                 $userName = $userName . $d[0];
                 $id = $d[0];
                 $company = $d[1];
+
+                 $d = explode("-",$manager);
+                $managerId = $d[0];
+                $managerName = $d[1];
 
                 $required_fields = array('dealer', 'userName', 'first', 'last', 'position','password', 'password2');
 
@@ -141,11 +149,23 @@ Add Dealer to stock tag program
                         echo "<div class=\"errors\">$value</div>";
                     }
                 } else {
+
+                   $query = "SELECT * ";
+                   $query .= "FROM company ";
+                   $query .= "WHERE comp_id = '{$id}' ";
+                       
+                   $result_set = mysqli_query($con, $query)
+                    or die('Query failed: ' . mysqli_error($con));
+
+                   $row = mysqli_fetch_array($result_set);
+                           $comp_group = $row['comp_group'];
+
+                          
                    
                     $password = sha1(sha1($_POST['password']));
 
-                    $sql = "INSERT INTO employee(emp_dealer_id, emp_dealer_name, emp_user_name, emp_password, emp_first_name, emp_last_name, emp_position, emp_manage_num) 
-              VALUES('$id','$company','$userName','$password','$first','$last','$position','$emp_id')";
+                    $sql = "INSERT INTO employee(emp_dealer_id, emp_dealer_name, emp_user_name, emp_password, emp_first_name, emp_last_name, emp_position, emp_manage_num, emp_dealer_group, emp_assigned_man_num, emp_assigned_man_name) 
+              VALUES('$id','$company','$userName','$password','$first','$last','$position','$emp_id','$comp_group','$managerId','$managerName')";
 
 
                     if (!mysqli_query($con, $sql)) {
@@ -160,7 +180,7 @@ Add Dealer to stock tag program
                     $_POST['first'] = '';
                     $_POST['last'] = '';
                     $_POST['position'] = '';
-                   
+                    $_POST['manager'] = '';
                     $_POST['password'] = '';
                     $_POST['password2'] = '';
                  
@@ -185,16 +205,42 @@ Add Dealer to stock tag program
            
             $place = 'Manager';
             $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+            $place = 'Corporate';
+            $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
            
           
-            if($emp_position = 'pfd'){
-            $place = 'Sales Tool Box';
+            if($position = 'PFD'){
+            $place = 'PFD';
             $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
             }
             
      
+             $blank = '';
+            if (isset($_POST['manager'])) {
+                $manager = $_POST['manager'];
+                $manager_arr[] = "\n<option value=\"$manager\">$manager</option>\n";
+            }
+                $position_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+          
 
+            $empType = "manager";
+            $query = "SELECT * ";
+            $query .= "FROM employee "; 
+            $query .= "WHERE emp_dealer_id = '{$dealer_id}' ";
+            $query .= "AND emp_position = '{$empType}' ";
+            $query .= "ORDER BY emp_first_name, emp_last_name";
 
+            $result_set = mysqli_query($con, $query)
+                    or die('Query failed: ' . mysqli_error($con));
+
+            while ($row = mysqli_fetch_array($result_set)) {
+                $emp_id = $row['emp_id'];
+                $emp_first_name = $row['emp_first_name'];
+                $emp_last_name = $row['emp_last_name'];
+                $manager = $emp_id . '-' . $emp_first_name . ' ' . $emp_last_name;
+                $manager_arr[] = "\n<option value=\"$manager\">$manager</option>\n";
+            }
             ?>
 
 
@@ -225,6 +271,15 @@ print_r($dealer_arr);
                                 <?php
                                 print_r($position_arr);
                                 ?>
+                             </select>
+
+                              <tr><td>Manager:</td><td>
+                
+                            <select name="manager">
+                                <?php
+                                print_r($manager_arr);
+                                ?>
+                             </select>
 
 
                      

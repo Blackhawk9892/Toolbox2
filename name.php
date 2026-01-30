@@ -63,6 +63,11 @@ require("includes/database_rows.php");
 
 require("toolbar_sales.php");
 
+if(isset($_SESSION['errors'])){
+  echo $_SESSION['errors'];
+  unset($_SESSION['errors']);
+}
+
 echo "<br>";
 echo "<br>";
 
@@ -149,20 +154,26 @@ if (isset($_POST['submit'])) {
   if(isset($_POST['Male'])){
     $Male = $_POST['Male'];
   }else{
-    $errors[] = "A Male name must be selected";
+    $errors[] = "Both a Male and Female name must be selected";
   }
 
   if(isset($_POST['Female'])){
     $Female = $_POST['Female'];
 
   }else{
-    $errors[] = "A Female name must be selected";
+    $errors[] = "Both a Male and Female name must be selected";
   }
  
   if (!empty($errors)) {
 
     foreach ($errors as $value) {
-        echo "<div class=\"errors\">$value</div>";
+        $_SESSION['errors'] = "<div class=\"errors\">$value</div>";
+        //$testPage = '/select_vehicles.php';    // This is for Production
+        $testPage = '/toolbox/toolbox2/name.php'; // This is for Testing
+        $find = $_SESSION['find'];
+       header("Location: $testPage?find=$find");
+       exit;
+
     }
    } else {
 
@@ -185,8 +196,6 @@ if (isset($_POST['submit'])) {
 
 //$testPage = '/select_vehicles.php';    // This is for Production
 $testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
-
-
 
 $find = $_SESSION['find'];
 header("Location: $testPage?find=$find");
