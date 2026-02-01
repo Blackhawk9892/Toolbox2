@@ -43,6 +43,7 @@ if(isset($_POST['submit'])){
   $name = $_SESSION['name'];
   $emp_id = $_SESSION['emp_id'];
    $script = $_SESSION['script'];
+   $tone = $_SESSION['tone'];
   
   if(isset($_SESSION['audioName'])){
     $audioName = $_SESSION['audioName'];
@@ -79,8 +80,8 @@ if(isset($_POST['submit'])){
     }
      
 
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options')";
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options,record_tone) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options','$tone')";
     
     
           if (!mysqli_query($con, $sql)) {
@@ -185,10 +186,10 @@ while($row = mysqli_fetch_array($result_set)){
     $cName =  $comp_product; 
 
   
-     $cName = '/toolbox/toolbox2/'; // For Test
+   //  $cName = '/toolbox/toolbox2/'; // For Test
 
-    // $testPage = '/test' . $dealer_id . '.php';  //For Production
-     $testPage =  $cName . 'test1'  . '.php'; // For Test
+     $testPage = '/test1' . '.php';  //For Production
+   //  $testPage =  $cName . 'test1'  . '.php'; // For Test
 
 
      if($cust_points  > $count ){
@@ -198,6 +199,7 @@ while($row = mysqli_fetch_array($result_set)){
      }                  
  
      $tone = $tone_arry[$cust_points];
+     $_SESSION['tone'] = $tone;
 $useTone = 'Record using a voice inflection of: ' . $tone;
   echo "<h2 style='background-color:Orange;'>$useTone</h2>";
 

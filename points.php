@@ -50,6 +50,21 @@ Add Dealer to stock tag program
            $employeeName = $_SESSION['employeeName'];
            echo "<center><h1>$employeeName</h1></center>";
 
+           
+          $query = "SELECT * ";
+        $query .= "FROM employee ";
+        $query .= "WHERE emp_id = '{$employee}' ";
+       
+
+       
+        $result_set = mysqli_query($con, $query)
+                or die('Query failed: ' . mysql_error());
+
+        $row = mysqli_fetch_array($result_set);// start while
+
+            $emp_evaluation_date = $row['emp_evaluation_date'];
+
+            $sevenDays = strtotime("$emp_evaluation_date");
         /////////////////////////Submit////////////////////////////////////////////////////
             if (isset($_POST['submit'])) {
 
@@ -157,6 +172,10 @@ Add Dealer to stock tag program
           <br />
                 <br />
                     <input type="submit" name="submit" value="Submit"/>
+                    <br />
+                     <br />
+                
+                    <input type="submit" name="back" value="Back"/>
                     <br />
 
        

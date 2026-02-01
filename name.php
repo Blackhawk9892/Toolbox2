@@ -63,6 +63,9 @@ require("includes/database_rows.php");
 
 require("toolbar_sales.php");
 
+
+
+
 if(isset($_SESSION['errors'])){
   echo $_SESSION['errors'];
   unset($_SESSION['errors']);
@@ -92,6 +95,8 @@ if(isset($_GET['find'])){
 }
 
 $find = $_SESSION['find'];
+
+
 
 
       $query = "SELECT * ";
@@ -165,10 +170,10 @@ if (isset($_POST['submit'])) {
   }
  
   if (!empty($errors)) {
-
+ 
     foreach ($errors as $value) {
         $_SESSION['errors'] = "<div class=\"errors\">$value</div>";
-        //$testPage = '/select_vehicles.php';    // This is for Production
+       // $testPage = '/name.php';    // This is for Production
         $testPage = '/toolbox/toolbox2/name.php'; // This is for Testing
         $find = $_SESSION['find'];
        header("Location: $testPage?find=$find");
@@ -194,8 +199,8 @@ if (isset($_POST['submit'])) {
     mysqli_query($con, "UPDATE customer_data SET cust_points = '$total'
     WHERE cust_id  = '$cust_id' ");
 
-//$testPage = '/select_vehicles.php';    // This is for Production
-$testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
+  // $testPage = '/select_vehicles.php';    // This is for Production
+   $testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
 
 $find = $_SESSION['find'];
 header("Location: $testPage?find=$find");
@@ -220,6 +225,7 @@ exit;
 <input   type="submit" name="submit" value="Submit"/>
 <br />
 <br />
+
 <sectionMale>
   <nav-item>
   <h2>Male Names </h2>

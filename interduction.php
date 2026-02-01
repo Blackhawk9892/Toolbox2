@@ -46,7 +46,10 @@ $name = $first . ' ' . $last;
 
 if(isset($_POST['submit'])){
 
-  
+   $script = $_SESSION['script'];
+   $tone = $_SESSION['tone'];
+
+
   if(isset($_SESSION['audioName'])){
     $audioName = $_SESSION['audioName'];
   }else{
@@ -88,8 +91,8 @@ if(isset($_POST['submit'])){
            die('Error customer _data 206: ' . mysqli_error($con));
        }
   
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp')";
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_tone) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$tone')";
     
     
           if (!mysqli_query($con, $sql)) {
@@ -123,7 +126,9 @@ while($row = mysqli_fetch_array($result_set)){
   $description_arry[] = $row['script_description'];
 }  
 $script_description = $description_arry[0];
+ $_SESSION['script'] = $script_arry[0];
 $tone = $tone_arry[0];
+$_SESSION['tone'] = $tone;
 $useTone = 'Record this script using a voice inflection of: ' . $tone ;
   echo "<h1 style='background-color:Orange;'>$useTone</h1>";
 
@@ -132,6 +137,7 @@ $useTone = 'Record this script using a voice inflection of: ' . $tone ;
   
 
   $script = $script_arry[0];
+ 
   echo "<h3>$script</h3>";
 
 

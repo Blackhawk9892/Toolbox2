@@ -68,6 +68,8 @@ if(isset($_POST['submit'])){
   
   $name = $_SESSION['name'];
   $emp_id = $_SESSION['emp_id'];
+  $script = $_SESSION['script'];
+  $tone = $_SESSION['tone'];
 
   if(isset($_SESSION['script'])){
     $script = $_SESSION['script'];
@@ -110,8 +112,8 @@ if(isset($_POST['submit'])){
     }
      
 
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options')";
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options,record_tone) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options','$tone')";
     
     
           if (!mysqli_query($con, $sql)) {
@@ -234,7 +236,7 @@ while($row = mysqli_fetch_array($result_set)){
   
      $cName = '/toolbox/toolbox2/'; // For Test
 
-    // $testPage = '/test' . $dealer_id . '.php';  //For Production
+    // $testPage = '/test1'  '.php';  //For Production
      $testPage =  $cName . 'test1'  . '.php'; // For Test
 
 
@@ -248,13 +250,17 @@ while($row = mysqli_fetch_array($result_set)){
     
    
      $index = $index_arry[$counter];
+
+   
     
      $tone = $tone_arry[$counter];
+     $_SESSION['tone'] = $tone;
 $useTone = 'Record using a voice inflection of: ' . $tone;
   echo "<h2 style='background-color:Orange;'>$useTone</h2>";
 
 
   $script = $script_arry[$counter];
+  $_SESSION['script'] = $script;
   $script_audio = $script_audio_arry[$counter];
   
   echo "<h3>$script</h3>";
