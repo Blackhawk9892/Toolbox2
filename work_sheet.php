@@ -24,6 +24,8 @@ Add Dealer to stock tag program
 
           echo "<center><h1>Manager's Work Sheet</h1></center>";
 
+      
+          
           
            if (isset($_POST['back'])) {
             header("Location: points.php");
@@ -51,7 +53,7 @@ Add Dealer to stock tag program
            $_SESSION['find'] = $_GET['find'];
 
         }
-
+        
         $find = $_SESSION['find'];
 
        
@@ -72,6 +74,10 @@ Add Dealer to stock tag program
             $record_script = $row['record_script'];
             $record_vioce = $row['record_vioce'];
             $record_tone = $row['record_tone'];
+            $_SESSION['employee'] = $record_empl_name;
+
+            
+        
 
            $bid_satus = 'photos';
 
@@ -86,13 +92,130 @@ Add Dealer to stock tag program
 
         }
 
+            if(isset($_SESSION['employee'])){
+            $employee = $_SESSION['employee'];
+            echo "<center><h1>For Employee: $record_empl_name</h1></center>";
+            }
+
+            ////////////////////////////////////Submit//////////////////////////////////////////////////////////////////////////
+        
+
+             if(isset($_POST['submit'])){
+
+                if(isset($_POST['scrip'])){
+                    $scrip = replace_apostrophes($_POST['scrip']);
+                   // $scrip = replace_apostrophes($_POST['scrip']);
+                }else{
+                    $scrip = 'No Improvements';
+                }
+
+                if(isset($_POST['seminar'])){
+                    $quantity = $_POST['seminar'];
+                }else{
+                    $quantity = 0;
+                }
+
+                 if(isset($_POST['book'])){
+                    $quantity = $_POST['book'] + $quantity;
+                }
+
+                 if(isset($_POST['day'])){
+                    $quantity = $_POST['day'] + $quantity;
+                }
+       
+
+        if (isset($errors)) {
+
+       foreach ($errors as $value) {
+                            echo "<div class=\"errors\">$value</div>";
+                        }      
+  
+        }else{
+                  if(isset($_COOKIE["userId"])){
+            $userId = $_COOKIE["userId"];
+        
+         
+
+        $emp_arry = Employee($userId);
+        $mFirst = $emp_arry[0];
+        $mLast = $emp_arry[1];      
+        $mPosition = $emp_arry[2];
+        $mEmp_id = $emp_arry[3];
+        $mDealer_id = $emp_arry[4];
+       
+    }
+                 $query = "SELECT * ";
+        $query .= "FROM employee ";
+        $query .= "WHERE emp_id = '{$mEmp_id}' ";
+       
+
+       
+        $result_set = mysqli_query($con, $query)
+                or die('Query failed: ' . mysql_error());
+
+        $row = mysqli_fetch_array($result_set); 
+
+            $emp_assigned_man_num = $row['emp_assigned_man_num'];
+            $emp_assigned_man_name = $row['emp_assigned_man_name'];    
+                  
+                
+                  $find = $_SESSION['find'];
+                  $date = date("Y-m-d");
             
+                    $sql = "INSERT INTO employee_notes(notes_emp_num, notes_emp_name, notes_date, notes_manager_num, notes_manager_name, notes_improvement, notes_points, notes_find) 
+              VALUES('$emp_id','$name','$date','$emp_assigned_man_num','$emp_assigned_man_name','$scrip','$quantity','$find')";
+
+
+                    if (!mysqli_query($con, $sql)) {
+                        die('Error employee 138: ' . mysqli_error($con));
+                    }
+
+                     
+                      $query = "SELECT * ";
+                      $query .= "FROM customer_data ";
+                      $query .= "WHERE cust_find = '{$find}' ";
+                     
+                      $result_set = mysqli_query($con, $query)
+                         or die('Query failed: ' . mysql_error());
+
+                      $row = mysqli_fetch_array($result_set); // start while
+
+                      $cust_points = $row['cust_points'];
+                      $id = $row['cust_id']; 
+                    
+
+                      $newPoints = $cust_points + $quantity;
+
+                     /////////////////////////////////////////////Update Points/////////////////////////////////////////////////////////////////
+
+                    mysqli_query($con, "UPDATE customer_data SET cust_points = '$newPoints'
+                                         WHERE cust_id = '$id' ");
+                  
+
+                    $value = "Record has been update points add: " . $quantity  . " Total points: " . $newPoints;
+                    echo "<div class=\"errors\">$value</div>";
+
+                    $_POST['scrip'] = '';
+                    $_POST['quantity'] = 0;
+
+                    
+                   
+                   
+         
+        }
+
+
+       }
+     
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 ?>
 
  
-            <form action="points.php" method="post">
+            <form action="work_sheet.php" method="post">
 
 
  <center>
@@ -104,8 +227,14 @@ Add Dealer to stock tag program
                         </textarea>
                 <br />
                 <br />
-                         <label for="quantity">Inprovement Points (between 0 and 20):</label>
-  <input type="number" id="quantity" name="quantity" min="0" max="20">
+                         <label for="quantity">Reading Books To Inprove Sales Career (between 0 and 3):</label>
+                         <input type="number" id="book" name="book" value=0 min="0" max="3">
+                          <br />
+                         <label for="quantity">Did this program more then one time a day (between 0 and 3):</label>
+                         <input type="number" id="day" name="day" value=0 min="0" max="3">
+                           <br />
+                         <label for="quantity">Went To Sales Seminar Or Training  (between 0 and 3):</label>
+                         <input type="number" id="seminar" name="seminar" value=0 min="0" max="3">
           <br />
                 <br />
                     <input type="submit" name="submit" value="Submit"/>
@@ -133,49 +262,3 @@ Add Dealer to stock tag program
                 }
                 ?>
 
-  <script>
-    let mediaRecorder;
-    let audioChunks = [];
-
-    const startRecordBtn = document.getElementById('start-record-btn');
-    const stopRecordBtn = document.getElementById('stop-record-btn');
-    const audioPlayback = document.getElementById('audio-playback');
-
-    startRecordBtn.addEventListener('click', async () => {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorder = new MediaRecorder(stream);
-      
-      mediaRecorder.start();
-      startRecordBtn.disabled = true;
-      stopRecordBtn.disabled = false;
-
-      mediaRecorder.ondataavailable = event => {
-        audioChunks.push(event.data);
-      };
-
-      mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-        const audioUrl = URL.createObjectURL(audioBlob);
-        audioPlayback.src = audioUrl;
-
-        // Send audio data to server
-        const formData = new FormData();
-        formData.append('audio', audioBlob, 'recording.wav');
-
-        await fetch('upload_audio.php', {
-          method: 'POST',
-          body: formData
-        });
-
-        audioChunks = [];
-        startRecordBtn.disabled = false;
-      };
-    });
-
-    stopRecordBtn.addEventListener('click', () => {
-      mediaRecorder.stop();
-      stopRecordBtn.disabled = true;
-    });
-
-    
-  </script>

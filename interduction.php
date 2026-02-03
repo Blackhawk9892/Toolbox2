@@ -80,6 +80,7 @@ if(isset($_POST['submit'])){
  $maleVoiceName = $_SESSION['voiceMaleName'];
  $femaleVoice = $_SESSION['voiceFemale'];
  $femaleVoiceName =$_SESSION['voiceFemaleName'];
+$comp_group = $_SESSION['comp_group'];
 
  $page = 1;
 
@@ -141,7 +142,7 @@ $useTone = 'Record this script using a voice inflection of: ' . $tone ;
   echo "<h3>$script</h3>";
 
 
-echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
+echo "<h1 style='background-color:DodgerBlue;'>Record the script.  Learn the script's intent, then put it in your own words. The voice inflection is the important thing</h1>";
   ?>
 
 <button id="start-record-btn">Start Recording</button>
@@ -161,6 +162,7 @@ $result_set = mysqli_query($con, $query)
 $row = mysqli_fetch_array($result_set);
 
 $comp_group = $row['comp_group'];
+$_SESSION['comp_group'] = $comp_group;
 
 ///////////////////////////////////////////////////////////////////////////////////
 $veh_array = array();

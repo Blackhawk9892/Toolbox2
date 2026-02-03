@@ -182,7 +182,7 @@ $dealer_name = "Sales Tool Box ";
    // print "<li><a href=\"../help_page.php?page=sales\">Help Page</a></li>\n";
     print "</ul>\n";
     print "<li><a style=\"color:yellow;\" href=\"emailform.php\">Feed Back</a></li>\n";
-    print "<li><a style=\"color:yellow;\" href=\"../public/logg_off.php\">Log out</a></li>					               \n";
+    print "<li><a style=\"color:yellow;\" href=\"logg_off.php\">Log out</a></li>					               \n";
     print "</ul>\n";
  
     print "</div>\n";

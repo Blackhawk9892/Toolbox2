@@ -270,6 +270,10 @@ Add Dealer to stock tag program
                                         <input type="submit" name="back" value="Back"/>
                                         <br />
                                         <br />
+                                         <br />
+                                        <br />
+                                         <br />
+                                        <br />
                                         <input type="submit" name="delete" value="Delete"/>
 
                                     </center> 

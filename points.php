@@ -29,7 +29,6 @@ Add Dealer to stock tag program
             exit;
         }
 
-       
 
       ///////////////////////////////////////////////////////////////////////      
 
@@ -49,12 +48,13 @@ Add Dealer to stock tag program
 
            $employeeName = $_SESSION['employeeName'];
            echo "<center><h1>$employeeName</h1></center>";
+          $employee = $_SESSION['id'];
 
            
           $query = "SELECT * ";
         $query .= "FROM employee ";
         $query .= "WHERE emp_id = '{$employee}' ";
-       
+     
 
        
         $result_set = mysqli_query($con, $query)
@@ -151,7 +151,8 @@ Add Dealer to stock tag program
           
 }
             ////////////////////////////////////////////////////////////////////////////////
-
+            
+           
             
 
 
@@ -164,10 +165,10 @@ Add Dealer to stock tag program
 
            <center>
             <label for="fromday">From Date:</label>
-            <input type="date" id="fromday" name="fromday">
+            <input type="date" id="fromday" name="fromday" value="<?php if (isset($_POST['fromday'])) echo $_POST['fromday'] ?>" />
 
            <label for="today">To Date:</label>
-           <input type="date" id="today" name="today">
+           <input type="date" id="today" name="today"  value="<?php if (isset($_POST['today'])) echo $_POST['today'] ?>">
 
           <br />
                 <br />

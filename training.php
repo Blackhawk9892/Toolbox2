@@ -186,10 +186,10 @@ while($row = mysqli_fetch_array($result_set)){
     $cName =  $comp_product; 
 
   
-   //  $cName = '/toolbox/toolbox2/'; // For Test
+    // $testPage = '/test1' . '.php';  //For Production
 
-     $testPage = '/test1' . '.php';  //For Production
-   //  $testPage =  $cName . 'test1'  . '.php'; // For Test
+     $cName = '/toolbox/toolbox2/'; // For Test
+     $testPage =  $cName . 'test1'  . '.php'; // For Test
 
 
      if($cust_points  > $count ){

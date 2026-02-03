@@ -233,10 +233,9 @@ while($row = mysqli_fetch_array($result_set)){
    
     $cName =  $comp_product; 
 
+    //  $testPage = '/test1'  '.php';  //For Production
   
      $cName = '/toolbox/toolbox2/'; // For Test
-
-    // $testPage = '/test1'  '.php';  //For Production
      $testPage =  $cName . 'test1'  . '.php'; // For Test
 
 
