@@ -272,11 +272,11 @@ session_start();
                         <br />
                         <br />
                         <br />
-                        <a style="color:yellow;" class="nav-link" " href="index.php"> Cancel</></a>
-                        <a style="color:yellow;" class="nav-link"  href="#">First Time User</a>
+                      
+                       
                         <a style="color:yellow;" class="nav-link" href="#">Forgot Password</a>
                         <a style="color:yellow;" class="nav-link" href="#">Forgot User Name</a>
-                        <a style="color:yellow;" class="nav-link" href="#">Privacy Policy</a>
+                        <a style="color:yellow;" class="nav-link" href="privacy_policy.html" target="_blank">Privacy Policy</a>
                         <br />
                         <br />
                         <br />

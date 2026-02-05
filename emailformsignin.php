@@ -1,0 +1,73 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Email Form </title>
+        <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />   
+    </head>
+    <body>
+
+
+        <form method="post" action="sendeail.php">
+            <center>
+
+                <!-- DO NOT change ANY of the php sections -->
+                <?php
+              
+                $ipi = getenv("REMOTE_ADDR");
+                $httprefi = getenv("HTTP_REFERER");
+                $httpagenti = getenv("HTTP_USER_AGENT");
+                ?>
+
+                <input type="hidden" name="ip" value="<?php echo $ipi ?>" />
+                <input type="hidden" name="httpref" value="<?php echo $httprefi ?>" />
+                <input type="hidden" name="httpagent" value="<?php echo $httpagenti ?>" />
+
+                Company: <br />
+                <input type="text" name="company" size="50" />
+                <br />
+                Your Name: <br />
+                <input type="text" name="visitor" size="35" />
+                <br />
+                Your Email:<br />
+                <input type="text" name="visitormail" size="35" />
+                <br /> <br />
+                <br />
+                Attention:<br />
+                <select name="attn" size="1">
+                    <option value=" Demonstration Request ">Demonstration Request </option> 
+                    <option value=" Sales ">Sales </option> 
+                    <option value=" Billing ">Billing </option> 
+                    <option value=" General Support ">General Support </option> 
+                    <option value=" Technical Support ">Technical Support </option> 
+                    <option value=" Webmaster ">Webmaster </option> 
+                </select>
+                <br /><br />
+                Mail Message:
+                <br />
+                <textarea name="notes" rows="4" cols="40"></textarea>
+                <br />
+                <input type="submit" value="Send Mail" />
+                <br />
+
+        </form>
+        <br />
+        <br />
+        <?php
+          if (isset($_COOKIE['user'])) {
+            print "<a href=\"#\"> Return </a>";
+        } else {
+           // print "<a href=\"index.php\"> Return </a>";
+        }
+        ?>
+
+        <br />
+        <br />
+        <br />			
+        <?php //require("../includes/footer.php");
+        ?>
+        </center>
+    </body>
+</html>

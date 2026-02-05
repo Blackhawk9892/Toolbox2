@@ -13,7 +13,7 @@ function replace_apostrophes($field1) {  // Replace apostrophes with * for putti
         foreach ($string_array as $value ) {
 
                 if($value == "'"){
-                    $string_array[$i] = "*";
+                    $string_array[$i] = "&#39";
 
                 }
                 $i++;

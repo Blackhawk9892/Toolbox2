@@ -29,6 +29,7 @@ Add Dealer to stock tag program
             exit;
         }
 
+         
 
       ///////////////////////////////////////////////////////////////////////      
 
@@ -43,8 +44,18 @@ Add Dealer to stock tag program
                 $position = $emp_arry[2];
                 $emp_id = $emp_arry[3];
                 $dealer_id = $emp_arry[4];
-                       
+                $_SESSION['emp_id'] = $emp_id;     
             }
+
+
+
+             if (isset($_POST['history'])) {
+
+                
+
+            header("Location: history.php");
+            exit;
+        }
 
            $employeeName = $_SESSION['employeeName'];
            echo "<center><h1>$employeeName</h1></center>";
@@ -179,6 +190,11 @@ Add Dealer to stock tag program
                     <input type="submit" name="back" value="Back"/>
                     <br />
 
+ <br />
+                     <br />
+                
+                    <input type="submit" name="history" value="Employee History"/>
+                    <br />
        
                 <?php
            

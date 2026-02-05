@@ -101,9 +101,9 @@ Add Dealer to stock tag program
         
 
              if(isset($_POST['submit'])){
-
+                    $scrip = '';
                 if(isset($_POST['scrip'])){
-                    $scrip = replace_apostrophes($_POST['scrip']);
+                    $scrip .= replace_apostrophes($_POST['scrip']);
                    // $scrip = replace_apostrophes($_POST['scrip']);
                 }else{
                     $scrip = 'No Improvements';
@@ -111,16 +111,34 @@ Add Dealer to stock tag program
 
                 if(isset($_POST['seminar'])){
                     $quantity = $_POST['seminar'];
+                    $scrip .= "<br> Went to sales seminar or training.";
                 }else{
                     $quantity = 0;
                 }
 
                  if(isset($_POST['book'])){
                     $quantity = $_POST['book'] + $quantity;
+                    $scrip .= "<br> Reading books to inprove sales career.";
                 }
 
                  if(isset($_POST['day'])){
                     $quantity = $_POST['day'] + $quantity;
+                    $scrip .= "<br> Did this program more then one time a day.";
+                }
+
+                 if(isset($_POST['voice'])){
+                    $quantity = $_POST['voice'] + $quantity;
+                    $scrip .= "<br> Improved voice inflection.";
+                }
+
+                  if(isset($_POST['product'])){
+                    $quantity = $_POST['product'] + $quantity;
+                    $scrip .= "<br> Improved product knowledge.";
+                }
+
+                 if(isset($_POST['other'])){
+                    $quantity = $_POST['other'] + $quantity;
+
                 }
        
 
@@ -235,6 +253,16 @@ Add Dealer to stock tag program
                            <br />
                          <label for="quantity">Went To Sales Seminar Or Training  (between 0 and 3):</label>
                          <input type="number" id="seminar" name="seminar" value=0 min="0" max="3">
+                            <br />
+                         <label for="quantity">Improved Voice Inflection  (between 0 and 5):</label>
+                         <input type="number" id="voice" name="voice" value=0 min="0" max="5">
+                           <br />
+                         <label for="quantity">Improved Product Knowledge  (between 0 and 3):</label>
+                         <input type="number" id="product" name="product" value=0 min="0" max="3">
+
+                          <br />
+                         <label for="quantity">Other Writen In Description Above (between 0 and 3):</label>
+                         <input type="number" id="other" name="other" value=0 min="0" max="3">
           <br />
                 <br />
                     <input type="submit" name="submit" value="Submit"/>
