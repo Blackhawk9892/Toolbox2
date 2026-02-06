@@ -19,10 +19,10 @@
                 <!-- DO NOT change ANY of the php sections -->
                 <?php
                
-                require_once("../includes/constants.php");
-                require_once("../includes/connection.php");
-                require("../includes/database_rows.php");
-                require_once("../toolbar/toolbar_dashboard.php");
+                require_once("includes/constants.php");
+                require_once("includes/connection.php");
+                require("includes/database_rows.php");
+                require_once("toolbar_sales.php");
 
                 
         if (isset($_COOKIE["userId"])) {
@@ -32,32 +32,41 @@
             exit;
         }
               
-        $userId = $_COOKIE["userId"];
-
+        if(isset($_COOKIE["userId"])){
+            $userId = $_COOKIE["userId"];
+        
+         
 
         $emp_arry = Employee($userId);
-        $name = $emp_arry[0] . ' ' . $emp_arry[1];
-        $emp_email = $emp_arry[2];
-        $emp_id = $emp_arry[5];
-        $emp_dealer_id = $emp_arry[6];
+       
+        $first = $emp_arry[0];
+        $last = $emp_arry[1];      
+        $position = $emp_arry[2];
+        $emp_id = $emp_arry[3];
+        $dealer_id = $emp_arry[4];
+        $emp_user_name = $emp_arry[5];
+        $emp_group = $emp_arry[6];
+        $emp_email = $emp_arry[7];
+        
+        }
 
         $query = "SELECT * ";
-        $query .= "FROM dealer ";
-        $query .= "WHERE dealer_Id = '{$emp_dealer_id}' ";
+        $query .= "FROM company ";
+        $query .= "WHERE comp_id = '{$dealer_id}' ";
 
 
         $result_set = mysqli_query($con, $query)
                 or die('Query failed dealer 85: ' . mysqli_error($con));
         $row = mysqli_fetch_array($result_set);
-        $dealer_group = $row['dealer_group'];
-        $dealer_name = $row['dealer_name'];
-        $dealer_system_type = $row['dealer_system_type'];
+        $dealer_group = $row['comp_group'];
+        $dealer_name = $row['comp_name'];
+      
 
 
-             
+             $name = $first . ' ' . $last;
 
                 $_POST['visitor'] = $name;
-                $_POST['company'] = $dealer_name . ' ******Number: ' . $emp_dealer_id;
+                $_POST['company'] = $dealer_name . ' ******Number: ' . $dealer_id;
                 $_POST['visitormail'] = $emp_email;
 
                
@@ -66,7 +75,7 @@
 
                 echo"<br />";
                 echo"<br />";
-                echo "<center><h1>Contact Auto Dealer Systems</h1></center>";
+                echo "<center><h1>Contact Photos For Dealers</h1></center>";
                 echo"<br />";
                 echo"<br />";
 

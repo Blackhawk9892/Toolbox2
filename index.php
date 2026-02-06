@@ -274,8 +274,8 @@ session_start();
                         <br />
                       
                        
-                        <a style="color:yellow;" class="nav-link" href="#">Forgot Password</a>
-                        <a style="color:yellow;" class="nav-link" href="#">Forgot User Name</a>
+                        <a onclick="myFunction()" style="color:yellow;" class="nav-link" href="#">Forgot Password Or Forgot User Name</a>
+              
                         <a style="color:yellow;" class="nav-link" href="privacy_policy.html" target="_blank">Privacy Policy</a>
                         <br />
                         <br />
@@ -300,4 +300,10 @@ session_start();
     </body>
     
 </html>
+
+<script>
+function myFunction() {
+  alert("See Your Manager to Reset Password or Get User Name");
+}
+</script>
 

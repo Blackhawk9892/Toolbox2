@@ -217,22 +217,15 @@ function Employee($emp) {
     $last = $row['emp_last_name'];
     $emp_position = $row['emp_position'];
     $emp_user_name = $row['emp_user_name'];
+    $emp_dealer_group = $row['emp_dealer_group'];
+    $emp_email = $row['emp_email'];
    
 
 
 
-  /*  $obj = new Person($first, $last, $email, $phone);
-    $data = $obj->first;
-    $first = $obj->unencrypt($data);
-    $data = $obj->last;
-    $last = $obj->unencrypt($data);
-    $data = $obj->email;
-    $email = $obj->unencrypt($data);
-    $data = $obj->phone;
-    $phone = $obj->unencrypt($data);
-    $phoneCarrie = $emp_phone_provider;*/
-                    //  0      1      2             3         4               5                     
-    $data_arr = array($first, $last, $emp_position, $emp_id, $emp_dealer_id, $emp_user_name);
+ 
+                    //  0      1      2             3         4               5              6                  7
+    $data_arr = array($first, $last, $emp_position, $emp_id, $emp_dealer_id, $emp_user_name, $emp_dealer_group, $emp_email);
 
     return $data_arr;
 }

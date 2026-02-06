@@ -18,24 +18,31 @@ require("../includes/connection.php");
 require("../includes/database_rows.php");
 require("../includes/pull_downs.php");
 require("../includes/security.php");
-require("../toolbar/toolbar_dashboard.php");
+require("toolbar_sales.php");
 
 $_SESSION['reg']='new_password_manager.php';	
 			
-$userId = $_COOKIE["userId"];
-$emp_arry = Employee($userId);
-$name = $emp_arry[0] . ' ' . $emp_arry[1];
-$phone = $emp_arry[3];
-$emp_position = $emp_arry[4];
-$emp_id = $emp_arry[5];
-$emp_dealer_id = $emp_arry[6];
-$emp_user_name = $emp_arry[7];
-$phoneCarrie = $emp_arry[8];
+       
+        if(isset($_COOKIE["userId"])){
+            $userId = $_COOKIE["userId"];
+        
+         
+
+        $emp_arry = Employee($userId);
+        $first = $emp_arry[0];
+        $last = $emp_arry[1];      
+        $position = $emp_arry[2];
+        $emp_id = $emp_arry[3];
+        $dealer_id = $emp_arry[4];
+		$emp_user_name = $emp_arry[5];
+      //  $emp_group = $emp_arry[6];
+        
+        }
 
 									
 print "<link rel=\"stylesheet\" type=\"text/css\" href=\"stylesheets/main.css\" /> ";	
 
-    if($emp_position == 'pfd'){
+    if($position == 'pfd'){
 		$emp_position = 'manager';
 	}
 
@@ -57,26 +64,26 @@ print "<link rel=\"stylesheet\" type=\"text/css\" href=\"stylesheets/main.css\" 
 	$emp_dealer_id = $row['emp_dealer_id'];
 	
 	$query = "SELECT * ";
-	$query .= "FROM dealer ";
-	$query .= "WHERE dealer_Id  = '{$emp_dealer_id}' ";
+	$query .= "FROM company ";
+	$query .= "WHERE comp_id  = '{$dealer_id}' ";
 
    
 	$result_set = mysqli_query($con, $query)
 	or die('Query failed dealer 69: ' . mysqli_error($con));
 	
 	$row = mysqli_fetch_array($result_set);
-	$company_name = $row['dealer_name'];
+	$company_name = $row['comp_name'];
 	
         
          echo"<center><h3>$company_name</h3></center>";
-         echo"<center><h3>$name</h3></center>";
+        // echo"<center><h3>$name</h3></center>";
 	 }else{
 	 $year_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
 	 }
 	
 	$query = "SELECT * ";
 	$query .= "FROM employee ";
-	$query .= "WHERE emp_dealer_id = '{$emp_dealer_id}' " ;												
+	$query .= "WHERE emp_dealer_id = '{$dealer_id}' " ;												
 	$query .= "ORDER BY emp_user_name ASC ";
 												 
 												
@@ -128,6 +135,25 @@ $errors = array();
 
 $value = ' The password for User Name ' . $user_name . ' password has been changed';
 echo "<div class=\"problem\">$value</div>";
+
+
+$query = "SELECT * ";
+	$query .= "FROM employee ";
+	$query .= "WHERE emp_user_name = '{$user_name}' ";
+   
+   
+	$result_set = mysqli_query($con, $query)
+	or die('Query failed employee 146: ' . mysqli_error($con));
+	
+	$row = mysqli_fetch_array($result_set);
+	$emp_first_name = $row['emp_first_name'];
+	$emp_last_name = $row['emp_last_name'];
+
+	$name = $emp_first_name . ' ' . $emp_last_name;
+
+
+	$value = ' The password for employee ' . $name . ' password has been changed';
+     echo "<div class=\"problem\">$value</div>";
 																				
                                           
 																	
