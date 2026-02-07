@@ -113,8 +113,8 @@ if(isset($_COOKIE["userId"])){
                 $obj_corporate_name  = $row['obj_corporate_name'];
                 $obj_corporate_number = $row['obj_corporate_number'];
                 $_POST['dealer'] = $obj_corporate_number. '-' .  $obj_corporate_name;
-                $_POST['scrip'] = $row['obj_script'];
-                $_POST['typeScrip'] = $row['obj_type_script'];
+                $_POST['script'] = $row['obj_script'];
+                $_POST['typeScript'] = $row['obj_type_script'];
                 $_POST['order']= $row['obj_order'];
                 $_POST['tone']= $row['obj_tone'];
                 $_POST['recording']= $row['obj_order'];
@@ -135,10 +135,10 @@ if(isset($_COOKIE["userId"])){
             if (isset($_POST['clear'])) {
                 $_POST['dealer'] = '';
                 $_POST['type'] = '';
-                $_POST['scrip'] = '';
+                $_POST['script'] = '';
                 $_POST['order'] = '';
                 $_POST['tone'] = '';
-                $_POST['typeScrip'] = '';
+                $_POST['typeScript'] = '';
                 $_POST['voiceScript'] = '';
                 unset($_SESSION['index']);
             }
@@ -149,10 +149,12 @@ if(isset($_COOKIE["userId"])){
 
             if (isset($_POST['update'])) {
 
-                if(isset($_POST['scrip'])){
-                    $scrip = $_POST['scrip'];
-                }else{
+                if(empty($_POST['script'])){
                     $errors[] = 'Scrip is empty';
+                }else{                    
+                    $script = $_POST['script'];
+                    $script = replace_apostrophes($script); // Replace apostrophes with * for putting into SQL
+                
                 }
 
                    
@@ -168,10 +170,10 @@ if(isset($_COOKIE["userId"])){
                     $errors[] = 'Tone Of Voice is empty';
                 }
 
-                 if(isset($_POST['typeScrip'])){
-                    $typeScrip = $_POST['typeScrip'];
+                 if(isset($_POST['typeScript'])){
+                    $typeScript = $_POST['typeScript'];
                 }else{
-                    $errors[] = 'Scrip Type was not selected';
+                    $errors[] = 'Script Type was not selected';
                 }
 
                if(isset($_POST['voiceScript'])){
@@ -190,14 +192,14 @@ if(isset($_COOKIE["userId"])){
                 } else {
 
                 $index = $_SESSION['index'];
-               $typeScrip = $_POST['typeScrip'];
-                $scrip = $_POST['scrip'];
+               $typeScript = $_POST['typeScript'];
+                $script = $_POST['script'];
                 $order = $_POST['order'];
                 $tone = $_POST['tone'];
                
               
-                $scrip = replace_apostrophes($scrip); // Replace apostrophes with * for putting into SQL
-                mysqli_query($con, "UPDATE objections SET obj_script = '$scrip'
+                $script = replace_apostrophes($script); // Replace apostrophes with * for putting into SQL
+                mysqli_query($con, "UPDATE objections SET obj_script = '$script'
                   WHERE obj_index  = '$index' ");
                  
 
@@ -226,10 +228,10 @@ if(isset($_COOKIE["userId"])){
 
               $_POST['dealer'] = '';
               $_POST['recording'] = '';
-              $_POST['scrip'] = '';
+              $_POST['script'] = '';
               $_POST['order'] = '';
               $_POST['tone'] = '';
-              $_POST['typeScrip'] = '';
+              $_POST['typeScript'] = '';
               $_POST['voiceScript'] = '';
               unset($_SESSION['index']);
             }
@@ -246,10 +248,10 @@ if(isset($_COOKIE["userId"])){
                 echo "<div class=\"problem\">$value</div>";
                  $_POST['dealer'] = '';
                 $_POST['recording'] = '';
-                $_POST['scrip'] = '';
+                $_POST['script'] = '';
                 $_POST['order'] = '';
                 $_POST['tone'] = '';
-                $_POST['typeScrip'] = '';
+                $_POST['typeScript'] = '';
                 unset($_SESSION['index']);
             }
 
@@ -283,7 +285,7 @@ if(isset($_COOKIE["userId"])){
           
 
             if (isset($_POST['submit'])) {
-                $errors[] = "I want an error";
+              
              
                 if(empty($_SESSION['name'])){                  
                     $errors[] = 'The name of the person entering or changing is record is empty';
@@ -297,56 +299,52 @@ if(isset($_COOKIE["userId"])){
                     $errors[] = 'A Company was not selected';
                 }else{
                     $dealer = $_POST['dealer'];
+                    $id = explode("-",$dealer);
+               
+                    $compNum = $id[0];
+                    $company = $id[1];
                 }
 
-                echo $_POST['typeScrip'];
-                if(empty($_POST['typeScrip'])){               
+                if(empty($_POST['typeScript'])){               
                  $errors[] = 'Scrip Type was not selected';
                 }else{
-                     $typeScrip = $_POST['typeScrip'];
+                     $typeScript = $_POST['typeScript'];
+                }
+
+
+                if(empty($_POST['voiceScript'])){               
+                 $errors[] = 'Voice Type was not selected';
+                }else{
+                     $voiceScript = $_POST['voiceScript'];
                 }
 
                
+               
+               
+                if(empty($_POST['script'])){  
+                   $errors[] = 'Scrip is empty';
+                }else{                 
+                     $script = $_POST['script'];
+                    $script = replace_apostrophes($script); // Replace apostrophes with * for putting into SQL
                 
-                if(isset($_POST['scrip'])){
-                    $scrip = $_POST['scrip'];
-                    $scrip = replace_apostrophes($scrip); // Replace apostrophes with * for putting into SQL
-                
-                }else{
-                    $errors[] = 'Scrip is empty';
                 }
 
                    
-                if(isset($_POST['order'])){
-                    $order = $_POST['order'];
-                }else{
+                if(empty($_POST['order'])){
                     $errors[] = 'Order is empty';
+                }else{                  
+                    $order = $_POST['order'];
                 }
 
                
-                if(isset($_POST['tone'])){
-                    $tone = $_POST['tone'];
-                }else{
+                if(empty($_POST['tone'])){
                     $errors[] = 'Tone Of Voice is empty';
+                }else{                   
+                    $tone = $_POST['tone'];
                 }
 
-                 if(isset($_POST['voiceScript'])){
-                    $voiceScript = $_POST['voiceScript'];
-                    //$voiceScript = replace_apostrophes($voiceScript); // Replace apostrophes with * for putting into SQL
-
-                }else{
-                    $errors[] = 'Voice Type is empty';
-                }
-               
-                $id = explode("-",$dealer);
-               
-                $compNum = $id[0];
-                $company = $id[1];
-                
-
-
-                  
-              print_r($errors);
+                   
+ 
 
                 if (isset($errors)) {
 
@@ -381,17 +379,32 @@ if(isset($_COOKIE["userId"])){
                 $value = 'File is valid, and was successfully uploaded.'; 
                 echo "<div class=\"problem\">$value</div>";     
                 }
-
-     
-              
-
+///////////////////////////////////////////////////video2////////////////////////////////
+      // Get the file information
+      $newName2 = '';
+      if($voiceScript == "Starting"){
+        $uploadFile = $uploadDir . basename($_FILES['voice2']['name']);
+      
+        // Check if the file is an image
+        $fileType = mime_content_type($_FILES['voice2']['tmp_name']);
+        if (strpos($fileType, 'audio') === false) {
+            echo 'File is not an voice!';
+        } else {
+            // Move the uploaded file to the target directory
+            $newName2 = 'voice/' . date("Ymdhis") . 'two' . '.mp3';
+            if (move_uploaded_file($_FILES['voice']['tmp_name'], $newName)) {
+                $value = 'File is valid, and was successfully uploaded.'; 
+                echo "<div class=\"problem\">$value</div>";     
+                }
+           }   
+      }
                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                   
                     $name = $_SESSION['name'];
-                
-                    $sql = "INSERT INTO objections(obj_corporate_number,obj_corporate_name,obj_type_script,obj_script,obj_tone,obj_audio,obj_order,obj_changed,obj_voice_type) 
-              VALUES('$compNum','$company','$typeScrip','$scrip','$tone','$newName','$order','$name','$voiceScript')";
-                
+                                                //  1                    2                   3                 4          5         6           7           8           9            10
+                    $sql = "INSERT INTO objections(obj_corporate_number, obj_corporate_name, obj_type_script, obj_script, obj_tone, obj_audio, obj_audio2,  obj_order, obj_changed, obj_voice_type) 
+              VALUES('$compNum','$company','$typeScript','$script','$tone','$newName','$newName2','$order','$name','$voiceScript')";
+                   //  1          2           3           4        5       6          7        8       9        10
 
                     if (!mysqli_query($con, $sql)) {
                         die('Error objections 377 : ' . mysqli_error($con));
@@ -401,10 +414,10 @@ if(isset($_COOKIE["userId"])){
                     echo "<div class=\"problem\">Script order number $order has been added to $company</div>";
 
                     $_POST['dealer'] = '';
-                    $_POST['scrip'] = '';
+                    $_POST['script'] = '';
                     $_POST['order'] = '';
                     $_POST['tone'] = '';
-                    $_POST['typeScrip'] = '';
+                    $_POST['typeScript'] = '';
                     $_POST['voiceScript'] = '';
 
                    
@@ -412,7 +425,7 @@ if(isset($_COOKIE["userId"])){
                 }
             }
         }
-            ////////////////////////////////////////////////////////////////////////////////
+          ////////////////////////////////////////////////////////////////////////////////
           
            
            
@@ -422,14 +435,14 @@ if(isset($_COOKIE["userId"])){
                 $id = explode("-",$dealer);
                
                 $compNum = $id[0];
-                $typeScrip = $_POST['typeScrip'];
+                $typeScript = $_POST['typeScript'];
          
                 $bid_satus = 'photos';
 
                 $query = "SELECT * ";
             $query .= "FROM objections ";
             $query .= "WHERE obj_corporate_number = '{$compNum}' ";    
-            $query .= "AND obj_type_script = '{$typeScrip}' ";
+            $query .= "AND obj_type_script = '{$typeScript}' ";
             $query .= "ORDER BY  obj_order";
      
             $result_set = mysqli_query($con, $query)
@@ -512,45 +525,45 @@ $Temp = "<td width = 6%>$script_template </td>";
      /////////////////////////////////////////////////////////////////////////////////
 
                 $blank = '';
-                if (isset($_POST['typeScrip'])) {
-                    $typeScrip = $_POST['typeScrip'];
-                    $typeScrip_arr[] = "\n<option value=\"$typeScrip\">$typeScrip</option>\n";
-                    $typeScrip_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+                if (isset($_POST['typeScript'])) {
+                    $typeScript = $_POST['typeScript'];
+                    $typeScript_arr[] = "\n<option value=\"$typeScript\">$typeScript</option>\n";
+                    $typeScript_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
                 } else {
-                    $typeScrip_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
+                    $typeScript_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
                 }
                
             
             
                 $description = "Benjamin Franklin";
-                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+                $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
                 
                
                 $description = "Taking it down to the ridiculous";
-                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+                $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
             
                 $description = "Need to talk to somebody";
-                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+                $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
                 
                 $description = "Payments is to high";
-                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+                $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
                
                 $description = "I don't have time right now";
-                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+                $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
              
                 $description = "The price is too high";
-                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+                $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
           
                 $description = "Need to go to other dealers";
-                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+                $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
                 
                 $description = "Not enough for my trade-in";
-                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";         
+                $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";         
     
                
     
@@ -587,7 +600,7 @@ $Temp = "<td width = 6%>$script_template </td>";
 
              
                 $description = "Sixth";
-                $typeScrip_arr[] = "\n<option value=\"$description\">$description</option>\n";
+                $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
           
 
@@ -652,9 +665,9 @@ print_r($dealer_arr);
 <select>
      <br>
                               <tr><td>Type of Close:</td><td>  
-                                <select name="typeScrip">
+                                <select name="typeScript">
                                 <?php
-                                print_r($typeScrip_arr);
+                                print_r($typeScript_arr);
                                 ?> 
 
                                 </select>
@@ -672,8 +685,8 @@ print_r($dealer_arr);
                                 <br>
 
                         <tr><td>Scrip:</td><td>
-                        <textarea rows="6" cols="150" name="scrip" wrap="wrap " >
-                          <?php if (isset($_POST['scrip'])) echo $_POST['scrip'] ?>
+                        <textarea rows="6" cols="150" name="script" wrap="wrap " >
+                          <?php if (isset($_POST['script'])) echo $_POST['script'] ?>
                         </textarea>
                       
                        
