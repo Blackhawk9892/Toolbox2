@@ -31,7 +31,7 @@ session_start();
 <body>
 
 <?php
-
+$_SESSION['video'] = "home";
 
 require("includes/database_rows.php");
 require("toolbar_sales.php");

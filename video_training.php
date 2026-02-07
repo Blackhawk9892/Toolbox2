@@ -12,9 +12,9 @@ session_start();
 
         <?php
   
-  
+ 
         $v = $_SESSION['video'];
-        $playVideo = 'videos/' . $v . '.mp4';
+        $playVideo = 'video/' . $v . '.mp4';
        //  unset($_SESSION['video']);
 
 

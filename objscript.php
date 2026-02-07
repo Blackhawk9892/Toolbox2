@@ -283,27 +283,27 @@ if(isset($_COOKIE["userId"])){
           
 
             if (isset($_POST['submit'])) {
-
-              
-                if(isset($_SESSION['name'])){
-                    $name = $_SESSION['name'];
-                }else{
+                $errors[] = "I want an error";
+             
+                if(empty($_SESSION['name'])){                  
                     $errors[] = 'The name of the person entering or changing is record is empty';
+                }else{
+                    $name = $_SESSION['name'];
                 }
 
+                
 
-
-                if(isset($_POST['dealer'])){
-                    $dealer = $_POST['dealer'];
-                    
-                }else{
+                if(empty($_POST['dealer'])){                  
                     $errors[] = 'A Company was not selected';
+                }else{
+                    $dealer = $_POST['dealer'];
                 }
 
-                if(isset($_POST['typeScrip'])){
-                    $typeScrip = $_POST['typeScrip'];
+                echo $_POST['typeScrip'];
+                if(empty($_POST['typeScrip'])){               
+                 $errors[] = 'Scrip Type was not selected';
                 }else{
-                    $errors[] = 'Scrip Type was not selected';
+                     $typeScrip = $_POST['typeScrip'];
                 }
 
                
@@ -346,9 +346,9 @@ if(isset($_COOKIE["userId"])){
 
 
                   
-              
+              print_r($errors);
 
-                if (!empty($errors)) {
+                if (isset($errors)) {
 
                     foreach ($errors as $value) {
                         echo "<div class=\"errors\">$value</div>";
@@ -632,6 +632,11 @@ $Temp = "<td width = 6%>$script_template </td>";
  <div style="padding-left: 37px;">
   
     <input type="file" name="voice" accept="voice/*">
+    <h4 style="background-color:Tomato;">Use this Choose File only if Voice Type is Starting</h4>
+          <input type="file" name="voice2" accept="voice/*">
+        <h4 style="background-color:Tomato;">.</h4>   
+    
+ 
  
          <input type="submit" name="loadScript" value="Load Script for company"/>   
 
@@ -662,7 +667,8 @@ print_r($dealer_arr);
                                 ?> 
 
                                 </select>
-                
+                               
+                  
                                 <br>
 
                         <tr><td>Scrip:</td><td>
@@ -711,6 +717,7 @@ print_r($dealer_arr);
                     <br />
                     <input type="submit" name="clear" value="Clear"/>
 
+               
                 </center> 
               
                 <?php

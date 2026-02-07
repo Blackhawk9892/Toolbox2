@@ -183,7 +183,7 @@ $dealer_name = "Sales Tool Box ";
     print "<li class=\"active\"><a style=\"color:yellow; font-size: 30px;\" href=\"#\"> $dealer_name </a></li>\n";
     print "<li class=\"dropdown\"><a style=\"color:yellow;\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\">Help<span class=\"caret\"></span></a>\n";
     print "<ul class=\"dropdown-menu\">\n";
-    print "<li><a href=\"../video_training.php?video=page\"target=_blank>Help for current page</a></li> 	\n";
+    print "<li><a href=\"../toolbox2/video_training.php?video=page\"target=_blank>Help for current page</a></li> 	\n";
    // print "<li><a href=\"../help_page.php?page=sales\">Help Page</a></li>\n";
     print "</ul>\n";
     print "<li><a style=\"color:yellow;\" href=\"emailform.php\">Feed Back</a></li>\n";
