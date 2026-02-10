@@ -632,7 +632,8 @@ $Temp = "<td width = 6%>$script_template </td>";
                
             
                 
-   
+   echo "<center><h1>$dealer_name</h1></center>";
+ 
 
             ?>
 <center><h1>Add and Maintain Objections</h1></center>
