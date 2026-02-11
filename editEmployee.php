@@ -17,10 +17,11 @@ Add Dealer to stock tag program
     <body>
         <div>
             <?php
-            require("includes/connection.php");
-           
-            require("toolbar_sales.php");
-            require("includes/database_rows.php");
+             require_once("includes/constants.php");
+        require("includes/connection.php");
+        require("includes/database_rows.php");
+       // require("includes/pull_downs.php");
+        require("toolbar_sales.php");
 
           echo "<center><h1>Edit Employee</h1></center>";
 

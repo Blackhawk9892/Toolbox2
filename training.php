@@ -405,7 +405,7 @@ $row = mysqli_fetch_array($result_set);
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
   echo "      </audio>";
-  echo $audio_location;
+  //echo $audio_location;
   }
 
    //////////////////////////////////////////////////////////////////////////////////

@@ -19,10 +19,31 @@
 
 <body>
     <?php
-   
+
+    require_once("includes/constants.php");
+    require("includes/connection.php");
+
+    if(isset($_COOKIE["userId"])){
+  $userId = $_COOKIE["userId"];
+
+
+
+$emp_arry = Employee($userId);
+$first = $emp_arry[0];
+$last = $emp_arry[1];      
+$position = $emp_arry[2];
+$emp_id = $emp_arry[3];
+$dealer_id = $emp_arry[4];
+$name = $first . ' ' . $last;
+$_SESSION['name'] = $name;
+$_SESSION['emp_id'] = $emp_id;
+}
+  
 $department_array = array();
     $menu_array = array();
     $mantenance_array = array();
+
+   if($position == "PFD"){
   
 $tb_program = 'addDealerGroup.php';
 $tb_descrip = 'Add A Dealer Group';
@@ -35,10 +56,6 @@ $tb_descrip = 'Add A Dealer';
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 
-$tb_program = 'select_employee.php';
-$tb_descrip = 'Employee Maintenance';
-
-$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 $tb_program = 'addscrip.php';
 $tb_descrip = 'Add Company Scrips';
@@ -73,8 +90,10 @@ $tb_descrip = 'Objections script Setup';
 
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
- 
- 
+   }
+
+   if($position == "PFD" or $position == "Manager"){
+
 $tb_program = 'employee_points.php';
 $tb_descrip = 'Employee Points';
 
@@ -85,6 +104,11 @@ $tb_descrip = 'Change Employee Password';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
+$tb_program = 'select_employee.php';
+$tb_descrip = 'Employee Maintenance';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+   }
 //###################################Sales Menu ########################################################################
 //$tb_program = 'interduction.php';
 $tb_program = 'interduction.php?type=sales';
