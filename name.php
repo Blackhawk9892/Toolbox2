@@ -60,7 +60,7 @@ sectionFemail::after {
 require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
-
+require("includes/functions.php");
 require("toolbar_sales.php");
 
 
@@ -130,7 +130,8 @@ echo " <img src=\"$cust_male_photo\" width=\"300\" height=\"300\">Customer 1\n";
 
    $query = "SELECT * ";
    $query .= "FROM voice ";
-   
+   $query .= "ORDER BY voice_name ";
+
 
    $result_set = mysqli_query($con, $query)
            or die('Query failed emp: ' . mysqli_error($con));
@@ -184,23 +185,34 @@ if (isset($_POST['submit'])) {
 
     $malePoints = 0;
     $femalePoints = 0;
-
-   if($cust_male_photo == $Male)
+  echo $cust_male_name . ' == ' . $Male . '<br>';
+   if($cust_male_name == $Male)
       $malePoints = 5;
     }
-
-    if($cust_female_photo == $Female){
+  echo $cust_female_name . ' == ' . $Female . '<br>';
+    if($cust_female_name == $Female){
       $femalePoints = 5;
     }
 
 
-    $total = $cust_points +  $malePoints + $femalePoints;
+    $total = $cust_points +  $malePoints + $femalePoints; 
 
-    mysqli_query($con, "UPDATE customer_data SET cust_points = '$total'
-    WHERE cust_id  = '$cust_id' ");
+    echo $cust_points;
+    echo "<br>";
+    echo $malePoints;
+    echo "<br>";
+    echo $femalePoints;
+    echo "<br>";
+    echo $total;
+    echo "<br>";
 
-  // $testPage = '/select_vehicles.php';    // This is for Production
-   $testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
+    $f_array = points($total, $find); 
+
+    print_r($f_array);
+  
+
+   $testPage = '/select_vehicles.php';    // This is for Production
+  // $testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
 
 $find = $_SESSION['find'];
 header("Location: $testPage?find=$find");

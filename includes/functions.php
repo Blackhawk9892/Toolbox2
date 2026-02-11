@@ -6,7 +6,7 @@
 
 //================================================START FUNCTION================================================================
 
-function replace_apostrophes($field1) {  // Replace apostrophes with * for putting into SQL
+function replace_apostrophes($field1) {  // Replace apostrophes with &#39 for putting into SQL
 
         $string_array = str_split($field1);
             $i = 0;
@@ -31,28 +31,21 @@ function replace_apostrophes($field1) {  // Replace apostrophes with * for putti
 // END FUNCTION replace_apostrophes
 //***********************************************END FUNCTION*************************************************************
 
-//==============================================START FUNCTION============================================================
+//==============================================POINTS FUNCTION============================================================
 
-function replace_star($field1) {  // Replace star with ' for taking out of SQL
+function points($total, $find) {  // Add points to date base
 
-        $string_array = str_split($field1);
-            $i = 0;
-        foreach ($string_array as $value ) {
+          require_once("includes/constants.php");
+           require("includes/connection.php");
+           $function_array[] = $total;
+           $function_array[] = $find;
 
-                if($value == "*"){
-                    $string_array[$i] = "'";
+            mysqli_query($con, "UPDATE customer_data SET cust_points = '$total'
+           WHERE cust_find  = '$find' ");
 
-                }
-                $i++;
-        }  
-        
-          $string = "";
-         foreach ($string_array as $value) {
-               
-                    $string .= $value;               
-           }
-
-    return $string;
+       
+     
+   return $function_array;
 }
 
 // END FUNCTION replace_star

@@ -186,10 +186,10 @@ while($row = mysqli_fetch_array($result_set)){
     $cName =  $comp_product; 
 
   
-    // $testPage = '/test1' . '.php';  //For Production
+     $testPage = '/test1' . '.php';  //For Production
 
-     $cName = '/toolbox/toolbox2/'; // For Test
-     $testPage =  $cName . 'test1'  . '.php'; // For Test
+    // $cName = '/toolbox/toolbox2/'; // For Test
+    // $testPage =  $cName . 'test1'  . '.php'; // For Test
 
 
      if($cust_points  > $count ){
@@ -405,6 +405,7 @@ $row = mysqli_fetch_array($result_set);
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
   echo "      </audio>";
+  echo $audio_location;
   }
 
    //////////////////////////////////////////////////////////////////////////////////

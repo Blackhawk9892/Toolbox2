@@ -454,9 +454,9 @@ if(isset($_COOKIE["userId"])){
                 $script_comp_num = $row['obj_corporate_number'];
                 $script_comp_name = $row['obj_corporate_name'];
                 $script_type = $row['obj_type_script'];
-                $script_type = replace_star($script_type); // Replace star with ' for taking out of SQL
+                $script_type = $script_type; 
                 $script_template = $row['obj_script'];
-                $script_template = replace_star($script_template); // Replace star with ' for taking out of SQL
+                $script_template = $script_template; 
                 $script_tone = $row['obj_tone'];
                 $script_order = $row['obj_order'];
                
