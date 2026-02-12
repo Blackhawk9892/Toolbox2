@@ -17,10 +17,12 @@ Add Dealer to stock tag program
         <div>
             <?php
           
-          require("includes/connection.php");
-          require("includes/pull_downs.php");
-          require("toolbar_sales.php");
-           require("includes/functions.php");
+         require_once("includes/constants.php");
+         require("includes/connection.php");
+         require("includes/database_rows.php");
+         require("includes/functions.php");
+         require("toolbar_sales.php");
+
           $_SESSION['counter'] = 0;
 
           if(isset($_GET['find'])){
@@ -172,10 +174,12 @@ Add Dealer to stock tag program
 
                     unset($_SESSION['type']);
                    // $_SESSION['message'] = "<h1>You have completed your memory test for today</h1>";
-                    $testPage = '/toolbox/toolbox2/objection_training.php';   // For Test
+                  
+                    //$testPage = '/toolbox/toolbox2/objection_training.php';   // For Test
                    // $testPage = '/home.php';  // For production
 
-
+                   $program = "objection_training.php";
+                   $testPage =  test_production($program);
 
   $find = $_SESSION['find'];
   header("Location: $testPage?find=$find");

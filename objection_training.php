@@ -224,7 +224,11 @@ while($row = mysqli_fetch_array($result_set)){
         
       $_SESSION['message'] = "Your points for today have been recorded. You may train as many times as you want, but only your first time counts for points.";
     
-      header("Location: home.php");
+
+      $program = "home.php";
+      $testPage =  test_production($program);
+
+      header("Location: $testPage");
       exit;
    }
 
@@ -233,10 +237,7 @@ while($row = mysqli_fetch_array($result_set)){
    
     $cName =  $comp_product; 
 
-      $testPage = '/test1.php';  //For Production
-  
-     //$cName = '/toolbox/toolbox2/'; // For Test
-    // $testPage =  $cName . 'test1.php'; // For Test
+   
 
 
      if($cust_points  > $count ){
@@ -298,9 +299,9 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
     }
   echo " <audio controls>\n";
   echo "  <source src=\" $audio \" type=\"audio/mpeg\">\n";
-  echo "      Your browser does not support the audio element.\n";
-  
+  echo "      Your browser does not support the audio element.\n"; 
   echo "      </audio>\n";
+  echo $audio;
 
   ////////////////////////////////////Audio 2//////////////////////////////////
 
@@ -311,9 +312,9 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
   echo "<h1 style='background-color:DodgerBlue;'>Answer To Question</h1>";
   echo " <audio controls>\n";
   echo "  <source src=\" $audio2 \" type=\"audio/mpeg\">\n";
-  echo "      Your browser does not support the audio element.\n";
-  
+  echo "      Your browser does not support the audio element.\n"; 
   echo "      </audio>\n";
+  echo $audio2;
   }
 ////////////////////////////////////////////////////////////////////////////
   $_SESSION['counter'] = $_SESSION['counter'] + 1;

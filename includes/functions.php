@@ -50,5 +50,13 @@ function points($total, $find) {  // Add points to date base
 
 // END FUNCTION replace_star
 //***********************************************END FUNCTION*************************************************************
+////////////////////////////////////////Test Production//////////////////////////////////////////////////
+
+        function test_production($program) {
+                  // $testPage = '/toolbox/toolbox2/' . $program;   // For Test
+                    $testPage = '/' . $program;  // For production
+        return $testPage;
+              
+    }
 
 ?>

@@ -289,9 +289,8 @@ echo "<h1 style='background-color:DodgerBlue;'>Names of customers</h1>";
 echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
-
 echo "      </audio>\n";
-
+echo $maleVoice;
 /////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -326,6 +325,7 @@ echo "    <audio controls>\n";
 echo "        <source src=\"$femaleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
 echo "      </audio>";
+echo $femaleVoice;
 //////////////////////////////////////////////////////////////////////////////////
 
 
