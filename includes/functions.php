@@ -53,8 +53,8 @@ function points($total, $find) {  // Add points to date base
 ////////////////////////////////////////Test Production//////////////////////////////////////////////////
 
         function test_production($program) {
-                  // $testPage = '/toolbox/toolbox2/' . $program;   // For Test
-                    $testPage = '/' . $program;  // For production
+                   $testPage = '/toolbox/toolbox2/' . $program;   // For Test
+                   // $testPage = '/' . $program;  // For production
         return $testPage;
               
     }

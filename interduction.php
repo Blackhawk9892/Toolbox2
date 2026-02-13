@@ -99,6 +99,7 @@ $comp_group = $_SESSION['comp_group'];
           if (!mysqli_query($con, $sql)) {
               die('Error recording 177: ' . mysqli_error($con));
           }
+    
   
           unset($_SESSION['audioName']);
   
@@ -290,7 +291,7 @@ echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
 echo "      </audio>\n";
-echo $maleVoice;
+
 /////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -325,7 +326,7 @@ echo "    <audio controls>\n";
 echo "        <source src=\"$femaleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
 echo "      </audio>";
-echo $femaleVoice;
+
 //////////////////////////////////////////////////////////////////////////////////
 
 

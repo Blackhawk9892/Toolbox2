@@ -376,13 +376,17 @@ if(isset($_COOKIE["userId"])){
             // Move the uploaded file to the target directory
             $newName = 'voice/' . date("Ymdhis") . '.mp3';
             if (move_uploaded_file($_FILES['voice']['tmp_name'], $newName)) {
-                $value = 'File is valid, and was successfully uploaded.'; 
+                $value = 'File is valid, and was successfully uploaded. One'; 
                 echo "<div class=\"problem\">$value</div>";     
                 }
 ///////////////////////////////////////////////////video2////////////////////////////////
-      // Get the file information
-      $newName2 = '';
-      if($voiceScript == "Starting"){
+        $newName2 = '';
+       if($voiceScript == "Starting"){
+      if (isset($_FILES['voice2']) && $_FILES['voice2']['error'] == UPLOAD_ERR_OK) {
+        // Directory where the uploaded file will be saved
+        $uploadDir = 'voice/';
+        }
+      // Get the file information   
         $uploadFile = $uploadDir . basename($_FILES['voice2']['name']);
       
         // Check if the file is an image
@@ -392,8 +396,8 @@ if(isset($_COOKIE["userId"])){
         } else {
             // Move the uploaded file to the target directory
             $newName2 = 'voice/' . date("Ymdhis") . 'two' . '.mp3';
-            if (move_uploaded_file($_FILES['voice']['tmp_name'], $newName)) {
-                $value = 'File is valid, and was successfully uploaded.'; 
+            if (move_uploaded_file($_FILES['voice2']['tmp_name'], $newName2)) {
+                $value = 'File is valid, and was successfully uploaded. Two'; 
                 echo "<div class=\"problem\">$value</div>";     
                 }
            }   
@@ -539,30 +543,30 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
                 
                
-                $description = "Taking it down to the ridiculous";
+                $description = "Four Qusetion";
                 $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
             
-                $description = "Need to talk to somebody";
+                $description = "#";
                 $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
                 
-                $description = "Payments is to high";
+                $description = "#";
                 $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
                
-                $description = "I don't have time right now";
+                $description = "#";
                 $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
              
-                $description = "The price is too high";
+                $description = "#";
                 $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
           
-                $description = "Need to go to other dealers";
+                $description = "#";
                 $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
                 
-                $description = "Not enough for my trade-in";
+                $description = "#";
                 $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";         
     
                
@@ -600,7 +604,7 @@ $Temp = "<td width = 6%>$script_template </td>";
 
              
                 $description = "Sixth";
-                $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
+                $voiceScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
           
 
@@ -646,9 +650,11 @@ $Temp = "<td width = 6%>$script_template </td>";
  <div style="padding-left: 37px;">
   
     <input type="file" name="voice" accept="voice/*">
-    <h4 style="background-color:Tomato;">Use this Choose File only if Voice Type is Starting</h4>
+
+   
+    <h4 style="background-color:red;">Use this Choose File only if Voice Type is Starting</h4>
           <input type="file" name="voice2" accept="voice/*">
-        <h4 style="background-color:Tomato;">.</h4>   
+        <h4 style="background-color:red;">.</h4>   
     
  
  

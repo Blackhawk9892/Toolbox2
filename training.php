@@ -164,7 +164,7 @@ $comp_product = $row['comp_product'];
    $cust_primary = $row['cust_primary'];
    $cust_secondary = $row['cust_secondary'];
    $cust_vehicle = $row['cust_vehicle'];
-////////////////////////////////////////////////////////////////////////////////
+   ///////////////////////////////////////
 
 $query = "SELECT * ";
 $query .= "FROM script ";
@@ -302,7 +302,7 @@ if($script_audio == 'PrimaryName'){
   $query .= "FROM audio ";
   $query .= "WHERE audio_group   = '{$comp_group}' ";
   $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
-echo $query ;
+
   
   $result_set = mysqli_query($con, $query)
           or die('Query failed scrip: ' . mysqli_error($con));
@@ -318,9 +318,12 @@ echo $query ;
     }
   }
 
+  
   if($audio_drive_type == 'Secondary Driver'){
+   
     if($audio_gender == $secondary){
-      $secondary_arry[] = $audio_id;
+      $secondary_arry[] = $audio_id;      
+      
     }
   }
 
@@ -341,7 +344,7 @@ echo $query ;
     mysqli_query($con, "UPDATE customer_data SET cust_primary = '$idPrimary'
                   WHERE cust_id  = '$cust_id' ");
 
- print_r($secondary_arry);
+
 $countSecondary = count($secondary_arry) - 1;
 $randSecondary = rand(0, $countSecondary);
 
@@ -368,7 +371,7 @@ if($cust_primary_user == 1){
   echo "  <source src=\" $cust_male_voice \" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
   echo "      </audio>\n";
-  echo $cust_male_voice;
+  
 
   }else{
  echo "<h1 style='background-color:DodgerBlue;'>Primary driver</h1>";
@@ -376,7 +379,7 @@ if($cust_primary_user == 1){
   echo "  <source src=\"$cust_female_voice\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
   echo "      </audio>";
-  echo $cust_female_voice;
+
   }
 
 }
@@ -404,7 +407,7 @@ $row = mysqli_fetch_array($result_set);
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
   echo "      </audio>";
-  echo $audio_location;
+
   }
 
    //////////////////////////////////////////////////////////////////////////////////
@@ -416,7 +419,7 @@ $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group    = '{$comp_group}' ";
 $query .= "AND audio_id    = '{$cust_secondary}' ";
-echo $query . "<br>";
+
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 $row = mysqli_fetch_array($result_set);
@@ -429,7 +432,7 @@ $row = mysqli_fetch_array($result_set);
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
   echo "      </audio>";
-echo $audio_location;
+
    }
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -452,7 +455,7 @@ echo $audio_location;
       echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
       echo "      Your browser does not support the audio element.\n";
       echo "      </audio>";
-      echo $audio_location;
+
        }
     
  

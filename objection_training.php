@@ -301,7 +301,7 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
   echo "  <source src=\" $audio \" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n"; 
   echo "      </audio>\n";
-  echo $audio;
+
 
   ////////////////////////////////////Audio 2//////////////////////////////////
 
@@ -314,7 +314,7 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
   echo "  <source src=\" $audio2 \" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n"; 
   echo "      </audio>\n";
-  echo $audio2;
+
   }
 ////////////////////////////////////////////////////////////////////////////
   $_SESSION['counter'] = $_SESSION['counter'] + 1;
