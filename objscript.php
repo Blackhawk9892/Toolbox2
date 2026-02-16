@@ -343,6 +343,13 @@ if(isset($_COOKIE["userId"])){
                     $tone = $_POST['tone'];
                 }
 
+                if(empty($_POST['voice_message'])){
+                    $errors[] = ' Voice message is empty';
+                }else{                   
+                    $voice_message = $_POST['voice_message'];
+                }
+
+
                    
  
 
@@ -354,6 +361,7 @@ if(isset($_COOKIE["userId"])){
                 } else {
                     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+if($voice_message == 'Voice Yes'){
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['voice']) && $_FILES['voice']['error'] == UPLOAD_ERR_OK) {
         // Directory where the uploaded file will be saved
@@ -379,6 +387,7 @@ if(isset($_COOKIE["userId"])){
                 $value = 'File is valid, and was successfully uploaded. One'; 
                 echo "<div class=\"problem\">$value</div>";     
                 }
+        }
 ///////////////////////////////////////////////////video2////////////////////////////////
         $newName2 = '';
        if($voiceScript == "Starting"){
@@ -546,7 +555,7 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $description = "Four Qusetion";
                 $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
             
-                $description = "#";
+                $description = "Fear Of Loss";
                 $typeScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
                 
@@ -648,6 +657,11 @@ $Temp = "<td width = 6%>$script_template </td>";
 
 <form action="objscript.php" method="post" enctype="multipart/form-data">
  <div style="padding-left: 37px;">
+   <h3>Dose this script have a voice message </h3>
+  <input type="radio" id="voice_yes" name="voice_message" value="Voice Yes">
+    <label for="voice_yes">Voice Yes</label><br>
+ <input type="radio" id="voice_no" name="voice_message" value="Voice No">
+    <label for="voice_no">Voice No</label><br><br>
   
     <input type="file" name="voice" accept="voice/*">
 
