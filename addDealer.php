@@ -14,9 +14,32 @@ Add Dealer to stock tag program
         <div>
             <?php
              require("includes/connection.php");
-             require("includes/pull_downs.php");
+            require("includes/database_rows.php");
              require("toolbar_sales.php");
+
+    if(isset($_POST['dGroup'])){
+        $dGroup = $_POST['dGroup'];
+        $dealer_group_arr[] = " <option value=$dGroup>$dGroup</option>";
+    }
+
+    $blank = '';
+    $dealer_group_arr[] = " <option value=$blank>$blank</option>";
    
+            $query = "SELECT * ";
+    $query .= "FROM dealer_group ";
+    $query .= "ORDER BY  dg_name";
+
+     $result_set = mysqli_query($con, $query)
+       or die('Query failed: ' . mysql_error());
+  
+    while ($row = mysqli_fetch_array($result_set)) {
+
+    $dg_id = $row['dg_id'];
+    $dg_name = $row['dg_name'];
+
+    $dealerGroup = $dg_id . '-' . $dg_name;
+    $dealer_group_arr[] = " <option value=$dealerGroup>$dealerGroup</option>";;
+   }
 
 
             if (isset($_POST['clear'])) {
@@ -157,9 +180,7 @@ Add Dealer to stock tag program
                 } else {
                     $group = 'none';
                 }
-                require("includes/database_rows.php");
-                //require("database_rows.php");
-                $dealer_group_arr[] = DealerGroup($group);
+               
                 ?>
             <center><h2>Add Dealer</h2></center>
                
@@ -175,6 +196,7 @@ Add Dealer to stock tag program
 
                             print_r($dealer_group_arr);
                             print( "</select>");
+                           
                             ?>
                             <tr><td>Dealer Name:</td><td>
                                     <input type="text" name="dealer" size="50" value="<?php if (isset($_POST['dealer'])) echo $_POST['dealer'] ?>"	/>

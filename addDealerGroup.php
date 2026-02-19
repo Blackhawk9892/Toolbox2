@@ -14,7 +14,7 @@ Add Dealer to stock tag program
             <?php
           
           require("includes/connection.php");
-          require("includes/pull_downs.php");
+          require("includes/database_rows.php");
           require("toolbar_sales.php");
 
             if (isset($_POST['submit'])) {

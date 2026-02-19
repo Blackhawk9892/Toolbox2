@@ -18,7 +18,7 @@ Add Dealer to stock tag program
         <div>
             <?php
             require("includes/connection.php");
-           
+            
             require("toolbar_sales.php");
             require("includes/database_rows.php");
 
@@ -165,7 +165,15 @@ Add Dealer to stock tag program
             
            
             
+           if(!isset($_POST['fromday'])){
+                $d = strtotime("-30 days");
+                $_POST['fromday'] = date("m/d/Y", $d);
+               echo $_POST['fromday'];  
+           }
 
+           if(empty($_POST['today'])){
+            $_POST['today'] = date("m/d/Y");
+           }
 
             ?>
 

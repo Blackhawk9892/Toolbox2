@@ -343,12 +343,7 @@ if(isset($_COOKIE["userId"])){
                     $tone = $_POST['tone'];
                 }
 
-                if(empty($_POST['voice_message'])){
-                    $errors[] = ' Voice message is empty';
-                }else{                   
-                    $voice_message = $_POST['voice_message'];
-                }
-
+                
 
                    
  
@@ -361,7 +356,9 @@ if(isset($_COOKIE["userId"])){
                 } else {
                     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-if($voice_message == 'Voice Yes'){
+    $newName = '';
+if($voiceScript != "End"){
+   
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['voice']) && $_FILES['voice']['error'] == UPLOAD_ERR_OK) {
         // Directory where the uploaded file will be saved
@@ -387,7 +384,9 @@ if($voice_message == 'Voice Yes'){
                 $value = 'File is valid, and was successfully uploaded. One'; 
                 echo "<div class=\"problem\">$value</div>";     
                 }
+           } 
         }
+    }
 ///////////////////////////////////////////////////video2////////////////////////////////
         $newName2 = '';
        if($voiceScript == "Starting"){
@@ -401,7 +400,7 @@ if($voice_message == 'Voice Yes'){
         // Check if the file is an image
         $fileType = mime_content_type($_FILES['voice2']['tmp_name']);
         if (strpos($fileType, 'audio') === false) {
-            echo 'File is not an voice!';
+            echo 'File is not an voice! 2';
         } else {
             // Move the uploaded file to the target directory
             $newName2 = 'voice/' . date("Ymdhis") . 'two' . '.mp3';
@@ -412,7 +411,7 @@ if($voice_message == 'Voice Yes'){
            }   
       }
                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                  
+                   
                     $name = $_SESSION['name'];
                                                 //  1                    2                   3                 4          5         6           7           8           9            10
                     $sql = "INSERT INTO objections(obj_corporate_number, obj_corporate_name, obj_type_script, obj_script, obj_tone, obj_audio, obj_audio2,  obj_order, obj_changed, obj_voice_type) 
@@ -434,10 +433,10 @@ if($voice_message == 'Voice Yes'){
                     $_POST['voiceScript'] = '';
 
                    
-                     }
+                     
                 }
             }
-        }
+        
           ////////////////////////////////////////////////////////////////////////////////
           
            
@@ -534,6 +533,8 @@ $Temp = "<td width = 6%>$script_template </td>";
      $place = 'Sincere';
     $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+   
+
 
      /////////////////////////////////////////////////////////////////////////////////
 
@@ -615,6 +616,9 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $description = "Sixth";
                 $voiceScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
 
+                $description = "End";
+                $voiceScript_arr[] = "\n<option value=\"$description\">$description</option>\n";
+
           
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -657,11 +661,7 @@ $Temp = "<td width = 6%>$script_template </td>";
 
 <form action="objscript.php" method="post" enctype="multipart/form-data">
  <div style="padding-left: 37px;">
-   <h3>Dose this script have a voice message </h3>
-  <input type="radio" id="voice_yes" name="voice_message" value="Voice Yes">
-    <label for="voice_yes">Voice Yes</label><br>
- <input type="radio" id="voice_no" name="voice_message" value="Voice No">
-    <label for="voice_no">Voice No</label><br><br>
+  
   
     <input type="file" name="voice" accept="voice/*">
 
@@ -722,7 +722,7 @@ print_r($dealer_arr);
      <br>
    
                                 <label for="tone">Tone Of Voice:</label>   
-        <select name="tone">
+                                 <select name="tone">
                                 <?php
                                 print_r($tone_arr);
                                 ?>

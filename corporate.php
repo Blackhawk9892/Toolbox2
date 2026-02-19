@@ -27,7 +27,7 @@ $_SESSION['page'] = 'select_employee.php';
       
         require("toolbar_sales.php");
 
-      echo "<center><h1>Employee Points</h1></center>";
+      echo "<center><h1>Employee Points by Company</h1></center>";
 
         require("includes/security.php");
 
@@ -48,19 +48,8 @@ $_SESSION['page'] = 'select_employee.php';
         $position = $emp_arry[2];
         $emp_id = $emp_arry[3];
         $dealer_id = $emp_arry[4];
+        $dealer_group = $emp_arry[6];
     }
-
-if(isset($_GET['company'])){
-    if($_GET['company']){
-  $_SESSION['company'] = $_GET['company'];
-
-    }
-}
- if(isset($_SESSION['company'])){
-    $dealer_id = $_SESSION['company'];
- }
-
-
         if (isset($_SESSION['massage'])) {
             $mess = $_SESSION['massage'];
             echo "<center><h2>$mess</h2></center>";
@@ -71,19 +60,20 @@ if(isset($_GET['company'])){
         $bid_satus = 'sold';
         $rows[] = "\n<table width='100%'><tr><td width = 200px>Employee</td><td width = 40px>Authorization</tr></table></div>\n";
 
-        $rows[] = "\n<div id=\"$bid_satus\"><table><tr><td width = 300px>Employee Name </td> <td width = 200px >Position </td>  <td width = 400px >Company</td>  <td  >Dealer Group</td></tr></table></div>\n";
+        $rows[] = "\n<div id=\"$bid_satus\"><table><tr><td width = 300px>Company</td> <td width = 200px >Dealer Group</td>  </tr></table></div>\n";
         
 
         if(isset($dealer_id)){
 
         
         $query = "SELECT * ";
-        $query .= "FROM employee ";
-        $query .= "WHERE emp_dealer_id = '{$dealer_id}' ";
-       /* if($position != 'PFD'){
-            $query .= "WHERE emp_dealer_id = '{$dealer_id}' ";
-        } */       
-        $query .= "ORDER BY emp_dealer_group, emp_first_name, emp_last_name";
+        $query .= "FROM company ";
+        if($position != "PFD"){
+            $query .= "WHERE comp_group = '{$dealer_group}' ";
+        }
+        
+     
+        $query .= "ORDER BY comp_name";
 
 
         $result_set = mysqli_query($con, $query)
@@ -91,24 +81,15 @@ if(isset($_GET['company'])){
 
         while ($row = mysqli_fetch_array($result_set)) { // start while
 
-            $emp_id = $row['emp_id'];      
-            $demp_first_name = $row['emp_first_name'];
-            $emp_last_name = $row['emp_last_name'];
-            $emp_position = $row['emp_position'];
-            $emp_dealer_name = $row['emp_dealer_name'];
-            $emp_dealer_group = $row['emp_dealer_group'];
+            $comp_id = $row['comp_id'];      
+            $comp_group = $row['comp_group'];
+            $comp_name = $row['comp_name'];
             
 
-            $name = $demp_first_name . ' ' .  $emp_last_name;
-
-           if($emp_position == 'Sales'){
-            $bid_satus = 'offer';
-           }else{
-            //$bid_satus = 'photos';
-            continue;
-           }
            
-            $rows[] = "\n<div id=\"$bid_satus\"><a href=points.php?employee=$emp_id><table><tr><td width = 300px>$name</td> <td width = 200px>$emp_position</td> <td width = 400px>$emp_dealer_name</td> <td>$emp_dealer_group</td> </tr></table></a> </div>";
+         
+           $bid_satus = 'offer';
+            $rows[] = "\n<div id=\"$bid_satus\"><a href=employee_points.php?company=$comp_id><table><tr><td width = 300px>$comp_name</td> <td width = 200px>$comp_group</td> </tr></table></a> </div>";
            
        }
     }   

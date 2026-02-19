@@ -22,19 +22,32 @@
 
     require_once("includes/constants.php");
     require("includes/connection.php");
+  
 
     if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
+ $query = "SELECT * ";
+    $query .= "FROM employee ";
+    $query .= "WHERE emp_id  = '{$userId}' ";
+
+
+    $result_set = mysqli_query($con, $query)
+            or die('Query failed: ' . mysqli_error($con));
+
+    $row = mysqli_fetch_array($result_set);
+
+    $emp_id = $row['emp_id'];
+    $dealer_id = $row['emp_dealer_id'];
+    $first = $row['emp_first_name'];
+    $last = $row['emp_last_name'];
+    $position = $row['emp_position'];
+    $emp_user_name = $row['emp_user_name'];
+    $emp_dealer_group = $row['emp_dealer_group'];
+    $emp_email = $row['emp_email'];
+    $name = $first . ' ' . $last;
 
 
 
-$emp_arry = Employee($userId);
-$first = $emp_arry[0];
-$last = $emp_arry[1];      
-$position = $emp_arry[2];
-$emp_id = $emp_arry[3];
-$dealer_id = $emp_arry[4];
-$name = $first . ' ' . $last;
 $_SESSION['name'] = $name;
 $_SESSION['emp_id'] = $emp_id;
 }
@@ -109,6 +122,14 @@ $tb_descrip = 'Employee Maintenance';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
    }
+
+   if($position == "PFD" or $position == "Corporate"){
+$tb_program = 'corporate.php';
+$tb_descrip = 'Corporate Points';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+   }
+
 //###################################Sales Menu ########################################################################
 //$tb_program = 'interduction.php';
 $tb_program = 'interduction.php?type=sales';
