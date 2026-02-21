@@ -165,16 +165,7 @@ Add Dealer to stock tag program
             
            
             
-           if(!isset($_POST['fromday'])){
-                $d = strtotime("-30 days");
-                $_POST['fromday'] = date("m/d/Y", $d);
-               echo $_POST['fromday'];  
-           }
-
-           if(empty($_POST['today'])){
-            $_POST['today'] = date("m/d/Y");
-           }
-
+          
             ?>
 
 

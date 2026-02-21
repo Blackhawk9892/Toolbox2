@@ -215,6 +215,9 @@ Add Dealer to stock tag program
             $place = 'Manager';
             $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+            $place = 'GM';
+            $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
             $place = 'Corporate';
             $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
            
@@ -250,6 +253,27 @@ Add Dealer to stock tag program
                 $manager = $emp_id . '-' . $emp_first_name . ' ' . $emp_last_name;
                 $manager_arr[] = "\n<option value=\"$manager\">$manager</option>\n";
             }
+
+             $empType = "GM";
+            $query = "SELECT * ";
+            $query .= "FROM employee "; 
+            $query .= "WHERE emp_dealer_id = '{$dealer_id}' ";
+            $query .= "AND emp_position = '{$empType}' ";
+            $query .= "ORDER BY emp_first_name, emp_last_name";
+
+            $result_set = mysqli_query($con, $query)
+                    or die('Query failed: ' . mysqli_error($con));
+
+            while ($row = mysqli_fetch_array($result_set)) {
+                $emp_id = $row['emp_id'];
+                $emp_first_name = $row['emp_first_name'];
+                $emp_last_name = $row['emp_last_name'];
+                $manager = $emp_id . '-' . $emp_first_name . ' ' . $emp_last_name;
+                $manager_arr[] = "\n<option value=\"$manager\">$manager</option>\n";
+            }
+                $manager = "999999-Corporate";
+                $manager_arr[] = "\n<option value=\"$manager\">$manager</option>\n";
+
             ?>
 
 
