@@ -84,7 +84,7 @@ while ($row = mysqli_fetch_array($result_set)) {
     $emp_last_name = $row['emp_last_name'];
     $managers_name_array[] = $emp_first_name . ' ' . $emp_last_name;
   }
-}
+}*/
 $position = 'Sales';
 $query = "SELECT * ";
 $query .= "FROM employee ";
@@ -103,7 +103,7 @@ while ($row = mysqli_fetch_array($result_set)) {
     $sales_name_array[] = $emp_first_name . ' ' . $emp_last_name;
     $emp_id_array[] = $emp_id;
 }
-  */  
+    
 $points = 0;
 $count = 0;
 $saveSalesnumber = 0;
@@ -115,50 +115,65 @@ $countPoints = 0;
  foreach ($emp_id_array as $value) {
             $companyName = $comp_name_array[$count];
          echo "<h2>$companyName</h2>";
-
+            $count++;
           $query = "SELECT * ";
           $query .= "FROM customer_data ";
-          $query .= "WHERE cust_company = '{$value}' ";
-          $query .= "ORDER BY  cust_salesperson_name";
-         
+          $query .= "WHERE cust_salesperson_num = '{$value}' ";
+         // $query .= "ORDER BY  cust_salesperson_name";
+        
            $result_set = mysqli_query($con, $query)
             or die('Query failed vehicles 87: ' . mysqli_error($con));
           while ($row = mysqli_fetch_array($result_set)) {
 
              $cust_salesperson_num = $row['cust_salesperson_num'];
+            
                 if($saveSalesnumber != $cust_salesperson_num){
                     $saveSalesnumber = $cust_salesperson_num;
                      $query1 = "SELECT * ";
                      $query1 .= "FROM employee ";
                      $query1 .= "WHERE emp_id = '{$cust_salesperson_num}' ";
+                    
+                      $result_set1 = mysqli_query($con, $query1)
+                      or die('Query failed vehicles 137: ' . mysqli_error($con));
+                      $row1 = mysqli_fetch_array($result_set1);
 
-                      $result_set = mysqli_query($con, $query)
-                      or die('Query failed vehicles 87: ' . mysqli_error($con));
-                      $row = mysqli_fetch_array($result_set);
-                        $emp_assigned_man_name = $row['emp_assigned_man_name'];
+                        $emp_assigned_man_name = $row1['emp_assigned_man_name'];
                         echo "<h3>$emp_assigned_man_name</h3>";
                 }
             $cust_points = $row['cust_points'];
             $cust_date = $row['cust_date'];
             $d = strtotime($cust_date);
              $fileDate = date("Y-m-d", $d);
+             
              if($saveDate == $fileDate){
-               
+               $saveDate = $fileDate;
                 $counttimes++;
+                echo "counttimes: " . $counttimes . "<br>";
              }else{
+                $saveDate = $fileDate;
+                 $emp_first_name = $row1['emp_first_name'];
+                 $emp_last_name = $row1['emp_last_name'];
+                 $salesName = $emp_first_name . ' ' . $emp_last_name;
+
                 $points = $points + $cust_points;
                 $countPoints++;
+                echo "countPoints: " . $countPoints . "<br>";
+                echo "points: " . $points . "<br>";
+                
              }
 
             
             
             
            
-          $count++;
+          
  }
- echo "Salesperson: " . $cust_salesperson_name . " Points: " . $points . " Number of days that count:" . $countPoints ." Times that do not count: " . $counttimes ."<br>";
-          }$counttimes
+ echo "Salesperson: " . $salesName . "<br> Points: " . $points . "<br> Number of days that count:" . $countPoints ."<br> Times that do not count: " . $counttimes ."<br>";
+          }
 
+$counttimes = 0;
+$countPoints = 0;
+$points = 0;
 /*
 
 $pdf = new FPDF('P', 'mm', 'A4');
