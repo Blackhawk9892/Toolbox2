@@ -195,20 +195,20 @@ if (isset($_POST['submit'])) {
     }
 
 
-    $total = $cust_points +  $malePoints + $femalePoints; 
+   // $total = $cust_points +  $malePoints + $femalePoints; 
 
-    echo $cust_points;
-    echo "<br>";
-    echo $malePoints;
-    echo "<br>";
-    echo $femalePoints;
-    echo "<br>";
-    echo $total;
-    echo "<br>";
+   // echo $cust_points;
+   // echo "<br>";
+   // echo $malePoints;
+   // echo "<br>";
+   // echo $femalePoints;
+  //  echo "<br>";
+  //  echo $total;
+   // echo "<br>";
 
-    $f_array = points($total, $find); 
+    //$f_array = points($total, $find); 
 
-    print_r($f_array);
+   // print_r($f_array);
   
 
    //$testPage = '/select_vehicles.php';    // This is for Production
