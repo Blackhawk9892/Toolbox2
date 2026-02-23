@@ -195,27 +195,8 @@ if (isset($_POST['submit'])) {
     }
 
 
-   // $total = $cust_points +  $malePoints + $femalePoints; 
-
-   // echo $cust_points;
-   // echo "<br>";
-   // echo $malePoints;
-   // echo "<br>";
-   // echo $femalePoints;
-  //  echo "<br>";
-  //  echo $total;
-   // echo "<br>";
-
-    //$f_array = points($total, $find); 
-
-   // print_r($f_array);
-  
-
-   //$testPage = '/select_vehicles.php';    // This is for Production
-  // $testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
-
-                   $program = "select_vehicles.php";
-                   $testPage =  test_production($program);
+      $program = "select_vehicles.php";
+      $testPage =  test_production($program);
 
 
 $find = $_SESSION['find'];

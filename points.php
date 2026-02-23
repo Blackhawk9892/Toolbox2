@@ -61,7 +61,23 @@ Add Dealer to stock tag program
            echo "<center><h1>$employeeName</h1></center>";
           $employee = $_SESSION['id'];
 
-           
+    /*      $d = strtotime("now");
+echo "Date is today" . date("Y-m-d", $d) . "<br>";
+
+$d = strtotime("-7 days");
+echo "Date is -5 " . date("Y-m-d", $d) . "<br>";
+           */
+if(empty($_POST['today'])){
+    $d = strtotime("now");
+    $_POST['today'] = date("Y-m-d", $d); 
+}
+
+if(empty($_POST['fromday'])){
+    $d = strtotime("-7 days");
+    $_POST['fromday'] = date("Y-m-d", $d);
+    $_POST['submit'] = "Submit" ;
+}
+
           $query = "SELECT * ";
         $query .= "FROM employee ";
         $query .= "WHERE emp_id = '{$employee}' ";
@@ -135,7 +151,7 @@ Add Dealer to stock tag program
 
 
 
-               if($fileDay <= $fromDate  or $fileDay >= $toDate ){
+               if($fileDay < $fromDate  or $fileDay > $toDate ){
                
                 continue;
 
