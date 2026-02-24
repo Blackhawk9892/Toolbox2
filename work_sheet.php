@@ -209,7 +209,7 @@ Add Dealer to stock tag program
                     $sql = "INSERT INTO employee_notes(notes_emp_num, notes_emp_name, notes_date, notes_manager_num, notes_manager_name, notes_improvement, notes_points, notes_find) 
               VALUES('$emp_id','$name','$date','$emp_assigned_man_num','$emp_assigned_man_name','$scrip','$quantity','$find')";
 
- echo $scrip;
+
                     if (!mysqli_query($con, $sql)) {
                         die('Error employee 138: ' . mysqli_error($con));
                     }
