@@ -82,7 +82,7 @@ if(isset($_POST['submit'])){
   if(isset($_SESSION['audioName'])){
     $audioName = $_SESSION['audioName'];
   }else{
-    $errors[] ='You submit without a recording. You now have new customers. Please get there names before moving on ';
+    $errors[] ='You submit without a recording.  ';
   
   }
   
@@ -269,11 +269,13 @@ $useTone = 'Record using a voice inflection of: ' . $tone;
     echo $errorMassage;
   }
      
-echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
+//echo "<h1 style='background-color:White;'>Record the script</h1>";
   ?>
+  <h1>
  <button id="start-record-btn">Start Recording</button>
   <button id="stop-record-btn" disabled>Stop Recording</button>
   <audio id="audio-playback" controls></audio>
+</h1>
 <br>
 <br>
 <?php
@@ -293,9 +295,9 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
     $voice_type = $voice_type_arry[$counter];
 
     if($voice_type == 'Starting'){
-       echo "<h1 style='background-color:DodgerBlue;'>Prospect Objection</h1>";
+       echo "<h1 style='background-color:White; color:Red'>Listen to prospect objection before recording </h1>";
     }else{
-       echo "<h1 style='background-color:DodgerBlue;'>Answer To Question</h1>";
+       echo "<h1 style='background-color:White;'>Answer To Question</h1>";
     }
   echo " <audio controls>\n";
   echo "  <source src=\" $audio \" type=\"audio/mpeg\">\n";
@@ -309,7 +311,7 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
 
   if($voice_type == 'Starting'){
      $audio2 = $audio2_arry[$counter];
-  echo "<h1 style='background-color:DodgerBlue;'>Answer To Question</h1>";
+  echo "<h1 style='background-color:White;'>Answer To Question</h1>";
   echo " <audio controls>\n";
   echo "  <source src=\" $audio2 \" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n"; 
@@ -393,14 +395,14 @@ echo "<form action=\"objection_training.php?find=$find\" method=\"post\">";
 
 ?>
 
-<br />
-
-<input   type="submit" name="submit" value="Submit"/>
 
 
-<br />
+<h1><input type="submit" name="submit" value="Submit"/></h1>
+
+
+
  
-<h1 style="background-color: Red;">After listening to your recording press the submit button.
+<h1 style="background-color: #ff7c8c;">After listening to your recording press the submit button.
 If you do not listen to your recording you will not receive points. You may do as many recordings as you like. The only one that will be count is the one you submit.</h1>";
    
 </body>

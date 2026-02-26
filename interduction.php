@@ -143,12 +143,13 @@ $useTone = 'Record this script using a voice inflection of: ' . $tone ;
   echo "<h3>$script</h3>";
 
 
-echo "<h1 style='background-color:DodgerBlue;'>Record the script.  Learn the script's intent, then put it in your own words. The voice inflection is the important thing</h1>";
+//echo "<h1 style='background-color:DodgerBlue;'>Record the script.  Learn the script's intent, then put it in your own words. The voice inflection is the important thing</h1>";
   ?>
-
+<h1>
 <button id="start-record-btn">Start Recording</button>
   <button id="stop-record-btn" disabled>Stop Recording</button>
   <audio id="audio-playback" controls></audio>
+</h1>
   <br>
   <br>
 <?php
@@ -286,7 +287,7 @@ $_SESSION['voiceMale'] = $maleVoice;
 $_SESSION['voiceMaleName'] = $maleVoiceName;
 
 
-echo "<h1 style='background-color:DodgerBlue;'>Names of customers</h1>";
+echo "<h1 style='background-color:#ffffff;'>Names of customers</h1>";
 echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
@@ -400,14 +401,14 @@ echo "      </audio>";
 echo "<form action=\"interduction.php\" method=\"post\">";
 
 ?>
-<br />
-
-<input   type="submit" name="submit" value="Submit"/>
 
 
+<h1><input   type="submit" name="submit" value="Submit"/></h1>
 
-<br />
-<h1 style="background-color: Red;">After listening to your recording press the submit button.
+
+
+
+<h1 style="background-color: #ff7c8c;">After listening to your recording press the submit button.
    If you do not listen to your recording you will not receive points. You may do as many recordings as you like. The only one that will be count is the one you submit.</h1>";
 </html>
  
