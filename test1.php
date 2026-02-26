@@ -675,6 +675,9 @@ if($find == "setup"){
             <input type="checkbox" id="Brown" name="Brown" value="Brown">
             <label for="Brown">Brown</label>
 
+             <input type="checkbox" id="Gold" name="Gold" value="Gold">
+            <label for="Gold">Gold</label>
+
             <input type="checkbox" id="Gray" name="Gray" value="Gray">
             <label for="Gray">Gray</label>
 
@@ -696,6 +699,9 @@ if($find == "setup"){
             <input type="checkbox" id="Red" name="Red" value="Red">
             <label for="Red">Red</label>
 
+            <input type="checkbox" id="Silver" name="Silver" value="Silver">
+            <label for="Silver">Silver</label>
+
             <input type="checkbox" id="White" name="White" value="White">
             <label for="White">White</label>
 
@@ -715,6 +721,9 @@ if($find == "setup"){
 
 <input type="checkbox" id="BrownA" name="BrownA" value="Brown">
 <label for="BrownA">Brown</label>
+
+ <input type="checkbox" id="GoldA" name="GoldA" value="Gold">
+            <label for="GoldA">Gold</label>
 
 <input type="checkbox" id="GrayA" name="GrayA" value="Gray">
 <label for="GrayA">Gray</label>
@@ -736,6 +745,9 @@ if($find == "setup"){
 
 <input type="checkbox" id="RedA" name="RedA" value="Red">
 <label for="RedA">Red</label>
+
+ <input type="checkbox" id="SilverA" name="SilverA" value="Silver">
+            <label for="SilverA">Silver</label>
 
 <input type="checkbox" id="WhiteA" name="WhiteA" value="White">
 <label for="WhiteA">White</label>
