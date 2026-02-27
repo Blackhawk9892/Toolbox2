@@ -107,6 +107,7 @@ $find = $_SESSION['find'];
               or die('Query failed emp: ' . mysqli_error($con));
       $row = mysqli_fetch_array($result_set);
 
+      $cust_id = $row['cust_id'];
       $cust_male_photo = $row['cust_male_photo'];
       $cust_female_photo = $row['cust_female_photo'];
       $cust_points = $row['cust_points'];
@@ -185,14 +186,28 @@ if (isset($_POST['submit'])) {
 
     $malePoints = 0;
     $femalePoints = 0;
-  echo $cust_male_name . ' == ' . $Male . '<br>';
-   if($cust_male_name == $Male)
-      $malePoints = 5;
+ 
+
+   if($cust_male_name == $Male){
+      $malePoints = 3;
+    }else{
+      $malePoints = -3;
     }
-  echo $cust_female_name . ' == ' . $Female . '<br>';
+
+ 
+
     if($cust_female_name == $Female){
-      $femalePoints = 5;
+      $femalePoints = 3;
+    }else{
+      $femalePoints = -3;
     }
+  
+     $total = $malePoints + $femalePoints + $cust_points;
+
+
+
+  mysqli_query($con, "UPDATE customer_data SET cust_points = '$total'
+                  WHERE cust_id  = '$cust_id' ");
 
 
       $program = "select_vehicles.php";
@@ -203,8 +218,8 @@ $find = $_SESSION['find'];
 header("Location: $testPage?find=$find");
 exit;
 
+  }
 }
-
    ?>
  
    
