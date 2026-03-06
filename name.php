@@ -234,7 +234,7 @@ exit;
 
 <br />
 <br />
-<input   type="submit" name="submit" value="Submit"/>
+<h1><input   type="submit" name="submit" value="Submit"/></h1>
 <br />
 <br />
 

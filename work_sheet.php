@@ -281,7 +281,23 @@ Add Dealer to stock tag program
    
              $vechicle2 = $sv_year_sec . ' ' . $sv_make_sec . ' ' . $sv_model_sec . ' ' . $sv_trim_sec ;
 
+
+            $drive_reply_primary = $_SESSION['drive_reply_primary']; 
+            $drive_reply_secondary = $_SESSION['drive_reply_secondary'];
     echo "<div class=container>";
+     
+         echo "<div>";
+               echo  "<h3>Primary Driver</h3>";
+               echo "<p>$drive_reply_primary</p>";
+                echo  "<h3>Secondary Driver</h3>";
+                echo "<p>$drive_reply_secondary</p>";
+
+
+         echo "</div>";
+         
+    echo "</div>";
+
+     echo "<div class=container>";
      
         echo "<div>";
             echo "<h3>First Vehicle</h3>";
@@ -298,6 +314,8 @@ Add Dealer to stock tag program
             echo "<h4>Miles: $sv_miles_sec</h4>";
             echo "<h4>Reason: $sv_reason_sec</h4>";
          echo "</div>";
+
+      
          
     echo "</div>";
 
@@ -310,7 +328,7 @@ Add Dealer to stock tag program
  <center>
             <h3>Enter anything the salesperson is doing to improve their career. </h3>
            <br />
-                         <label for="quantity">Other Writen In Description Below (between 0 and 9):</label>
+                         <label for="quantity">Other written in description below (between 0 and 9):</label>
                          <input type="number" id="other" name="other" value=0 min="0" max="9">
           <br />
         
@@ -319,19 +337,19 @@ Add Dealer to stock tag program
                         </textarea>
                 <br />
                 <br />
-                         <label for="quantity">Reading Books To Inprove Sales Career (between 0 and 3):</label>
+                         <label for="quantity">Reading books to improve sales Careers (between 0 and 3):</label>
                          <input type="number" id="book" name="book" value=0 min="0" max="3">
                           <br />
-                         <label for="quantity">Did this program more then one time a day (between 0 and 3):</label>
+                         <label for="quantity">Did this program more than one time a day (between 0 and 3):</label>
                          <input type="number" id="day" name="day" value=0 min="0" max="3">
                            <br />
-                         <label for="quantity">Went To Sales Seminar Or Training  (between 0 and 3):</label>
+                         <label for="quantity">Went to sales seminars or training  (between 0 and 3):</label>
                          <input type="number" id="seminar" name="seminar" value=0 min="0" max="3">
                             <br />
-                         <label for="quantity">Improved Voice Inflection  (between 0 and 5):</label>
+                         <label for="quantity">Improved voice inflection  (between 0 and 5):</label>
                          <input type="number" id="voice" name="voice" value=0 min="0" max="5">
                            <br />
-                         <label for="quantity">Improved Product Knowledge  (between 0 and 3):</label>
+                         <label for="quantity">Improved product knowledge  (between 0 and 3):</label>
                          <input type="number" id="product" name="product" value=0 min="0" max="3">
 
  <br />

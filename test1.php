@@ -763,6 +763,7 @@ if($find == "setup"){
 
            
             </br>
+            <h1>
             <?php
              if($find == "setup"){
                 echo "<input type=\"submit\" name=\"info\" value=\"Send Info Back\"/>";
@@ -770,7 +771,7 @@ if($find == "setup"){
                 echo "<input type=\"submit\" name=\"submit\" value=\"Submit Answer\"/>";         
              }
             ?>
-          
+           </h1>
           
         
             </br>

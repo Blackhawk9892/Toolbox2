@@ -312,6 +312,8 @@ if($script_audio == 'PrimaryName'){
     $audio_drive_type = $row['audio_drive_type'];
     $audio_id = $row['audio_id'];
     $audio_gender  = $row['audio_gender'];
+   
+    //$_SESSION['prim_reply'] = $audio_reply;
 
     if($audio_drive_type == 'Primary Driver'){     
     if($audio_gender == $primary){
@@ -402,7 +404,10 @@ $result_set = mysqli_query($con, $query)
 $row = mysqli_fetch_array($result_set);
   $audio_location = $row['audio_location'];
   $_SESSION['options'] = $row['audio_options'];
+  $audio_reply  = $row['audio_reply'];
 
+ 
+    $_SESSION['drive_reply_primary'] =  $audio_reply;
   
   echo "<h1 style='background-color:White;'>What the primary driver would like</h1>";
   echo "    <audio controls>\n";
@@ -427,7 +432,13 @@ $result_set = mysqli_query($con, $query)
 $row = mysqli_fetch_array($result_set);
   $audio_location = $row['audio_location'];
   $_SESSION['options'] = $row['audio_options'];
+  $audio_reply  = $row['audio_reply'];
 
+   
+    $_SESSION['drive_reply_secondary'] =  $audio_reply;
+  
+    $drive_reply = $_SESSION['drive_reply'];
+    echo $drive_reply;
   
   echo "<h1 style='background-color:White;'>Anything the secondary drive would like</h1>";
   echo "    <audio controls>\n";
