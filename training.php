@@ -407,7 +407,13 @@ $row = mysqli_fetch_array($result_set);
   $audio_reply  = $row['audio_reply'];
 
  
-    $_SESSION['drive_reply_primary'] =  $audio_reply;
+
+     $sql = "INSERT INTO reason(reason_find, reason_primary) 
+    VALUES('$find','$audio_reply')";
+
+      if (!mysqli_query($con, $sql)) {
+              die('Error training 64: ' . mysqli_error($con));
+          }
   
   echo "<h1 style='background-color:White;'>What the primary driver would like</h1>";
   echo "    <audio controls>\n";
@@ -435,10 +441,11 @@ $row = mysqli_fetch_array($result_set);
   $audio_reply  = $row['audio_reply'];
 
    
-    $_SESSION['drive_reply_secondary'] =  $audio_reply;
-  
-    $drive_reply = $_SESSION['drive_reply'];
-    echo $drive_reply;
+    mysqli_query($con, "UPDATE reason SET reason_secondary = '$audio_reply'
+              WHERE reason_find  = '$find' ");
+            
+    //$drive_reply = $_SESSION['drive_reply'];
+  //  echo $drive_reply;
   
   echo "<h1 style='background-color:White;'>Anything the secondary drive would like</h1>";
   echo "    <audio controls>\n";

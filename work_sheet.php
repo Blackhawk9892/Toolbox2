@@ -281,16 +281,25 @@ Add Dealer to stock tag program
    
              $vechicle2 = $sv_year_sec . ' ' . $sv_make_sec . ' ' . $sv_model_sec . ' ' . $sv_trim_sec ;
 
+             $query1 = "SELECT * ";
+             $query1 .= "FROM reason ";
+             $query1 .= "WHERE reason_find= '{$find}' ";
+      
+              $result_set1 = mysqli_query($con, $query1)
+                or die('Query failed: ' . mysql_error());
 
-            $drive_reply_primary = $_SESSION['drive_reply_primary']; 
-            $drive_reply_secondary = $_SESSION['drive_reply_secondary'];
+             $row1 = mysqli_fetch_array($result_set1);
+
+            $reason_primary = $row1['reason_primary'];
+            $reason_secondary = $row1['reason_secondary'];    
+           
     echo "<div class=container>";
      
          echo "<div>";
                echo  "<h3>Primary Driver</h3>";
-               echo "<p>$drive_reply_primary</p>";
+               echo "<p>$reason_primary</p>";
                 echo  "<h3>Secondary Driver</h3>";
-                echo "<p>$drive_reply_secondary</p>";
+                echo "<p>$reason_secondary</p>";
 
 
          echo "</div>";
@@ -328,15 +337,15 @@ Add Dealer to stock tag program
  <center>
             <h3>Enter anything the salesperson is doing to improve their career. </h3>
            <br />
-                         <label for="quantity">Other written in description below (between 0 and 9):</label>
-                         <input type="number" id="other" name="other" value=0 min="0" max="9">
+                         <h3><label for="quantity">Self promotion write description below (between 0 and 9):</label>
+                         <input type="number" id="other" name="other" value=0 min="0" max="9"></h3>
           <br />
         
                         <textarea rows="6" cols="150" name="scrip" wrap="wrap " >
                           <?php if (isset($_POST['scrip'])) echo $_POST['scrip'] ?>
                         </textarea>
                 <br />
-                <br />
+                <br /><h3>
                          <label for="quantity">Reading books to improve sales Careers (between 0 and 3):</label>
                          <input type="number" id="book" name="book" value=0 min="0" max="3">
                           <br />
@@ -355,6 +364,9 @@ Add Dealer to stock tag program
  <br />
                          <label for="quantity">Good selection of vehicles  (between 0 and 5):</label>
                          <input type="number" id="vehicle" name="vehicle" value=0 min="0" max="5">
+<br />
+                          <label for="quantity">Other write description above (between 0 and 5):</label>
+                         <input type="number" id="vehicle" name="vehicle" value=0 min="0" max="5"></h3>
                           <br />
                         
           <br />
