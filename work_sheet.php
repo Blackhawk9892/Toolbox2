@@ -157,6 +157,12 @@ Add Dealer to stock tag program
                     $scrip .= " Good selection of vehicle: " . $_POST['vehicle'];
                 }
 
+                 if($_POST['drive'] > 0){
+                    $quantity = $_POST['Drive'] + $quantity;
+                    $scrip .= " Go on test drive with customer: " . $_POST['drive'];
+                    $scrip .= replace_apostrophes($_POST['scrip']);
+                 }
+
                  if($_POST['other'] > 0){
                     $quantity = $_POST['other'] + $quantity;
                     $scrip .= " Other points have been added: " . $_POST['other'];
@@ -364,9 +370,12 @@ Add Dealer to stock tag program
  <br />
                          <label for="quantity">Good selection of vehicles  (between 0 and 5):</label>
                          <input type="number" id="vehicle" name="vehicle" value=0 min="0" max="5">
+  <br />
+                          <label for="quantity">Go with customer on test Drives (between 0 and 5):</label>
+                         <input type="number" id="drive" name="drive" value=0 min="0" max="5">
 <br />
                           <label for="quantity">Other write description above (between 0 and 5):</label>
-                         <input type="number" id="vehicle" name="vehicle" value=0 min="0" max="5"></h3>
+                         <input type="number" id="other" name="other" value=0 min="0" max="5"></h3>
                           <br />
                         
           <br />
