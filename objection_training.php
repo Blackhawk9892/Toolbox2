@@ -31,8 +31,8 @@ require("includes/functions.php");
 
 require("toolbar_sales.php");
 
-if(isset($_SESSION['type'])){
-   $type = $_SESSION['type'];
+if(isset($_SESSION['scriptType'])){
+   $scriptType = $_SESSION['scriptType'];
 }else{
   $save_type_script = "";
 $query = "SELECT * ";
@@ -50,8 +50,8 @@ while($row = mysqli_fetch_array($result_set)){
 }  
       $count = count($type_script_arry) - 1;
       $i = rand(0, $count);
-     $_SESSION['type'] = $type_script_arry[$i];
-     $type = $_SESSION['type'];
+     $_SESSION['scriptType'] = $type_script_arry[$i];
+     $scriptType = $_SESSION['scriptType'];
 }
     
 
@@ -202,7 +202,7 @@ $_SESSION['countLeave'] = 0;
 $query = "SELECT * ";
 $query .= "FROM objections ";
 $query .= "WHERE 	obj_corporate_number   = '{$comp_group}' ";
-$query .= "AND obj_type_script   = '{$type}' ";
+$query .= "AND obj_type_script   = '{$scriptType}' ";
 $query .= "ORDER BY obj_order ";
 
 

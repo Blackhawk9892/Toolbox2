@@ -60,6 +60,7 @@ while($row = mysqli_fetch_array($result_set)){
   $tone_arry[] = $row['script_tone'];
 }  
 $tone = $tone_arry[0];
+
 $useTone = 'Record this script using a voice tone of: ' . $tone;
   echo "<h1 style='background-color:Orange;'>$useTone</h1>";
 
@@ -158,8 +159,8 @@ if(isset($_POST['submit'])){
            die('Error customer _data 158: ' . mysqli_error($con));
        }
   
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp')";
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_tone,record_type) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$tone','$type')";
     
     
           if (!mysqli_query($con, $sql)) {

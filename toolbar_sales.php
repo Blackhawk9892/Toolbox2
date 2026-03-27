@@ -142,8 +142,12 @@ $tb_descrip = "Incoming call";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 
-$tb_program = 'phoneintro.php?type=cold';
-$tb_descrip = "Cold call";
+$tb_program = 'phoneintro.php?type=orphan';
+$tb_descrip = "Cold call Orphan Customer";
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'phoneintro.php?type=service';
+$tb_descrip = "Cold call Service Customer";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 

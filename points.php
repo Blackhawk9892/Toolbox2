@@ -29,6 +29,10 @@ Add Dealer to stock tag program
             exit;
         }
 
+        if (isset($_POST['training'])) {
+            header("Location: training_plan.php");
+            exit;
+        }
          
 
       ///////////////////////////////////////////////////////////////////////      
@@ -43,6 +47,8 @@ Add Dealer to stock tag program
                 $_SESSION['employeeName'] = $first . ' ' . $last;   
                 $position = $emp_arry[2];
                 $emp_id = $emp_arry[3];
+                $_SESSION['employeeNum'] = $emp_id;
+              
                 $dealer_id = $emp_arry[4];
                 $_SESSION['emp_id'] = $emp_id;     
             }
@@ -69,13 +75,16 @@ echo "Date is -5 " . date("Y-m-d", $d) . "<br>";
            */
 if(empty($_POST['today'])){
     $d = strtotime("now");
-    $_POST['today'] = date("Y-m-d", $d); 
+    $_POST['today'] = date("Y-m-d", $d);
+    
 }
 
 if(empty($_POST['fromday'])){
     $d = strtotime("-7 days");
     $_POST['fromday'] = date("Y-m-d", $d);
     $_POST['submit'] = "Submit" ;
+  
+   
 }
 
           $query = "SELECT * ";
@@ -210,6 +219,12 @@ if(empty($_POST['fromday'])){
                 
                     <input type="submit" name="history" value="Employee History"/>
                     <br />
+ <br />
+                     <br />
+                
+                    <input type="submit" name="training" value="Training"/>
+                    <br />
+       
        
                 <?php
            

@@ -71,7 +71,7 @@ if(isset($_GET['company'])){
         $bid_satus = 'sold';
         $rows[] = "\n<table width='100%'><tr><td width = 200px>Employee</td><td width = 40px>Authorization</tr></table></div>\n";
 
-        $rows[] = "\n<div id=\"$bid_satus\"><table><tr><td width = 300px>Employee Name </td> <td width = 200px >Position </td>  <td width = 400px >Company</td>  <td  >Dealer Group</td></tr></table></div>\n";
+        $rows[] = "\n<div id=\"$bid_satus\"><table><tr><td width = 300px>Employee Name </td> <td width = 200px >Position </td>  <td width = 400px >Company</td>  <td width = 200px >Dealer Group</td> <td width = 200px >Manager</td> <td width = 200px >Last Evaluation date</td> <td width = 200px >Evaluation By</td></tr></table></div>\n";
         
 
         if(isset($dealer_id)){
@@ -97,6 +97,9 @@ if(isset($_GET['company'])){
             $emp_position = $row['emp_position'];
             $emp_dealer_name = $row['emp_dealer_name'];
             $emp_dealer_group = $row['emp_dealer_group'];
+            $emp_assigned_man_name = $row['emp_assigned_man_name'];
+            $emp_evaluation_date = $row['emp_evaluation_date'];
+            
             
 
             $name = $demp_first_name . ' ' .  $emp_last_name;
@@ -108,7 +111,7 @@ if(isset($_GET['company'])){
             continue;
            }
            
-            $rows[] = "\n<div id=\"$bid_satus\"><a href=points.php?employee=$emp_id><table><tr><td width = 300px>$name</td> <td width = 200px>$emp_position</td> <td width = 400px>$emp_dealer_name</td> <td>$emp_dealer_group</td> </tr></table></a> </div>";
+            $rows[] = "\n<div id=\"$bid_satus\"><a href=points.php?employee=$emp_id><table><tr><td width = 300px>$name</td> <td width = 200px>$emp_position</td> <td width = 400px>$emp_dealer_name</td> <td width = 200px>$emp_dealer_group</td> <td width = 200px>$emp_assigned_man_name</td><td>$emp_evaluation_date</td></tr></table></a> </div>";
            
        }
     }   

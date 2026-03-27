@@ -92,8 +92,8 @@ $comp_group = $_SESSION['comp_group'];
            die('Error customer _data 206: ' . mysqli_error($con));
        }
   
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_tone) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$tone')";
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_tone,record_type) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$tone','$type')";
     
     
           if (!mysqli_query($con, $sql)) {

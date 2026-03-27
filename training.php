@@ -35,6 +35,9 @@ if($_GET['find']){
 }
 $find = $_SESSION['find'];
 
+if(isset($_SESSION["type"])){
+  $type = $_SESSION["type"];
+}
 /////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -80,8 +83,8 @@ if(isset($_POST['submit'])){
     }
      
 
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options,record_tone) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options','$tone')";
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options,record_tone,record_type) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options','$tone','$type')";
     
     
           if (!mysqli_query($con, $sql)) {
