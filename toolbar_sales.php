@@ -103,6 +103,12 @@ $tb_descrip = 'Objections script Setup';
 
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'reset_manager.php';
+$tb_descrip = 'Reset Manager';
+
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
    }
 
    if($position == "PFD" or $position == "Manager"){

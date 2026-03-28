@@ -87,7 +87,7 @@ if(isset($_GET['company'])){
             $query .= "AND emp_assigned_man_num = '{9999999}' ";
         }        
         $query .= "ORDER BY emp_dealer_group, emp_first_name, emp_last_name";
-echo $query;
+
 
         $result_set = mysqli_query($con, $query)
                 or die('Query failed: ' . mysql_error());
