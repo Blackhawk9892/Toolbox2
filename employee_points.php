@@ -80,11 +80,14 @@ if(isset($_GET['company'])){
         $query = "SELECT * ";
         $query .= "FROM employee ";
         $query .= "WHERE emp_dealer_id = '{$dealer_id}' ";
-       /* if($position != 'PFD'){
-            $query .= "WHERE emp_dealer_id = '{$dealer_id}' ";
-        } */       
+        if($position == 'Manager'){
+            $query .= "AND emp_assigned_man_num = '{$emp_id}' ";
+        }   
+              if($position == 'Sales'){
+            $query .= "AND emp_assigned_man_num = '{9999999}' ";
+        }        
         $query .= "ORDER BY emp_dealer_group, emp_first_name, emp_last_name";
-
+echo $query;
 
         $result_set = mysqli_query($con, $query)
                 or die('Query failed: ' . mysql_error());
@@ -99,8 +102,10 @@ if(isset($_GET['company'])){
             $emp_dealer_group = $row['emp_dealer_group'];
             $emp_assigned_man_name = $row['emp_assigned_man_name'];
             $emp_evaluation_date = $row['emp_evaluation_date'];
+            $emp_evaluation_manager = $row['emp_evaluation_manager'];
             
-            
+            $d = strtotime($emp_evaluation_date);
+            $emp_evaluation_date = date("m/d/Y", $d);
 
             $name = $demp_first_name . ' ' .  $emp_last_name;
 
@@ -111,7 +116,7 @@ if(isset($_GET['company'])){
             continue;
            }
            
-            $rows[] = "\n<div id=\"$bid_satus\"><a href=points.php?employee=$emp_id><table><tr><td width = 300px>$name</td> <td width = 200px>$emp_position</td> <td width = 400px>$emp_dealer_name</td> <td width = 200px>$emp_dealer_group</td> <td width = 200px>$emp_assigned_man_name</td><td>$emp_evaluation_date</td></tr></table></a> </div>";
+            $rows[] = "\n<div id=\"$bid_satus\"><a href=points.php?employee=$emp_id><table><tr><td width = 300px>$name</td> <td width = 200px>$emp_position</td> <td width = 400px>$emp_dealer_name</td> <td width = 200px>$emp_dealer_group</td> <td width = 200px>$emp_assigned_man_name</td><td width = 200px>$emp_evaluation_date</td> <td width = 200px>$emp_evaluation_manager</td></tr></table></a> </div>";
            
        }
     }   

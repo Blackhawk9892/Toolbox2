@@ -69,8 +69,10 @@ Add Dealer to stock tag program
            $_SESSION['find'] = $_GET['find'];
 
         }
+        if(isset($_SESSION['find'])){
+            $find = $_SESSION['find'];
+        }
         
-        $find = $_SESSION['find'];
 
        
         $employeeNum = $_SESSION['employeeNum'];
@@ -173,6 +175,15 @@ Add Dealer to stock tag program
                     if (!mysqli_query($con, $sql)) {
                         die('Error employee 172: ' . mysqli_error($con));
                     }
+
+
+                    $vDate = date("Y/m/d");
+                      mysqli_query($con, "UPDATE employee SET emp_evaluation_date = '$vDate'
+                  WHERE emp_id   = '$employeeNum' ");
+
+                    mysqli_query($con, "UPDATE employee SET emp_evaluation_manager = '$emp_name'
+                  WHERE emp_id   = '$employeeNum' ");
+
                      
                     $_SESSION['massage'] = "Record has been updated for " . $employee;
 

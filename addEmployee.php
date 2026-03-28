@@ -173,8 +173,8 @@ Add Dealer to stock tag program
                     $today = date("Y-m-d");
                     $password = sha1(sha1($_POST['password']));
 
-                    $sql = "INSERT INTO employee(emp_dealer_id, emp_dealer_name, emp_user_name, emp_password, emp_first_name, emp_last_name, emp_position, emp_manage_num, emp_dealer_group, emp_assigned_man_num, emp_assigned_man_name, emp_evaluation_date, emp_email) 
-              VALUES('$id','$company','$userName','$password','$first','$last','$position','$emp_id','$comp_group','$managerId','$managerName','$today','$email')";
+                    $sql = "INSERT INTO employee(emp_dealer_id, emp_dealer_name, emp_user_name, emp_password, emp_first_name, emp_last_name, emp_position, emp_manage_num, emp_dealer_group, emp_assigned_man_num, emp_assigned_man_name, emp_evaluation_date, emp_email,emp_evaluation_manager) 
+              VALUES('$id','$company','$userName','$password','$first','$last','$position','$emp_id','$comp_group','$managerId','$managerName','$today','$email','None')";
 
 
                     if (!mysqli_query($con, $sql)) {
