@@ -32,7 +32,8 @@ $_SESSION['page'] = 'select_employee.php';
         require("includes/security.php");
 
         if(isset($_POST["back"])){
-            
+             header("Location: employee_points.php");
+            exit;
         }
 
         $save_field_2 = '';
@@ -103,6 +104,7 @@ if(isset($_GET['company'])){
             $emp_assigned_man_name = $row['emp_assigned_man_name'];
             $emp_evaluation_date = $row['emp_evaluation_date'];
             $emp_evaluation_manager = $row['emp_evaluation_manager'];
+            $emp_temp_points = $row['emp_temp_points'];
             
             $d = strtotime($emp_evaluation_date);
             $emp_evaluation_date = date("m/d/Y", $d);
@@ -115,9 +117,17 @@ if(isset($_GET['company'])){
             //$bid_satus = 'photos';
             continue;
            }
-           
+
+           if(empty($emp_temp_points)){
+            $bid_satus1 = 'white';
+             $valuePoints = "Add Points to: " . $name;
+           }else{
+             $bid_satus1 = 'red';
+             $valuePoints = "Adjust Points For: " . $name;       
+           }
+          
             $rows[] = "\n<div id=\"$bid_satus\"><a href=points.php?employee=$emp_id><table><tr><td width = 300px>$name</td> <td width = 200px>$emp_position</td> <td width = 400px>$emp_dealer_name</td> <td width = 200px>$emp_dealer_group</td> <td width = 200px>$emp_assigned_man_name</td><td width = 200px>$emp_evaluation_date</td> <td width = 200px>$emp_evaluation_manager</td></tr></table></a> </div>";
-           
+           $rows[] = "\n<div id=\"$bid_satus1\"><a href=point_sheet.php?employee=$emp_id ><table><tr><td width = 300px>$valuePoints</td></td></tr></table></a> </div>";
        }
     }   
         ?>	

@@ -55,6 +55,13 @@ $_SESSION['emp_id'] = $emp_id;
 $department_array = array();
     $menu_array = array();
     $mantenance_array = array();
+     if($position == "Sales"){
+  
+$tb_program = 'managers_evaluation.php';
+$tb_descrip = 'Managers Training Evaluation';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+     }
 
    if($position == "PFD"){
   

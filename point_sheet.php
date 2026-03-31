@@ -16,19 +16,7 @@ Add Dealer to stock tag program
     </head>
 
     <body>
-        <style>
-.container {
-  display: flex;
-  background-color: DodgerBlue;
-}
-
-.container div {
-  background-color: #f1f1f1;
-  margin: 10px;
-  padding: 20px;
-  font-size: 24px;
-}
-</style>
+    
         <div>
             <?php
             require("includes/connection.php");
@@ -42,10 +30,15 @@ Add Dealer to stock tag program
           
           
            if (isset($_POST['back'])) {
-            header("Location: points.php");
+            header("Location: employee_points.php");
             exit;
         }
 
+         if(isset($_GET['employee'])){
+          $_SESSION['employee'] = $_GET['employee'];
+          $employee = $_SESSION['employee'];
+        }
+     
         
         if(isset($_COOKIE["userId"])){
           $userId = $_COOKIE["userId"];
@@ -62,55 +55,6 @@ Add Dealer to stock tag program
         }
 
 
-
-       if(isset($_GET['find'])){
-           $_SESSION['find'] = $_GET['find'];
-
-        }
-        
-        $find = $_SESSION['find'];
-
-       
-        
-        $query = "SELECT * ";
-        $query .= "FROM recording ";
-        $query .= "WHERE record_cust_data = '{$find}' ";
-        $query .= "ORDER BY record_index";
-
-       
-        $result_set = mysqli_query($con, $query)
-                or die('Query failed: ' . mysql_error());
-
-        while ($row = mysqli_fetch_array($result_set)) { // start while
-
-            $record_empl_name = $row['record_empl_name'];
-            $record_empl_num = $row['record_empl_num'];    
-            $record_script = $row['record_script'];
-            $record_vioce = $row['record_vioce'];
-            $record_tone = $row['record_tone'];
-            $_SESSION['employee'] = $record_empl_name;
-
-            
-        
-
-           $bid_satus = 'photos';
-
-
-             $rows[] = "\n<div id=\"$bid_satus\"><table><tr><td>$record_empl_name</td></tr> <td>$record_script</td></tr> <td>Tone to be used: $record_tone</td></tr></table> </div>";
-                   
-             $rows[] =" <audio controls>\n";
-             $rows[] = "  <source src=\" $record_vioce \" type=\"audio/mpeg\">\n";
-             $rows[] = "      Your browser does not support the audio element.\n";
-  
-             $rows[] = "      </audio>\n";
-
-        }
-
-            if(isset($_SESSION['employee'])){
-            $employee = $_SESSION['employee'];
-            echo "<center><h1>For Employee: $record_empl_name</h1></center>";
-            }
-
             ////////////////////////////////////Submit//////////////////////////////////////////////////////////////////////////
         
 
@@ -123,13 +67,18 @@ Add Dealer to stock tag program
                     $scrip .= replace_apostrophes($_POST['scrip']); 
                                      
                 }
-          
+          */
                 $quantity = 0;
                 if($_POST['seminar'] > 0){
                     $quantity =  $_POST['seminar'] + $quantity ;
                     $scrip .= " Went to sales seminar or training: " . $_POST['seminar'];
                 }else{
                     $quantity = 0;
+                }
+
+                if($_POST['promotion'] > 0){
+                    $quantity = $_POST['promotion'] + $quantity;
+                    $scrip .= " Self promotion: " . $_POST['promotion'];
                 }
 
                  if($_POST['book'] > 0){
@@ -170,7 +119,7 @@ Add Dealer to stock tag program
                 }else{
                      $scrip .= ' No other Improvements ';
                 }
-      */
+      
         
         if (isset($errors)) {
 
@@ -192,7 +141,7 @@ Add Dealer to stock tag program
         $mDealer_id = $emp_arry[4];
        
     }
-                 $query = "SELECT * ";
+        $query = "SELECT * ";
         $query .= "FROM employee ";
         $query .= "WHERE emp_id = '{$mEmp_id}' ";
        
@@ -220,29 +169,13 @@ Add Dealer to stock tag program
                         die('Error employee 138: ' . mysqli_error($con));
                     }
 
-                     
-                      $query = "SELECT * ";
-                      $query .= "FROM customer_data ";
-                      $query .= "WHERE cust_find = '{$find}' ";
-                     
-                      $result_set = mysqli_query($con, $query)
-                         or die('Query failed: ' . mysql_error());
-
-                      $row = mysqli_fetch_array($result_set); // start while
-
-                      $cust_points = $row['cust_points'];
-                      $id = $row['cust_id']; 
-                    
-
-                      $newPoints = $cust_points + $quantity;
-
                      /////////////////////////////////////////////Update Points/////////////////////////////////////////////////////////////////
-
-                    mysqli_query($con, "UPDATE customer_data SET cust_points = '$newPoints'
-                                         WHERE cust_id = '$id' ");
+                    $employee = $_SESSION['employee'];
+                    mysqli_query($con, "UPDATE employee SET emp_temp_points = '$quantity'
+                                         WHERE emp_id = '$employee' ");
                   
 
-                    $value = "Record has been update points add: " . $quantity  . " Total points: " . $newPoints;
+                    $value = "Record has been update points add: " . $quantity  ;
                     echo "<div class=\"errors\">$value</div>";
 
                     $_POST['scrip'] = '';
@@ -256,92 +189,68 @@ Add Dealer to stock tag program
 
 
        }
-     
+     $query = "SELECT * ";
+        $query .= "FROM employee ";
+        $query .= "WHERE emp_id = '{$employee}' ";
+       
 
-
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        $query = "SELECT * ";
-        $query .= "FROM selceted_vehicles ";
-        $query .= "WHERE sv_find = '{$find}' ";
-      
+       
         $result_set = mysqli_query($con, $query)
                 or die('Query failed: ' . mysql_error());
 
-        $row = mysqli_fetch_array($result_set);
+        $row = mysqli_fetch_array($result_set); 
 
-            $sv_stock = $row['sv_stock'];
-            $sv_year = $row['sv_year'];    
-            $sv_make = $row['sv_make'];
-            $sv_model = $row['sv_model'];
-            $sv_trim = $row['sv_trim'];
-            $sv_reason = $row['sv_reason'];
-            $sv_miles = $row['sv_miles'];
-            $vechicle1 = $sv_year . ' ' . $sv_make . ' ' . $sv_model . ' ' . $sv_trim ;
-               $sv_stock_sec = $row['sv_stock_sec'];
-            $sv_year_sec = $row['sv_year_sec'];    
-            $sv_make_sec = $row['sv_make_sec'];
-            $sv_model_sec = $row['sv_model_sec'];
-            $sv_trim_sec = $row['sv_trim_sec'];
-            $sv_reason_sec = $row['sv_reason_sec'];
-            $sv_miles_sec = $row['sv_miles_sec'];
-   
-             $vechicle2 = $sv_year_sec . ' ' . $sv_make_sec . ' ' . $sv_model_sec . ' ' . $sv_trim_sec ;
+            $emp_first_name = $row['emp_first_name'];
+            $emp_last_name = $row['emp_last_name'];
+            $empName = $emp_first_name . ' ' . $emp_last_name;
 
-             $query1 = "SELECT * ";
-             $query1 .= "FROM reason ";
-             $query1 .= "WHERE reason_find= '{$find}' ";
-      
-              $result_set1 = mysqli_query($con, $query1)
-                or die('Query failed: ' . mysql_error());
-
-             $row1 = mysqli_fetch_array($result_set1);
-
-            $reason_primary = $row1['reason_primary'];
-            $reason_secondary = $row1['reason_secondary'];    
-           
-    echo "<div class=container>";
-     
-         echo "<div>";
-               echo  "<h3>Primary Driver</h3>";
-               echo "<p>$reason_primary</p>";
-                echo  "<h3>Secondary Driver</h3>";
-                echo "<p>$reason_secondary</p>";
-
-
-         echo "</div>";
-         
-    echo "</div>";
-
-     echo "<div class=container>";
-     
-        echo "<div>";
-            echo "<h3>First Vehicle</h3>";
-            echo "<h4>Stock Number: $sv_stock</h4>";
-             echo "<h4>Vehicle: $vechicle1</h4>";
-            echo "<h4>Miles: $sv_miles</h4>";
-            echo "<h4>Reason: $sv_reason</h4>";
-        echo "</div>";
-
-        echo "<div>";
-         echo "<h3>Second Vehicle</h3>";
-           echo "<h4>Stock Number: $sv_stock_sec</h4>";
-             echo "<h4>Vehicle: $vechicle2</h4>";
-            echo "<h4>Miles: $sv_miles_sec</h4>";
-            echo "<h4>Reason: $sv_reason_sec</h4>";
-         echo "</div>";
-
-      
-         
-    echo "</div>";
-
+         echo " <center><h3>Enter anything $empName is doing to improve their career. </h3>";
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
 ?>
 
  
-            <form action="work_sheet.php" method="post">
+            <form action="point_sheet.php" method="post">
 
 
- <center>
-          
+
+            
+           
+          <br />
+        
+                        <textarea rows="6" cols="150" name="scrip" wrap="wrap " >
+                          <?php if (isset($_POST['scrip'])) echo $_POST['scrip'] ?>
+                        </textarea>
+                <br />
+                <br />
+                         <h3><label for="quantity">Self promotion write description below (between 0 and 20):</label>
+                         <input type="number" id="promotion" name="promotion" value=0 min="0" max="20"></h3>
+                <br /><h3>
+                         <label for="quantity">Reading books to improve sales Careers (between 0 and 10):</label>
+                         <input type="number" id="book" name="book" value=0 min="0" max="10">
+                          <br />
+                         <label for="quantity">Did this program more than one time a day (between 0 and 10):</label>
+                         <input type="number" id="day" name="day" value=0 min="0" max="10">
+                           <br />
+                         <label for="quantity">Went to sales seminars or training  (between 0 and 10):</label>
+                         <input type="number" id="seminar" name="seminar" value=0 min="0" max="10">
+                            <br />
+                         <label for="quantity">Improved voice inflection  (between 0 and 10):</label>
+                         <input type="number" id="voice" name="voice" value=0 min="0" max="10">
+                           <br />
+                         <label for="quantity">Improved product knowledge  (between 0 and 10):</label>
+                         <input type="number" id="product" name="product" value=0 min="0" max="10">
+
+ <br />
+                         <label for="quantity">Good selection of vehicles  (between 0 and 10):</label>
+                         <input type="number" id="vehicle" name="vehicle" value=0 min="0" max="10">
+  <br />
+                          <label for="quantity">Go with customer on test Drives (between 0 and 10):</label>
+                         <input type="number" id="drive" name="drive" value=0 min="0" max="10">
+<br />
+                          <label for="quantity">Other write description above (between 0 and 10):</label>
+                         <input type="number" id="other" name="other" value=0 min="0" max="10"></h3>
+                          <br />
                         
           <br />
                 <br />
@@ -355,7 +264,7 @@ Add Dealer to stock tag program
 
          
                    <?php
-           
+  /*         
 echo "</center>";
            echo "<h1>Recording</h1></center>";
 
@@ -369,5 +278,6 @@ echo "</center>";
 
                     $count++;
                 }
+                    */
                 ?>
 
