@@ -35,6 +35,9 @@ $_SESSION['page'] = 'select_employee.php';
              header("Location: employee_points.php");
             exit;
         }
+      
+
+
 
         $save_field_2 = '';
 

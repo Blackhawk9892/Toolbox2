@@ -28,6 +28,8 @@ Add Dealer to stock tag program
 
       
           
+
+        
           
            if (isset($_POST['back'])) {
             header("Location: employee_points.php");
@@ -67,6 +69,10 @@ Add Dealer to stock tag program
 
             $emp_assigned_man_num = $row['emp_assigned_man_num'];
             $emp_assigned_man_name = $row['emp_assigned_man_name'];
+
+               if (isset($_POST['Training'])) {
+           echo "<h1>No Training </h1>";
+        }
          
 
          echo " <center><h3>Please evaluate $emp_assigned_man_name training this week. </h3>";
@@ -79,62 +85,71 @@ Add Dealer to stock tag program
                     $scrip = '';
           /*
                 if(isset($_POST['scrip'])){                   
-                   $scrip .= 'No other Improvements';              
-                }else{
-                    $scrip .= replace_apostrophes($_POST['scrip']); 
-                                     
-                }
-          */
+                     $scrip .= replace_apostrophes($_POST['scrip']) ; 
+                    $scrip .= "<br>" ;     
+                }*/
+          
                 $quantity = 0;
-                if($_POST['seminar'] > 0){
-                    $quantity =  $_POST['seminar'] + $quantity ;
-                    $scrip .= " Went to sales seminar or training: " . $_POST['seminar'];
+                if($_POST['enthusiastic'] > 0){
+                    $quantity =  $_POST['enthusiastic'] + $quantity ;
+                    $scrip .= "  Was the instructor enthusiastic: " . $_POST['enthusiastic'] ;
+                    $scrip .= "<br>" ; 
                 }else{
                     $quantity = 0;
                 }
 
-                if($_POST['promotion'] > 0){
-                    $quantity = $_POST['promotion'] + $quantity;
-                    $scrip .= " Self promotion: " . $_POST['promotion'];
+                if($_POST['overall'] > 0){
+                    $quantity = $_POST['overall'] + $quantity;
+                    $scrip .= " Overall, how would you rate the training instructor: " . $_POST['overall'] ;
+                    $scrip .= "<br>" ; 
+                    
                 }
 
-                 if($_POST['book'] > 0){
-                    $quantity = $_POST['book'] + $quantity;
-                    $scrip .= " Reading books to inprove sales career: " . $_POST['book'];
+                 if($_POST['quality'] > 0){
+                    $quantity = $_POST['quality'] + $quantity;
+                    $scrip .= " How would you specifically rate the teaching quality of the instructor: " . $_POST['quality'] ;
+                    $scrip .= "<br>" ; 
                 }
 
-                 if($_POST['day'] > 0){
-                    $quantity = $_POST['day'] + $quantity;
-                    $scrip .= " Did this program more then one time a day: " . $_POST['day'];
+                 if($_POST['topic'] > 0){
+                    $quantity = $_POST['topic'] + $quantity;
+                    $scrip .= " Was the instructor knowledgeable on the topic: " . $_POST['topic'];
+                    $scrip .= "<br>" ; 
                 }
 
-                 if($_POST['voice'] > 0){
-                    $quantity = $_POST['voice'] + $quantity;
-                    $scrip .= " Improved voice inflection; " . $_POST['voice'];
+                 if($_POST['understand'] > 0){
+                    $quantity = $_POST['understand'] + $quantity;
+                    $scrip .= " Was the instructor easy to understand; " . $_POST['understand'];
+                    $scrip .= "<br>" ; 
                 }
 
-                  if($_POST['product'] > 0){
-                    $quantity = $_POST['product'] + $quantity;
-                    $scrip .= " Improved product knowledge: " . $_POST['product'];
+                  if($_POST['material'] > 0){
+                    $quantity = $_POST['material'] + $quantity;
+                    $scrip .= " Did the instructor provide contextual examples of how to put the training material into practice: " . $_POST['material'];
+                    $scrip .= "<br>" ; 
                 }
 
-                 if($_POST['vehicle'] > 0){
-                    $quantity = $_POST['vehicle'] + $quantity;
-                    $scrip .= " Good selection of vehicle: " . $_POST['vehicle'];
+                 if($_POST['organized'] > 0){
+                    $quantity = $_POST['organized'] + $quantity;
+                    $scrip .= " Was the instructor prepared and organized: " . $_POST['organized'];
+                    $scrip .= "<br>" ; 
                 }
 
-                 if($_POST['drive'] > 0){
-                    $quantity = $_POST['Drive'] + $quantity;
-                    $scrip .= " Go on test drive with customer: " . $_POST['drive'];
-                    $scrip .= replace_apostrophes($_POST['scrip']);
+                 if($_POST['clear'] > 0){
+                    $quantity = $_POST['clear'] + $quantity;
+                    $scrip .= " Did the instructor provide clear instructions throughout the lesson: " . $_POST['clear'];
+                   // $scrip .= replace_apostrophes($_POST['scrip']);
+                  //  $scrip .= "<br>" ; 
                  }
 
-                 if($_POST['other'] > 0){
-                    $quantity = $_POST['other'] + $quantity;
-                    $scrip .= " Other points have been added: " . $_POST['other'];
+                 if($_POST['feedback'] > 0){
+                    $quantity = $_POST['feedback'] + $quantity;
+                    $scrip .= "  Feedback on this specific instructor and what they could have done more effectively: " . $_POST['feedback'] . '/';
                     $scrip .= replace_apostrophes($_POST['scrip']);
+                    $scrip .= "<br>" ; 
                 }else{
                      $scrip .= ' No other Improvements ';
+                     $scrip .= "<br>" ; 
                 }
       
         
@@ -173,7 +188,7 @@ Add Dealer to stock tag program
             $emp_assigned_man_name = $row['emp_assigned_man_name'];    
                   
                 
-                  $find = $_SESSION['find'];
+                $find = "Employee Evaluation";
                   $date = date("Y-m-d");
 
                
@@ -187,9 +202,9 @@ Add Dealer to stock tag program
                     }
 
                      /////////////////////////////////////////////Update Points/////////////////////////////////////////////////////////////////
-                    $employee = $_SESSION['employee'];
-                    mysqli_query($con, "UPDATE employee SET emp_temp_points = '$quantity'
-                                         WHERE emp_id = '$employee' ");
+                  
+                    mysqli_query($con, "UPDATE employee SET emp_points = '$quantity'
+                                         WHERE emp_id = '$emp_id' ");
                   
 
                     $value = "Record has been update points add: " . $quantity  ;
@@ -212,7 +227,7 @@ Add Dealer to stock tag program
 ?>
 
  
-            <form action="point_sheet.php" method="post">
+            <form action="managers_evaluation.php" method="post">
 
 
 
@@ -225,38 +240,50 @@ Add Dealer to stock tag program
                         </textarea>
                 <br />
                 <br />
-                         <h3><label for="quantity">Self promotion write description below (between 0 and 20):</label>
-                         <input type="number" id="promotion" name="promotion" value=0 min="0" max="20"></h3>
-                <br /><h3>
-                         <label for="quantity">Reading books to improve sales Careers (between 0 and 10):</label>
-                         <input type="number" id="book" name="book" value=0 min="0" max="10">
+                         <h3><label for="quantity">Overall, how would you rate the training instructor? (between 0 and 10):</label>
+                         <input type="number" id="overall" name="overall" value=0 min="0" max="10">
+               
+                         <label for="quantity">How would you specifically rate the teaching quality of the instructor?(between 0 and 10):</label>
+                         <input type="number" id="quality" name="quality" value=0 min="0" max="10">
                           <br />
-                         <label for="quantity">Did this program more than one time a day (between 0 and 10):</label>
-                         <input type="number" id="day" name="day" value=0 min="0" max="10">
+                         <label for="quantity">Was the instructor knowledgeable on the topic?(between 0 and 10):</label>
+                         <input type="number" id="topic" name="topic" value=0 min="0" max="10">
                            <br />
-                         <label for="quantity">Went to sales seminars or training  (between 0 and 10):</label>
-                         <input type="number" id="seminar" name="seminar" value=0 min="0" max="10">
+                         <label for="quantity">Was the instructor enthusiastic?(between 0 and 10):</label>
+                         <input type="number" id="enthusiastic" name="enthusiastic" value=0 min="0" max="10">
                             <br />
-                         <label for="quantity">Improved voice inflection  (between 0 and 10):</label>
-                         <input type="number" id="voice" name="voice" value=0 min="0" max="10">
+                         <label for="quantity">Was the instructor easy to understand?(between 0 and 10):</label>
+                         <input type="number" id="understand" name="understand" value=0 min="0" max="10">
                            <br />
-                         <label for="quantity">Improved product knowledge  (between 0 and 10):</label>
-                         <input type="number" id="product" name="product" value=0 min="0" max="10">
+                         <label for="quantity">Did the instructor provide contextual examples of how to put the training material into practice?(between 0 and 10):</label>
+                         <input type="number" id="material" name="material" value=0 min="0" max="10">
 
  <br />
-                         <label for="quantity">Good selection of vehicles  (between 0 and 10):</label>
-                         <input type="number" id="vehicle" name="vehicle" value=0 min="0" max="10">
+                         <label for="quantity">Was the instructor prepared and organized? (between 0 and 10):</label>
+                         <input type="number" id="organized" name="organized" value=0 min="0" max="10">
   <br />
-                          <label for="quantity">Go with customer on test Drives (between 0 and 10):</label>
-                         <input type="number" id="drive" name="drive" value=0 min="0" max="10">
+                          <label for="quantity">Did the instructor provide clear instructions throughout the lesson?(between 0 and 10):</label>
+                         <input type="number" id="clear" name="clear" value=0 min="0" max="10">
 <br />
-                          <label for="quantity">Other write description above (between 0 and 10):</label>
-                         <input type="number" id="other" name="other" value=0 min="0" max="10"></h3>
+                          <label for="quantity">Do you have any other feedback on this specific instructor and what they could have done more effectively?(between 0 and 10):</label>
+                         <input type="number" id="feedback" name="feedback" value=0 min="0" max="10"></h3>
                           <br />
-                        
+                          <br />
+                         <?php
+                        $checkDay = date('l');
+                        if($checkDay == "Saturday"){
+
+                                echo "  <input type=\"submit\" name=\"Training\" value=\"No Training\"/>";
+                        }
+                     
+                     
+                       ?>
           <br />
                 <br />
                     <input type="submit" name="submit" value="Submit"/>
+                    <br />
+                     <br />
+                   
                     <br />
                      <br />
                 
