@@ -43,7 +43,7 @@
     $position = $row['emp_position'];
     $emp_user_name = $row['emp_user_name'];
     $emp_dealer_group = $row['emp_dealer_group'];
-    $emp_email = $row['emp_email'];
+
     $name = $first . ' ' . $last;
 
 

@@ -61,7 +61,7 @@ require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
-require("toolbar_sales.php");
+//require("toolbar_sales.php");
 
 
 
