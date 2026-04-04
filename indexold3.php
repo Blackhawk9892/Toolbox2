@@ -35,7 +35,6 @@ session_start();
         require_once("includes/connection.php");
         require("includes/security.php");
 
-        
         unset($_SESSION['first']);
 
         if(!isset($_SESSION['endTime'])){
@@ -54,7 +53,7 @@ session_start();
         }
 
         $missing = 0;
-        
+echo "test1" . $_POST['sign'] ;    
         if (isset($_POST['sign'])) {
 
             if (empty($_POST['userName'])) {
@@ -75,12 +74,13 @@ session_start();
                 $errors[] = 'No symbols may be used. Only alphanumeric value may be used in username';
                 $missing = 1;
             }
-
+ 
             // $password = $_POST['userName'];
             $password = sha1(sha1($_POST['password']));
             $userName = $_POST['userName'];
            
             $dataCheck = Check_Data($userName);
+           
             if ($missing == 0) {
                 $query = "SELECT * ";
                 $query .= "FROM employee ";
@@ -99,7 +99,7 @@ session_start();
                     $emp_user_name = $row['emp_user_name'];
                     $emp_password = $row['emp_password'];
                     $emp_position = strtolower($row['emp_position']);
-         
+        
 
                 switch ($emp_position) {
                     case "sales":

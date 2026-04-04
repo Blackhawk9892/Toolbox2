@@ -203,7 +203,7 @@ Add Dealer to stock tag program
 
                      /////////////////////////////////////////////Update Points/////////////////////////////////////////////////////////////////
                   
-                    mysqli_query($con, "UPDATE employee SET emp_points = '$quantity'
+                    mysqli_query($con, "UPDATE employee SET emp_emp_points = '$quantity'
                                          WHERE emp_id = '$emp_id' ");
                   
 
