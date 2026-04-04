@@ -67,23 +67,19 @@ $points = 0;
                   $query3 = "SELECT * ";
            $query3 .= "FROM employee ";
            $query3 .= "WHERE emp_assigned_man_num   = '{$emp_id}' ";
-           
+        
 
            $result_set3 = mysqli_query($con, $query3)
              or die('Query failed emp 68: ' . mysqli_error($con));
 
            while($row3 = mysqli_fetch_array($result_set3)){
             $emp_point_date = $row3['emp_point_date'];
-              
-              if($emp_point_date < $lastSunday){
-                continue;
-              }
             
              $emp_man_points = $row3['emp_man_points'];
              
              $managerPoints = $managerPoints + $emp_man_points;
            }
-          echo $managerPoints . ' *** ' . $emp_id  . "<br>";
+         
              $sql = "INSERT INTO points(points_sales_name, points_sales_num, points_man_name, points_man_num, points_position, points_year_month,  points_manager) 
               VALUES('$empName','$emp_id','$emp_assigned_man_name','$emp_assigned_man_num','$emp_position','$yearMonth','$managerPoints')";
 
@@ -142,13 +138,13 @@ $points = 0;
                         die('Error reset_manager 128: ' . mysqli_error($con));
                     }
                     }
-/*
+
                      mysqli_query($con, "UPDATE employee SET emp_emp_points = '0'
                                          WHERE emp_id = '$emp_id' ");
 
                     mysqli_query($con, "UPDATE employee SET emp_man_points = '0'
                                          WHERE emp_id = '$emp_id' ");
-*/
+
               $points = 0;
         }
 

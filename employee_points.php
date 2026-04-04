@@ -107,7 +107,7 @@ if(isset($_GET['company'])){
             $emp_assigned_man_name = $row['emp_assigned_man_name'];
             $emp_evaluation_date = $row['emp_evaluation_date'];
             $emp_evaluation_manager = $row['emp_evaluation_manager'];
-            $emp_temp_points = $row['emp_temp_points'];
+            $emp_emp_points = $row['emp_emp_points'];
             
             $d = strtotime($emp_evaluation_date);
             $emp_evaluation_date = date("m/d/Y", $d);
