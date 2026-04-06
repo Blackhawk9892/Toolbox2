@@ -76,7 +76,7 @@ Add Dealer to stock tag program
             $query = "SELECT * ";
             $query .= "FROM company ";
           
-            if($position == 'Manager'){
+            if($position == 'Manager' or $position == 'GM'){
             $query .= "WHERE comp_id    = '{$dealer_id}' ";
             }
 

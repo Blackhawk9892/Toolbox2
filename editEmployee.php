@@ -42,14 +42,14 @@ Add Dealer to stock tag program
                 $position = $emp_arry[2];
                 $emp_id = $emp_arry[3];
                 $dealer_id = $emp_arry[4];
-                $emp_email = $emp_arry[7];
+            
                        
                 $_SESSION['emp'] = $emp_arry[0] . ' ' . $emp_arry[1];
 
                 $_POST['first'] = $first;
                 $_POST['last'] = $last;      
                 $_POST['position'] = $position;
-                $_POST['email'] = $emp_email;
+               
                 
             }
           
@@ -64,7 +64,7 @@ Add Dealer to stock tag program
                $_POST['first'] = '';
                $_POST['last'] = '';      
                $_POST['position'] = '';
-               $_POST['email'] = '';
+               
 
 
               
@@ -80,7 +80,7 @@ Add Dealer to stock tag program
                 $_POST['first'] = '';
                 $_POST['last'] = '';
                 $_POST['position'] = '';
-                $_POST['email'] = '';
+                
                 $_POST['manager'] = '';
                 $_POST['password'] = '';
                 $_POST['password2'] = '';
@@ -95,7 +95,7 @@ Add Dealer to stock tag program
                 $first = ucwords($_POST['first']);
                 $last = ucwords($_POST['last']);
                 $position = $_POST['position'];
-                $email = $_POST['email']; 
+              
 
                 if(isset($_POST['manager'])){
 
@@ -106,7 +106,7 @@ Add Dealer to stock tag program
                 }
                     
 
-                $required_fields = array('first', 'last', 'position','email');
+                $required_fields = array('first', 'last', 'position');
 
                 foreach ($required_fields as $fieldname) {
 
@@ -143,10 +143,7 @@ Add Dealer to stock tag program
 
                     mysqli_query($con, "UPDATE employee SET emp_last_name = '$last'
                                          WHERE emp_id = '$id' ");
-                     /////////////////////////////////////////////emp_email/////////////////////////////////////////////////////////////////
-
-                    mysqli_query($con, "UPDATE employee SET emp_email = '$email'
-                                         WHERE emp_id = '$id' ");
+                   
                     /////////////////////////////////////////////emp_position/////////////////////////////////////////////////////////////////
 
                     mysqli_query($con, "UPDATE employee SET emp_position = '$position'
@@ -160,7 +157,7 @@ Add Dealer to stock tag program
 
                     mysqli_query($con, "UPDATE employee SET emp_assigned_man_name = '$managerName'
                                          WHERE emp_id = '$id' ");
-                    /////////////////////////////////////////////emp_email/////////////////////////////////////////////////////////////////
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -171,7 +168,8 @@ Add Dealer to stock tag program
                     $_POST['last'] = '';
                     $_POST['position'] = '';
                     $_POST['manager'] = '';
-                    $_POST['email'] = '';
+                   
+
                   
                    
 
@@ -248,8 +246,7 @@ Add Dealer to stock tag program
                         <tr><td>Last Name:</td><td>
                                 <input type="text" name="last" size="50" value="<?php if (isset($_POST['last'])) echo $_POST['last'] ?>"	/>
 
-                          <tr><td>Enter your email:</td><td>
-                        <input type="email" id="email" name="email" size="50" value="<?php if (isset($_POST['last'])) echo $_POST['email'] ?>"	/>       
+                       
 
                         <tr><td>Position:</td><td>
 

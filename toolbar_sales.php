@@ -143,6 +143,31 @@ $tb_descrip = 'Corporate Points';
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
    }
 
+   if($position == "GM"){
+
+$tb_program = 'employee_points.php';
+$tb_descrip = 'Employee Points';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'new_password_manager.php';
+$tb_descrip = 'Change Employee Password';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'select_employee.php';
+$tb_descrip = 'Employee Maintenance';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+   }
+
+   if($position == "PFD" or $position == "Corporate"){
+$tb_program = 'corporate.php';
+$tb_descrip = 'Corporate Points';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+   }
+
 //###################################Sales Menu ########################################################################
 //$tb_program = 'interduction.php';
 $tb_program = 'interduction.php?type=sales';

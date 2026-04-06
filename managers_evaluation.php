@@ -231,7 +231,7 @@ Add Dealer to stock tag program
 
                      /////////////////////////////////////////////Update Points/////////////////////////////////////////////////////////////////
                   
-                    mysqli_query($con, "UPDATE employee SET emp_emp_points = '$quantity'
+                    mysqli_query($con, "UPDATE employee SET emp_man_points = '$quantity'
                                          WHERE emp_id = '$emp_id' ");
                   
 
@@ -301,17 +301,19 @@ Add Dealer to stock tag program
                        // $checkDay = date('l');
                        $checkDay = "Saturday";
                       // $emp_emp_points = 0;
-              
+             
                         if($checkDay == "Saturday" and $emp_emp_points == 0){
 
                                 echo "  <input type=\"submit\" name=\"Training\" value=\"No Training\"/>";
+                                $value = "If you submit an evaluation, your points are at 0. If you use No Training, your points will be a random selection from the points everyone else has.";
+                                 echo "<div class=\"errors\">$value</div>";
                         }
                         echo "<br>";
                         echo "<br>";
-                         if($emp_emp_points == 0){
+                        
 
                                 echo "  <input type=\"submit\" name=\"submit\" value=\"Submit\"/>";
-                        }
+                      
                      
                      
                        ?>

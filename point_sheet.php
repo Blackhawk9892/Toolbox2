@@ -47,7 +47,8 @@ Add Dealer to stock tag program
   
           $emp_arry = Employee($userId);
           $first = $emp_arry[0];
-          $last = $emp_arry[1];      
+          $last = $emp_arry[1]; 
+          $managerName =   $first . ' '  .  $last;
           $position = $emp_arry[2];
           $emp_id = $emp_arry[3];
           $dealer_id = $emp_arry[4];
@@ -107,8 +108,8 @@ Add Dealer to stock tag program
                 }
 
                  if($_POST['drive'] > 0){
-                    $quantity = $_POST['Drive'] + $quantity;
-                    $scrip .= " Go on test drive with customer: " . $_POST['drive'];
+                    $quantity = $_POST['drive'] + $quantity;
+                    $scrip .= " Go on test drive with customers: " . $_POST['drive'];
                     $scrip .= replace_apostrophes($_POST['scrip']);
                  }
 
@@ -156,7 +157,7 @@ Add Dealer to stock tag program
             $emp_assigned_man_name = $row['emp_assigned_man_name'];    
                   
                 
-                  $find = $_SESSION['find'];
+                  $find = "Employee Evaluation";
                   $date = date("Y-m-d");
 
                
@@ -173,9 +174,19 @@ Add Dealer to stock tag program
                     $employee = $_SESSION['employee'];
                     mysqli_query($con, "UPDATE employee SET emp_emp_points = '$quantity'
                                          WHERE emp_id = '$employee' ");
+
+
+                    mysqli_query($con, "UPDATE employee SET emp_evaluation_manager = '$managerName'
+                                         WHERE emp_id = '$employee' ");
+
+                    $evalDate = date("Y-m-d");
+                     mysqli_query($con, "UPDATE employee SET emp_evaluation_date = '$evalDate'
+                                         WHERE emp_id = '$employee' ");
+
+
                   
 
-                    $value = "Record has been update points add: " . $quantity  ;
+                    $value = "Record has been update : " ;
                     echo "<div class=\"errors\">$value</div>";
 
                     $_POST['scrip'] = '';
@@ -200,9 +211,15 @@ Add Dealer to stock tag program
 
         $row = mysqli_fetch_array($result_set); 
 
+            $emp_emp_points = $row['emp_emp_points'];
             $emp_first_name = $row['emp_first_name'];
             $emp_last_name = $row['emp_last_name'];
             $empName = $emp_first_name . ' ' . $emp_last_name;
+
+             if($emp_emp_points > 0){
+                              $value = $empName ." has " .  $emp_emp_points . " points for this weeek.";
+                            echo "<div class=\"errors\">$value</div>";
+                        }
 
          echo " <center><h3>Enter anything $empName is doing to improve their career. </h3>";
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -254,7 +271,14 @@ Add Dealer to stock tag program
                         
           <br />
                 <br />
-                    <input type="submit" name="submit" value="Submit"/>
+                   <?php
+                
+                        if($emp_emp_points == 0){
+                            echo " <input type=\"submit\" name=\"submit\" value=\"Submit\"/>";
+                        }
+                        
+
+                     ?>
                     <br />
                      <br />
                 

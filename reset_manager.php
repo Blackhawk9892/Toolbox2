@@ -45,6 +45,7 @@ $points = 0;
              $emp_assigned_man_num = $row['emp_assigned_man_num'];
              $emp_man_points = $row['emp_man_points'];
              $emp_emp_points = $row['emp_emp_points'];
+             $emp_evaluation_manager = $row['emp_evaluation_manager'];
              
 
 
@@ -63,7 +64,7 @@ $points = 0;
 
               if($emp_position == 'Manager'){
                 $managerPoints = 0;
-
+              $countDiv = 0;
                   $query3 = "SELECT * ";
            $query3 .= "FROM employee ";
            $query3 .= "WHERE emp_assigned_man_num   = '{$emp_id}' ";
@@ -73,19 +74,20 @@ $points = 0;
              or die('Query failed emp 68: ' . mysqli_error($con));
 
            while($row3 = mysqli_fetch_array($result_set3)){
-            $emp_point_date = $row3['emp_point_date'];
-            
+            $emp_point_date = $row3['emp_point_date'];            
              $emp_man_points = $row3['emp_man_points'];
-             
              $managerPoints = $managerPoints + $emp_man_points;
+              $countDiv++;
            }
-         
+          
+             $managerPoints = $managerPoints / $countDiv;
+
              $sql = "INSERT INTO points(points_sales_name, points_sales_num, points_man_name, points_man_num, points_position, points_year_month,  points_manager) 
               VALUES('$empName','$emp_id','$emp_assigned_man_name','$emp_assigned_man_num','$emp_position','$yearMonth','$managerPoints')";
 
 
                     if (!mysqli_query($con, $sql)) {
-                        die('Error reset_manager 77: ' . mysqli_error($con));
+                        die('Error reset_manager 87: ' . mysqli_error($con));
                     }
          }
               
@@ -129,6 +131,7 @@ $points = 0;
 
            }
 
+
               $total = $points + $emp_emp_points;
               $sql = "INSERT INTO points(points_sales_name, points_sales_num, points_man_name, points_man_num, points_position, points_year_month, points_system, points_employee, points_total) 
               VALUES('$empName','$emp_id','$emp_assigned_man_name','$emp_assigned_man_num','$emp_position','$yearMonth','$points','$emp_emp_points','$total')";
@@ -144,6 +147,9 @@ $points = 0;
 
                     mysqli_query($con, "UPDATE employee SET emp_man_points = '0'
                                          WHERE emp_id = '$emp_id' ");
+
+                   // mysqli_query($con, "UPDATE employee SET emp_evaluation_manager = 'None'
+                                        // WHERE emp_id = '$emp_id' ");
 
               $points = 0;
         }
