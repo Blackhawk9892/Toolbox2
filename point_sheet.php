@@ -224,32 +224,32 @@ Add Dealer to stock tag program
                 <br />
                 <br />
                          <h3><label for="quantity">Self promotion write description below (between 0 and 20):</label>
-                         <input type="number" id="promotion" name="promotion" value=0 min="0" max="20"></h3>
+                         <input type="number" id="promotion" name="promotion" value=1 min="0" max="20"></h3>
                 <br /><h3>
                          <label for="quantity">Reading books to improve sales Careers (between 0 and 10):</label>
-                         <input type="number" id="book" name="book" value=0 min="0" max="10">
+                         <input type="number" id="book" name="book" value=1 min="0" max="10">
                           <br />
                          <label for="quantity">Did this program more than one time a day (between 0 and 10):</label>
-                         <input type="number" id="day" name="day" value=0 min="0" max="10">
+                         <input type="number" id="day" name="day" value=1 min="0" max="10">
                            <br />
                          <label for="quantity">Went to sales seminars or training  (between 0 and 10):</label>
-                         <input type="number" id="seminar" name="seminar" value=0 min="0" max="10">
+                         <input type="number" id="seminar" name="seminar" value=1 min="0" max="10">
                             <br />
                          <label for="quantity">Improved voice inflection  (between 0 and 10):</label>
-                         <input type="number" id="voice" name="voice" value=0 min="0" max="10">
+                         <input type="number" id="voice" name="voice" value=1 min="0" max="10">
                            <br />
                          <label for="quantity">Improved product knowledge  (between 0 and 10):</label>
-                         <input type="number" id="product" name="product" value=0 min="0" max="10">
+                         <input type="number" id="product" name="product" value=1 min="0" max="10">
 
  <br />
                          <label for="quantity">Good selection of vehicles  (between 0 and 10):</label>
-                         <input type="number" id="vehicle" name="vehicle" value=0 min="0" max="10">
+                         <input type="number" id="vehicle" name="vehicle" value=1 min="0" max="10">
   <br />
                           <label for="quantity">Go with customer on test Drives (between 0 and 10):</label>
-                         <input type="number" id="drive" name="drive" value=0 min="0" max="10">
+                         <input type="number" id="drive" name="drive" value=1 min="0" max="10">
 <br />
                           <label for="quantity">Other write description above (between 0 and 10):</label>
-                         <input type="number" id="other" name="other" value=0 min="0" max="10"></h3>
+                         <input type="number" id="other" name="other" value=1 min="0" max="10"></h3>
                           <br />
                         
           <br />

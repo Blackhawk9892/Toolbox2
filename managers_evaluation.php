@@ -59,7 +59,7 @@ Add Dealer to stock tag program
           $query = "SELECT * ";
         $query .= "FROM employee ";
         $query .= "WHERE emp_id = '{$emp_id}' ";
-       
+      
 
        
         $result_set = mysqli_query($con, $query)
@@ -69,9 +69,37 @@ Add Dealer to stock tag program
 
             $emp_assigned_man_num = $row['emp_assigned_man_num'];
             $emp_assigned_man_name = $row['emp_assigned_man_name'];
+            $emp_emp_points = $row['emp_emp_points'];
 
-               if (isset($_POST['Training'])) {
-           echo "<h1>No Training </h1>";
+
+         if (isset($_POST['Training'])) {
+                     $query = "SELECT * ";
+                     $query .= "FROM employee ";
+                     $query .= "WHERE emp_dealer_id = '{$dealer_id}' ";
+      
+       
+                     $result_set = mysqli_query($con, $query)
+                       or die('Query failed: ' . mysql_error());
+
+             while ($row = mysqli_fetch_array($result_set)) {
+
+                  $empPoints = $row['emp_emp_points'];
+                  if($empPoints == 0){
+                    continue;
+                  }
+                  $emp_point_array[] = $empPoints;
+            }
+                    
+                    shuffle($emp_point_array);
+                                     
+                    $points = $emp_point_array[0];
+                    $emp_emp_points = $points;
+                     mysqli_query($con, "UPDATE employee SET emp_emp_points = '{$points}'
+                                         WHERE emp_id = '$emp_id' ");
+                    $value = "You received a random selection of points based on all the other salespeople. Your manager received 0 points.";
+                     echo "<div class=\"errors\">$value</div>";
+
+
         }
          
 
@@ -241,51 +269,55 @@ Add Dealer to stock tag program
                 <br />
                 <br />
                          <h3><label for="quantity">Overall, how would you rate the training instructor? (between 0 and 10):</label>
-                         <input type="number" id="overall" name="overall" value=0 min="0" max="10">
+                         <input type="number" id="overall" name="overall" value=1 min="0" max="10">
                
                          <label for="quantity">How would you specifically rate the teaching quality of the instructor?(between 0 and 10):</label>
-                         <input type="number" id="quality" name="quality" value=0 min="0" max="10">
+                         <input type="number" id="quality" name="quality" value=1 min="0" max="10">
                           <br />
                          <label for="quantity">Was the instructor knowledgeable on the topic?(between 0 and 10):</label>
-                         <input type="number" id="topic" name="topic" value=0 min="0" max="10">
+                         <input type="number" id="topic" name="topic" value=1 min="0" max="10">
                            <br />
                          <label for="quantity">Was the instructor enthusiastic?(between 0 and 10):</label>
-                         <input type="number" id="enthusiastic" name="enthusiastic" value=0 min="0" max="10">
+                         <input type="number" id="enthusiastic" name="enthusiastic" value=1 min="0" max="10">
                             <br />
                          <label for="quantity">Was the instructor easy to understand?(between 0 and 10):</label>
-                         <input type="number" id="understand" name="understand" value=0 min="0" max="10">
+                         <input type="number" id="understand" name="understand" value=1 min="0" max="10">
                            <br />
                          <label for="quantity">Did the instructor provide contextual examples of how to put the training material into practice?(between 0 and 10):</label>
-                         <input type="number" id="material" name="material" value=0 min="0" max="10">
+                         <input type="number" id="material" name="material" value=1 min="0" max="10">
 
  <br />
                          <label for="quantity">Was the instructor prepared and organized? (between 0 and 10):</label>
-                         <input type="number" id="organized" name="organized" value=0 min="0" max="10">
+                         <input type="number" id="organized" name="organized" value=1 min="0" max="10">
   <br />
                           <label for="quantity">Did the instructor provide clear instructions throughout the lesson?(between 0 and 10):</label>
-                         <input type="number" id="clear" name="clear" value=0 min="0" max="10">
+                         <input type="number" id="clear" name="clear" value=1 min="0" max="10">
 <br />
                           <label for="quantity">Do you have any other feedback on this specific instructor and what they could have done more effectively?(between 0 and 10):</label>
-                         <input type="number" id="feedback" name="feedback" value=0 min="0" max="10"></h3>
+                         <input type="number" id="feedback" name="feedback" value=1 min="0" max="10"></h3>
                           <br />
                           <br />
                          <?php
-                        $checkDay = date('l');
-                        if($checkDay == "Saturday"){
+                       // $checkDay = date('l');
+                       $checkDay = "Saturday";
+                      // $emp_emp_points = 0;
+              
+                        if($checkDay == "Saturday" and $emp_emp_points == 0){
 
                                 echo "  <input type=\"submit\" name=\"Training\" value=\"No Training\"/>";
+                        }
+                        echo "<br>";
+                        echo "<br>";
+                         if($emp_emp_points == 0){
+
+                                echo "  <input type=\"submit\" name=\"submit\" value=\"Submit\"/>";
                         }
                      
                      
                        ?>
           <br />
                 <br />
-                    <input type="submit" name="submit" value="Submit"/>
-                    <br />
-                     <br />
                    
-                    <br />
-                     <br />
                 
                     <input type="submit" name="back" value="Back"/>
                     <br />
