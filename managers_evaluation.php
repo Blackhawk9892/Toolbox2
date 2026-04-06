@@ -298,8 +298,8 @@ Add Dealer to stock tag program
                           <br />
                           <br />
                          <?php
-                       // $checkDay = date('l');
-                       $checkDay = "Saturday";
+                        $checkDay = date('l');
+                      // $checkDay = "Saturday";
                       // $emp_emp_points = 0;
              
                         if($checkDay == "Saturday" and $emp_emp_points == 0){
