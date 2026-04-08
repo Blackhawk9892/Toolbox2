@@ -32,7 +32,7 @@ Add Dealer to stock tag program
         
           
            if (isset($_POST['back'])) {
-            header("Location: employee_points.php");
+            header("Location: home.php");
             exit;
         }
 
@@ -94,8 +94,16 @@ Add Dealer to stock tag program
                                      
                     $points = $emp_point_array[0];
                     $emp_emp_points = $points;
+
+
                      mysqli_query($con, "UPDATE employee SET emp_emp_points = '{$points}'
                                          WHERE emp_id = '$emp_id' ");
+
+                        $emp_date = date("Y-m-d");
+                      mysqli_query($con, "UPDATE employee SET emp_point_date = '{$emp_date}'
+                                         WHERE emp_id = '$emp_id' ");
+
+
                     $value = "You received a random selection of points based on all the other salespeople. Your manager received 0 points.";
                      echo "<div class=\"errors\">$value</div>";
 
@@ -234,6 +242,10 @@ Add Dealer to stock tag program
                     mysqli_query($con, "UPDATE employee SET emp_man_points = '$quantity'
                                          WHERE emp_id = '$emp_id' ");
                   
+                   $emp_date = date("Y-m-d");
+                      mysqli_query($con, "UPDATE employee SET emp_point_date = '{$emp_date}'
+                                         WHERE emp_id = '$emp_id' ");
+
 
                     $value = "Record has been update points add: " . $quantity  ;
                     echo "<div class=\"errors\">$value</div>";

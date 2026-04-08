@@ -111,6 +111,7 @@ $points = 0;
 
            while($row2 = mysqli_fetch_array($result_set2)){
              $cust_date = $row2['cust_date'];
+             $emp_point_date = $row2['emp_point_date'];
 
               $d = strtotime($cust_date);
                $cust_date = date("Y/m/d", $d);
@@ -131,7 +132,9 @@ $points = 0;
 
            }
 
-
+              if($emp_point_date == "0000-00-00"){
+                $emp_emp_points = 0;
+              }
               $total = $points + $emp_emp_points;
               $sql = "INSERT INTO points(points_sales_name, points_sales_num, points_man_name, points_man_num, points_position, points_year_month, points_system, points_employee, points_total) 
               VALUES('$empName','$emp_id','$emp_assigned_man_name','$emp_assigned_man_num','$emp_position','$yearMonth','$points','$emp_emp_points','$total')";
@@ -148,8 +151,8 @@ $points = 0;
                     mysqli_query($con, "UPDATE employee SET emp_man_points = '0'
                                          WHERE emp_id = '$emp_id' ");
 
-                   // mysqli_query($con, "UPDATE employee SET emp_evaluation_manager = 'None'
-                                        // WHERE emp_id = '$emp_id' ");
+                    mysqli_query($con, "UPDATE employee SET emp_point_date = '0000-00-00'
+                                         WHERE emp_id = '$emp_id' ");
 
               $points = 0;
         }
