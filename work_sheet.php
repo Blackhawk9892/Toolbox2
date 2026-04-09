@@ -344,9 +344,7 @@ Add Dealer to stock tag program
           
                         
           <br />
-                <br />
-                    <input type="submit" name="submit" value="Submit"/>
-                    <br />
+                
                      <br />
                 
                     <input type="submit" name="back" value="Back"/>

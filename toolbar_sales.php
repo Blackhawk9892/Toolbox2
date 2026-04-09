@@ -55,6 +55,13 @@ $_SESSION['emp_id'] = $emp_id;
 $department_array = array();
     $menu_array = array();
     $mantenance_array = array();
+
+$tb_program = 'totalPoints.php';
+$tb_descrip = 'Everyones Points';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+  
+
      if($position == "Sales"){
   
 $tb_program = 'managers_evaluation.php';

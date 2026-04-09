@@ -29,11 +29,7 @@ Add Dealer to stock tag program
             exit;
         }
 
-        if (isset($_POST['training'])) {
-            header("Location: training_plan.php");
-            exit;
-        }
-         
+       
 
       ///////////////////////////////////////////////////////////////////////      
 
@@ -220,10 +216,7 @@ if(empty($_POST['fromday'])){
                     <input type="submit" name="history" value="Employee History"/>
                     <br />
  <br />
-                     <br />
-                
-                    <input type="submit" name="training" value="Training"/>
-                    <br />
+                   
        
        
                 <?php
@@ -235,7 +228,7 @@ if(empty($_POST['fromday'])){
            $showPoints = "Number of time with points: " . $timesPoints . " Number of times without points: " . $timesWithoutPoints ;
 
            echo "<h1>$showPoints</h1></center>";
-
+            if(isset($rows)){
                 $result = count($rows);
                
                 $count = 0;
@@ -246,6 +239,9 @@ if(empty($_POST['fromday'])){
 
                     $count++;
                 }
+            }else{
+                echo "<h1>None Found</h1>";
+            }
                 ?>
 
 

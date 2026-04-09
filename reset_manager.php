@@ -22,6 +22,7 @@ require_once("includes/constants.php");
 require("includes/connection.php");
 
 //////////////////////////////////////////Add Points??????????????????????????????????????????????????????????????????
+$year = date("Y");
 $yearMonth = date("Y/m");
  $d = strtotime("last Sunday");
 $lastSunday =  date("Y/m/d", $d);
@@ -36,6 +37,8 @@ $points = 0;
              or die('Query failed emp: ' . mysqli_error($con));
 
            while($row = mysqli_fetch_array($result_set)){
+             $emp_dealer_id = $row['emp_dealer_id'];
+             $emp_dealer_group = $row['emp_dealer_group'];
              $emp_id = $row['emp_id'];
              $emp_position = $row['emp_position'];
              $emp_first_name = $row['emp_first_name'];
@@ -82,8 +85,8 @@ $points = 0;
           
              $managerPoints = $managerPoints / $countDiv;
 
-             $sql = "INSERT INTO points(points_sales_name, points_sales_num, points_man_name, points_man_num, points_position, points_year_month,  points_manager) 
-              VALUES('$empName','$emp_id','$emp_assigned_man_name','$emp_assigned_man_num','$emp_position','$yearMonth','$managerPoints')";
+             $sql = "INSERT INTO points(points_dealer_group,  points_dealer_id, points_sales_name, points_sales_num, points_man_name, points_man_num, points_position, points_year_month, points_year, points_manager) 
+              VALUES('$emp_dealer_group','$emp_dealer_id','$empName','$emp_id','$emp_assigned_man_name','$emp_assigned_man_num','$emp_position','$yearMonth','$year','$managerPoints')";
 
 
                     if (!mysqli_query($con, $sql)) {
@@ -111,7 +114,7 @@ $points = 0;
 
            while($row2 = mysqli_fetch_array($result_set2)){
              $cust_date = $row2['cust_date'];
-             $emp_point_date = $row2['emp_point_date'];
+  
 
               $d = strtotime($cust_date);
                $cust_date = date("Y/m/d", $d);
@@ -136,8 +139,8 @@ $points = 0;
                 $emp_emp_points = 0;
               }
               $total = $points + $emp_emp_points;
-              $sql = "INSERT INTO points(points_sales_name, points_sales_num, points_man_name, points_man_num, points_position, points_year_month, points_system, points_employee, points_total) 
-              VALUES('$empName','$emp_id','$emp_assigned_man_name','$emp_assigned_man_num','$emp_position','$yearMonth','$points','$emp_emp_points','$total')";
+              $sql = "INSERT INTO points(points_dealer_group,  points_dealer_id, points_sales_name, points_sales_num, points_man_name, points_man_num, points_position, points_year_month, points_year, points_system, points_employee, points_total) 
+              VALUES('$emp_dealer_group','$emp_dealer_id','$empName','$emp_id','$emp_assigned_man_name','$emp_assigned_man_num','$emp_position','$yearMonth','$year','$points','$emp_emp_points','$total')";
 
 
                     if (!mysqli_query($con, $sql)) {
