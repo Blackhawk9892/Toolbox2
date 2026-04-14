@@ -249,12 +249,17 @@ Add Dealer to stock tag program
 
 <?php
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+if(isset($report_type)){
 if($month_year == "Month"){
     $monthOrYear = $month;
 }else{
     $monthOrYear = $year;
 }
-echo '<h1>This report is for ' . $report_type . ' ran by ' . $month_year . ' of ' . $monthOrYear . '</h1>';
+
+
+     echo '<h1>This report is for ' . $report_type . ' ran by ' . $month_year . ' of ' . $monthOrYear . '</h1>';
+}
+
 
 echo "<h2>";
     echo "<table>\n";
