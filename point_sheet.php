@@ -70,46 +70,50 @@ Add Dealer to stock tag program
                 }
           */
                 $quantity = 0;
-                if($_POST['seminar'] > 0){
-                    $quantity =  $_POST['seminar'] + $quantity ;
-                    $scrip .= " Went to sales seminar or training: " . $_POST['seminar'];
-                }else{
-                    $quantity = 0;
+                if($_POST['seminar'] == 'yes'){
+                    $quantity =  5 + $quantity ;
+                    $scrip .= " Went to sales seminar or training: " ;
                 }
 
-                if($_POST['promotion'] > 0){
+                if($_POST['promotion']  > 0){
                     $quantity = $_POST['promotion'] + $quantity;
                     $scrip .= " Self promotion: " . $_POST['promotion'];
                 }
 
-                 if($_POST['book'] > 0){
-                    $quantity = $_POST['book'] + $quantity;
-                    $scrip .= " Reading books to inprove sales career: " . $_POST['book'];
+                 if($_POST['book'] == 'yes'){
+                    $quantity = 5 + $quantity;
+                    $scrip .= " Reading books to inprove sales career: ";
                 }
 
-                 if($_POST['day'] > 0){
-                    $quantity = $_POST['day'] + $quantity;
-                    $scrip .= " Did this program more then one time a day: " . $_POST['day'];
+                 if($_POST['day'] == 'yes'){
+                    $quantity = 5 + $quantity;
+                    $scrip .= " Did this program more then one time a day: ";
                 }
 
-                 if($_POST['voice'] > 0){
-                    $quantity = $_POST['voice'] + $quantity;
-                    $scrip .= " Improved voice inflection; " . $_POST['voice'];
+                 if($_POST['voice'] == 'yes'){
+                    $quantity = 5 + $quantity;
+                    $scrip .= " Improved voice inflection; ";
                 }
 
-                  if($_POST['product'] > 0){
-                    $quantity = $_POST['product'] + $quantity;
-                    $scrip .= " Improved product knowledge: " . $_POST['product'];
+                  if($_POST['product'] == 'yes'){
+                    $quantity = 5 + $quantity;
+                    $scrip .= " Improved product knowledge: ";
                 }
 
-                 if($_POST['vehicle'] > 0){
-                    $quantity = $_POST['vehicle'] + $quantity;
-                    $scrip .= " Good selection of vehicle: " . $_POST['vehicle'];
+                 if($_POST['vehicle']  == 'yes'){
+                    $quantity = 5 + $quantity;
+                    $scrip .= " Good selection of vehicle: ";
                 }
 
-                 if($_POST['drive'] > 0){
-                    $quantity = $_POST['drive'] + $quantity;
-                    $scrip .= " Go on test drive with customers: " . $_POST['drive'];
+                 if($_POST['drive'] == 'yes'){
+                    $quantity =  + $quantity;
+                    $scrip .= " Go on test drive with customers: ";
+                    $scrip .= replace_apostrophes($_POST['scrip']);
+                 }
+
+                  if($_POST['cards'] == 'yes'){
+                    $quantity =  + $quantity;
+                    $scrip .= " Send cards for birthdays, purchases, and visits to our dealership: ";
                     $scrip .= replace_apostrophes($_POST['scrip']);
                  }
 
@@ -240,32 +244,64 @@ Add Dealer to stock tag program
                         </textarea>
                 <br />
                 <br />
-                         <h3><label for="quantity">Self promotion write description below (between 0 and 20):</label>
+                         <h3><label for="quantity">Self promotion write description above (between 0 and 20)...............:</label>
                          <input type="number" id="promotion" name="promotion" value=1 min="0" max="20"></h3>
-                <br /><h3>
-                         <label for="quantity">Reading books to improve sales Careers (between 0 and 10):</label>
-                         <input type="number" id="book" name="book" value=1 min="0" max="10">
-                          <br />
-                         <label for="quantity">Did this program more than one time a day (between 0 and 10):</label>
-                         <input type="number" id="day" name="day" value=1 min="0" max="10">
-                           <br />
-                         <label for="quantity">Went to sales seminars or training  (between 0 and 10):</label>
-                         <input type="number" id="seminar" name="seminar" value=1 min="0" max="10">
-                            <br />
-                         <label for="quantity">Improved voice inflection  (between 0 and 10):</label>
-                         <input type="number" id="voice" name="voice" value=1 min="0" max="10">
-                           <br />
-                         <label for="quantity">Improved product knowledge  (between 0 and 10):</label>
-                         <input type="number" id="product" name="product" value=1 min="0" max="10">
+                         <h3>
+                         <label for="quantity">Reading books to improve sales Careers.........................................:</label>  
+                         <input type="radio" id="no" name="book" value="no">
+                          <label for="no">No</label>                 
+                          <input type="radio" id="yes" name="book" value="yes">
+                          <label for="yes">Yes</label></h3>
+                         <h3>
+                         <label for="quantity">Did this program more than one time a day......................................:</label>
+                          <input type="radio" id="no" name="day" value="no">
+                          <label for="no">No</label>  
+                         <input type="radio" id="yes" name="day" value="yes">
+                          <label for="yes">Yes</label></h3>
+                           <h3>
+                         <label for="quantity">Went to sales seminars or training.....................................................:</label>
+                          <input type="radio" id="no" name="seminar" value="no">
+                          <label for="no">No</label>  
+                          <input type="radio" id="yes" name="seminar" value="yes">
+                          <label for="yes">Yes</label></h3>
+                         
+                         <h3>
+                         <label for="quantity">Improved voice inflection....................................................................:</label>
+                          <input type="radio" id="no" name="voice" value="no">
+                          <label for="no">No</label>  
+                          <input type="radio" id="yes" name="voice" value="yes">
+                          <label for="yes">Yes</label></h3>
 
- <br />
-                         <label for="quantity">Good selection of vehicles  (between 0 and 10):</label>
-                         <input type="number" id="vehicle" name="vehicle" value=1 min="0" max="10">
-  <br />
-                          <label for="quantity">Go with customer on test Drives (between 0 and 10):</label>
-                         <input type="number" id="drive" name="drive" value=1 min="0" max="10">
-<br />
-                          <label for="quantity">Other write description above (between 0 and 10):</label>
+                           <h3>
+                         <label for="quantity">Improved product knowledge..............................................................:</label>
+                          <input type="radio" id="no" name="product" value="no">
+                          <label for="no">No</label>  
+                          <input type="radio" id="yes" name="product" value="yes">
+                          <label for="yes">Yes</label></h3>
+
+                        <h3>
+                         <label for="quantity">Good selection of vehicles...................................................................:</label>
+                          <input type="radio" id="no" name="vehicle" value="no">
+                          <label for="no">No</label>  
+                          <input type="radio" id="yes" name="vehicle" value="yes">
+                          <label for="yes">Yes</label></h3>
+
+                           <h3>
+                         <label for="quantity">Send cards for birthdays, purchases, and visits to our dealership.:</label>
+                          <input type="radio" id="no" name="cards" value="no">
+                          <label for="no">No</label>  
+                          <input type="radio" id="yes" name="cards" value="yes">
+                          <label for="yes">Yes</label></h3>
+    
+                          <h3>
+                          <label for="quantity">Go with customer on test Drives.........................................................:</label>
+                           <input type="radio" id="no" name="drive" value="no">
+                          <label for="no">No</label>  
+                         <input type="radio" id="yes" name="drive" value="yes">
+                          <label for="yes">Yes</label></h3>
+                    
+                            <h3>
+                          <label for="quantity">Other write description above (between 0 and 10)................................:</label>
                          <input type="number" id="other" name="other" value=1 min="0" max="10"></h3>
                           <br />
                         
