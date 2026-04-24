@@ -70,7 +70,7 @@ Add Dealer to stock tag program
         
         $find = $_SESSION['find'];
 
-       
+       $saveType = '';
         
         $query = "SELECT * ";
         $query .= "FROM recording ";
@@ -88,6 +88,10 @@ Add Dealer to stock tag program
             $record_script = $row['record_script'];
             $record_vioce = $row['record_vioce'];
             $record_tone = $row['record_tone'];
+            $record_type = $row['record_type'];
+           if($saveType != $record_type){
+            $_SESSION['record_type'] = $record_type;
+           }
             $_SESSION['employee'] = $record_empl_name;
 
             
@@ -108,7 +112,14 @@ Add Dealer to stock tag program
 
             if(isset($_SESSION['employee'])){
             $employee = $_SESSION['employee'];
+            $record_type = $_SESSION['record_type'];
+            if($record_type == 'sales'){
+                $record_type = "floor " . $record_type;
+            }else{
+                $record_type = "phone " . $record_type;
+            }
             echo "<center><h1>For Employee: $record_empl_name</h1></center>";
+            echo "<center><h1>Type Of Sale: $record_type</h1></center>";
             }
 
             ////////////////////////////////////Submit//////////////////////////////////////////////////////////////////////////
@@ -260,6 +271,9 @@ Add Dealer to stock tag program
 
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $rType = $_SESSION['record_type'];
+            if($rType == 'sales'){
+
         $query = "SELECT * ";
         $query .= "FROM selceted_vehicles ";
         $query .= "WHERE sv_find = '{$find}' ";
@@ -333,7 +347,7 @@ Add Dealer to stock tag program
       
          
     echo "</div>";
-
+            }
 ?>
 
  

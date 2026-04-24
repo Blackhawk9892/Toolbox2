@@ -127,6 +127,7 @@ if(empty($_POST['fromday'])){
           $employeeId = $_SESSION['id'];
            $totalPoints = 0; 
            $saveDay = '';
+           $saveType = '';
            $timesPoints = 0;
            $timesWithoutPoints = 0;
 
@@ -134,7 +135,7 @@ if(empty($_POST['fromday'])){
         $query = "SELECT * ";
         $query .= "FROM customer_data ";
         $query .= "WHERE cust_salesperson_num = '{$employeeId}' ";
-        $query .= "ORDER BY cust_date";
+        $query .= "ORDER BY cust_date, cust_type";
 
        
         $result_set = mysqli_query($con, $query)
@@ -146,6 +147,8 @@ if(empty($_POST['fromday'])){
             $cust_id = $row['cust_id'];
             $cust_points = $row['cust_points'];
             $cust_find = $row['cust_find'];
+            $cust_type = $row['cust_type'];
+
 
             
             
@@ -162,16 +165,17 @@ if(empty($_POST['fromday'])){
 
                }
 
-              if($saveDay == $fileDay ){
+              if($saveDay == $fileDay and $saveType == $cust_type){
                  $bid_satus = 'photos';
                  $pointDoNotCount = 'Points Do Not Count for total points only first time for a day adds point ' . $cust_points;
-                  $rows[] = "\n<div id=\"$bid_satus\"><a href=work_sheet.php?find=$cust_find><table><tr><td width = 300px>$cust_date</td> <td>$pointDoNotCount</td></tr></table></a> </div>";
+                  $rows[] = "\n<div id=\"$bid_satus\"><a href=work_sheet.php?find=$cust_find><table><tr><td width = 300px>$cust_date</td> <td>$pointDoNotCount</td></tr><td> Point For: $cust_type</td></tr></table></a> </div>";
                   $timesWithoutPoints++;
               }else{
                  $saveDay = $fileDay;
+                 $saveType = $cust_type;
                  $bid_satus = 'sold';
                  $pointCount = 'Points Count for total points ' . $cust_points;
-                 $rows[] = "\n<div id=\"$bid_satus\"><a href=work_sheet.php?find=$cust_find><table><tr><td width = 300px>$cust_date</td> <td>$pointCount</td></tr></table></a> </div>";
+                 $rows[] = "\n<div id=\"$bid_satus\"><a href=work_sheet.php?find=$cust_find><table><tr><td width = 300px>$cust_date</td> <td>$pointCount</td></tr><td> Point For: $cust_type</td></tr></table></a> </div>";
                  $totalPoints = $totalPoints + $cust_points;
                  $timesPoints++;
               }

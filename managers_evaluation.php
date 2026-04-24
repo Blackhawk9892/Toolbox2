@@ -280,32 +280,32 @@ Add Dealer to stock tag program
                         </textarea>
                 <br />
                 <br />
-                         <h3><label for="quantity">Overall, how would you rate the training instructor? (between 0 and 10):</label>
+                         <h3><label for="quantity">Overall, how would you rate the training instructor? (between 0 and 10)................................................................................................:</label>
                          <input type="number" id="overall" name="overall" value=1 min="0" max="10">
                
-                         <label for="quantity">How would you specifically rate the teaching quality of the instructor?(between 0 and 10):</label>
+                         <label for="quantity">How would you specifically rate the teaching quality of the instructor?(between 0 and 10)..................................................................:</label>
                          <input type="number" id="quality" name="quality" value=1 min="0" max="10">
                           <br />
-                         <label for="quantity">Was the instructor knowledgeable on the topic?(between 0 and 10):</label>
+                         <label for="quantity">Was the instructor knowledgeable on the topic?(between 0 and 10)........................................................................................................:</label>
                          <input type="number" id="topic" name="topic" value=1 min="0" max="10">
                            <br />
-                         <label for="quantity">Was the instructor enthusiastic?(between 0 and 10):</label>
+                         <label for="quantity">Was the instructor enthusiastic?(between 0 and 10)..................................................................................................................................:</label>
                          <input type="number" id="enthusiastic" name="enthusiastic" value=1 min="0" max="10">
                             <br />
-                         <label for="quantity">Was the instructor easy to understand?(between 0 and 10):</label>
+                         <label for="quantity">Was the instructor easy to understand?(between 0 and 10)......................................................................................................................:</label>
                          <input type="number" id="understand" name="understand" value=1 min="0" max="10">
                            <br />
-                         <label for="quantity">Did the instructor provide contextual examples of how to put the training material into practice?(between 0 and 10):</label>
+                         <label for="quantity">Did the instructor provide contextual examples of how to put the training material into practice?(between 0 and 10)......................:</label>
                          <input type="number" id="material" name="material" value=1 min="0" max="10">
 
  <br />
-                         <label for="quantity">Was the instructor prepared and organized? (between 0 and 10):</label>
+                         <label for="quantity">Was the instructor prepared and organized? (between 0 and 10).............................................................................................................:</label>
                          <input type="number" id="organized" name="organized" value=1 min="0" max="10">
   <br />
-                          <label for="quantity">Did the instructor provide clear instructions throughout the lesson?(between 0 and 10):</label>
+                          <label for="quantity">Did the instructor provide clear instructions throughout the lesson?(between 0 and 10)......................................................................:</label>
                          <input type="number" id="clear" name="clear" value=1 min="0" max="10">
 <br />
-                          <label for="quantity">Do you have any other feedback on this specific instructor and what they could have done more effectively?(between 0 and 10):</label>
+                          <label for="quantity">Do you have any other feedback on this specific instructor and what they could have done more effectively?(between 0 and 10).:</label>
                          <input type="number" id="feedback" name="feedback" value=1 min="0" max="10"></h3>
                           <br />
                           <br />

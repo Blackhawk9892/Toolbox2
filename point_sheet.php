@@ -24,7 +24,7 @@ Add Dealer to stock tag program
             require("toolbar_sales.php");
             require("includes/database_rows.php");
 
-          echo "<center><h1>Manager's Work Sheet</h1></center>";
+          echo "<center><h1>Salesperson's Evaluation</h1></center>";
 
       
           
@@ -36,9 +36,12 @@ Add Dealer to stock tag program
 
          if(isset($_GET['employee'])){
           $_SESSION['employee'] = $_GET['employee'];
-          $employee = $_SESSION['employee'];
+         
         }
      
+        if(isset($_SESSION['employee'])){
+             $employee = $_SESSION['employee'];
+        }
         
         if(isset($_COOKIE["userId"])){
           $userId = $_COOKIE["userId"];
@@ -60,15 +63,19 @@ Add Dealer to stock tag program
         
 
              if(isset($_POST['submit'])){
+
                     $scrip = '';
-          /*
-                if(isset($_POST['scrip'])){                   
-                   $scrip .= 'No other Improvements';              
-                }else{
-                    $scrip .= replace_apostrophes($_POST['scrip']); 
-                                     
+
+
+
+         $required_fields = array('seminar', 'promotion', 'book', 'day', 'vioce','product', 'vehicle','drive','cards','other');
+
+                foreach ($required_fields as $fieldname) {
+
+                    if (!isset($_POST[$fieldname]) || empty($_POST[$fieldname])) {
+                        $errors[] = 'This field may not be empty: ' . $fieldname;
+                    }
                 }
-          */
                 $quantity = 0;
                 if($_POST['seminar'] == 'yes'){
                     $quantity =  5 + $quantity ;
@@ -106,13 +113,13 @@ Add Dealer to stock tag program
                 }
 
                  if($_POST['drive'] == 'yes'){
-                    $quantity =  + $quantity;
+                    $quantity = 5 + $quantity;
                     $scrip .= " Go on test drive with customers: ";
                     $scrip .= replace_apostrophes($_POST['scrip']);
                  }
 
                   if($_POST['cards'] == 'yes'){
-                    $quantity =  + $quantity;
+                    $quantity = 5 + $quantity;
                     $scrip .= " Send cards for birthdays, purchases, and visits to our dealership: ";
                     $scrip .= replace_apostrophes($_POST['scrip']);
                  }

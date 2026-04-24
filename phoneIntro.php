@@ -21,8 +21,9 @@ session_start();
 require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
-
 require("toolbar_sales.php");
+
+
 $type = 'sales';
 
 if(isset($_GET["type"])){
@@ -132,7 +133,7 @@ if(isset($_POST['submit'])){
         echo "<div class=\"errors\">$value</div>";
     }
   } else {
-    $custStamp = $_SESSION['custStamp'];
+    
 
     $dateStamp =  date("Ymdhis");
  $custStamp = $emp_id . $dateStamp . $dealer_id;
@@ -140,14 +141,55 @@ if(isset($_POST['submit'])){
  $points = 1;
  $primaryUser = rand(1,2);
 
- $vehicle = $_SESSION['vehicle'];
- $custStamp = $_SESSION['custStamp'];
- $malePhoto = $_SESSION['photoMale'];
- $femalePhoto = $_SESSION['photoFemale'];
- $maleVoice = $_SESSION['voiceMale']; 
- $maleVoiceName = $_SESSION['voiceMaleName'];
- $femaleVoice = $_SESSION['voiceFemale'];
- $femaleVoiceName =$_SESSION['voiceFemaleName'];
+if(isset($_SESSION['vehicle'])){
+$vehicle = $_SESSION['vehicle'];
+}
+
+if(isset($_SESSION['custStamp'])){
+$custStamp = $_SESSION['custStamp'];
+}
+
+if(isset($_SESSION['photoMale'])){
+$malePhoto = $_SESSION['photoMale'];
+}else{
+$malePhoto = '';
+}
+
+if(isset($_SESSION['photoFemale'])){
+$femalePhoto = $_SESSION['photoFemale'];
+}else{
+$femalePhoto  = '';
+}
+
+ if(isset($_SESSION['voiceMale'])){
+$maleVoice = $_SESSION['voiceMale'];
+}else{
+$maleVoice  = '';
+}
+
+ if(isset($_SESSION['voiceMaleName'])){
+$maleVoiceName = $_SESSION['voiceMaleName'];
+}else{
+$maleVoiceName  = '';
+}
+
+if(isset($_SESSION['voiceFemale'])){
+$femaleVoice = $_SESSION['voiceFemale'];
+}else{
+$femaleVoice   = '';
+}
+
+if(isset($_SESSION['voiceFemaleName'])){
+$femaleVoiceName = $_SESSION['voiceFemaleName'];
+}else{
+$femaleVoiceName    = '';
+}
+
+
+
+ 
+ 
+ 
  
  $sql = "INSERT INTO customer_data(cust_group,cust_type,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
  VALUES('$comp_group','$type','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
@@ -253,6 +295,7 @@ echo "      </audio>";
 }
 
 $_SESSION['voiceGender'] = $type;
+
 ?>
  <br>
       <br>
