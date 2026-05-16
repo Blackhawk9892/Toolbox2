@@ -269,7 +269,7 @@ $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
     print "</ul>\n";
 
 
-$dealer_name = "Sales Tool Box ";
+$dealer_name = "SALES TRAINING ";
     print "</ul>\n";
     print "\n";
     print "\n";
