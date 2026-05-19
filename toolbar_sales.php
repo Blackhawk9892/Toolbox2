@@ -50,6 +50,23 @@
 
 $_SESSION['name'] = $name;
 $_SESSION['emp_id'] = $emp_id;
+
+ $query = "SELECT * ";
+    $query .= "FROM dealer_group ";
+    $query .= "WHERE dg_id   = '{$emp_dealer_group}' ";
+
+
+    $result_set = mysqli_query($con, $query)
+            or die('Query failed: ' . mysqli_error($con));
+
+    $row = mysqli_fetch_array($result_set);
+  
+
+    $_SESSION['dg_premium_pkg'] = $row['dg_premium_pkg'];
+}
+
+if(isset($_SESSION['dg_premium_pkg'])){
+    $dg_premium_pkg = $_SESSION['dg_premium_pkg'];
 }
   
 $department_array = array();
@@ -63,17 +80,25 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
   
 
      if($position == "Sales"){
-  
-$tb_program = 'managers_evaluation.php';
-$tb_descrip = 'Managers Training Evaluation';
+        $tb_descrip = 'Managers Training Evaluation';
+      
+ if($dg_premium_pkg == 'y'){
+    $tb_program = 'managers_evaluation.php';
+    $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+ }else{
+    $tb_program = 'premium_package.html' ;
+    $mantenance_array[] = "<li><a href=$tb_program  target=_blank>$tb_descrip </a></li>\n";
+ } 
 
-$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+
+
      }
 
    if($position == "PFD"){
   
-$tb_program = 'addDealerGroup.php';
-$tb_descrip = 'Add A Dealer Group';
+$tb_program = 'select_dealer_group.php';
+$tb_descrip = 'Dealer Group Maintenance';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 

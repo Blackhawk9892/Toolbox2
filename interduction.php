@@ -39,6 +39,7 @@ $last = $emp_arry[1];
 $position = $emp_arry[2];
 $emp_id = $emp_arry[3];
 $dealer_id = $emp_arry[4];
+$dealer_group = $emp_arry[6];
 $name = $first . ' ' . $last;
 }
 
@@ -115,7 +116,7 @@ $comp_group = $_SESSION['comp_group'];
 
 $query = "SELECT * ";
 $query .= "FROM script ";
-$query .= "WHERE script_comp_num   = '{$dealer_id}' ";
+$query .= "WHERE script_group   = '{$dealer_group}' ";
 $query .= "AND script_type   = '{$type}' ";
 $query .= "ORDER BY script_order ";
 

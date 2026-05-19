@@ -108,11 +108,27 @@ if(isset($_GET['company'])){
             $emp_evaluation_date = $row['emp_evaluation_date'];
             $emp_evaluation_manager = $row['emp_evaluation_manager'];
             $emp_emp_points = $row['emp_emp_points'];
-            
+          
             $d = strtotime($emp_evaluation_date);
             $emp_evaluation_date = date("m/d/Y", $d);
 
             $name = $demp_first_name . ' ' .  $emp_last_name;
+
+            $query = "SELECT * ";
+    $query .= "FROM dealer_group ";
+    $query .= "WHERE dg_id   = '{$emp_dealer_group}' ";
+
+
+    $result_set = mysqli_query($con, $query)
+            or die('Query failed: ' . mysqli_error($con));
+
+    $row = mysqli_fetch_array($result_set);
+
+    $_SESSION['dg_premium_pkg'] = $row['dg_premium_pkg'];
+
+    if(isset($_SESSION['dg_premium_pkg'])){
+    $dg_premium_pkg = $_SESSION['dg_premium_pkg'];
+}
 
            if($emp_position == 'Sales'){
             $bid_satus = 'offer';
@@ -130,7 +146,13 @@ if(isset($_GET['company'])){
            }
           
             $rows[] = "\n<div id=\"$bid_satus\"><a href=points.php?employee=$emp_id><table><tr><td width = 300px>$name</td> <td width = 200px>$emp_position</td> <td width = 400px>$emp_dealer_name</td> <td width = 200px>$emp_dealer_group</td> <td width = 200px>$emp_assigned_man_name</td><td width = 200px>$emp_evaluation_date</td> <td width = 200px>$emp_evaluation_manager</td></tr></table></a> </div>";
-           $rows[] = "\n<div id=\"$bid_satus1\"><a href=point_sheet.php?employee=$emp_id ><table><tr><td width = 300px>$valuePoints</td></td></tr></table></a> </div>";
+           
+           if($dg_premium_pkg == 'y'){
+    
+    $rows[] = "\n<div id=\"$bid_satus1\"><a href=point_sheet.php?employee=$emp_id ><table><tr><td width = 300px>$valuePoints</td></td></tr></table></a> </div>";
+ }else{
+     $rows[] = "\n<div id=\"$bid_satus1\"><a href=premium_package.html target=_blank ><table><tr><td width = 300px>$valuePoints</td></td></tr></table></a> </div>";
+ } 
        }
     }   
         ?>	

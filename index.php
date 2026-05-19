@@ -248,7 +248,7 @@ session_start();
                     <div class="col-sm-3 text-warning" style="background-color:black;">
                         <br />
                         <br />
-                        <h2 style="color:yellow;"class="center">Sales Tool Box</h2>
+                        <h2 style="color:yellow;"class="center">SALES TRAINING</h2>
                         <br />
                         <br />
                         <h2 style="color:yellow;" class="center">Sign In</h2>

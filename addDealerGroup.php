@@ -11,11 +11,16 @@ Add Dealer to stock tag program
     </head>
     <body>
         <div>
+           
             <?php
           
           require("includes/connection.php");
           require("includes/database_rows.php");
           require("toolbar_sales.php");
+            echo " <center>  \n";
+            echo "          <h1>Add Dealer Group </h1>\n";
+            echo "</center>\n";
+          
 
             if (isset($_POST['submit'])) {
 
@@ -81,6 +86,12 @@ Add Dealer to stock tag program
 
                 
                     <table>
+                        <h2>Premium Package</h2>
+
+  <input type="radio" id="Yes" name="premium" value="y">
+  <label for="Yes">Yes</label><br>
+  <input type="radio" id="No" name="premium" value="n">
+  <label for="No">No</label><br>
                         
                         <tr><td>Dealer Group Name:</td><td>
                                 <input type="text" name="dealer_group" size="50" value="<?php if (isset($_POST['dealer_group'])) echo $_POST['dealer_group'] ?>"	/>
@@ -96,6 +107,8 @@ Add Dealer to stock tag program
 
                         <tr><td>Zip:</td><td>
                                 <input type="text" name="zip" size="20" value="<?php if (isset($_POST['zip'])) echo $_POST['zip'] ?>"	/>
+
+                                
 
 
 

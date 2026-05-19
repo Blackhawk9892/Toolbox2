@@ -28,7 +28,16 @@ Add Dealer to stock tag program
                 echo $_SESSION['message'];
                 unset($_SESSION['message']);
             }
-                
+       if(isset($_POST['dealer'])){
+        $d = $_POST['dealer'] ;
+        $d_array = explode("-",$d);
+        $_SESSION['company'] = $d_array[0];
+       } 
+       
+       if(isset($_SESSION['company'])){
+        $company = $_SESSION['company'];
+       }
+         
  ////////////////////////////Employee Info////////////////////////////////////
 // 
 if(isset($_COOKIE["userId"])){
@@ -49,9 +58,11 @@ if(isset($_COOKIE["userId"])){
 
     //////////////////////Dealer Info/////////////////////////////////////////
     $dealer_id = $_SESSION['$dealer_id'];
+
     $query = "SELECT * ";
     $query .= "FROM company ";
-    $query .= "WHERE comp_id    = '{$dealer_id}' ";
+    $query .= "WHERE comp_id    = '{$company}' ";
+
 
     $result_set = mysqli_query($con, $query)
             or die('Query failed2: ' . mysqli_error($con));
@@ -64,7 +75,7 @@ if(isset($_COOKIE["userId"])){
     $dealer_zip = $row['comp_zip'];
     //$dealer_phone = $row['dealer_phone'];
     $dealer_group = $row['comp_group'];
-        
+    
  ////////////////////////////Employee Info////////////////////////////////////
 // 
 if(isset($_COOKIE["userId"])){
@@ -85,7 +96,7 @@ if(isset($_COOKIE["userId"])){
   
     $query = "SELECT * ";
     $query .= "FROM company ";
-    $query .= "WHERE comp_id    = '{$dealer_id}' ";
+    $query .= "WHERE comp_id    = '{$company}' ";
 
     $result_set = mysqli_query($con, $query)
             or die('Query failed2: ' . mysqli_error($con));
@@ -98,6 +109,7 @@ if(isset($_COOKIE["userId"])){
     $dealer_zip = $row['comp_zip'];
     $dealer_group = $row['comp_group'];
    
+
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -321,7 +333,7 @@ if(isset($_COOKIE["userId"])){
                     $errors[] = 'Scrip Type was not selected';
                 }
 
-                echo $_POST['description'];
+               // echo $_POST['description'];
                 if(isset($_POST['description'])){
                     $scriptDescription = $_POST['description'];
                 }else{
@@ -429,7 +441,7 @@ if(isset($_COOKIE["userId"])){
 
                 $query = "SELECT * ";
             $query .= "FROM script ";
-            $query .= "WHERE script_comp_num = '{$compNum}' ";    
+            $query .= "WHERE script_group = '{$dealer_group}' ";    
             $query .= "AND script_type = '{$typeScrip}' ";
             $query .= "ORDER BY  script_order";
      
