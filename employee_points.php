@@ -114,17 +114,17 @@ if(isset($_GET['company'])){
 
             $name = $demp_first_name . ' ' .  $emp_last_name;
 
-            $query = "SELECT * ";
-    $query .= "FROM dealer_group ";
-    $query .= "WHERE dg_id   = '{$emp_dealer_group}' ";
+            $query1 = "SELECT * ";
+    $query1 .= "FROM dealer_group ";
+    $query1 .= "WHERE dg_id   = '{$emp_dealer_group}' ";
 
 
-    $result_set = mysqli_query($con, $query)
+    $result_set1 = mysqli_query($con, $query1)
             or die('Query failed: ' . mysqli_error($con));
 
-    $row = mysqli_fetch_array($result_set);
+    $row1 = mysqli_fetch_array($result_set1);
 
-    $_SESSION['dg_premium_pkg'] = $row['dg_premium_pkg'];
+    $_SESSION['dg_premium_pkg'] = $row1['dg_premium_pkg'];
 
     if(isset($_SESSION['dg_premium_pkg'])){
     $dg_premium_pkg = $_SESSION['dg_premium_pkg'];
