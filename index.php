@@ -46,10 +46,10 @@ session_start();
            }
 
      
-         
+      
         if (isset($_SESSION['message'])) {
             $message = $_SESSION['message'];
-            echo "<div class=\"errors\">$message</div>";
+            echo"<center><h4 style='color:red;'>$message </h4> </center>";
             unset($_SESSION['message']);
         }
 

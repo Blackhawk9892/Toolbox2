@@ -20,6 +20,13 @@ require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
+
+if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
+  $_SESSION['message'] = "Not a valid employee";
+
+ header("Location: index.php");
+  exit;
+}
 require("toolbar_sales.php");
 
 if(isset($_GET["type"])){

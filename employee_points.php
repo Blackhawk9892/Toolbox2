@@ -24,7 +24,13 @@ $_SESSION['page'] = 'select_employee.php';
         require_once("includes/constants.php");
         require("includes/connection.php");
         require("includes/database_rows.php");
-      
+
+ if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
+      $_SESSION['message'] = "Not a valid employee";
+
+     header("Location: index.php");
+     exit;
+}
         require("toolbar_sales.php");
 
       echo "<center><h1>Employee Points</h1></center>";

@@ -22,7 +22,8 @@
 
     require_once("includes/constants.php");
     require("includes/connection.php");
-  
+
+ 
 
     if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
@@ -60,7 +61,7 @@ $_SESSION['emp_id'] = $emp_id;
             or die('Query failed: ' . mysqli_error($con));
 
     $row = mysqli_fetch_array($result_set);
-  
+ 
 
     $_SESSION['dg_premium_pkg'] = $row['dg_premium_pkg'];
 }

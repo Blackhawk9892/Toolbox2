@@ -15,6 +15,13 @@ Add Dealer to stock tag program
             <?php
              require("includes/connection.php");
             require("includes/database_rows.php");
+            echo "test: " . $_COOKIE["userId"];
+            if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
+                   $_SESSION['message'] = "Not a valid employee";
+
+                   header("Location: index.php");
+                    exit;
+            }
              require("toolbar_sales.php");
 
     if(isset($_POST['dGroup'])){
