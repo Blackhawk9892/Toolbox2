@@ -13,11 +13,11 @@
 		 <?php
 		 
 $_SESSION['page'] = 'new_password_manager.php';
-require("../includes/connection.php");
+require("includes/connection.php");
         
-require("../includes/database_rows.php");
-require("../includes/pull_downs.php");
-require("../includes/security.php");
+require("includes/database_rows.php");
+require("includes/pull_downs.php");
+require("includes/security.php");
 require("toolbar_sales.php");
 
 $_SESSION['reg']='new_password_manager.php';	

@@ -34,7 +34,7 @@ session_start();
 $_SESSION['video'] = "home";
 
 require("includes/database_rows.php");
-echo "test: " . $_COOKIE["userId"];
+
 if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
   $_SESSION['message'] = "Not a valid employee";
 

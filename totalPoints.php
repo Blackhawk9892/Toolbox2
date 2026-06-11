@@ -209,18 +209,58 @@ Add Dealer to stock tag program
             <form action="totalPoints.php" method="post">
 
                 <h3>Type of report </h3>
-                <h4> 
-                 <input type="radio" id="Sales" name="report_type" value="Sales" checked>
-                 <label for="Sales">Sales</label>
-                 <input type="radio" id="Manager" name="report_type" value="Manager">
-                 <label for="Manager">Manager</label><br></h4>
+                <h4>
+
+                <?php
+            if(!isset($_POST['report_type'])){
+                echo "<input type=\"radio\" id=\"Sales\" name=\"report_type\" value=\"Sales\"  checked >\n";
+                  echo " <label for=\"Sales\">Sales</label>\n";
+                  echo " <input type=\"radio\" id=\"Manager\" name=\"report_type\" value=\"Manager\">\n";
+                  echo "<label for=\"Manager\">Manager</label><br></h4></h4>";
+            }else{          
+                if($_POST['report_type'] == 'Manager'){
+                  echo "<input type=\"radio\" id=\"Sales\" name=\"report_type\" value=\"Sales\"   >\n";
+                  echo " <label for=\"Sales\">Sales</label>\n";
+                  echo " <input type=\"radio\" id=\"Manager\" name=\"report_type\" value=\"Manager\" checked>\n";
+                  echo "<label for=\"Manager\">Manager</label><br></h4></h4>";
+                }else{
+                  echo "<input type=\"radio\" id=\"Sales\" name=\"report_type\" value=\"Sales\"  checked >\n";
+                  echo " <label for=\"Sales\">Sales</label>\n";
+                  echo " <input type=\"radio\" id=\"Manager\" name=\"report_type\" value=\"Manager\">\n";
+                  echo "<label for=\"Manager\">Manager</label><br></h4></h4>";
+                }
+            }
+                 
+
+?>
+                
+                
 
                   <h3>Report by Month or Year</h3>
                 <h4> 
-                 <input type="radio" id="Month" name="month_year" value="Month" checked>
-                 <label for="Month">Month</label>
-                 <input type="radio" id="Year" name="month_year" value="Year">
-                 <label for="Year">Year</label><br></h4>
+<?php
+        if(!isset($_POST['month_year'])){
+               echo "<input type=\"radio\" id=\"Month\" name=\"month_year\" value=\"Month\"  checked>\n";
+               echo "<label for=\"Month\">Month</label>\n";
+               echo "<input type=\"radio\" id=\"Year\" name=\"month_year\" value=\"Year\">\n";
+               echo "<label for=\"Year\">Year</label><br></h4>";
+        }else{          
+                if($_POST['month_year'] == 'Month'){
+                   echo "<input type=\"radio\" id=\"Month\" name=\"month_year\" value=\"Month\"  checked>\n";
+                   echo "<label for=\"Month\">Month</label>\n";
+                   echo "<input type=\"radio\" id=\"Year\" name=\"month_year\" value=\"Year\">\n";
+                   echo "<label for=\"Year\">Year</label><br></h4>";
+                }else{
+                  echo "<input type=\"radio\" id=\"Month\" name=\"month_year\" value=\"Month\"  >\n";
+                   echo "<label for=\"Month\">Month</label>\n";
+                   echo "<input type=\"radio\" id=\"Year\" name=\"month_year\" value=\"Year\"  checked>\n";
+                   echo "<label for=\"Year\">Year</label><br></h4>";
+                
+            }
+        }         
+
+?>
+               
 
            <label for="day">Date:</label>
            <input type="date" id="day" name="day"  value="<?php if (isset($_POST['day'])) echo $_POST['day'] ?>">
@@ -282,7 +322,7 @@ echo "<h2>";
          $query .= "WHERE total_delete = {$id} ";
          $query .= "ORDER BY total_points DESC";
        
-       
+  
 
        
         $result_set = mysqli_query($con, $query)
