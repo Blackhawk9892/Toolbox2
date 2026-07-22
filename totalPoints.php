@@ -335,10 +335,13 @@ echo "<h2>";
                 $total_points = $row['total_points'];
 
              echo "  <tr>\n";
+            
              echo "    <td>$total_dealer</td>\n";
-             echo "    <td>$total_name</td>\n";
+             echo "<td><a href=\"https://www.w3schools.com?employee=35/\" target=\"_blank\">$total_name</a>";
+            // echo "    <td>$total_name</td>\n";
              echo "    <td>$total_position</td>\n";
              echo "    <td>$total_points</td>\n";
+             echo "    </td>\n";
              echo "  </tr>\n";
         
         }
