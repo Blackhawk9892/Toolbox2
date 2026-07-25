@@ -190,8 +190,10 @@ if (isset($_POST['submit'])) {
 
    if($cust_male_name == $Male){
       $malePoints = 3;
+      $malePoints+ = 3;
     }else{
       $malePoints = -3;
+      $malePoints- = -3;
     }
 
  

@@ -536,11 +536,17 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'sales';
                 $description = "New customer at dealership";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+
+                $place = 'environmental';
+                $description = "Environmental Package";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+            
                 
                 $place = 'incoming';
                 $description = "Incoming call";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
-            
+
+                
                 $place = 'price';
                 $description = "Callback left dealership because of price";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
