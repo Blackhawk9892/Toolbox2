@@ -255,12 +255,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $place = 'Vehicle Driven';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
 
     $place = 'PhoneNumber';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
     $place = 'PhoneRequest';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
+       $place = 'E-keep';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'E-fade';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+    $place = 'E-exterior';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+   
+
+    $place = 'E-interior';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'E-corrosion';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'E-windshield';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'E-all';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
 
     /////////////////////////////////////////////////////////////////////////////////
     $blank = '';
@@ -318,6 +344,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $place = 'Crew Cab';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'Environmental Protection';
+    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
 
     
 ?>

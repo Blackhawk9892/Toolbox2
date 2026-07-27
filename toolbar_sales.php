@@ -207,6 +207,10 @@ $tb_program = 'interduction.php?type=sales';
 $tb_descrip = "New customer at dealership";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
+$tb_program = 'E_interduction.php?type=environmental';
+$tb_descrip = "Environmental Package";
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
 
 $tb_program = 'phoneintro.php?type=incoming';
 $tb_descrip = "Incoming call";

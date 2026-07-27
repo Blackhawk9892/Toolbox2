@@ -596,6 +596,9 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'SecondaryReques';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+                 $place = 'Vehicle Driven';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
                 $place = 'PhoneName';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
@@ -605,8 +608,7 @@ $Temp = "<td width = 6%>$script_template </td>";
                  $place = 'PhoneRequest';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
                 
-                $place = 'Vehicle Driven';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+               
 
                  $place = 'Phone Price';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
@@ -620,7 +622,28 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'Phone Know';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
             
-            
+                
+                $place = 'E-keep';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-fade';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+                $place = 'E-exterior';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-interior';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-corrosion';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-windshield';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-all';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
                 
    
 

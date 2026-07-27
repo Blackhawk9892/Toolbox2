@@ -1,5 +1,3 @@
-
-text/x-generic interduction.php ( PHP script, ASCII text, with CRLF line terminators )
 <?php
 session_start();
 ?>
@@ -113,7 +111,7 @@ $comp_group = $_SESSION['comp_group'];
   
           unset($_SESSION['audioName']);
   
-          header("Location: training.php?find=$custStamp");
+          header("Location: E_training.php?find=$custStamp");
           exit;
   
          
@@ -408,7 +406,7 @@ echo "      </audio>";
 
 <?php
 
-echo "<form action=\"interduction.php\" method=\"post\">";
+echo "<form action=\"E_interduction.php\" method=\"post\">";
 
 ?>
 
