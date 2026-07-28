@@ -21,6 +21,8 @@ require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
 
+ $_SESSION['vehicle'] = "Environmental Protection";
+
 if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
   $_SESSION['message'] = "Not a valid employee";
 
@@ -175,11 +177,11 @@ $comp_group = $row['comp_group'];
 $_SESSION['comp_group'] = $comp_group;
 
 ///////////////////////////////////////////////////////////////////////////////////
-$veh_array = array();
+/*$veh_array = array();
 $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group   = '{$comp_group}' ";
-
+echo $query;
 
 $result_set = mysqli_query($con, $query)
         or die('Query failed emp: ' . mysqli_error($con));
@@ -196,7 +198,7 @@ while($row = mysqli_fetch_array($result_set)){
 
 $random_keys=array_rand($veh_array);
  $vehicle = $veh_array[$random_keys];
- $_SESSION['vehicle'] = $vehicle;
+ $_SESSION['vehicle'] = $vehicle;*/
 
 /////////////////////////////////////////////////////////////////////////////////////
 
