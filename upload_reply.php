@@ -267,6 +267,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
        $place = 'E-keep';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+       $place = 'E-long';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
     $place = 'E-fade';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
     

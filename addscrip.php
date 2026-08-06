@@ -181,7 +181,7 @@ if(isset($_COOKIE["userId"])){
             if (isset($_POST['update'])) {
 
                 if(isset($_POST['scrip'])){
-                    $scrip = $_POST['scrip'];
+                    $scrip = replace_apostrophes($_POST['scrip']);
                 }else{
                     $errors[] = 'Scrip is empty';
                 }
@@ -221,7 +221,7 @@ if(isset($_COOKIE["userId"])){
 
                 $index = $_SESSION['index'];
              $typeScrip = $_POST['typeScrip'];
-                $scrip = $_POST['scrip'];
+                $scrip = replace_apostrophes($_POST['scrip']);
                 $order = $_POST['order'];
                 $tone = $_POST['tone'];
                 $scriptDescription = $_POST['description'];
@@ -328,7 +328,7 @@ if(isset($_COOKIE["userId"])){
                 }
 
                 if(isset($_POST['typeScrip'])){
-                    $typeScrip = $_POST['typeScrip'];
+                    $typeScrip = replace_apostrophes($_POST['typeScrip']);
                 }else{
                     $errors[] = 'Scrip Type was not selected';
                 }
@@ -341,7 +341,7 @@ if(isset($_COOKIE["userId"])){
                 }
                 
                 if(isset($_POST['scrip'])){
-                    $scrip = $_POST['scrip'];
+                    $scrip = replace_apostrophes($_POST['scrip']);
                 }else{
                     $errors[] = 'Scrip is empty';
                 }
@@ -546,6 +546,14 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $description = "Incoming call";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
 
+                $place = 'Orphan';
+                $description = "Cold call Orphan Customer";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+
+                $place = 'Service';
+                $description = "Cold call Service Customer";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+
                 
                 $place = 'price';
                 $description = "Callback left dealership because of price";
@@ -626,6 +634,9 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'E-keep';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+                $place = 'E-long';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
                 $place = 'E-fade';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
     
@@ -644,6 +655,33 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'E-all';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+
+                $place = 'C-time';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'C-vehicle';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+                $place = 'C-help';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'C- treating ';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'C-questions';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'C-miles';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'C-change';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'C-appraisal';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'C-before';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
                 
    
 

@@ -255,7 +255,7 @@ $useTone = 'Record using a voice inflection of: ' . $tone;
     $query .= "WHERE audio_group   = '{$comp_group}' ";
     $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
     $query .= "AND audio_drive_type   = '{$script_audio}' ";
- 
+
     $result_set = mysqli_query($con, $query)
     or die('Query failed scrip: ' . mysqli_error($con));
 
@@ -302,9 +302,11 @@ mysqli_query($con, "UPDATE customer_data SET cust_driven = '$idDriven'
       $audio_location = $row['audio_location'];
 
       switch ($script_audio) {
-  case "E-keep":
-    
+  case "E-keep":   
     echo "<h1 style='background-color:White;'>How long will the customer keep the vehicle</h1>";
+    break;
+   case "E-long":   
+    echo "<h1 style='background-color:White;'>looking as nice</h1>";
     break;
   case "E-fade":
     echo "<h1 style='background-color:White;'>Owned a vehicle that started to fade, had stains that wouldn't come out</h1>";

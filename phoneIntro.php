@@ -21,98 +21,6 @@ session_start();
 require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
-require("toolbar_sales.php");
-
-
-$type = 'sales';
-
-if(isset($_GET["type"])){
-  $_SESSION["type"] = $_GET["type"];
-}
-
-if(isset($_SESSION["type"])){
-  $type = $_SESSION["type"];
-}
-
-if(isset($_COOKIE["userId"])){
-  $userId = $_COOKIE["userId"];
-
-
-  
-$emp_arry = Employee($userId);
-$first = $emp_arry[0];
-$last = $emp_arry[1];      
-$position = $emp_arry[2];
-$emp_id = $emp_arry[3];
-$dealer_id = $emp_arry[4];
-$name = $first . ' ' . $last;
-}
-$query = "SELECT * ";
-$query .= "FROM script ";
-$query .= "WHERE script_comp_num   = '{$dealer_id}' ";
-$query .= "AND script_type   = '{$type}' ";
-$query .= "ORDER BY script_order ";
-
-
-$result_set = mysqli_query($con, $query)
-        or die('Query failed scrip: ' . mysqli_error($con));
-while($row = mysqli_fetch_array($result_set)){
-  $script_arry[] = $row['script_template'];
-  $tone_arry[] = $row['script_tone'];
-}  
-$tone = $tone_arry[0];
-
-$useTone = 'Record this script using a voice tone of: ' . $tone;
-  echo "<h1 style='background-color:Orange;'>$useTone</h1>";
-
-  $script = $script_arry[0];
-  echo "<h3>$script</h3>";
-echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
-  ?>
-
-<button id="start-record-btn">Start Recording</button>
-  <button id="stop-record-btn" disabled>Stop Recording</button>
-  <audio id="audio-playback" controls></audio>
-  <br>
-  <br>
-<?php
-///////////////////////////////////////////////////////////////////////////////////
-
-$query = "SELECT * ";
-$query .= "FROM company ";
-$query .= "WHERE comp_id   = '{$dealer_id}' ";
-
-$result_set = mysqli_query($con, $query)
-        or die('Query failed emp: ' . mysqli_error($con));
-$row = mysqli_fetch_array($result_set);
-
-$comp_group = $row['comp_group'];
-
-///////////////////////////////////////////////////////////////////////////////////
-$veh_array = array();
-$query = "SELECT * ";
-$query .= "FROM audio ";
-$query .= "WHERE audio_group   = '{$comp_group}' ";
-
-
-$result_set = mysqli_query($con, $query)
-        or die('Query failed emp: ' . mysqli_error($con));
-while($row = mysqli_fetch_array($result_set)){
-  $audio_vehicle_type = $row['audio_vehicle_type'];
-  
-       if(empty($audio_vehicle_type)){
-        continue;
-       }else{
-        $veh_array[] = $audio_vehicle_type;
-       }
-
-}
-
-$random_keys=array_rand($veh_array);
- $vehicle = $veh_array[$random_keys];
- $_SESSION['vehicle'] = $vehicle;
-
-/////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -209,7 +117,7 @@ $femaleVoiceName    = '';
               die('Error recording 216: ' . mysqli_error($con));
           }
   
-          echo "<h1> test </h1>";
+       
   
           header("Location: phone_training.php?find=$custStamp");
           exit;
@@ -218,8 +126,100 @@ $femaleVoiceName    = '';
       }
     }
 
-
+require("toolbar_sales.php");
 //////////////////////////////////////////////////////////////////////////////////////////
+
+$type = 'sales';
+
+if(isset($_GET["type"])){
+  $_SESSION["type"] = $_GET["type"];
+}
+
+if(isset($_SESSION["type"])){
+  $type = $_SESSION["type"];
+}
+
+if(isset($_COOKIE["userId"])){
+  $userId = $_COOKIE["userId"];
+
+
+  
+$emp_arry = Employee($userId);
+$first = $emp_arry[0];
+$last = $emp_arry[1];      
+$position = $emp_arry[2];
+$emp_id = $emp_arry[3];
+$dealer_id = $emp_arry[4];
+$name = $first . ' ' . $last;
+}
+$query = "SELECT * ";
+$query .= "FROM script ";
+$query .= "WHERE script_comp_num   = '{$dealer_id}' ";
+$query .= "AND script_type   = '{$type}' ";
+$query .= "ORDER BY script_order ";
+
+
+$result_set = mysqli_query($con, $query)
+        or die('Query failed scrip: ' . mysqli_error($con));
+while($row = mysqli_fetch_array($result_set)){
+  $script_arry[] = $row['script_template'];
+  $tone_arry[] = $row['script_tone'];
+}  
+$tone = $tone_arry[0];
+
+$useTone = 'Record this script using a voice tone of: ' . $tone;
+  echo "<h1 style='background-color:Orange;'>$useTone</h1>";
+
+  $script = $script_arry[0];
+  echo "<h3>$script</h3>";
+echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
+  ?>
+
+<button id="start-record-btn">Start Recording</button>
+  <button id="stop-record-btn" disabled>Stop Recording</button>
+  <audio id="audio-playback" controls></audio>
+  <br>
+  <br>
+<?php
+///////////////////////////////////////////////////////////////////////////////////
+
+$query = "SELECT * ";
+$query .= "FROM company ";
+$query .= "WHERE comp_id   = '{$dealer_id}' ";
+
+$result_set = mysqli_query($con, $query)
+        or die('Query failed emp: ' . mysqli_error($con));
+$row = mysqli_fetch_array($result_set);
+
+$comp_group = $row['comp_group'];
+
+///////////////////////////////////////////////////////////////////////////////////
+$veh_array = array();
+$query = "SELECT * ";
+$query .= "FROM audio ";
+$query .= "WHERE audio_group   = '{$comp_group}' ";
+
+
+$result_set = mysqli_query($con, $query)
+        or die('Query failed emp: ' . mysqli_error($con));
+while($row = mysqli_fetch_array($result_set)){
+  $audio_vehicle_type = $row['audio_vehicle_type'];
+  
+       if(empty($audio_vehicle_type)){
+        continue;
+       }else{
+        $veh_array[] = $audio_vehicle_type;
+       }
+
+}
+
+$random_keys=array_rand($veh_array);
+ $vehicle = $veh_array[$random_keys];
+ $_SESSION['vehicle'] = $vehicle;
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
 $voiceUsed = rand(1,2);
 
 if($voiceUsed == 1){
@@ -250,7 +250,16 @@ $maleVoice = $voiceMale[$n];
 $maleVoiceName = $maleVoiceName[$n];
 $_SESSION['voiceMale'] = $maleVoice;
 $_SESSION['voiceMaleName'] = $maleVoiceName;
+
+
+if($_SESSION["type"] == 'incoming'){
 echo "<h1 style='background-color:DodgerBlue;'>Name of person that answered the phone</h1>";
+}
+
+if($_SESSION["type"] == 'orphan'){
+echo "<h1 style='background-color:DodgerBlue;'>Name of person that you are requesting</h1>";
+}
+
 
 echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
@@ -287,7 +296,17 @@ $femaleVoiceName = $femaleVoiceName[$n];
 $_SESSION['voiceFemale'] = $femaleVoice;
 $_SESSION['voiceFemaleName'] = $femaleVoiceName;
 
-echo "<h1 style='background-color:DodgerBlue;'>Name of person that aswered the phone</h1>";
+
+if($_SESSION["type"]== 'incoming'){
+echo "<h1 style='background-color:DodgerBlue;'>Name of person that answered the phone</h1>";
+}
+
+if($_SESSION["type"] == 'orphan'){
+echo "<h1 style='background-color:DodgerBlue;'>Name of person that you are requesting</h1>";
+}
+
+
+
 echo "    <audio controls>\n";
 echo "        <source src=\"$femaleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
