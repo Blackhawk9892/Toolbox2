@@ -252,7 +252,7 @@ while($row = mysqli_fetch_array($result_set)){
      $index = $index_arry[$counter];
 
    
-    
+  /////////////////////////////////////////////////////////////////////////////////////////  
      $tone = $tone_arry[$counter];
      $_SESSION['tone'] = $tone;
 $useTone = 'Record using a voice inflection of: ' . $tone;
@@ -278,8 +278,9 @@ $useTone = 'Record using a voice inflection of: ' . $tone;
 </h1>
 <br>
 <br>
-<?php
 
+<?php
+ 
 
   echo " <img src=\"$cust_male_photo\" alt=$cust_id width=\"300\" height=\"300\">\n";
    echo "     \n";
