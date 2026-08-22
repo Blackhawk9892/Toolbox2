@@ -211,11 +211,15 @@ $tb_program = 'E_interduction.php?type=environmental';
 $tb_descrip = "Environmental Package";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
-/*
-$tb_program = 'vehicle_worksheet.php';
-$tb_descrip = "Vehicle Worksheet";
+
+$tb_program = 'timesheet.php';
+$tb_descrip = "Time Sheet";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
-*/
+
+$tb_program = 'time_codes.php';
+$tb_descrip = "Time Codes";
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
 
 $tb_program = 'phoneintro.php?type=incoming';
 $tb_descrip = "Incoming call";
