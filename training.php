@@ -439,7 +439,7 @@ $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group    = '{$comp_group}' ";
 $query .= "AND audio_id    = '{$cust_secondary}' ";
-echo $query;
+
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 $row = mysqli_fetch_array($result_set);
