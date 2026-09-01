@@ -202,7 +202,8 @@ if(isset($_COOKIE["userId"])){
                 if(isset($_POST['description'])){
                     $scriptDescription = $_POST['description'];
                 }else{
-                    $errors[] = 'Tone Of Voice is empty';
+                   //
+                    $errors[] = 'Select type of Record is empty';
                 }
 
 
@@ -601,7 +602,7 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'PrimaryRequest';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
             
-                $place = 'SecondaryReques';
+                $place = 'SecondaryRequest';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
                  $place = 'Vehicle Driven';

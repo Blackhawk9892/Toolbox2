@@ -187,10 +187,15 @@ $result_set = mysqli_query($con, $query)
         or die('Query failed emp: ' . mysqli_error($con));
 while($row = mysqli_fetch_array($result_set)){
   $audio_vehicle_type = $row['audio_vehicle_type'];
+
+          if($audio_vehicle_type == "Environmental Protection"){
+          continue;
+        }
   
        if(empty($audio_vehicle_type)){
         continue;
        }else{
+       
         $veh_array[] = $audio_vehicle_type;
        }
 

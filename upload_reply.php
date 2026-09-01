@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "<div class=\"problem\">$value</div>";     
                 }
 
-
+ 
 
                 $sql = "INSERT INTO audio(audio_group, audio_location, audio_reply, audio_drive_type, audio_price, audio_payment, audio_vehicle_type, audio_miles, audio_options, audio_color_liked, audio_color_dislike, audio_gender) 
                 VALUES('$dealer_group','$newName','$scrip','$typeDriver','$price','$payment','$typeVehicle','$miles','$options','$preferredColors','$avoidColors','$gender')";

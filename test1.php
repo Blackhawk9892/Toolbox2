@@ -90,7 +90,7 @@ if(isset($_COOKIE["userId"])){
       
       }
       $find = $_SESSION['find'];
-      
+    
       if(isset($_POST['info'])){
         $veh_array = array();
 
@@ -142,26 +142,27 @@ if(isset($_COOKIE["userId"])){
             }else{
               $veh_array[] = $colorA;
             }
-         
+           
 $equip = '';
         $query = "SELECT * ";
         $query .= "FROM code_equip ";
-        $query .= "WHERE equip_group_num  = '{$dealer_group}' ";
+       // $query .= "WHERE equip_group_num  = '{$dealer_group}' ";
         $query .= "ORDER BY equip_list  ASC ";
-    
+  
         $result_set = mysqli_query($con, $query)
                 or die('Query failed98: ' . mysqli_error($con));
     
         while ($row = mysqli_fetch_array($result_set)) {
+  
             $equip_index = $row['equip_index'];
-         
+        
             if(isset($_POST[$equip_index])){
             
                 $equip .= $_POST[$equip_index] ;
                 $equip .= ", ";
             }
         }
-       
+      
         if(empty($equip)){
             $veh_array[] = 'none';
          }else{
@@ -360,7 +361,7 @@ $count3 = 0;
           $equip = '';
           $query = "SELECT * ";
           $query .= "FROM code_equip ";
-          $query .= "WHERE equip_group_num  = '{$dealer_group}' ";
+         // $query .= "WHERE equip_group_num  = '{$dealer_group}' ";
           $query .= "ORDER BY equip_list  ASC ";
       
           $result_set = mysqli_query($con, $query)

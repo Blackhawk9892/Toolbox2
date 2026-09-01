@@ -256,7 +256,7 @@ $useTone = 'Record using a voice inflection of: ' . $tone;
     $query .= "WHERE audio_group   = '{$comp_group}' ";
     $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
     $query .= "AND audio_drive_type   = '{$drive}' ";
-  
+
     $result_set = mysqli_query($con, $query)
     or die('Query failed scrip: ' . mysqli_error($con));
 
@@ -432,14 +432,14 @@ $row = mysqli_fetch_array($result_set);
 
    //////////////////////////////////////////////////////////////////////////////////
 
-   
+
     if($script_audio == 'SecondaryRequest'){
 
 $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group    = '{$comp_group}' ";
 $query .= "AND audio_id    = '{$cust_secondary}' ";
-
+echo $query;
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 $row = mysqli_fetch_array($result_set);
