@@ -12,7 +12,7 @@ session_start();
         <link rel="stylesheet" type="text/css" href="stylesheets/main.css" /> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <title>Vehicle Test</title>
+        
         <style>
 .grid-container {
   display: grid;
@@ -39,7 +39,7 @@ session_start();
     require_once("includes/connection.php");
     require("includes/database_rows.php");
     require("includes/pull_downs.php");
-    require_once("toolbar_sales.php");
+    //require_once("toolbar_sales.php");
     require("includes/security.php");
     require("includes/datafile.php");
     require("includes/functions.php");
@@ -616,8 +616,9 @@ if($find == "setup"){
   $_POST['miles'] = 0;
  }
 
- 
+ require_once("toolbar_sales.php");
 
+echo "<center><h1>Vehicle Test </h1></center>";
     ?>
 
 
