@@ -149,6 +149,13 @@ $tb_descrip = 'Reset Manager';
 
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'vehicle_worksheet.php';
+$tb_descrip = 'Worksheet';
+ 
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
    }
 
    if($position == "PFD" or $position == "Manager"){

@@ -2,12 +2,14 @@
 // vehicle_worksheet.php
 // A single-file vehicle price / retail payment / lease payment worksheet.
 // Change the default values below to fit your dealership.
+$msrp = rand(20000, 50000);
 
 $defaults = [
-    'msrp' => 61735.00,
+   
+    'msrp' => $msrp ,
     'trade_allowance' => 0.00,
     'trade_payoff' => 0.00,
-    'total_before_ttl' => 61735.00,
+    'total_before_ttl' => $msrp,
 
     // Retail financing defaults
     'retail_apr' => 6.99,
@@ -19,10 +21,12 @@ $defaults = [
     'lease_sales_tax' => 5.00
 ];
 
-$retailInvestments = [30000, 35000, 41000];
+
+
+$retailInvestments = [3000, 3500, 4100];
 $retailTerms = [48, 60, 72];
 
-$leaseInvestments = [20000, 25000, 30000];
+$leaseInvestments = [2000, 2500, 3000];
 $leaseTerms = [
     ['months' => 36, 'miles' => 12000, 'residual_percent' => 60],
     ['months' => 39, 'miles' => 12000, 'residual_percent' => 58],
