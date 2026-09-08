@@ -330,9 +330,9 @@ require("toolbar_sales.php");
             $_SESSION['find'] = $_GET['find'];
           
           }
-          
+      if(isset($_SESSION['find'])){    
           $find = $_SESSION['find'];
-
+      }
 ?>
 <?php if ($message): ?>
 <div class="message"><?= htmlspecialchars($message) ?></div>
