@@ -139,6 +139,10 @@ if(isset($_SESSION["type"])){
   $type = $_SESSION["type"];
 }
 
+$testType = "yes";
+if($type == "orphan"){
+  $testType = "no";
+}
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
 
@@ -173,6 +177,7 @@ $useTone = 'Record this script using a voice tone of: ' . $tone;
   $script = $script_arry[0];
   echo "<h3>$script</h3>";
 echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
+
   ?>
 
 <button id="start-record-btn">Start Recording</button>
@@ -181,6 +186,7 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
   <br>
   <br>
 <?php
+
 ///////////////////////////////////////////////////////////////////////////////////
 
 $query = "SELECT * ";
@@ -260,13 +266,13 @@ if($_SESSION["type"] == 'orphan'){
 echo "<h1 style='background-color:DodgerBlue;'>Name of person that you are requesting</h1>";
 }
 
-
+if($testType == "yes"){
 echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
 
 echo "      </audio>\n";
-
+}
 /////////////////////////////////////////////////////////////////////////////////////////
 }else{
 

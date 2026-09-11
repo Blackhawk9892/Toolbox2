@@ -533,7 +533,7 @@ $Temp = "<td width = 6%>$script_template </td>";
                     $typeScrip_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
                 }
                
-            
+        
                 $place = 'sales';
                 $description = "New customer at dealership";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
@@ -547,11 +547,11 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $description = "Incoming call";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
 
-                $place = 'Orphan';
+                $place = 'orphan';
                 $description = "Cold call Orphan Customer";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
 
-                $place = 'Service';
+                $place = 'service';
                 $description = "Cold call Service Customer";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
 
@@ -590,6 +590,10 @@ $Temp = "<td width = 6%>$script_template </td>";
                 } else {
                     $recordType_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
                 }
+
+                switch ($typeScrip) {
+
+                case "sales":
                 $place = 'None';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
@@ -607,7 +611,10 @@ $Temp = "<td width = 6%>$script_template </td>";
 
                  $place = 'Vehicle Driven';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+            break;
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
+                case "incoming":
                 $place = 'PhoneName';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
@@ -630,8 +637,11 @@ $Temp = "<td width = 6%>$script_template </td>";
                 
                 $place = 'Phone Know';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-            
-                
+            break;
+
+           /////////////////////////////////////////////////////////////////////////////////////// 
+
+                case "environmental":
                 $place = 'E-keep';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
@@ -655,7 +665,10 @@ $Temp = "<td width = 6%>$script_template </td>";
 
                 $place = 'E-all';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+            break;
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 
+              /* case "not known":
 
                 $place = 'C-time';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
@@ -683,8 +696,44 @@ $Temp = "<td width = 6%>$script_template </td>";
 
                 $place = 'C-before';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-                
-   
+
+            break;  */
+        ///////////////////////////////////////////////////////////////////////////////////// 
+            case "orphan":
+        
+               $place = 'O-introduction';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-conversation';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    /*
+                $place = 'O-help';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O- treating ';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-questions';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-miles';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-change';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'O-appraisal';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-before';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                */
+            break;
+
+            default:
+               echo "Type of Scrip: it's not recognized";
+                }
+   /////////////////////////////////////////////////////////////////////////////////////////////////
 
             ?>
 
