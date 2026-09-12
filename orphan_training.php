@@ -258,6 +258,7 @@ if($gender == "male"){
     $query .= "WHERE audio_group   = '{$comp_group}' ";
     $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
     $query .= "AND audio_drive_type   = '{$drive}' ";
+    $query .= "AND audio_gender  = '{$gender}' ";
 
     $result_set = mysqli_query($con, $query)
     or die('Query failed scrip: ' . mysqli_error($con));
@@ -313,6 +314,7 @@ if($script_audio == 'PrimaryName'){
   $query .= "FROM audio ";
   $query .= "WHERE audio_group   = '{$comp_group}' ";
   $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
+  $query .= "AND audio_gender  = '{$gender}' ";
 
   
   $result_set = mysqli_query($con, $query)
@@ -405,6 +407,7 @@ $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group    = '{$comp_group}' ";
 $query .= "AND audio_id    = '{$cust_primary}' ";
+$query .= "AND audio_gender  = '{$gender}' ";
 
 
 
@@ -435,12 +438,13 @@ $row = mysqli_fetch_array($result_set);
    //////////////////////////////////////////////////////////////////////////////////
 
 
-    if($script_audio == 'SecondaryRequest'){
+    if($script_audio == 'O-customer'){
 
 $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group    = '{$comp_group}' ";
 $query .= "AND audio_id    = '{$cust_secondary}' ";
+$query .= "AND audio_gender  = '{$gender}' ";
 
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
@@ -472,6 +476,7 @@ $row = mysqli_fetch_array($result_set);
     $query .= "FROM audio ";
     $query .= "WHERE audio_group    = '{$comp_group}' ";
     $query .= "AND audio_id  = '{$idDriven}' ";
+    $query .= "AND audio_gender  = '{$gender}' ";
   
     
     $result_set = mysqli_query($con, $query)

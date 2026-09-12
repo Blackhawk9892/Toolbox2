@@ -290,6 +290,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $place = 'E-all';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+    $place = 'O-customer';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'O-introduction';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
+    $place = 'O-introduction';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
     /////////////////////////////////////////////////////////////////////////////////
     $blank = '';
@@ -349,6 +358,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
      $place = 'Environmental Protection';
+    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'Orphan Customer';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
 
