@@ -226,7 +226,7 @@ $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 
 
-$tb_program = 'phoneintro.php?type=orphan';
+$tb_program = 'orphan_interduction.php?type=orphan';
 $tb_descrip = "Cold call Orphan Customer";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 

@@ -615,6 +615,10 @@ $Temp = "<td width = 6%>$script_template </td>";
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
                 case "incoming":
+
+                $place = 'None';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
                 $place = 'PhoneName';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
@@ -642,6 +646,10 @@ $Temp = "<td width = 6%>$script_template </td>";
            /////////////////////////////////////////////////////////////////////////////////////// 
 
                 case "environmental":
+
+                $place = 'None';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
                 $place = 'E-keep';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
@@ -700,11 +708,20 @@ $Temp = "<td width = 6%>$script_template </td>";
             break;  */
         ///////////////////////////////////////////////////////////////////////////////////// 
             case "orphan":
+
+                $place = 'None';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+              $place = 'O-customer';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
         
                $place = 'O-introduction';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
                 $place = 'O-conversation';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'Vehicle Driven';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
     /*
                 $place = 'O-help';
