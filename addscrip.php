@@ -700,7 +700,7 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
                  $place = 'C-appraisal';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
                 $place = 'C-before';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
@@ -708,7 +708,7 @@ $Temp = "<td width = 6%>$script_template </td>";
             break;  */
         ///////////////////////////////////////////////////////////////////////////////////// 
             case "orphan":
-
+ 
                 $place = 'None';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
