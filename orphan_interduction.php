@@ -23,15 +23,7 @@ require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
 
-
-$maleFemale = rand(1, 2);
-
-if($maleFemale == 1){
-$_SESSION['gender'] = "male";
-}else{
-$_SESSION['gender'] = "female";
-}
-
+unset($_SESSION['first']);
 
 if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
   $_SESSION['message'] = "Not a valid employee";
@@ -109,8 +101,17 @@ $comp_group = $_SESSION['comp_group'];
 
  $page = 1;
 
- $sql = "INSERT INTO customer_data(cust_group,cust_type,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
- VALUES('$comp_group','$type','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
+ $maleFemale = rand(1, 2);
+
+   if($maleFemale == 1){
+       $gender = "male";
+    }else{
+       $gender = "female";
+    }
+
+
+ $sql = "INSERT INTO customer_data(cust_group,cust_type,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle,cust_gender) 
+ VALUES('$comp_group','$type','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle','$gender')";
  
  
        if (!mysqli_query($con, $sql)) {

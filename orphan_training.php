@@ -29,6 +29,10 @@ require("includes/database_rows.php");
 require("includes/functions.php");
 require("toolbar_sales.php");
 
+
+
+
+
 $type = 'sales';
 
 if($_GET['find']){
@@ -171,6 +175,7 @@ $comp_product = $row['comp_product'];
    $cust_primary = $row['cust_primary'];
    $cust_secondary = $row['cust_secondary'];
    $cust_vehicle = $row['cust_vehicle'];
+   $cust_gender = $row['cust_gender'];
    ///////////////////////////////////////
 
 $query = "SELECT * ";
@@ -229,9 +234,8 @@ $useTone = 'Record using a voice inflection of: ' . $tone;
 <br>
 <?php
 
-  $gender = $_SESSION['gender'];
-
-if($gender == "male"){
+  
+if($cust_gender == "male"){
   echo " <img src=\"$cust_male_photo\" alt=$cust_id width=\"300\" height=\"300\">\n";
  
 }else{
@@ -399,7 +403,7 @@ if($cust_primary_user == 1){
 
 }
   //////////////////////////////////////////////////////////////////////////////////
-
+/*
   if($script_audio == 'PrimaryRequest'){
 
     
@@ -434,18 +438,38 @@ $row = mysqli_fetch_array($result_set);
   echo "      </audio>";
 
   }
-
+*/
    //////////////////////////////////////////////////////////////////////////////////
 
 
     if($script_audio == 'O-customer'){
 
-$query = "SELECT * ";
+    $audioArrayId = array();
+$count = 0;
+    $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group    = '{$comp_group}' ";
 $query .= "AND audio_drive_type    = '{$script_audio}' ";
-$query .= "AND audio_gender  = '{$gender}' ";
-echo $query;
+$query .= "AND audio_gender  = '{$cust_gender}' ";
+
+$result_set = mysqli_query($con, $query)
+        or die('Query failed scrip: ' . mysqli_error($con));
+while($row = mysqli_fetch_array($result_set)){
+    $audioArrayId[] = $row['audio_id'];
+   $count++;
+}
+
+$count = $count -1;
+$id = rand(0,$count);
+$aId = $audioArrayId[$id];
+
+
+$query = "SELECT * ";
+$query .= "FROM audio ";
+$query .= "WHERE audio_id    = '{$aId}' ";
+//$query .= "AND audio_drive_type    = '{$script_audio}' ";
+//$query .= "AND audio_gender  = '{$gender}' ";
+
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
 $row = mysqli_fetch_array($result_set);
@@ -469,7 +493,7 @@ $row = mysqli_fetch_array($result_set);
    }
 
   ////////////////////////////////////////////////////////////////////////////////
-
+/*
   if($script_audio == 'Vehicle Driven'){
         
     $query = "SELECT * ";
@@ -492,7 +516,7 @@ $row = mysqli_fetch_array($result_set);
 
        }
     
- 
+ */
    
        
  
