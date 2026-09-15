@@ -253,7 +253,7 @@ if($cust_gender == "male"){
    WHERE cust_find = '$cust_find' ");
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-   
+ /*  
   if($script_audio == 'Vehicle Driven'){
     $drive = 'Vehicle Driven';
 
@@ -291,11 +291,11 @@ mysqli_query($con, "UPDATE customer_data SET cust_driven = '$idDriven'
               WHERE cust_id  = '$cust_id' ");
     
  }
-
+*/
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 if($script_audio == 'PrimaryName'){
 
   $primary_arry = array();
@@ -379,9 +379,9 @@ $idSecondary = $secondary_arry[$randSecondary];
 
 mysqli_query($con, "UPDATE customer_data SET cust_secondary = '$idSecondary'
               WHERE cust_id  = '$cust_id' ");
-  
+  */
   ///////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 
 if($cust_primary_user == 1){
 
@@ -402,6 +402,7 @@ if($cust_primary_user == 1){
   }
 
 }
+  */
   //////////////////////////////////////////////////////////////////////////////////
 /*
   if($script_audio == 'PrimaryRequest'){
@@ -490,6 +491,59 @@ $row = mysqli_fetch_array($result_set);
   echo "      Your browser does not support the audio element.\n";
   echo "      </audio>";
 
+   }
+
+  ////////////////////////////////////////////////////////////////////////////////
+
+
+    if($script_audio == 'O-conversation'){
+
+    $audioArrayId = array();
+$count = 0;
+    $query = "SELECT * ";
+$query .= "FROM audio ";
+$query .= "WHERE audio_group    = '{$comp_group}' ";
+$query .= "AND audio_drive_type    = '{$script_audio}' ";
+$query .= "AND audio_gender  = '{$cust_gender}' ";
+
+$result_set = mysqli_query($con, $query)
+        or die('Query failed scrip: ' . mysqli_error($con));
+while($row = mysqli_fetch_array($result_set)){
+    $audioArrayId[] = $row['audio_id'];
+   $count++;
+}
+
+$count = $count -1;
+$id = rand(0,$count);
+$aId = $audioArrayId[$id];
+
+
+$query = "SELECT * ";
+$query .= "FROM audio ";
+$query .= "WHERE audio_id    = '{$aId}' ";
+//$query .= "AND audio_drive_type    = '{$script_audio}' ";
+//$query .= "AND audio_gender  = '{$gender}' ";
+
+$result_set = mysqli_query($con, $query)
+        or die('Query failed scrip: ' . mysqli_error($con));
+$row = mysqli_fetch_array($result_set);
+  $audio_location = $row['audio_location'];
+  $_SESSION['options'] = $row['audio_options'];
+  $audio_reply  = $row['audio_reply'];
+
+   
+    mysqli_query($con, "UPDATE reason SET reason_secondary = '$audio_reply'
+              WHERE reason_find  = '$find' ");
+            
+    //$drive_reply = $_SESSION['drive_reply'];
+  //  echo $drive_reply;
+  
+  echo "<h1 style='background-color:White;'>Anything the secondary drive would like</h1>";
+  echo "    <audio controls>\n";
+  echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
+  echo "      Your browser does not support the audio element.\n";
+  echo "      </audio>";
+echo "<h3><a href=\"https://www.w3schools.com/\" target=\"_blank\">Visit W3Schools!</a></h3>";
    }
 
   ////////////////////////////////////////////////////////////////////////////////
