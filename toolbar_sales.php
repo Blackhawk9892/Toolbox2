@@ -91,7 +91,7 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
     $mantenance_array[] = "<li><a href=$tb_program  target=_blank>$tb_descrip </a></li>\n";
  } 
 
-
+ 
 
 
      }
@@ -232,9 +232,7 @@ $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 /*
 
-$tb_program = 'phoneintro.php?type=service';
-$tb_descrip = "Cold call Service Customer";
-$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
 
 
 $tb_program = 'phoneintro.php?type=price';
@@ -268,6 +266,14 @@ $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 $tb_program = 'vehicle_worksheet.php';
 $tb_descrip = 'Worksheet';
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'research.php';
+$tb_descrip = "Load Research";
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'vehicle_entry.php';
+ $tb_descrip = 'Vehicle Entry';
+    $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

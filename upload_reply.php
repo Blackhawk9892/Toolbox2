@@ -297,7 +297,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
 
-    $place = 'O-introduction';
+    $place = 'O-conversation';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -362,6 +362,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $place = 'Orphan Customer';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
 
 
     

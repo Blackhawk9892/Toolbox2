@@ -19,11 +19,16 @@ session_start();
                 background-size: cover;
                 position: relative;
             }
-            <style>
-.center {
-  margin: auto;
- width: 10%;
-  border: 1px solid #73AD21;
+         
+.box {
+  background-color: lightgrey;
+  width: 50%;
+  border: 15px solid green;
+  padding: 2%;
+  margin-top: 5%;
+  margin-right: 25%;
+  margin-bottom: 25%;
+  margin-left: 25%;
 
 }
         </style>
@@ -79,9 +84,9 @@ $result_set = mysqli_query($con, $query)
 $row = mysqli_fetch_array($result_set);
 
 $script_template = $row['script_template'];
-
-echo "<h3>$script_template <?h3>"
-
+echo "<div class='box'>";
+echo $script_template;
+echo "</div>";
   ?>
 
 <br>

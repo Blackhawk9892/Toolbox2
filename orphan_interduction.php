@@ -100,7 +100,7 @@ if(isset($_POST['submit'])){
 $comp_group = $_SESSION['comp_group'];
 
  $page = 1;
-
+$maleFemale = 0;
  $maleFemale = rand(1, 2);
 
    if($maleFemale == 1){
