@@ -68,6 +68,24 @@ Add Dealer to stock tag program
                 $model = strtoupper($_POST['model']);
                 $trim = strtoupper($_POST['trim']);
 
+                if(empty($_POST['miles'])){
+                     $miles = ' ';  
+                }else{
+                     $miles = strtoupper($_POST['miles']);
+                }
+
+                if(empty($_POST['engine'])){
+                     $engine = ' ';  
+                }else{
+                     $engine = strtoupper($_POST['engine']);
+                }
+
+                  if(empty($_POST['drive'])){
+                     $drive = ' ';  
+                }else{
+                     $drive = strtoupper($_POST['drive']);
+                }
+
                 if(empty($_POST['exterior'])){
                      $exterior = ' ';  
                 }else{
@@ -234,13 +252,13 @@ Add Dealer to stock tag program
 
                     $sql = "INSERT INTO vehicle(vehicle_dealer_group, vehicl_company,
                      vehicle_stock_num, vehicle_year, vehicle_make,
-                     vehicle_model, vehicle_trim, vehicle_interior, vehicle_color,
+                     vehicle_model, vehicle_trim, vehicle_miles, vehicle_engine, vehicle_drive, vehicle_interior, vehicle_color,
                      vehicle_option1, vehicle_option2, vehicle_option3, vehicle_option4,
                      vehicle_option5, vehicle_option6, vehicle_option7, vehicle_option8,
                      vehicle_option9, vehicle_option10, vehicle_option11, vehicle_option12,
                      vehicle_option13, vehicle_option14, vehicle_option15, vehicle_option16) 
 
-              VALUES('$comp_group','$dealer_id','$stock','$year','$make','$model','$trim','$interior','$exterior',
+              VALUES('$comp_group','$dealer_id','$stock','$year','$make','$model','$trim','$miles','$engine','$drive','$interior','$exterior',
               '$option1','$option2','$option3','$option4','$option5','$option6','$option7','$option8',
               '$option9','$option10','$option11','$option12','$option13','$option14','$option15','$option16')";
 
@@ -277,6 +295,15 @@ Add Dealer to stock tag program
                         <tr><td>Trim:</td><td>
                                 <input type="text" name="trim" size="30" value="<?php if (isset($_POST['trim'])) echo $_POST['trim'] ?>"	/>
 
+                         <tr><td>Miles:</td><td>
+                                <input type="number" name="miles" size="11" value="<?php if (isset($_POST['miles'])) echo $_POST['miles'] ?>"	/>
+
+                         <tr><td>Engine:</td><td>
+                                <input type="text" name="enginer" size="30" value="<?php if (isset($_POST['enginer'])) echo $_POST['enginer'] ?>"	/>
+
+                        <tr><td>Drive Type:</td><td>
+                                <input type="text" name="drive" size="30" value="<?php if (isset($_POST['drive'])) echo $_POST['drive'] ?>"	/>
+
                          <tr><td>Exterior:</td><td>
                                 <input type="text" name="exterior" size="30" value="<?php if (isset($_POST['exterior'])) echo $_POST['exterior'] ?>"	/>
 
@@ -304,7 +331,7 @@ Add Dealer to stock tag program
                                 <input type="text" name="option6" size="20" value="<?php if (isset($_POST['option6'])) echo $_POST['option6'] ?>"	/> 
                                 
                         <tr><td>Option 7:</td><td>
-                                <input type="text" name="option7" size="20" value="<?php if (isset($_POST['option1'])) echo $_POST['option1'] ?>"	/>  
+                                <input type="text" name="option7" size="20" value="<?php if (isset($_POST['option7'])) echo $_POST['option7'] ?>"	/>  
                         
                         <tr><td>Option 8:</td><td>
                                 <input type="text" name="option8" size="20" value="<?php if (isset($_POST['option8'])) echo $_POST['option8'] ?>"	/>  
