@@ -1,4 +1,7 @@
-
+<?php
+session_start();
+require("toolbar_sales.php");
+?>
 
   <!DOCTYPE html>
 <html lang="en">
@@ -66,6 +69,14 @@
 </head>
 
 <body>
+    <?php
+
+$year  = $_GET['year']  ?? '';
+$make  = $_GET['make']  ?? '';
+$model = $_GET['model'] ?? '';
+$trim  = $_GET['trim']  ?? '';
+
+?>
 
 <div class="container">
 
@@ -73,38 +84,37 @@
 
     <form id="vehicleForm">
 
-        <label>Year</label>
-        <input
-            type="number"
-            name="year"
-            required
-            min="1900"
-            max="2030"
-        >
+      <label>Year</label>
+<input
+    type="number"
+    name="year"
+    value="<?php echo htmlspecialchars($year); ?>"
+    required
+>
 
-        <label>Make</label>
-        <input
-            type="text"
-            name="make"
-            required
-            placeholder="Ford"
-        >
+<label>Make</label>
+<input
+    type="text"
+    name="make"
+    value="<?php echo htmlspecialchars($make); ?>"
+    required
+>
 
-        <label>Model</label>
-        <input
-            type="text"
-            name="model"
-            required
-            placeholder="F-150"
-        >
+<label>Model</label>
+<input
+    type="text"
+    name="model"
+    value="<?php echo htmlspecialchars($model); ?>"
+    required
+>
 
-        <label>Trim</label>
-        <input
-            type="text"
-            name="trim"
-            required
-            placeholder="XLT"
-        >
+<label>Trim</label>
+<input
+    type="text"
+    name="trim"
+    value="<?php echo htmlspecialchars($trim); ?>"
+    required
+>
 
         <button type="submit">
             Research Vehicle

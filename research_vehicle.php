@@ -7,11 +7,16 @@ require_once "openai.php";
 require_once("includes/constants.php");
 require("includes/connection.php");
 
+
+ 
+
 try {
 
     //------------------------------------------------
     // GET VEHICLE FROM FORM
     //------------------------------------------------
+
+  
 
     $year = (int)($_POST["year"] ?? 0);
     $make = trim($_POST["make"] ?? "");

@@ -275,6 +275,10 @@ $tb_program = 'vehicle_entry.php';
  $tb_descrip = 'Vehicle Entry';
     $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
+$tb_program = 'stock_num.php';
+ $tb_descrip = 'Find Vehicle by Stock Number';
+    $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 

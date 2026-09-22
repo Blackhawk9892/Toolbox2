@@ -1,10 +1,14 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <!--
 Add Dealer to stock tag program
 -->
 <html>
     <head>
-        <title>Add Dealer Group</title>
+        <title>Vehicle Entry</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../stylesheets/main.css" /> 
@@ -17,18 +21,163 @@ Add Dealer to stock tag program
           require("includes/connection.php");
           require("includes/database_rows.php");
           require("toolbar_sales.php");
+
+          if(isset($_COOKIE["userId"])){
+           $userId = $_COOKIE["userId"];
+ 
+           $emp_arry = Employee($userId);
+           $first = $emp_arry[0];
+           $last = $emp_arry[1];      
+           $position = $emp_arry[2];
+           $emp_id = $emp_arry[3];
+           $dealer_id = $emp_arry[4];
+           $name = $first . ' ' . $last;
+        }
+
+         $query = "SELECT * ";
+                $query .= "FROM company ";
+                $query .= "WHERE comp_id   = '{$dealer_id}' ";
+                
+
+
+                $result_set = mysqli_query($con, $query)
+                 or die('Query failed: ' . mysqli_error($con));
+                $row = mysqli_fetch_array($result_set);
+
+                 $comp_group = $row['comp_group'];
+
+          if(isset($_GET["stock"])){
+             $_SESSION["stock"] = $_GET["stock"];
+            }
+
+          if(isset($_SESSION["stock"])){
+            $stock = $_SESSION["stock"];
+            }
+
+
             echo " <center>  \n";
-            echo "          <h1>Add Dealer Group </h1>\n";
+            echo "          <h1>Vehicle Entry </h1>\n";
+            echo "          <h1>Stock Number $stock</h1>\n";
             echo "</center>\n";
           
 
             if (isset($_POST['submit'])) {
 
-                $dealer_group = ucwords($_POST['dealer_group']);
-                $address = ucwords($_POST['address']);
-                $city = ucwords($_POST['city']);
-                $state = strtoupper($_POST['state']);
-                $zip = $_POST['zip'];
+                $year = $_POST['year'];
+                $make = strtoupper($_POST['make']);
+                $model = strtoupper($_POST['model']);
+                $trim = strtoupper($_POST['trim']);
+
+                if(empty($_POST['exterior'])){
+                     $exterior = ' ';  
+                }else{
+                     $exterior = strtoupper($_POST['exterior']);
+                }
+                
+                if(empty($_POST['interior'])){
+                        $interior = ' ';
+                }else{
+                        $interior = strtoupper($_POST['interior']);  
+                }
+                
+                if(empty($_POST['option1'])){
+                       $option1 = ' ';
+                }else{
+                        $option1 = strtoupper($_POST['option1']);
+                }
+
+                if(empty($_POST['option2'])){
+                       $option2 = ' ';
+                }else{
+                        $option2 = strtoupper($_POST['option2']);
+                }
+
+                if(empty($_POST['option3'])){
+                       $option3 = ' ';
+                }else{
+                        $option3 = strtoupper($_POST['option3']);
+                }
+
+                if(empty($_POST['option4'])){
+                       $option4 = ' ';
+                }else{
+                        $option4 = strtoupper($_POST['option4']);
+                }
+
+                if(empty($_POST['option5'])){
+                       $option5 = ' ';
+                }else{
+                        $option5 = strtoupper($_POST['option5']);
+                }
+
+                if(empty($_POST['option6'])){
+                       $option6 = ' ';
+                }else{
+                        $option6 = strtoupper($_POST['option6']);
+                }
+
+                if(empty($_POST['option7'])){
+                       $option7 = ' ';
+                }else{
+                        $option7 = strtoupper($_POST['option7']);
+                }
+
+                if(empty($_POST['option8'])){
+                       $option8 = ' ';
+                }else{
+                        $option8 = strtoupper($_POST['option8']);
+                }
+
+                if(empty($_POST['option9'])){
+                       $option9 = ' ';
+                }else{
+                        $option9 = strtoupper($_POST['option9']);
+                }
+
+                if(empty($_POST['option10'])){
+                       $option10 = ' ';
+                }else{
+                        $option10 = strtoupper($_POST['option10']);
+                }
+
+                if(empty($_POST['option11'])){
+                       $option11 = ' ';
+                }else{
+                        $option11 = strtoupper($_POST['option11']);
+                }
+
+                if(empty($_POST['option12'])){
+                       $option12 = ' ';
+                }else{
+                        $option12 = strtoupper($_POST['option12']);
+                }
+
+                if(empty($_POST['option13'])){
+                       $option13 = ' ';
+                }else{
+                        $option13 = strtoupper($_POST['option13']);
+                }
+
+                if(empty($_POST['option14'])){
+                       $option14 = ' ';
+                }else{
+                        $option14 = strtoupper($_POST['option14']);
+                }
+
+                if(empty($_POST['option15'])){
+                       $option15 = ' ';
+                }else{
+                        $option15 = strtoupper($_POST['option12']);
+                }
+
+                if(empty($_POST['option16'])){
+                       $option16 = ' ';
+                }else{
+                        $option16 = strtoupper($_POST['option16']);
+                }
+                
+                 
+       
 
 
 
@@ -37,7 +186,7 @@ Add Dealer to stock tag program
 
 
 
-                $required_fields = array('dealer_group', 'address', 'city', 'zip');
+                $required_fields = array('year', 'make', 'model', 'trim');
 
                 foreach ($required_fields as $fieldname) {
 
@@ -46,6 +195,32 @@ Add Dealer to stock tag program
                     }
                 }
 
+                $query = "SELECT * ";
+                $query .= "FROM specifications ";
+                $query .= "WHERE spec_year   = '{$year}' ";
+                $query .= "AND spec_make   = '{$make}' ";
+                $query .= "AND spec_model   = '{$model}' ";
+                $query .= "AND spec_trim   = '{$trim}' ";
+
+
+                $result_set = mysqli_query($con, $query)
+                 or die('Query failed: ' . mysqli_error($con));
+                $row = mysqli_fetch_array($result_set);
+                if (empty($row)) {
+                       $errors[] = "Run research_vehicles then start over";
+                       $url = "research.php?" .
+                          "year="  . urlencode($year) .
+                          "&make=" . urlencode($make) .
+                          "&model=" . urlencode($model) .
+                          "&trim=" . urlencode($trim);
+
+                       $errors[] = '<a href="' . $url . '" target="_blank">Research Vehicle</a>';
+                    
+                }
+
+
+
+  
 
                 if (!empty($errors)) {
 
@@ -53,36 +228,38 @@ Add Dealer to stock tag program
                         echo "<div class=\"errors\">$value</div>";
                     }
                 } else {
-                    $dealer_group = mysqli_real_escape_string($con, $dealer_group);
-                    $address = mysqli_real_escape_string($con, $address);
-                    $city = mysqli_real_escape_string($con, $city);
-                    $state = mysqli_real_escape_string($con, $state);
-                    $zip = mysqli_real_escape_string($con, $zip);
+                   
+                   
 
 
-                    $sql = "INSERT INTO dealer_group(dg_name, dg_address, dg_city, dg_state, dg_zip) 
-              VALUES('$dealer_group','$address','$city','$state','$zip')";
+                    $sql = "INSERT INTO vehicle(vehicle_dealer_group, vehicl_company,
+                     vehicle_stock_num, vehicle_year, vehicle_make,
+                     vehicle_model, vehicle_trim, vehicle_interior, vehicle_color,
+                     vehicle_option1, vehicle_option2, vehicle_option3, vehicle_option4,
+                     vehicle_option5, vehicle_option6, vehicle_option7, vehicle_option8,
+                     vehicle_option9, vehicle_option10, vehicle_option11, vehicle_option12,
+                     vehicle_option13, vehicle_option14, vehicle_option15, vehicle_option16) 
+
+              VALUES('$comp_group','$dealer_id','$stock','$year','$make','$model','$trim','$interior','$exterior',
+              '$option1','$option2','$option3','$option4','$option5','$option6','$option7','$option8',
+              '$option9','$option10','$option11','$option12','$option13','$option14','$option15','$option16')";
 
 
                     if (!mysqli_query($con, $sql)) {
                         die('Error input: ' . mysqli_error($con));
                     }
 
-                    $_POST['dealer_group'] = '';
-                    $_POST['address'] = '';
-                    $_POST['city'] = '';
-                    $_POST['state'] = '';
-                    $_POST['zip'] = '';
-
-
-                    echo"<h1>Dealer group $dealer_group has been added</h1>";
+                   
+                 header("Location: show_vehicle.php?stock=$stock");
+                        exit;
+                   
                 }
             }
             
             ?>
 
             
-            <form action="addDealerGroup.php" method="post">
+            <form action="vehicle_entry.php" method="post">
 
                 <center> 
                     <table>
