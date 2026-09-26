@@ -20,7 +20,7 @@
 <body>
     <?php
 
-    require_once("includes/constants.php");
+    //require_once("includes/constants.php");
     require("includes/connection.php");
 
  

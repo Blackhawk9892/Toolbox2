@@ -77,13 +77,15 @@ if($_GET['id']){
 
 $query = "SELECT * ";
 $query .= "FROM script ";
-$query .= "WHERE script_index  = '{$id}' ";
+$query .= "WHERE script_index   = '{$id}' ";
 
 $result_set = mysqli_query($con, $query)
         or die('Query failed emp: ' . mysqli_error($con));
 $row = mysqli_fetch_array($result_set);
 
 $script_template = $row['script_template'];
+$script_content = $row['script_content'];
+echo "<center><h1>$script_content </h1></center>";
 echo "<div class='box'>";
 echo $script_template;
 echo "</div>";

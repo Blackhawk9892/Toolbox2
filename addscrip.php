@@ -721,6 +721,10 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'O-conversation';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+                $place = 'O-replacing';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
                 $place = 'Vehicle Driven';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
     /*

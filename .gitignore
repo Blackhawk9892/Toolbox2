@@ -2,3 +2,9 @@
 *.mp3
 *.jpg
 
+includes/constants.php
+veh_info/config.php
+includes/production/constants.php
+veh_info/production/config.php
+veh_info/production/constants.php
+veh_info/production/connection_old.php

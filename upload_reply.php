@@ -300,6 +300,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $place = 'O-conversation';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+     $place = 'O-replacing';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
     /////////////////////////////////////////////////////////////////////////////////
     $blank = '';
     if (isset($_POST['gender'])) {

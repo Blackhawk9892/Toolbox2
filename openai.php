@@ -1,8 +1,7 @@
 <?php
 
-//require_once "config.php";
-require_once("includes/constants.php");
-require("includes/connection.php");
+
+
 
 function askOpenAI($prompt)
 {

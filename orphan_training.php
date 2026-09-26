@@ -359,12 +359,76 @@ $row = mysqli_fetch_array($result_set);
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
   echo "      </audio>";
-echo "<h3><a href=Not_Keeping.php?id=90 target=\"_blank\">Not happy with vehicle</a></h3>";
+//echo "<h3><a href=Not_Keeping.php?id=90 target=\"_blank\">Not happy with vehicle</a></h3>"; //Test
+echo "<h3><a href=Not_Keeping.php?id=92 target=\"_blank\">Not happy with vehicle</a></h3>"; // production 
    }
-
+  
   ////////////////////////////////////////////////////////////////////////////////
 
+
+    if($script_audio == 'O-replacing'){
+
+    $audioArrayId = array();
+$count = 0;
+    $query = "SELECT * ";
+$query .= "FROM audio ";
+$query .= "WHERE audio_group    = '{$comp_group}' ";
+$query .= "AND audio_drive_type    = '{$script_audio}' ";
+$query .= "AND audio_gender  = '{$cust_gender}' ";
+
+$result_set = mysqli_query($con, $query)
+        or die('Query failed scrip: ' . mysqli_error($con));
+while($row = mysqli_fetch_array($result_set)){
+    $audioArrayId[] = $row['audio_id'];
+   $count++;
+}
+
+$count = $count -1;
+$id = rand(0,$count);
+$aId = $audioArrayId[$id];
+
+
+$query = "SELECT * ";
+$query .= "FROM audio ";
+$query .= "WHERE audio_id    = '{$aId}' ";
+//$query .= "AND audio_drive_type    = '{$script_audio}' ";
+//$query .= "AND audio_gender  = '{$gender}' ";
+
+$result_set = mysqli_query($con, $query)
+        or die('Query failed scrip: ' . mysqli_error($con));
+$row = mysqli_fetch_array($result_set);
+  $audio_location = $row['audio_location'];
+  $_SESSION['options'] = $row['audio_options'];
+  $audio_reply  = $row['audio_reply'];
+
    
+    mysqli_query($con, "UPDATE reason SET reason_secondary = '$audio_reply'
+              WHERE reason_find  = '$find' ");
+            
+    //$drive_reply = $_SESSION['drive_reply'];
+  //  echo $drive_reply;
+  
+  echo "<h1 style='background-color:White;'>Anything the secondary drive would like</h1>";
+  echo "    <audio controls>\n";
+  echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
+  echo "      Your browser does not support the audio element.\n";
+  echo "      </audio>";
+
+//////////////// TEST///////////////////////////////////
+/*
+echo "<h3><a href=Not_Keeping.php?id=91 target=\"_blank\">Not Interested</a></h3>";
+echo "<h3><a href=Not_Keeping.php?id=92 target=\"_blank\">Not Buying Right Now</a></h3>";
+echo "<h3><a href=Not_Keeping.php?id=93 target=\"_blank\">Vehicle Is Paid Off</a></h3>";
+echo "<h3><a href=Not_Keeping.php?id=94 target=\"_blank\">Just Send Me Some Informationd</a></h3>";
+*/
+///////////////////////////PRODUCTION
+
+echo "<h3><a href=Not_Keeping.php?id=70 target=\"_blank\">Not Interested</a></h3>";
+echo "<h3><a href=Not_Keeping.php?id=71 target=\"_blank\">Not Buying Right Now</a></h3>";
+echo "<h3><a href=Not_Keeping.php?id=72 target=\"_blank\">Vehicle Is Paid Off</a></h3>";
+echo "<h3><a href=Not_Keeping.php?id=73 target=\"_blank\">Just Send Me Some Informationd</a></h3>";
+
+   }
        
  
 ?>

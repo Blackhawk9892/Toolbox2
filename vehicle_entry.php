@@ -226,7 +226,7 @@ Add Dealer to stock tag program
                 $row = mysqli_fetch_array($result_set);
                 if (empty($row)) {
                        $errors[] = "Run research_vehicles then start over";
-                       $url = "research.php?" .
+                       $url = "veh_info/vehicle_research.php?" .
                           "year="  . urlencode($year) .
                           "&make=" . urlencode($make) .
                           "&model=" . urlencode($model) .
@@ -250,7 +250,7 @@ Add Dealer to stock tag program
                    
 
 
-                    $sql = "INSERT INTO vehicle(vehicle_dealer_group, vehicl_company,
+                    $sql = "INSERT INTO vehicle(vehicle_dealer_group, vehicle_company,
                      vehicle_stock_num, vehicle_year, vehicle_make,
                      vehicle_model, vehicle_trim, vehicle_miles, vehicle_engine, vehicle_drive, vehicle_interior, vehicle_color,
                      vehicle_option1, vehicle_option2, vehicle_option3, vehicle_option4,

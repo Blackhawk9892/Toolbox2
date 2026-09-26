@@ -31,9 +31,12 @@ session_start();
 <body>
 
 <?php
+ require("includes/connection.php");
+ require("includes/database_rows.php");
+
 $_SESSION['video'] = "home";
 
-require("includes/database_rows.php");
+//require("includes/database_rows.php");
 
 if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
   $_SESSION['message'] = "Not a valid employee";
@@ -42,7 +45,7 @@ if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
   exit;
 }
 
-require("toolbar_sales.php");
+
 
 
 
@@ -64,7 +67,13 @@ if (isset($_POST['submit'])) {
          if(empty($_POST['stock'])){
            $errors[] = "Stock Number is empty";
          }else{       
-          $stock = strtoupper($_POST['stock']);
+          $_SESSION['stock'] = strtoupper($_POST['stock']);
+         }
+
+         if(isset($_SESSION['stock'])){
+          $stock = $_SESSION['stock'];
+         }else{
+          $errors[] = "Stock Number is empty";
          }
 
 
@@ -79,7 +88,7 @@ if (isset($_POST['submit'])) {
     $query .= "FROM vehicle ";
     $query .= "WHERE vehicle_stock_num   = '{$stock}' ";
 
-
+echo $query;
     $result_set = mysqli_query($con, $query)
             or die('Query failed: ' . mysqli_error($con));
 
@@ -99,6 +108,8 @@ if (isset($_POST['submit'])) {
    
   }
 }
+
+require("toolbar_sales.php");
   ?>
 
      <form action="stock_num.php" method="post">
