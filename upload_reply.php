@@ -302,6 +302,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
      $place = 'O-replacing';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+    $place = 'O-another';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'O-keeping';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'O-current';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'O-trade';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'O-week';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'Vehicle Driven';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
     /////////////////////////////////////////////////////////////////////////////////
     $blank = '';

@@ -18,10 +18,10 @@ session_start();
 
 <?php
 
-require_once("includes/constants.php");
-require("includes/connection.php");
-require("includes/database_rows.php");
-require("includes/functions.php");
+//require_once("includes/constants.php");
+require_once("includes/connection.php");
+require_once("includes/database_rows.php");
+require_once("includes/functions.php");
 
 unset($_SESSION['first']);
 
@@ -81,8 +81,10 @@ if(isset($_POST['submit'])){
         echo "<div class=\"errors\">$value</div>";
     }
   } else {
+
     $custStamp = $_SESSION['custStamp'];
 
+echo "<h1> Test</h1>";
     $dateStamp =  date("Ymdhis");
  $custStamp = $emp_id . $dateStamp . $dealer_id;
  $_SESSION['custStamp'] = $custStamp;

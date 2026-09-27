@@ -9,7 +9,7 @@ Add Dealer to stock tag program
 -->
 <html>
     <head>
-        <title>Add Employee</title>
+        <title>Add and Maintain Script</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="stylesheets/main.css" /> 
@@ -18,7 +18,7 @@ Add Dealer to stock tag program
     <body>
         <div>
             <?php
-            require_once("includes/constants.php");
+            //("includes/constants.php");
             require("includes/connection.php");
             require("includes/database_rows.php");
             require("includes/functions.php");
@@ -724,19 +724,26 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'O-replacing';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-
-                $place = 'Vehicle Driven';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-    /*
-                $place = 'O-help';
+                 $place = 'O-another';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'O- treating ';
+                 $place = 'O-keeping';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'O-questions';
+               
+                $place = 'O-current';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+                $place = 'O-trade';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-week';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'Vehicle Driven';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+   
+ /*
                 $place = 'O-miles';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
