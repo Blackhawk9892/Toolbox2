@@ -317,6 +317,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
      $place = 'O-week';
      $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+     $place = 'O-AmPm';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
      $place = 'Vehicle Driven';
      $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";

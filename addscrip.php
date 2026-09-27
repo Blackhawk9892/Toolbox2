@@ -740,6 +740,9 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'O-week';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+                $place = 'O-AmPm';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
                  $place = 'Vehicle Driven';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
    

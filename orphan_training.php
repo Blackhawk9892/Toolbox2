@@ -1,5 +1,5 @@
 
-text/x-generic training.php ( HTML document, ASCII text, with CRLF line terminators )
+
 <!DOCTYPE html>
 <?php
 // Start the session
@@ -201,7 +201,7 @@ while($row = mysqli_fetch_array($result_set)){
 
   
     
-     $program = "test1.php";
+     $program = "home.php";
     $testPage =  test_production($program);
 
      if($cust_points  > $count ){
