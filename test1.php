@@ -690,7 +690,7 @@ echo "<center><h1>Vehicle Test </h1></center>";
             <label for="Indigo">Indigo</label>
 
             <input type="checkbox" id="Orenge" name="Orenge" value="Orenge">
-            <label for="Orenge">Orenge</label>
+            <label for="Orenge">Orange</label>
 
             <input type="checkbox" id="Pink" name="Pink" value="Pink">
             <label for="Pink">Pink</label>
@@ -737,7 +737,7 @@ echo "<center><h1>Vehicle Test </h1></center>";
 <label for="IndigoA">Indigo</label>
 
 <input type="checkbox" id="OrengeA" name="OrengeA" value="Orenge">
-<label for="OrengeA">Orenge</label>
+<label for="OrengeA">Orange</label>
 
 <input type="checkbox" id="PinkA" name="PinkA" value="Pink">
 <label for="PinkA">Pink</label>

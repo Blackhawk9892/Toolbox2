@@ -290,6 +290,63 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $place = 'E-all';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+   
+
+   
+///////////////////////////////////////////////////////////////////////////////
+
+    $place = 'P-intro';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'P-vehicle';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
+    $place = 'P-customer';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-add';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+    $place = 'P-city';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-used';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-new';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-interested';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-like';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+     $place = 'P-comparing';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-current';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-hold';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-set';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-email';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-pullomg';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     
+
+
+
+    //////////////////////////////////////////////////////////////////////////////
+
     $place = 'O-customer';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
@@ -323,6 +380,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
      $place = 'Vehicle Driven';
      $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
 
     /////////////////////////////////////////////////////////////////////////////////
     $blank = '';
@@ -386,6 +444,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $place = 'Orphan Customer';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'Incoming Call';
+    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
 
 
 

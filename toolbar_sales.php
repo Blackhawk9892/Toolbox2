@@ -131,6 +131,11 @@ $tb_descrip = ' Upload Names';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
+$tb_program = 'upload_vehicle.php';
+$tb_descrip = ' Upload Vehicle';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
 $tb_program = 'equipment_setup.php';
 $tb_descrip = 'Equipment Setup';
 
@@ -214,8 +219,13 @@ $tb_program = 'interduction.php?type=sales';
 $tb_descrip = "New customer at dealership";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
-
+/*
 $tb_program = 'phoneintro.php?type=incoming';
+$tb_descrip = "Incoming call";
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+*/
+
+$tb_program = 'incoming_interduction.php?type=phone';
 $tb_descrip = "Incoming call";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 

@@ -547,6 +547,10 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $description = "Incoming call";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
 
+                 $place = 'phone';
+                $description = "Incoming phone call";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+
                 $place = 'orphan';
                 $description = "Cold call Orphan Customer";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
@@ -676,36 +680,58 @@ $Temp = "<td width = 6%>$script_template </td>";
             break;
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-              /* case "not known":
+              case "phone":
 
-                $place = 'C-time';
+                $place = 'None';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'C-vehicle';
+                $place = 'P-intro';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-vehicle';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
     
-                $place = 'C-help';
+                $place = 'P-customer';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'C- treating ';
+                $place = 'P- add';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'C-questions';
+                $place = 'P-city';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'C-miles';
+                $place = 'P-used';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'C-change';
+                $place = 'P-new';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                 $place = 'C-appraisal';
+                 $place = 'P-interested';
                  $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'C-before';
+                $place = 'P-like';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-            break;  */
+                 $place = 'P-comparing';
+                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-currently';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-hold';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'P-set';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-email';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-pulling';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
+            break;  
         ///////////////////////////////////////////////////////////////////////////////////// 
             case "orphan":
  
