@@ -332,8 +332,7 @@ $row = mysqli_fetch_array($result_set);
   
   ////////////////////////////////////////////////////////////////////////////////
 
-
-    if($script_audio == 'O-ad'){
+    if($script_audio == 'P-ad'){
 
     $audioArrayId = array();
 $count = 0;

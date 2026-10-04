@@ -699,7 +699,7 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'P-customer';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'P- ad';
+                $place = 'P-ad';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
                 $place = 'P-city';
