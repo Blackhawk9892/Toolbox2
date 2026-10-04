@@ -385,7 +385,7 @@ $row = mysqli_fetch_array($result_set);
      ////////////////////////////////////////////////////////////////////////////////
 
 
-    if($script_audio == 'O-city'){
+    if($script_audio == 'P-city'){
 
     $audioArrayId = array();
 $count = 0;
@@ -427,7 +427,7 @@ $row = mysqli_fetch_array($result_set);
     //$drive_reply = $_SESSION['drive_reply'];
   //  echo $drive_reply;
   
-  echo "<h1 style='background-color:White;'>City they live in</h1>";
+  echo "<h1 style='background-color:White;'>Repeat the city they live in back to them</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -437,7 +437,7 @@ $row = mysqli_fetch_array($result_set);
       ////////////////////////////////////////////////////////////////////////////////
 
 
-    if($script_audio == 'O-keeping'){
+    if($script_audio == 'P-used_ne'){
 
     $audioArrayId = array();
 $count = 0;
