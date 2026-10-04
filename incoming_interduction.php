@@ -256,7 +256,7 @@ while($row = mysqli_fetch_array($result_set)){
    $arrayNumber = array_rand($location_array);
  $audio_location = $location_array[$arrayNumber];
 
- echo "<h1 style='background-color:White;'>The vehicle is interested in</h1>";
+ echo "<h1 style='background-color:White;'>The vehicle the customer is interested in</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";

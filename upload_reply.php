@@ -305,18 +305,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $place = 'P-customer';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-     $place = 'P-add';
+     $place = 'P-ad';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
     
     $place = 'P-city';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-     $place = 'P-used';
+     $place = 'P-used_new';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-     $place = 'P-new';
-     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
+    
      $place = 'P-interested';
      $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 

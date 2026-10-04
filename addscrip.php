@@ -507,6 +507,11 @@ $Temp = "<td width = 6%>$script_template </td>";
     $place = 'Excitement';
     $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+
+    $place = 'Urgency';
+    $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
     $place = 'Jokingly';
     $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
     
@@ -543,9 +548,9 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
             
                 
-                $place = 'incoming';
-                $description = "Incoming call";
-                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+               // $place = 'incoming';
+               // $description = "Incoming call";
+               // $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
 
                  $place = 'phone';
                 $description = "Incoming phone call";
@@ -694,16 +699,13 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'P-customer';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'P- add';
+                $place = 'P- ad';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
                 $place = 'P-city';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'P-used';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
-                $place = 'P-new';
+                $place = 'P-used_new';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
                  $place = 'P-interested';

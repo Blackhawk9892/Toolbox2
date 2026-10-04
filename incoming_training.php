@@ -178,6 +178,13 @@ $comp_product = $row['comp_product'];
    $cust_secondary = $row['cust_secondary'];
    $cust_vehicle = $row['cust_vehicle'];
    $cust_gender = $row['cust_gender'];
+
+
+   if($cust_gender == "Male"){
+  $_SESSION['voice'] = $cust_male_voice;
+   }else{
+    $_SESSION['voice'] = $cust_female_voice;
+   }
    ///////////////////////////////////////
 
 $query = "SELECT * ";
@@ -236,14 +243,14 @@ $useTone = 'Record using a voice inflection of: ' . $tone;
 <br>
 <?php
 
-  
+  /*
 if($cust_gender == "male"){
   echo " <img src=\"$cust_male_photo\" alt=$cust_id width=\"300\" height=\"300\">\n";
  
 }else{
    echo "    <img src=\"$cust_female_photo\" alt=$cust_id width=\"300\" height=\"300\">";
      }
-
+*/
    //////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -259,7 +266,7 @@ if($cust_gender == "male"){
    //////////////////////////////////////////////////////////////////////////////////
 
 
-    if($script_audio == 'O-customer'){
+    if($script_audio == 'P-vehicle'){
 
     $audioArrayId = array();
 $count = 0;
@@ -301,7 +308,7 @@ $row = mysqli_fetch_array($result_set);
     //$drive_reply = $_SESSION['drive_reply'];
   //  echo $drive_reply;
   
-  echo "<h1 style='background-color:White;'>How the customer is doing today</h1>";
+  echo "<h1 style='background-color:White;'>Repeat stock number back to customer</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -312,61 +319,21 @@ $row = mysqli_fetch_array($result_set);
   ////////////////////////////////////////////////////////////////////////////////
 
 
-    if($script_audio == 'O-conversation'){
+    if($script_audio == 'P-customer'){
 
-    $audioArrayId = array();
-$count = 0;
-    $query = "SELECT * ";
-$query .= "FROM audio ";
-$query .= "WHERE audio_group    = '{$comp_group}' ";
-$query .= "AND audio_drive_type    = '{$script_audio}' ";
-$query .= "AND audio_gender  = '{$cust_gender}' ";
-
-$result_set = mysqli_query($con, $query)
-        or die('Query failed scrip: ' . mysqli_error($con));
-while($row = mysqli_fetch_array($result_set)){
-    $audioArrayId[] = $row['audio_id'];
-   $count++;
-}
-
-$count = $count -1;
-$id = rand(0,$count);
-$aId = $audioArrayId[$id];
-
-
-$query = "SELECT * ";
-$query .= "FROM audio ";
-$query .= "WHERE audio_id    = '{$aId}' ";
-//$query .= "AND audio_drive_type    = '{$script_audio}' ";
-//$query .= "AND audio_gender  = '{$gender}' ";
-
-$result_set = mysqli_query($con, $query)
-        or die('Query failed scrip: ' . mysqli_error($con));
-$row = mysqli_fetch_array($result_set);
-  $audio_location = $row['audio_location'];
-  $_SESSION['options'] = $row['audio_options'];
-  $audio_reply  = $row['audio_reply'];
-
-   
-    mysqli_query($con, "UPDATE reason SET reason_secondary = '$audio_reply'
-              WHERE reason_find  = '$find' ");
-            
-    //$drive_reply = $_SESSION['drive_reply'];
-  //  echo $drive_reply;
-  
-  echo "<h1 style='background-color:White;'>The vehicle has been treating the customer</h1>";
+  $customerName = $_SESSION['voice'];
+  echo "<h1 style='background-color:White;'>Customer's name repeat it back to them</h1>";
   echo "    <audio controls>\n";
-  echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
+  echo "  <source src=\"$customerName\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
   echo "      </audio>";
-echo "<h3><a href=Not_Keeping.php?id=90 target=\"_blank\">Not happy with vehicle</a></h3>"; //Test
-//echo "<h3><a href=Not_Keeping.php?id=70 target=\"_blank\">Not happy with vehicle</a></h3>"; // production 
+
    }
   
   ////////////////////////////////////////////////////////////////////////////////
 
 
-    if($script_audio == 'O-replacing'){
+    if($script_audio == 'O-ad'){
 
     $audioArrayId = array();
 $count = 0;
@@ -408,31 +375,18 @@ $row = mysqli_fetch_array($result_set);
     //$drive_reply = $_SESSION['drive_reply'];
   //  echo $drive_reply;
  
-  echo "<h1 style='background-color:White;'>What cusomer like most about his vehicle </h1>";
+  echo "<h1 style='background-color:White;'>The ad source </h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
   echo "      </audio>";
 
-//////////////// TEST///////////////////////////////////
 
-echo "<h3><a href=Not_Keeping.php?id=91 target=\"_blank\">Not Interested</a></h3>";
-echo "<h3><a href=Not_Keeping.php?id=92 target=\"_blank\">Not Buying Right Now</a></h3>";
-echo "<h3><a href=Not_Keeping.php?id=93 target=\"_blank\">Vehicle Is Paid Off</a></h3>";
-echo "<h3><a href=Not_Keeping.php?id=94 target=\"_blank\">Just Send Me Some Informationd</a></h3>";
-
-///////////////////////////PRODUCTION
-/*
-echo "<h3><a href=Not_Keeping.php?id=71 target=\"_blank\">Not Interested</a></h3>";
-echo "<h3><a href=Not_Keeping.php?id=72 target=\"_blank\">Not Buying Right Now</a></h3>";
-echo "<h3><a href=Not_Keeping.php?id=73 target=\"_blank\">Vehicle Is Paid Off</a></h3>";
-echo "<h3><a href=Not_Keeping.php?id=74 target=\"_blank\">Just Send Me Some Informationd</a></h3>";
-*/
    }
      ////////////////////////////////////////////////////////////////////////////////
 
 
-    if($script_audio == 'O-another'){
+    if($script_audio == 'O-city'){
 
     $audioArrayId = array();
 $count = 0;
@@ -474,7 +428,7 @@ $row = mysqli_fetch_array($result_set);
     //$drive_reply = $_SESSION['drive_reply'];
   //  echo $drive_reply;
   
-  echo "<h1 style='background-color:White;'>The vehicle has been treating the customer</h1>";
+  echo "<h1 style='background-color:White;'>City they live in</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -859,7 +813,7 @@ $row = mysqli_fetch_array($result_set);
 
    <?php
 $find = $_SESSION['find'];
-echo "<form action=\"orphan_training.php?find=$find\" method=\"post\">";
+echo "<form action=\"incoming_training.php?find=$find\" method=\"post\">";
 
 ?>
 
