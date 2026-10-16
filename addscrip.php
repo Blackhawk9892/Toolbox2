@@ -705,9 +705,9 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'P-city';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'P-used_new';
+                $place = 'P-check';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
+                /*
                  $place = 'P-interested';
                  $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
@@ -731,7 +731,7 @@ $Temp = "<td width = 6%>$script_template </td>";
 
                 $place = 'P-pulling';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
+*/
 
             break;  
         ///////////////////////////////////////////////////////////////////////////////////// 

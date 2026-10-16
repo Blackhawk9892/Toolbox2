@@ -437,7 +437,7 @@ $row = mysqli_fetch_array($result_set);
       ////////////////////////////////////////////////////////////////////////////////
 
 
-    if($script_audio == 'P-used_ne'){
+    if($script_audio == 'P-check'){
 
     $audioArrayId = array();
 $count = 0;
@@ -479,13 +479,11 @@ $row = mysqli_fetch_array($result_set);
     //$drive_reply = $_SESSION['drive_reply'];
   //  echo $drive_reply;
   
-  echo "<h1 style='background-color:White;'>The vehicle has been treating the customer</h1>";
+  echo "<h1 style='background-color:White;'>'Customer phone number'</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
   echo "      </audio>";
-echo "<h3><a href=Not_Keeping.php?id=97 target=\"_blank\">Plan to keep it</a></h3>"; //Test
-//echo "<h3><a href=Not_Keeping.php?id=77 target=\"_blank\">Plan to keep i</a></h3>"; // production 
    }
    //////////////////////////////////////////////////////////////////////////////////
 
