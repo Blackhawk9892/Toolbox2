@@ -479,7 +479,7 @@ $row = mysqli_fetch_array($result_set);
     //$drive_reply = $_SESSION['drive_reply'];
   //  echo $drive_reply;
   
-  echo "<h1 style='background-color:White;'>'Customer phone number'</h1>";
+  echo "<h1 style='background-color:White;'>Customer phone number</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -488,7 +488,7 @@ $row = mysqli_fetch_array($result_set);
    //////////////////////////////////////////////////////////////////////////////////
 
 
-    if($script_audio == 'O-current'){
+    if($script_audio == 'P-set'){
 
     $audioArrayId = array();
 $count = 0;
@@ -530,7 +530,7 @@ $row = mysqli_fetch_array($result_set);
     //$drive_reply = $_SESSION['drive_reply'];
   //  echo $drive_reply;
   
-  echo "<h1 style='background-color:White;'>considering replacing it</h1>";
+  echo "<h1 style='background-color:White;'>Best time for customer</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -540,7 +540,7 @@ $row = mysqli_fetch_array($result_set);
  //////////////////////////////////////////////////////////////////////////////////
 
 
-    if($script_audio == 'O-trade'){
+    if($script_audio == 'P-appoint'){
 
     $audioArrayId = array();
 $count = 0;
@@ -582,7 +582,7 @@ $row = mysqli_fetch_array($result_set);
     //$drive_reply = $_SESSION['drive_reply'];
   //  echo $drive_reply;
   
-  echo "<h1 style='background-color:White;'>Miles on trade-in</h1>";
+  echo "<h1 style='background-color:White;'>Customer's email</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";

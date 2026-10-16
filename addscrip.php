@@ -707,13 +707,13 @@ $Temp = "<td width = 6%>$script_template </td>";
 
                 $place = 'P-check';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-                /*
-                 $place = 'P-interested';
+                
+                 $place = 'P-set';
                  $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-                $place = 'P-like';
+                $place = 'P-appoint';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-
+/*
                  $place = 'P-comparing';
                  $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 

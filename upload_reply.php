@@ -314,13 +314,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      $place = 'P-check';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-    /*
-     $place = 'P-interested';
+    
+     $place = 'P-set';
      $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-     $place = 'P-like';
+     $place = 'P-appoint';
      $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
-    
+    /*
      $place = 'P-comparing';
      $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
