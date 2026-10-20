@@ -1,6 +1,5 @@
 <?php
 // Start the session
-// this is a test
 session_start();
 ?>
 
