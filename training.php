@@ -23,11 +23,11 @@ session_start();
 
  <?php
  
-require_once("includes/constants.php");
+//require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
-require("toolbar_sales.php");
+
 
 $type = 'sales';
 
@@ -548,7 +548,7 @@ $row = mysqli_fetch_array($result_set);
    <?php
 $find = $_SESSION['find'];
 echo "<form action=\"training.php?find=$find\" method=\"post\">";
-
+require("toolbar_sales.php");
 ?>
 
 <br />
