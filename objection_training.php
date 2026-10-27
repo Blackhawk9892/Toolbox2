@@ -204,7 +204,7 @@ $query .= "FROM objections ";
 $query .= "WHERE 	obj_corporate_number   = '{$comp_group}' ";
 $query .= "AND obj_type_script   = '{$scriptType}' ";
 $query .= "ORDER BY obj_order ";
-
+echo $query;
 
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));

@@ -177,10 +177,12 @@ $comp_group = $row['comp_group'];
 $_SESSION['comp_group'] = $comp_group;
 
 ///////////////////////////////////////////////////////////////////////////////////
+$driveType = "Vehicle Driven";
 $veh_array = array();
 $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group   = '{$comp_group}' ";
+$query .= "AND audio_drive_type   = '{$driveType}' ";
 
 
 $result_set = mysqli_query($con, $query)

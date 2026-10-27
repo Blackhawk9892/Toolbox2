@@ -17,7 +17,7 @@ Add Dealer to stock tag program
         <div>
             <?php
           
-         require_once("includes/constants.php");
+        // require_once("includes/constants.php");
          require("includes/connection.php");
          require("includes/database_rows.php");
          require("includes/functions.php");
@@ -214,7 +214,7 @@ $query = "SELECT * ";
 
                 }
             }
-            
+            require("toolbar_sales.php");
             ?>
 
 <div style="padding-left: 37px; padding-right: 37px; ">
