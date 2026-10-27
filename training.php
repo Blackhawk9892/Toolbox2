@@ -23,11 +23,11 @@ session_start();
 
  <?php
  
-require_once("includes/constants.php");
+//require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
-require("toolbar_sales.php");
+
 
 $type = 'sales';
 
@@ -106,6 +106,7 @@ if(isset($_POST['submit'])){
     }
 
 /////////////////////////////////////////////////////////////////////////////////////
+require("toolbar_sales.php");
 
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];

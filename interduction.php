@@ -18,7 +18,7 @@ session_start();
 
 <?php
 
-require_once("includes/constants.php");
+//require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
@@ -29,7 +29,7 @@ if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
  header("Location: index.php");
   exit;
 }
-require("toolbar_sales.php");
+
 
 if(isset($_GET["type"])){
   $_SESSION["type"] = $_GET["type"];
@@ -122,7 +122,7 @@ $comp_group = $_SESSION['comp_group'];
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+require("toolbar_sales.php");
 $query = "SELECT * ";
 $query .= "FROM script ";
 $query .= "WHERE script_group   = '{$dealer_group}' ";
