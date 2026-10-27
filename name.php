@@ -57,7 +57,7 @@ sectionFemail::after {
 
 <?php
 
-require_once("includes/constants.php");
+//require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");

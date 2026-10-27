@@ -21,7 +21,7 @@ session_start();
 
  <?php
  
-require_once("includes/constants.php");
+//require("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
@@ -204,7 +204,7 @@ $query .= "FROM objections ";
 $query .= "WHERE 	obj_corporate_number   = '{$comp_group}' ";
 $query .= "AND obj_type_script   = '{$scriptType}' ";
 $query .= "ORDER BY obj_order ";
-echo $query;
+
 
 $result_set = mysqli_query($con, $query)
         or die('Query failed scrip: ' . mysqli_error($con));
