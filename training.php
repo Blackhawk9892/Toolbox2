@@ -106,6 +106,7 @@ if(isset($_POST['submit'])){
     }
 
 /////////////////////////////////////////////////////////////////////////////////////
+require("toolbar_sales.php");
 
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
@@ -548,7 +549,7 @@ $row = mysqli_fetch_array($result_set);
    <?php
 $find = $_SESSION['find'];
 echo "<form action=\"training.php?find=$find\" method=\"post\">";
-require("toolbar_sales.php");
+
 ?>
 
 <br />

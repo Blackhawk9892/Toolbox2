@@ -122,7 +122,7 @@ $comp_group = $_SESSION['comp_group'];
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+require("toolbar_sales.php");
 $query = "SELECT * ";
 $query .= "FROM script ";
 $query .= "WHERE script_group   = '{$dealer_group}' ";
@@ -412,7 +412,7 @@ echo "      </audio>";
 
 
 <?php
-require("toolbar_sales.php");
+
 echo "<form action=\"interduction.php\" method=\"post\">";
 
 ?>
