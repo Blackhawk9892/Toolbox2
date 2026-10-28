@@ -21,7 +21,7 @@ $_SESSION['page'] = 'select_employee.php';
 
 
         <?php
-        require_once("includes/constants.php");
+       // require_once("includes/constants.php");
         require("includes/connection.php");
         require("includes/database_rows.php");
 
@@ -31,7 +31,7 @@ $_SESSION['page'] = 'select_employee.php';
      header("Location: index.php");
      exit;
 }
-        require("toolbar_sales.php");
+        
 
       echo "<center><h1>Employee Points</h1></center>";
 
@@ -41,7 +41,7 @@ $_SESSION['page'] = 'select_employee.php';
              header("Location: employee_points.php");
             exit;
         }
-      
+      require("toolbar_sales.php");
 
 
 
