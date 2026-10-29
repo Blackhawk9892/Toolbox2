@@ -30,7 +30,7 @@ Add Dealer to stock tag program
                 header("Location: index.php");
                exit;
           }
-            require("toolbar_sales.php");
+           
             require("includes/database_rows.php");
 
           echo "<center><h1> Employee Points</h1></center>";
@@ -41,7 +41,7 @@ Add Dealer to stock tag program
         }
 
        
-
+ require("toolbar_sales.php");
       ///////////////////////////////////////////////////////////////////////      
 
             if(isset($_COOKIE["userId"])){
