@@ -152,7 +152,7 @@ if(isset($_GET['company'])){
            }
           
             $rows[] = "\n<div id=\"$bid_satus\"><a href=points.php?employee=$emp_id><table><tr><td width = 300px>$name</td> <td width = 200px>$emp_position</td> <td width = 400px>$emp_dealer_name</td> <td width = 200px>$emp_dealer_group</td> <td width = 200px>$emp_assigned_man_name</td><td width = 200px>$emp_evaluation_date</td> <td width = 200px>$emp_evaluation_manager</td></tr></table></a> </div>";
-           
+         
            if($dg_premium_pkg == 'y'){
     
     $rows[] = "\n<div id=\"$bid_satus1\"><a href=point_sheet.php?employee=$emp_id ><table><tr><td width = 300px>$valuePoints</td></td></tr></table></a> </div>";
