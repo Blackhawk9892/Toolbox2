@@ -216,7 +216,7 @@ $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 //###################################Sales Menu ########################################################################
 //$tb_program = 'interduction.php';
 $tb_program = 'interduction.php?type=sales';
-$tb_descrip = "New customer at dealership";
+$tb_descrip = "New customer";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 /*
@@ -237,7 +237,7 @@ $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 
 $tb_program = 'orphan_interduction.php?type=orphan';
-$tb_descrip = "Cold call Orphan Customer";
+$tb_descrip = "Orphan Customer";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 /*
@@ -268,15 +268,15 @@ $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 $tb_program = 'timesheet.php';
 $tb_descrip = "Time Sheet";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
-
+/*
 $tb_program = 'time_codes.php';
 $tb_descrip = "Time Codes";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
-
+*/
 $tb_program = 'vehicle_worksheet.php';
 $tb_descrip = 'Worksheet';
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
-
+/*
 $tb_program = 'research.php';
 $tb_descrip = "Load Research";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
@@ -284,6 +284,7 @@ $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 $tb_program = 'vehicle_entry.php';
  $tb_descrip = 'Vehicle Entry';
     $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+*/
 
 $tb_program = 'stock_num.php';
  $tb_descrip = 'Find Vehicle by Stock Number';
