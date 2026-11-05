@@ -5,8 +5,8 @@ require_once __DIR__ . '/config.php';
 $con = new mysqli(
     DB_HOST,
     DB_USER,
-   // DB_PASS,
-    //DB_NAME
+    DB_PASS,
+    DB_NAME
 );
 
 if ($con->connect_error) {
