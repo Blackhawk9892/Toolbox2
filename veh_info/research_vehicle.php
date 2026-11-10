@@ -454,7 +454,7 @@ curl_setopt(
 curl_setopt(
     $ch,
     CURLOPT_TIMEOUT,
-    180
+    300
 );
 
 

@@ -31,6 +31,10 @@ session_start();
 <body>
 
 <?php
+require("includes/constants.php");
+require("includes/connection.php");
+
+
 $_SESSION['video'] = "home";
 
 require("includes/database_rows.php");
@@ -72,10 +76,100 @@ $name = $first . ' ' . $last;
             $stock = $_SESSION["stock"];
             }
 
+$query = "SELECT * ";
+$query .= "FROM vehicle ";
+$query .= "WHERE vehicle_stock_num   = '{$stock}' ";
+
+
+$result_set = mysqli_query($con, $query)
+        or die('Query failed emp: ' . mysqli_error($con));
+$row = mysqli_fetch_array($result_set);
+
+$vehicle_year = $row['vehicle_year'];
+$vehicle_make = $row['vehicle_make'];
+$vehicle_model = $row['vehicle_model'];
+$vehicle_trim = $row['vehicle_trim'];
+
+$vehicle_description = $vehicle_year . ' ' . $vehicle_make . ' ' . $vehicle_model . ' ' . $vehicle_trim ;
 
             echo " <center>  \n";
             echo "          <h1>Show Vehicle Stock Number $stock</h1>\n";
             echo "</center>\n";
+
+            echo "<h1>Vehicle Description:</h1>\n";
+            echo "<h2>$vehicle_description</h2>\n";
+
+            if(isset($row['vehicle_miles'])){
+              $vehicle_miles = $row['vehicle_miles'];
+              echo "<h3>Vehicle Miles: $vehicle_miles</h3>\n";
+            }
+
+             if(isset($row['vehicle_engine'])){
+              $vehicle_engine = $row['vehicle_engine'];
+              echo "<h3>Vehicle Engine: $vehicle_engine</h3>\n";
+            }
+
+             if(isset($row['vehicle_drive'])){
+              $vehicle_drive = $row['vehicle_drive'];
+              echo "<h3>Vehicle drivetrain: $vehicle_drive</h3>\n";
+            }
+
+             if(isset($row['vehicle_transmission'])){
+              $vehicle_transmission = $row['vehicle_transmission'];
+              echo "<h3>Vehicle Transmission: $vehicle_transmission</h3>\n";
+            }
+
+             if(isset($row['vehicle_color'])){
+              $vehicle_color = $row['vehicle_color'];
+              echo "<h3>Vehicle Color: $vehicle_color</h3>\n";
+            }
+
+           
+
+             if(isset($row['vehicle_interior'])){
+              $vehicle_interior = $row['vehicle_interior'];
+              echo "<h3>Interior: $vehicle_interior</h3>\n";
+            }
+echo "<h2> Vehicle Options:</h2>\n";
+            for ($x = 1; $x <= 16; $x++) {
+              $vOption = "vehicle_option" . $x ;
+                      
+              if(empty($row[$vOption])){
+                continue;
+              }else{
+                $vehicle_option = $row[$vOption];
+                echo "<h3> $vehicle_option</h3>\n";
+              }
+
+}
+
+       $query = "SELECT * ";
+$query .= "FROM specifications ";
+$query .= "WHERE spec_year   = '{$vehicle_year}' ";
+$query .= "AND spec_make   = '{$vehicle_make}' ";
+$query .= "AND spec_model   = '{$vehicle_model}' ";
+$query .= "AND spec_trim   = '{$vehicle_trim}' ";
+
+
+$result_set = mysqli_query($con, $query)
+        or die('Query failed emp: ' . mysqli_error($con));
+$row = mysqli_fetch_array($result_set);
+if(isset($row)){
+$spec_awards = $row['spec_awards'];
+$spec_specif = $row['spec_specif'];
+echo "<h3> $spec_awards</h3>\n";
+echo "<h3> $spec_specif</h3>\n";
+}else{
+ $url = "veh_info/vehicle_research.php?" .
+                          "year="  . urlencode($vehicle_year) .
+                          "&make=" . urlencode($vehicle_make) .
+                          "&model=" . urlencode($vehicle_model) .
+                          "&trim=" . urlencode($vehicle_trim);
+
+                       echo'<a href="' . $url . '" target="_blank"><h2>Research Vehicle</h2></a>';
+
+}
+
   ?>
 
 

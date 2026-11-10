@@ -273,9 +273,10 @@ $tb_program = 'time_codes.php';
 $tb_descrip = "Time Codes";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 */
+$toolbar = 'yes';
 $tb_program = 'vehicle_worksheet.php';
 $tb_descrip = 'Worksheet';
-$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+$sales_array[] = "<li><a href=$tb_program?toolbar=$toolbar>$tb_descrip</a></li>\n";
 /*
 $tb_program = 'research.php';
 $tb_descrip = "Load Research";

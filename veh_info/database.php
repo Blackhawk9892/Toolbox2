@@ -1,19 +1,37 @@
+
 <?php
- 
+
 require_once __DIR__ . '/config.php';
 
-$con = new mysqli(
+mysqli_report(MYSQLI_REPORT_OFF);
+
+$conn = new mysqli(
     DB_HOST,
-    DB_USER,
-    DB_PASS,
-    DB_NAME
+    DB_USER
+    //DB_PASS,
+   // DB_NAME,
+   // DB_PORT
 );
 
-if ($con->connect_error) {
-    die(
-        'Database connection failed: ' .
-        $con->connect_error
+header('Content-Type: application/json; charset=utf-8');
+
+if ($conn->connect_errno) {
+
+    error_log(
+        'MySQL connection failed: ' .
+        $conn->connect_error
     );
+
+    http_response_code(500);
+
+    echo json_encode([
+        'success' => false,
+        'message' => 'Database connection failed. Check database credentials.'
+    ]);
+
+    exit;
 }
 
-$con->set_charset('utf8mb4');
+if (!$conn->set_charset('utf8mb4')) {
+    error_log('Failed to set MySQL character set.');
+}

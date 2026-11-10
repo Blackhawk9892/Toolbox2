@@ -292,33 +292,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    @page { size: letter portrait; margin: 0.35in; }
     @media print {
-        body {
-            background: white;
-            padding: 0;
-        }
-
-        .sheet {
-            box-shadow: none;
-            max-width: none;
-        }
-
-        .actions,
-        .note,
-        .message {
-            display: none;
-        }
-
-        .settings {
-            border: 0;
-            padding: 0;
-            background: transparent;
-        }
-
-        input {
-            color: #000;
-        }
+        html, body { width: 100%; margin: 0 !important; padding: 0 !important; background: white !important; }
+        body > * { display: none !important; }
+        body > #worksheetForm { display: block !important; }
+        #worksheetForm > * { display: none !important; }
+        #worksheetForm > .sheet { display: block !important; }
+        .sheet { width: 100% !important; max-width: none !important; min-width: 0 !important; border: 1px solid #222 !important; box-shadow: none !important; margin: 0 !important; }
+        .top-grid, .bottom-grid { display: grid !important; grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important; }
+        .box { min-width: 0 !important; min-height: 0 !important; height: 4.7in !important; padding: 10px 12px !important; border-right: 1px solid #222 !important; border-bottom: 1px solid #222 !important; overflow: hidden; break-inside: avoid; }
+        .bottom-grid .box { height: 4.7in !important; border-bottom: 0 !important; }
+        .top-grid .box:nth-child(2), .bottom-grid .box:nth-child(2) { border-right: 0 !important; }
+        .box-title { font-size: 16px !important; margin: -10px -12px 12px !important; padding: 7px 0 !important; }
+        .price-row { grid-template-columns: 1.4fr 1fr !important; gap: 5px !important; margin: 16px 0 !important; }
+        .price-row label { font-size: 11px !important; }
+        .money-wrap::before { font-size: 12px !important; left: 3px !important; }
+        .money-input, .text-input, .small-input { font-size: 12px !important; padding: 5px !important; border-bottom-width: 1px !important; }
+        .money-input { padding-left: 13px !important; }
+        .includes-line { margin: 14px 0 !important; }
+        .settings { display: none !important; }
+        .payment-table { width: 100% !important; }
+        .payment-table th, .payment-table td { padding: 7px 1px !important; overflow-wrap: anywhere; }
+        .payment-table th { font-size: 9px !important; }
+        .payment-table small { font-size: 8px !important; }
+        .investment-input { width: 52px !important; font-size: 10px !important; padding: 2px 0 !important; }
+        .lease-residual { width: 30px !important; font-size: 9px !important; }
+        .payment { font-size: 12px !important; }
+        .rebate-label, .rebate-value { font-size: 9px !important; }
+        input { color: black !important; background: transparent !important; box-shadow: none !important; }
+        input::placeholder { color: transparent !important; }
+        .sheet, .top-grid, .bottom-grid { break-inside: avoid !important; page-break-inside: avoid !important; }
     }
+
 </style>
 </head>
 
@@ -330,6 +336,12 @@ require("toolbar_sales.php");
             $_SESSION['find'] = $_GET['find'];
           
           }
+
+    if(isset($_GET['toolbar'])){
+            $_SESSION['toolbar'] = $_GET['toolbar'];
+          
+          }
+    
       if(isset($_SESSION['find'])){    
           $find = $_SESSION['find'];
       }
@@ -566,7 +578,7 @@ require("toolbar_sales.php");
 <div class="actions">
     <button type="button" id="calculateBtn">Calculate Payments</button>
     <button type="button" id="calculateTotalBtn">Calculate Price Total</button>
-    <button type="button" onclick="window.print()">Print Worksheet</button>
+    <button type="button" onclick="printWorksheet()">Print Worksheet</button>
     <button type="submit">Save / Submit</button>
 </div>
 </form>
@@ -579,6 +591,11 @@ require("toolbar_sales.php");
 </div>
 
 <script>
+function printWorksheet() {
+    calculateAllPayments();
+    window.print();
+}
+
 function numberValue(id) {
     const value = parseFloat(document.getElementById(id).value);
     return Number.isFinite(value) ? value : 0;
@@ -727,13 +744,18 @@ window.addEventListener('DOMContentLoaded', calculateAllPayments);
 
   <?php
 
+if(empty($_SESSION['toolbar'])){
+
 echo "<form action=objection_training.php?find=$find method=post>";
+echo "<h1><input   type=\"submit\" name=\"objection\" value=\"Objection\"/></h1>";
+}
+
 
 ?>
 
 
 
-<h1><input   type="submit" name="objection" value="Objection"/></h1>
+
   <script>
     let mediaRecorder;
     let audioChunks = [];
