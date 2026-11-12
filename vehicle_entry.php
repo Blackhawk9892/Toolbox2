@@ -322,7 +322,7 @@ Add Dealer to stock tag program
                                 <input type="number" name="miles" size="11" value="<?php if (isset($_POST['miles'])) echo $_POST['miles'] ?>"	/>
 
                          <tr><td>Engine:</td><td>
-                                <input type="text" name="enginer" size="30" value="<?php if (isset($_POST['enginer'])) echo $_POST['enginer'] ?>"	/>
+                                <input type="text" name="engine" size="30" value="<?php if (isset($_POST['engine'])) echo $_POST['engine'] ?>"	/>
 
                         <tr><td>Drive Type:</td><td>
                                 <input type="text" name="drive" size="30" value="<?php if (isset($_POST['drive'])) echo $_POST['drive'] ?>"	/>
