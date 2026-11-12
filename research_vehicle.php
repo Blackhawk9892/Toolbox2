@@ -1,510 +1,400 @@
+
 <?php
+/*
+|--------------------------------------------------------------------------
+| research_vehicle.php
+|--------------------------------------------------------------------------
+| PHP 7.3 / 8.2 / 8.3
+|
+| Research:
+| 1. Awards and safety ratings
+| 2. Vehicle specifications
+| 3. Five competitors and advantages
+|
+| Save results to MySQL table: specifications
+|--------------------------------------------------------------------------
+*/
 
-header("Content-Type: application/json");
+header('Content-Type: application/json; charset=utf-8');
 
-require_once("includes/constants.php");
-require_once("openai.php");
-require("includes/connection.php");
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
 
+require_once __DIR__ . '/includes/constants.php';
+require_once __DIR__ . '/includes/connection.php';
 
+function respond($success, $message, $extra = array())
+{
+    echo json_encode(
+        array_merge(
+            array(
+                'success' => $success,
+                'message' => $message
+            ),
+            $extra
+        ),
+        JSON_INVALID_UTF8_SUBSTITUTE
+    );
+    exit;
+}
 
+/*
+|--------------------------------------------------------------------------
+| DATABASE CONNECTION
+|--------------------------------------------------------------------------
+| Assumes connection.php creates $con (mysqli).
+*/
 
- 
+if (!isset($con) || !($con instanceof mysqli)) {
+    respond(false, 'Database connection $con not found.');
+}
 
-try {
+if ($con->connect_error) {
+    respond(false, 'Database connection failed.');
+}
 
-    //------------------------------------------------
-    // GET VEHICLE FROM FORM
-    //------------------------------------------------
+$con->set_charset('utf8mb4');
 
-  
+/*
+|--------------------------------------------------------------------------
+| OPENAI API KEY
+|--------------------------------------------------------------------------
+*/
 
-    $year = (int)($_POST["year"] ?? 0);
-    $make = trim($_POST["make"] ?? "");
-    $model = trim($_POST["model"] ?? "");
-    $trim = trim($_POST["trim"] ?? "");
+if (!defined('OPENAI_API_KEY') ||
+    trim(OPENAI_API_KEY) === '') {
+    respond(false, 'OPENAI_API_KEY is not defined.');
+}
 
-    if (
-        !$year ||
-        $make === "" ||
-        $model === "" ||
-        $trim === ""
-    ) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    respond(false, 'POST request required.');
+}
 
-        throw new Exception(
-            "Year, make, model and trim are required."
-        );
-    }
+/*
+|--------------------------------------------------------------------------
+| VEHICLE INPUT
+|--------------------------------------------------------------------------
+*/
 
+$year  = trim((string)($_POST['year'] ?? ''));
+$make  = trim((string)($_POST['make'] ?? ''));
+$model = trim((string)($_POST['model'] ?? ''));
+$trim  = trim((string)($_POST['trim'] ?? ''));
 
-    //------------------------------------------------
-    // VEHICLE DESCRIPTION
-    //------------------------------------------------
+if (
+    !preg_match('/^(19|20)\d{2}$/', $year) ||
+    $make === '' ||
+    $model === '' ||
+    $trim === ''
+) {
+    respond(false, 'Valid Year, Make, Model and Trim are required.');
+}
 
-    $vehicle =
-        $year . " " .
-        $make . " " .
-        $model . " " .
-        $trim;
+$vehicle = "$year $make $model $trim";
 
+/*
+|--------------------------------------------------------------------------
+| RESEARCH INSTRUCTIONS
+|--------------------------------------------------------------------------
+*/
 
-    //------------------------------------------------
-    // FIRST CHATGPT REQUEST
-    // SPECIFICATIONS / AWARDS / SAFETY
-    //------------------------------------------------
+$instructions = <<<'PROMPT'
+You are an expert automotive research analyst.
 
-    $prompt = <<<PROMPT
+Research the exact vehicle provided by the user.
 
-Research the following vehicle:
+Return accurate, useful automotive information.
 
-$vehicle
+Use United States vehicle specifications.
 
-Use web research and reliable sources.
+Do not invent awards, safety ratings, specifications,
+or competitor advantages.
 
-I need a detailed vehicle research report.
+If a fact cannot be confirmed, identify it as unverified.
 
-Research:
+If specifications vary by configuration, explain that.
 
-1. Complete vehicle specifications
-2. Engine specifications
-3. Horsepower
-4. Torque
-5. Transmission
-6. Drivetrain
-7. Fuel economy
-8. Fuel tank
-9. Dimensions
-10. Wheelbase
-11. Ground clearance
-12. Curb weight
-13. GVWR when applicable
-14. Payload when applicable
-15. Towing capacity when applicable
-16. Passenger capacity
-17. Cargo capacity
-18. Wheels and tires
-19. Brakes
-20. Suspension
-21. Steering
-22. Exterior equipment
-23. Interior equipment
-24. Infotainment
-25. Connectivity
-26. Comfort and convenience
-27. Driver assistance features
-28. Standard safety equipment
-29. Warranty information
+AWARDS AND SAFETY:
+Include NHTSA crash ratings, IIHS awards, J.D. Power
+awards, and other recognized third-party awards when
+they apply to the exact model year.
 
-Also research ALL identifiable:
+Clearly distinguish actual awards from general ratings.
+Never claim an award that has not been confirmed.
 
-- awards
-- safety ratings
-- third-party recognition
+SPECIFICATIONS:
+Include:
+- Engine and displacement
+- Horsepower
+- Torque
+- Transmission
+- Drivetrain
+- Fuel economy
+- Fuel tank
+- Seating
+- Dimensions
+- Wheelbase
+- Cargo capacity
+- Towing capacity
+- Payload
+- Suspension
+- Brakes
+- Safety features
+- Technology
+- Warranty
+- Other important specifications
 
-Look for information from organizations such as:
+COMPETITION:
+Select exactly five relevant direct competitors
+when five genuine competitors exist.
 
-- NHTSA
-- IIHS
-- J.D. Power
-- Kelley Blue Book
-- Consumer Reports
-- MotorTrend
-- Car and Driver
-- Edmunds
-- recognized automotive publications
+For each competitor include:
+- Year, make, model and comparable trim
+- Important specifications
+- Advantages of the selected vehicle
+- Advantages of the competitor
 
-IMPORTANT:
+Be objective and explain meaningful differences.
+Do not invent numerical comparisons.
 
-Only report awards and ratings that you can
-reasonably verify.
-
-Do not invent awards.
-
-Clearly distinguish between a rating for this
-exact trim and a rating that applies to the
-model or vehicle family.
-
-Return ONLY valid JSON.
-
-Do not include Markdown.
-
-Use this exact structure:
+Return only valid JSON using this structure:
 
 {
-    "awards": [
-        {
-            "organization": "",
-            "award": "",
-            "details": ""
-        }
-    ],
+  "awards": {
+    "safety_ratings": [],
+    "awards": [],
+    "notes": []
+  },
+  "specifications": {
+    "engine": "",
+    "horsepower": "",
+    "torque": "",
+    "transmission": "",
+    "drivetrain": "",
+    "fuel_economy": "",
+    "fuel_tank": "",
+    "seating": "",
+    "dimensions": "",
+    "wheelbase": "",
+    "cargo_capacity": "",
+    "towing_capacity": "",
+    "payload": "",
+    "suspension": "",
+    "brakes": "",
+    "safety_features": [],
+    "technology": [],
+    "warranty": "",
+    "additional": []
+  },
+  "competition": [
+    {
+      "vehicle": "",
+      "specifications": [],
+      "selected_vehicle_advantages": [],
+      "competitor_advantages": []
+    }
+  ]
+}
+PROMPT;
 
-    "safety_ratings": [
-        {
-            "organization": "",
-            "rating": "",
-            "details": ""
-        }
-    ],
+/*
+|--------------------------------------------------------------------------
+| OPENAI REQUEST
+|--------------------------------------------------------------------------
+*/
 
-    "specifications": {
-        "engine": "",
-        "horsepower": "",
-        "torque": "",
-        "transmission": "",
-        "drivetrain": "",
-        "fuel_economy": "",
-        "fuel_tank": "",
-        "dimensions": "",
-        "wheelbase": "",
-        "ground_clearance": "",
-        "curb_weight": "",
-        "gvwr": "",
-        "payload": "",
-        "towing": "",
-        "passenger_capacity": "",
-        "cargo_capacity": "",
-        "wheels_tires": "",
-        "brakes": "",
-        "suspension": "",
-        "steering": "",
-        "exterior": "",
-        "interior": "",
-        "infotainment": "",
-        "connectivity": "",
-        "comfort_convenience": "",
-        "driver_assistance": "",
-        "safety_equipment": "",
-        "warranty": "",
-        "additional_specifications": ""
+$payload = array(
+    'model' => 'gpt-4.1-mini',
+    'temperature' => 0.2,
+    'response_format' => array(
+        'type' => 'json_object'
+    ),
+    'messages' => array(
+        array(
+            'role' => 'system',
+            'content' => $instructions
+        ),
+        array(
+            'role' => 'user',
+            'content' => 'Research this vehicle: ' . $vehicle
+        )
+    )
+);
+
+$ch = curl_init('https://api.openai.com/v1/chat/completions');
+
+curl_setopt_array($ch, array(
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_POST => true,
+    CURLOPT_HTTPHEADER => array(
+        'Authorization: Bearer ' . OPENAI_API_KEY,
+        'Content-Type: application/json'
+    ),
+    CURLOPT_POSTFIELDS => json_encode($payload),
+    CURLOPT_CONNECTTIMEOUT => 20,
+    CURLOPT_TIMEOUT => 180
+));
+
+$response = curl_exec($ch);
+$curlError = curl_error($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+curl_close($ch);
+
+if ($response === false) {
+    respond(false, 'OpenAI connection error: ' . $curlError);
+}
+
+$apiResult = json_decode($response, true);
+
+if ($httpCode !== 200) {
+    $apiMessage = $apiResult['error']['message']
+        ?? 'Unknown API error';
+
+    respond(false, 'OpenAI API error: ' . $apiMessage);
+}
+
+$content = $apiResult['choices'][0]['message']['content'] ?? '';
+
+$research = json_decode($content, true);
+
+if (!is_array($research)) {
+    respond(false, 'OpenAI returned invalid research JSON.');
+}
+
+/*
+|--------------------------------------------------------------------------
+| VALIDATE RESEARCH
+|--------------------------------------------------------------------------
+*/
+
+if (
+    !isset($research['awards']) ||
+    !isset($research['specifications']) ||
+    !isset($research['competition']) ||
+    !is_array($research['awards']) ||
+    !is_array($research['specifications']) ||
+    !is_array($research['competition'])
+) {
+    respond(false, 'Research response is missing required sections.');
+}
+
+if (count($research['competition']) !== 5) {
+    respond(false, 'Research did not return exactly five competitors.');
+}
+
+foreach ($research['competition'] as $competitor) {
+    if (
+        !is_array($competitor) ||
+        empty($competitor['vehicle']) ||
+        !isset($competitor['specifications']) ||
+        !isset($competitor['selected_vehicle_advantages']) ||
+        !isset($competitor['competitor_advantages']) ||
+        !is_array($competitor['specifications']) ||
+        !is_array($competitor['selected_vehicle_advantages']) ||
+        !is_array($competitor['competitor_advantages'])
+    ) {
+        respond(false, 'Incomplete competitor information returned.');
     }
 }
 
-PROMPT;
+/*
+|--------------------------------------------------------------------------
+| PREPARE DATABASE VALUES
+|--------------------------------------------------------------------------
+*/
 
+$jsonFlags = JSON_UNESCAPED_UNICODE |
+             JSON_UNESCAPED_SLASHES |
+             JSON_INVALID_UTF8_SUBSTITUTE;
 
-    $researchResponse =
-        askOpenAI($prompt);
+$awards = json_encode($research['awards'], $jsonFlags);
 
+$specifications = json_encode(
+    $research['specifications'],
+    $jsonFlags
+);
 
-    //------------------------------------------------
-    // REMOVE POSSIBLE MARKDOWN CODE BLOCK
-    //------------------------------------------------
+$competition = json_encode(
+    $research['competition'],
+    $jsonFlags
+);
 
-    $researchResponse =
-        str_replace(
-            ["```json", "```"],
-            "",
-            $researchResponse
-        );
+if (
+    $awards === false ||
+    $specifications === false ||
+    $competition === false
+) {
+    respond(false, 'Unable to encode research data.');
+}
 
+/*
+|--------------------------------------------------------------------------
+| SAVE TO MYSQL
+|--------------------------------------------------------------------------
+*/
 
-    //------------------------------------------------
-    // CONVERT JSON
-    //------------------------------------------------
-
-    $research =
-        json_decode(
-            trim($researchResponse),
-            true
-        );
-
-    if (!is_array($research)) {
-
-        throw new Exception(
-            "Could not decode vehicle research."
-        );
-    }
-
-
-    //------------------------------------------------
-    // CREATE AWARDS FIELD
-    //------------------------------------------------
-
-    $awardData = [
-
-        "awards" =>
-            $research["awards"] ?? [],
-
-        "safety_ratings" =>
-            $research["safety_ratings"] ?? []
-    ];
-
-    $spec_awards =
-        json_encode(
-            $awardData,
-            JSON_PRETTY_PRINT |
-            JSON_UNESCAPED_SLASHES
-        );
-
-
-    //------------------------------------------------
-    // CREATE SPECIFICATION FIELD
-    //------------------------------------------------
-
-    $spec_specif =
-        json_encode(
-            $research["specifications"] ?? [],
-            JSON_PRETTY_PRINT |
-            JSON_UNESCAPED_SLASHES
-        );
-
-
-    //------------------------------------------------
-    // INSERT / UPDATE SPECIFICATIONS
-    //------------------------------------------------
-
-    $sql = "
-        INSERT INTO specifications
+$sql = "INSERT INTO specifications
         (
             spec_year,
             spec_make,
             spec_model,
             spec_trim,
             spec_awards,
-            spec_specif
+            spec_specif,
+            spec_competition
         )
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        VALUES (?, ?, ?, ?, ?, ?)
-
-        ON DUPLICATE KEY UPDATE
-
-            spec_awards =
-                VALUES(spec_awards),
-
-            spec_specif =
-                VALUES(spec_specif),
-
-            spec_created =
-                CURRENT_TIMESTAMP
-    ";
-
+try {
 
     $stmt = $con->prepare($sql);
 
+    if (!$stmt) {
+        throw new Exception($con->error);
+    }
+
     $stmt->bind_param(
-        "isssss",
+        'sssssss',
         $year,
         $make,
         $model,
         $trim,
-        $spec_awards,
-        $spec_specif
+        $awards,
+        $specifications,
+        $competition
     );
 
-    $stmt->execute();
+    if (!$stmt->execute()) {
+        throw new Exception($stmt->error);
+    }
+
+    $recordId = $con->insert_id;
+
     $stmt->close();
 
+} catch (Throwable $e) {
 
-    //------------------------------------------------
-    // SECOND CHATGPT REQUEST
-    // OPTION CODES
-    //------------------------------------------------
+    error_log('Vehicle research database error: ' . $e->getMessage());
 
-    $optionPrompt = <<<PROMPT
-
-Research factory option codes for:
-
-$vehicle
-
-I need the factory option codes and descriptions
-that were available for this exact model year,
-make, model and trim.
-
-Research sources such as:
-
-- manufacturer ordering guides
-- manufacturer brochures
-- manufacturer price lists
-- fleet ordering guides
-- dealer ordering information
-- other reliable automotive sources
-
-IMPORTANT:
-
-Do NOT invent an option code.
-
-If an option is known but the factory order code
-cannot be verified, leave the code blank.
-
-Do not confuse:
-
-- standard equipment
-- option packages
-- standalone options
-- accessories
-
-with each other.
-
-Return ONLY valid JSON.
-
-Do not include Markdown.
-
-Use exactly:
-
-{
-    "options": [
-        {
-            "code": "",
-            "description": ""
-        }
-    ]
+    respond(false, 'Unable to save vehicle research to the database.');
 }
 
-PROMPT;
+/*
+|--------------------------------------------------------------------------
+| RETURN RESULTS
+|--------------------------------------------------------------------------
+*/
 
-
-    $optionResponse =
-        askOpenAI($optionPrompt);
-
-
-    //------------------------------------------------
-    // CLEAN RESPONSE
-    //------------------------------------------------
-
-    $optionResponse =
-        str_replace(
-            ["```json", "```"],
-            "",
-            $optionResponse
-        );
-
-
-    //------------------------------------------------
-    // DECODE OPTIONS
-    //------------------------------------------------
-
-    $optionData =
-        json_decode(
-            trim($optionResponse),
-            true
-        );
-
-    if (!is_array($optionData)) {
-
-        throw new Exception(
-            "Could not decode vehicle options."
-        );
-    }
-
-
-    //------------------------------------------------
-    // DELETE OLD OPTIONS
-    //------------------------------------------------
-
-    $delete =
-        $con->prepare(
-            "DELETE FROM options
-             WHERE opt_year = ?
-             AND opt_make = ?
-             AND opt_model = ?
-             AND opt_trim = ?"
-        );
-
-    $delete->bind_param(
-        "isss",
-        $year,
-        $make,
-        $model,
-        $trim
-    );
-
-    $delete->execute();
-    $delete->close();
-
-
-    //------------------------------------------------
-    // PREPARE OPTION INSERT
-    //------------------------------------------------
-
-    $insert =
-        $con->prepare(
-            "INSERT INTO options
-            (
-                opt_year,
-                opt_make,
-                opt_model,
-                opt_trim,
-                opt_code,
-                opt_option
-            )
-
-            VALUES (?, ?, ?, ?, ?, ?)"
-        );
-
-
-    //------------------------------------------------
-    // INSERT EACH OPTION
-    //------------------------------------------------
-
-    $optionCount = 0;
-
-    foreach (
-        $optionData["options"] ?? []
-        as $option
-    ) {
-
-        $code =
-            trim(
-                $option["code"] ?? ""
-            );
-
-        $description =
-            trim(
-                $option["description"] ?? ""
-            );
-
-        if ($description === "") {
-            continue;
-        }
-
-        $insert->bind_param(
-            "isssss",
-            $year,
-            $make,
-            $model,
-            $trim,
-            $code,
-            $description
-        );
-
-        $insert->execute();
-
-        $optionCount++;
-    }
-
-    $insert->close();
-
-
-    //------------------------------------------------
-    // SUCCESS
-    //------------------------------------------------
-
-    echo json_encode([
-
-        "success" => true,
-
-        "message" =>
-            "$vehicle researched successfully. " .
-            "$optionCount options were loaded.",
-
-        "vehicle" => $vehicle,
-
-        "options_loaded" =>
-            $optionCount
-    ]);
-
-}
-catch (Throwable $e) {
-
-    echo json_encode([
-
-        "success" => false,
-
-        "message" =>
-            $e->getMessage()
-
-    ]);
-}
-
-?>
+respond(
+    true,
+    'Vehicle research completed and saved.',
+    array(
+        'vehicle' => $vehicle,
+        'record_id' => $recordId,
+        'specifications_saved' => 1,
+        'awards_saved' => 1,
+        'competitors_saved' => count($research['competition']),
+        'research' => $research
+    )
+);

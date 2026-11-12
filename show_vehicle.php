@@ -155,12 +155,138 @@ $result_set = mysqli_query($con, $query)
         or die('Query failed emp: ' . mysqli_error($con));
 $row = mysqli_fetch_array($result_set);
 if(isset($row)){
-$spec_awards = $row['spec_awards'];
-$spec_specif = $row['spec_specif'];
-echo "<h3> $spec_awards</h3>\n";
-echo "<h3> $spec_specif</h3>\n";
+ 
+////////////////////////////////////////Awards Section
+   $json = $row['spec_awards'] ?? '';
+
+echo '<form action="awards.php"
+            method="POST"
+            target="_blank">';
+
+echo '<input type="hidden"
+             name="awards_json"
+             value="' .
+             htmlspecialchars(
+                 $json,
+                 ENT_QUOTES,
+                 'UTF-8'
+             ) .
+             '">';
+
+echo '<button type="submit">
+        View Awards and Safety Ratings
+      </button>';
+
+echo '</form>';
+/////////////////////////////////////////Specifications Section
+$vehicle_name = trim(
+    $vehicle_year . ' ' .
+    $vehicle_make . ' ' .
+    $vehicle_model . ' ' .
+    $vehicle_trim
+);
+
+// Get specifications from database
+$json = $row['spec_specif'] ?? '';
+
+// Only display button if specifications exist
+if (!empty($json)) {
+
+    // Start form
+    echo '<form action="specifications.php"
+                method="POST"
+                target="_blank">';
+
+    // Send vehicle name
+    echo '<input type="hidden"
+                 name="vehicle_name"
+                 value="' .
+                 htmlspecialchars(
+                     $vehicle_name,
+                     ENT_QUOTES,
+                     'UTF-8'
+                 ) .
+                 '">';
+
+    // Send specifications JSON
+    echo '<input type="hidden"
+                 name="specifications_json"
+                 value="' .
+                 htmlspecialchars(
+                     $json,
+                     ENT_QUOTES,
+                     'UTF-8'
+                 ) .
+                 '">';
+
+    // Display button
+    echo '<button type="submit">
+            View Vehicle Specifications
+          </button>';
+
+    // End form
+    echo '</form>';
+}
+/////////////////////////////////////////////////
+
+/////////////////////////////////////////////////
+// TOP 5 COMPETITION SECTION
+/////////////////////////////////////////////////
+
+// Build selected vehicle name
+$vehicle_name = trim(
+    $vehicle_year . ' ' .
+    $vehicle_make . ' ' .
+    $vehicle_model . ' ' .
+    $vehicle_trim
+);
+
+// Get competition information from database
+$json = $row['spec_competition'] ?? '';
+
+// Display button if competition information exists
+if (!empty($json)) {
+
+    echo '<form action="top_5_copetition.php"
+                method="POST"
+                target="_blank">';
+
+    // Send selected vehicle name
+    echo '<input type="hidden"
+                 name="vehicle_name"
+                 value="' .
+                 htmlspecialchars(
+                     $vehicle_name,
+                     ENT_QUOTES,
+                     'UTF-8'
+                 ) .
+                 '">';
+
+    // Send competition JSON
+    echo '<input type="hidden"
+                 name="competition_json"
+                 value="' .
+                 htmlspecialchars(
+                     $json,
+                     ENT_QUOTES,
+                     'UTF-8'
+                 ) .
+                 '">';
+
+    // Display button
+    echo '<button type="submit">
+            View Top 5 Competitors
+          </button>';
+
+    echo '</form>';
+}
+
+/////////////////////////////////////////////////
+// END TOP 5 COMPETITION SECTION
+/////////////////////////////////////////////////
+
 }else{
- $url = "veh_info/vehicle_research.php?" .
+ $url = "vehicle_research.php?" .
                           "year="  . urlencode($vehicle_year) .
                           "&make=" . urlencode($vehicle_make) .
                           "&model=" . urlencode($vehicle_model) .
