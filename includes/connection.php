@@ -5,7 +5,8 @@
 
 	date_default_timezone_set('America/Chicago');
  $password = '';
- $database = 'tools';
+ $database = 'toolbox';
+ echo $database;
 	 $con = mysqli_connect(DB_SERVER_HOST,DB_USER,$password,$database);
         // $con = mysqli_connect('localhost','root,);
 if (!$con)
