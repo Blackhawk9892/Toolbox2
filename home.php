@@ -34,6 +34,14 @@ session_start();
 $_SESSION['video'] = "home";
 
 require("includes/database_rows.php");
+
+if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
+  $_SESSION['message'] = "Not a valid employee";
+
+ header("Location: index.php");
+  exit;
+}
+
 require("toolbar_sales.php");
 
 if(isset($_SESSION['message'])){
@@ -41,6 +49,9 @@ if(isset($_SESSION['message'])){
   echo "<h2>$message</h2>";
   unset($_SESSION['message']);
 }
+
+
+
 
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
@@ -52,10 +63,6 @@ $position = $emp_arry[2];
 $emp_id = $emp_arry[3];
 $dealer_id = $emp_arry[4];
 $name = $first . ' ' . $last;
-}else{
-  header("Location: index.php");
-  exit;
-  $_SESSION['message'] = "Invalid user";
 }
 
   ?>

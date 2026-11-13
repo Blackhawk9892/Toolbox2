@@ -12,7 +12,7 @@ session_start();
         <link rel="stylesheet" type="text/css" href="stylesheets/main.css" /> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <title>Vehicle Test</title>
+        
         <style>
 .grid-container {
   display: grid;
@@ -39,7 +39,7 @@ session_start();
     require_once("includes/connection.php");
     require("includes/database_rows.php");
     require("includes/pull_downs.php");
-    require_once("toolbar_sales.php");
+    //require_once("toolbar_sales.php");
     require("includes/security.php");
     require("includes/datafile.php");
     require("includes/functions.php");
@@ -90,7 +90,7 @@ if(isset($_COOKIE["userId"])){
       
       }
       $find = $_SESSION['find'];
-      
+    
       if(isset($_POST['info'])){
         $veh_array = array();
 
@@ -142,26 +142,27 @@ if(isset($_COOKIE["userId"])){
             }else{
               $veh_array[] = $colorA;
             }
-         
+           
 $equip = '';
         $query = "SELECT * ";
         $query .= "FROM code_equip ";
-        $query .= "WHERE equip_group_num  = '{$dealer_group}' ";
+       // $query .= "WHERE equip_group_num  = '{$dealer_group}' ";
         $query .= "ORDER BY equip_list  ASC ";
-    
+  
         $result_set = mysqli_query($con, $query)
                 or die('Query failed98: ' . mysqli_error($con));
     
         while ($row = mysqli_fetch_array($result_set)) {
+  
             $equip_index = $row['equip_index'];
-         
+        
             if(isset($_POST[$equip_index])){
             
                 $equip .= $_POST[$equip_index] ;
                 $equip .= ", ";
             }
         }
-       
+      
         if(empty($equip)){
             $veh_array[] = 'none';
          }else{
@@ -360,7 +361,7 @@ $count3 = 0;
           $equip = '';
           $query = "SELECT * ";
           $query .= "FROM code_equip ";
-          $query .= "WHERE equip_group_num  = '{$dealer_group}' ";
+         // $query .= "WHERE equip_group_num  = '{$dealer_group}' ";
           $query .= "ORDER BY equip_list  ASC ";
       
           $result_set = mysqli_query($con, $query)
@@ -615,8 +616,9 @@ if($find == "setup"){
   $_POST['miles'] = 0;
  }
 
- 
+ require_once("toolbar_sales.php");
 
+echo "<center><h1>Vehicle Test </h1></center>";
     ?>
 
 
@@ -675,6 +677,9 @@ if($find == "setup"){
             <input type="checkbox" id="Brown" name="Brown" value="Brown">
             <label for="Brown">Brown</label>
 
+             <input type="checkbox" id="Gold" name="Gold" value="Gold">
+            <label for="Gold">Gold</label>
+
             <input type="checkbox" id="Gray" name="Gray" value="Gray">
             <label for="Gray">Gray</label>
 
@@ -685,7 +690,7 @@ if($find == "setup"){
             <label for="Indigo">Indigo</label>
 
             <input type="checkbox" id="Orenge" name="Orenge" value="Orenge">
-            <label for="Orenge">Orenge</label>
+            <label for="Orenge">Orange</label>
 
             <input type="checkbox" id="Pink" name="Pink" value="Pink">
             <label for="Pink">Pink</label>
@@ -695,6 +700,9 @@ if($find == "setup"){
 
             <input type="checkbox" id="Red" name="Red" value="Red">
             <label for="Red">Red</label>
+
+            <input type="checkbox" id="Silver" name="Silver" value="Silver">
+            <label for="Silver">Silver</label>
 
             <input type="checkbox" id="White" name="White" value="White">
             <label for="White">White</label>
@@ -716,6 +724,9 @@ if($find == "setup"){
 <input type="checkbox" id="BrownA" name="BrownA" value="Brown">
 <label for="BrownA">Brown</label>
 
+ <input type="checkbox" id="GoldA" name="GoldA" value="Gold">
+            <label for="GoldA">Gold</label>
+
 <input type="checkbox" id="GrayA" name="GrayA" value="Gray">
 <label for="GrayA">Gray</label>
 
@@ -726,7 +737,7 @@ if($find == "setup"){
 <label for="IndigoA">Indigo</label>
 
 <input type="checkbox" id="OrengeA" name="OrengeA" value="Orenge">
-<label for="OrengeA">Orenge</label>
+<label for="OrengeA">Orange</label>
 
 <input type="checkbox" id="PinkA" name="PinkA" value="Pink">
 <label for="PinkA">Pink</label>
@@ -736,6 +747,9 @@ if($find == "setup"){
 
 <input type="checkbox" id="RedA" name="RedA" value="Red">
 <label for="RedA">Red</label>
+
+ <input type="checkbox" id="SilverA" name="SilverA" value="Silver">
+            <label for="SilverA">Silver</label>
 
 <input type="checkbox" id="WhiteA" name="WhiteA" value="White">
 <label for="WhiteA">White</label>
@@ -751,6 +765,7 @@ if($find == "setup"){
 
            
             </br>
+            <h1>
             <?php
              if($find == "setup"){
                 echo "<input type=\"submit\" name=\"info\" value=\"Send Info Back\"/>";
@@ -758,7 +773,7 @@ if($find == "setup"){
                 echo "<input type=\"submit\" name=\"submit\" value=\"Submit Answer\"/>";         
              }
             ?>
-          
+           </h1>
           
         
             </br>

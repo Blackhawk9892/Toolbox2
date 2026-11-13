@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "<div class=\"problem\">$value</div>";     
                 }
 
-
+                $scrip = replace_apostrophes($scrip);
 
                 $sql = "INSERT INTO audio(audio_group, audio_location, audio_reply, audio_drive_type, audio_price, audio_payment, audio_vehicle_type, audio_miles, audio_options, audio_color_liked, audio_color_dislike, audio_gender) 
                 VALUES('$dealer_group','$newName','$scrip','$typeDriver','$price','$payment','$typeVehicle','$miles','$options','$preferredColors','$avoidColors','$gender')";
@@ -255,12 +255,130 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $place = 'Vehicle Driven';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
 
     $place = 'PhoneNumber';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
     $place = 'PhoneRequest';
     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
+       $place = 'E-keep';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+       $place = 'E-long';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'E-fade';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+    $place = 'E-exterior';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+   
+
+    $place = 'E-interior';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'E-corrosion';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'E-windshield';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'E-all';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+   
+
+   
+///////////////////////////////////////////////////////////////////////////////
+
+    $place = 'P-intro';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'P-vehicle';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
+    $place = 'P-customer';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-ad';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+    $place = 'P-city';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-check';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    
+     $place = 'P-set';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-appoint';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    /*
+     $place = 'P-comparing';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-current';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-hold';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-set';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-email';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'P-pullomg';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     */
+
+
+
+    //////////////////////////////////////////////////////////////////////////////
+
+    $place = 'O-customer';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'O-introduction';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
+    $place = 'O-conversation';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'O-replacing';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+    $place = 'O-another';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'O-keeping';
+    $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'O-current';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'O-trade';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'O-week';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+     $place = 'O-AmPm';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'Vehicle Driven';
+     $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
 
     /////////////////////////////////////////////////////////////////////////////////
     $blank = '';
@@ -318,6 +436,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $place = 'Crew Cab';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+     $place = 'Environmental Protection';
+    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'Orphan Customer';
+    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    $place = 'Incoming Call';
+    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
+
+
 
     
 ?>

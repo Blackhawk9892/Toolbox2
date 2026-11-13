@@ -218,14 +218,14 @@ function Employee($emp) {
     $emp_position = $row['emp_position'];
     $emp_user_name = $row['emp_user_name'];
     $emp_dealer_group = $row['emp_dealer_group'];
-    $emp_email = $row['emp_email'];
+   
    
  
 
 
  
                     //  0      1      2             3         4               5              6                  7
-    $data_arr = array($first, $last, $emp_position, $emp_id, $emp_dealer_id, $emp_user_name, $emp_dealer_group, $emp_email);
+    $data_arr = array($first, $last, $emp_position, $emp_id, $emp_dealer_id, $emp_user_name, $emp_dealer_group);
 
     return $data_arr;
 }

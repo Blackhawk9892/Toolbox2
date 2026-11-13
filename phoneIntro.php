@@ -22,7 +22,113 @@ require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 
+
+
+if(isset($_POST['submit'])){
+
+  
+  if(isset($_SESSION['audioName'])){
+    $audioName = $_SESSION['audioName'];
+  }else{
+    $errors[] ='You submit without a recording. You now have new customers. Please get there names before moving on ';
+  
+  }
+  
+  
+  if (!empty($errors)) {
+  
+    foreach ($errors as $value) {
+        echo "<div class=\"errors\">$value</div>";
+    }
+  } else {
+    
+
+    $dateStamp =  date("Ymdhis");
+ $custStamp = $emp_id . $dateStamp . $dealer_id;
+ $_SESSION['custStamp'] = $custStamp;
+ $points = 1;
+ $primaryUser = rand(1,2);
+
+if(isset($_SESSION['vehicle'])){
+$vehicle = $_SESSION['vehicle'];
+}
+
+if(isset($_SESSION['custStamp'])){
+$custStamp = $_SESSION['custStamp'];
+}
+
+if(isset($_SESSION['photoMale'])){
+$malePhoto = $_SESSION['photoMale'];
+}else{
+$malePhoto = '';
+}
+
+if(isset($_SESSION['photoFemale'])){
+$femalePhoto = $_SESSION['photoFemale'];
+}else{
+$femalePhoto  = '';
+}
+
+ if(isset($_SESSION['voiceMale'])){
+$maleVoice = $_SESSION['voiceMale'];
+}else{
+$maleVoice  = '';
+}
+
+ if(isset($_SESSION['voiceMaleName'])){
+$maleVoiceName = $_SESSION['voiceMaleName'];
+}else{
+$maleVoiceName  = '';
+}
+
+if(isset($_SESSION['voiceFemale'])){
+$femaleVoice = $_SESSION['voiceFemale'];
+}else{
+$femaleVoice   = '';
+}
+
+if(isset($_SESSION['voiceFemaleName'])){
+$femaleVoiceName = $_SESSION['voiceFemaleName'];
+}else{
+$femaleVoiceName    = '';
+}
+
+
+
+ 
+ 
+ 
+ 
+ $sql = "INSERT INTO customer_data(cust_group,cust_type,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
+ VALUES('$comp_group','$type','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
+ 
+ 
+
+ 
+       if (!mysqli_query($con, $sql)) {
+           die('Error customer _data 158: ' . mysqli_error($con));
+       }
+  
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_tone,record_type) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$tone','$type')";
+    
+    
+          if (!mysqli_query($con, $sql)) {
+              die('Error recording 216: ' . mysqli_error($con));
+          }
+  
+       
+  
+          header("Location: phone_training.php?find=$custStamp");
+          exit;
+  
+          unset($_SESSION['audioName']);
+      }
+    }
+
 require("toolbar_sales.php");
+//////////////////////////////////////////////////////////////////////////////////////////
+
 $type = 'sales';
 
 if(isset($_GET["type"])){
@@ -33,6 +139,10 @@ if(isset($_SESSION["type"])){
   $type = $_SESSION["type"];
 }
 
+$testType = "yes";
+if($type == "orphan"){
+  $testType = "no";
+}
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
 
@@ -60,12 +170,14 @@ while($row = mysqli_fetch_array($result_set)){
   $tone_arry[] = $row['script_tone'];
 }  
 $tone = $tone_arry[0];
+
 $useTone = 'Record this script using a voice tone of: ' . $tone;
   echo "<h1 style='background-color:Orange;'>$useTone</h1>";
 
   $script = $script_arry[0];
   echo "<h3>$script</h3>";
 echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
+
   ?>
 
 <button id="start-record-btn">Start Recording</button>
@@ -74,6 +186,7 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
   <br>
   <br>
 <?php
+
 ///////////////////////////////////////////////////////////////////////////////////
 
 $query = "SELECT * ";
@@ -113,70 +226,6 @@ $random_keys=array_rand($veh_array);
 /////////////////////////////////////////////////////////////////////////////////////
 
 
-
-if(isset($_POST['submit'])){
-
-  
-  if(isset($_SESSION['audioName'])){
-    $audioName = $_SESSION['audioName'];
-  }else{
-    $errors[] ='You submit without a recording. You now have new customers. Please get there names before moving on ';
-  
-  }
-  
-  
-  if (!empty($errors)) {
-  
-    foreach ($errors as $value) {
-        echo "<div class=\"errors\">$value</div>";
-    }
-  } else {
-    $custStamp = $_SESSION['custStamp'];
-
-    $dateStamp =  date("Ymdhis");
- $custStamp = $emp_id . $dateStamp . $dealer_id;
- $_SESSION['custStamp'] = $custStamp;
- $points = 1;
- $primaryUser = rand(1,2);
-
- $vehicle = $_SESSION['vehicle'];
- $custStamp = $_SESSION['custStamp'];
- $malePhoto = $_SESSION['photoMale'];
- $femalePhoto = $_SESSION['photoFemale'];
- $maleVoice = $_SESSION['voiceMale']; 
- $maleVoiceName = $_SESSION['voiceMaleName'];
- $femaleVoice = $_SESSION['voiceFemale'];
- $femaleVoiceName =$_SESSION['voiceFemaleName'];
- 
- $sql = "INSERT INTO customer_data(cust_group,cust_type,cust_male_name,cust_male_voice,cust_male_photo,cust_female_name,cust_female_voice,cust_female_photo,cust_find,cust_points,cust_salesperson_name,cust_salesperson_num,cust_company,cust_primary_user,cust_vehicle) 
- VALUES('$comp_group','$type','$maleVoiceName','$maleVoice','$malePhoto','$femaleVoiceName','$femaleVoice','$femalePhoto','$custStamp','$points','$name','$emp_id','$dealer_id','$primaryUser','$vehicle')";
- 
- 
-
- 
-       if (!mysqli_query($con, $sql)) {
-           die('Error customer _data 158: ' . mysqli_error($con));
-       }
-  
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp')";
-    
-    
-          if (!mysqli_query($con, $sql)) {
-              die('Error recording 216: ' . mysqli_error($con));
-          }
-  
-          echo "<h1> test </h1>";
-  
-          header("Location: phone_training.php?find=$custStamp");
-          exit;
-  
-          unset($_SESSION['audioName']);
-      }
-    }
-
-
-//////////////////////////////////////////////////////////////////////////////////////////
 $voiceUsed = rand(1,2);
 
 if($voiceUsed == 1){
@@ -207,14 +256,23 @@ $maleVoice = $voiceMale[$n];
 $maleVoiceName = $maleVoiceName[$n];
 $_SESSION['voiceMale'] = $maleVoice;
 $_SESSION['voiceMaleName'] = $maleVoiceName;
-echo "<h1 style='background-color:DodgerBlue;'>Name of person that answered the phone</h1>";
 
+
+if($_SESSION["type"] == 'incoming'){
+echo "<h1 style='background-color:DodgerBlue;'>Name of person that answered the phone</h1>";
+}
+
+if($_SESSION["type"] == 'orphan'){
+echo "<h1 style='background-color:DodgerBlue;'>Name of person that you are requesting</h1>";
+}
+
+if($testType == "yes"){
 echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
 
 echo "      </audio>\n";
-
+}
 /////////////////////////////////////////////////////////////////////////////////////////
 }else{
 
@@ -244,7 +302,17 @@ $femaleVoiceName = $femaleVoiceName[$n];
 $_SESSION['voiceFemale'] = $femaleVoice;
 $_SESSION['voiceFemaleName'] = $femaleVoiceName;
 
-echo "<h1 style='background-color:DodgerBlue;'>Name of person that aswered the phone</h1>";
+
+if($_SESSION["type"]== 'incoming'){
+echo "<h1 style='background-color:DodgerBlue;'>Name of person that answered the phone</h1>";
+}
+
+if($_SESSION["type"] == 'orphan'){
+echo "<h1 style='background-color:DodgerBlue;'>Name of person that you are requesting</h1>";
+}
+
+
+
 echo "    <audio controls>\n";
 echo "        <source src=\"$femaleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
@@ -252,6 +320,7 @@ echo "      </audio>";
 }
 
 $_SESSION['voiceGender'] = $type;
+
 ?>
  <br>
       <br>

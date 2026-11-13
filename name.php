@@ -57,11 +57,11 @@ sectionFemail::after {
 
 <?php
 
-require_once("includes/constants.php");
+//require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
-require("toolbar_sales.php");
+//require("toolbar_sales.php");
 
 
 
@@ -107,6 +107,7 @@ $find = $_SESSION['find'];
               or die('Query failed emp: ' . mysqli_error($con));
       $row = mysqli_fetch_array($result_set);
 
+      $cust_id = $row['cust_id'];
       $cust_male_photo = $row['cust_male_photo'];
       $cust_female_photo = $row['cust_female_photo'];
       $cust_points = $row['cust_points'];
@@ -185,45 +186,42 @@ if (isset($_POST['submit'])) {
 
     $malePoints = 0;
     $femalePoints = 0;
-  echo $cust_male_name . ' == ' . $Male . '<br>';
-   if($cust_male_name == $Male)
-      $malePoints = 5;
+ 
+
+   if($cust_male_name == $Male){
+      $malePoints = 3;
+     // $malePoints+ = 3;
+    }else{
+      $malePoints = -3;
+    //  $malePoints- = -3;
     }
-  echo $cust_female_name . ' == ' . $Female . '<br>';
+
+ 
+
     if($cust_female_name == $Female){
-      $femalePoints = 5;
+      $femalePoints = 3;
+    }else{
+      $femalePoints = -3;
     }
-
-
-    $total = $cust_points +  $malePoints + $femalePoints; 
-
-    echo $cust_points;
-    echo "<br>";
-    echo $malePoints;
-    echo "<br>";
-    echo $femalePoints;
-    echo "<br>";
-    echo $total;
-    echo "<br>";
-
-    $f_array = points($total, $find); 
-
-    print_r($f_array);
   
+     $total = $malePoints + $femalePoints + $cust_points;
 
-   //$testPage = '/select_vehicles.php';    // This is for Production
-  // $testPage = '/toolbox/toolbox2/select_vehicles.php'; // This is for Testing
 
-                   $program = "select_vehicles.php";
-                   $testPage =  test_production($program);
+
+  mysqli_query($con, "UPDATE customer_data SET cust_points = '$total'
+                  WHERE cust_id  = '$cust_id' ");
+
+
+      $program = "select_vehicles.php";
+      $testPage =  test_production($program);
 
 
 $find = $_SESSION['find'];
 header("Location: $testPage?find=$find");
 exit;
 
+  }
 }
-
    ?>
  
    
@@ -238,7 +236,7 @@ exit;
 
 <br />
 <br />
-<input   type="submit" name="submit" value="Submit"/>
+<h1><input   type="submit" name="submit" value="Submit"/></h1>
 <br />
 <br />
 

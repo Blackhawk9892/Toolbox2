@@ -9,7 +9,7 @@ Add Dealer to stock tag program
 -->
 <html>
     <head>
-        <title>Add Employee</title>
+        <title>Add and Maintain Script</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="stylesheets/main.css" /> 
@@ -18,7 +18,7 @@ Add Dealer to stock tag program
     <body>
         <div>
             <?php
-            require_once("includes/constants.php");
+            //("includes/constants.php");
             require("includes/connection.php");
             require("includes/database_rows.php");
             require("includes/functions.php");
@@ -28,7 +28,16 @@ Add Dealer to stock tag program
                 echo $_SESSION['message'];
                 unset($_SESSION['message']);
             }
-                
+       if(isset($_POST['dealer'])){
+        $d = $_POST['dealer'] ;
+        $d_array = explode("-",$d);
+        $_SESSION['company'] = $d_array[0];
+       } 
+       
+       if(isset($_SESSION['company'])){
+        $company = $_SESSION['company'];
+       }
+         
  ////////////////////////////Employee Info////////////////////////////////////
 // 
 if(isset($_COOKIE["userId"])){
@@ -49,9 +58,11 @@ if(isset($_COOKIE["userId"])){
 
     //////////////////////Dealer Info/////////////////////////////////////////
     $dealer_id = $_SESSION['$dealer_id'];
+
     $query = "SELECT * ";
     $query .= "FROM company ";
-    $query .= "WHERE comp_id    = '{$dealer_id}' ";
+    $query .= "WHERE comp_id    = '{$company}' ";
+
 
     $result_set = mysqli_query($con, $query)
             or die('Query failed2: ' . mysqli_error($con));
@@ -64,7 +75,7 @@ if(isset($_COOKIE["userId"])){
     $dealer_zip = $row['comp_zip'];
     //$dealer_phone = $row['dealer_phone'];
     $dealer_group = $row['comp_group'];
-        
+    
  ////////////////////////////Employee Info////////////////////////////////////
 // 
 if(isset($_COOKIE["userId"])){
@@ -85,7 +96,7 @@ if(isset($_COOKIE["userId"])){
   
     $query = "SELECT * ";
     $query .= "FROM company ";
-    $query .= "WHERE comp_id    = '{$dealer_id}' ";
+    $query .= "WHERE comp_id    = '{$company}' ";
 
     $result_set = mysqli_query($con, $query)
             or die('Query failed2: ' . mysqli_error($con));
@@ -98,6 +109,7 @@ if(isset($_COOKIE["userId"])){
     $dealer_zip = $row['comp_zip'];
     $dealer_group = $row['comp_group'];
    
+
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -169,7 +181,7 @@ if(isset($_COOKIE["userId"])){
             if (isset($_POST['update'])) {
 
                 if(isset($_POST['scrip'])){
-                    $scrip = $_POST['scrip'];
+                    $scrip = replace_apostrophes($_POST['scrip']);
                 }else{
                     $errors[] = 'Scrip is empty';
                 }
@@ -190,7 +202,8 @@ if(isset($_COOKIE["userId"])){
                 if(isset($_POST['description'])){
                     $scriptDescription = $_POST['description'];
                 }else{
-                    $errors[] = 'Tone Of Voice is empty';
+                   //
+                    $errors[] = 'Select type of Record is empty';
                 }
 
 
@@ -209,7 +222,7 @@ if(isset($_COOKIE["userId"])){
 
                 $index = $_SESSION['index'];
              $typeScrip = $_POST['typeScrip'];
-                $scrip = $_POST['scrip'];
+                $scrip = replace_apostrophes($_POST['scrip']);
                 $order = $_POST['order'];
                 $tone = $_POST['tone'];
                 $scriptDescription = $_POST['description'];
@@ -316,12 +329,12 @@ if(isset($_COOKIE["userId"])){
                 }
 
                 if(isset($_POST['typeScrip'])){
-                    $typeScrip = $_POST['typeScrip'];
+                    $typeScrip = replace_apostrophes($_POST['typeScrip']);
                 }else{
                     $errors[] = 'Scrip Type was not selected';
                 }
 
-                echo $_POST['description'];
+               // echo $_POST['description'];
                 if(isset($_POST['description'])){
                     $scriptDescription = $_POST['description'];
                 }else{
@@ -329,7 +342,7 @@ if(isset($_COOKIE["userId"])){
                 }
                 
                 if(isset($_POST['scrip'])){
-                    $scrip = $_POST['scrip'];
+                    $scrip = replace_apostrophes($_POST['scrip']);
                 }else{
                     $errors[] = 'Scrip is empty';
                 }
@@ -429,7 +442,7 @@ if(isset($_COOKIE["userId"])){
 
                 $query = "SELECT * ";
             $query .= "FROM script ";
-            $query .= "WHERE script_comp_num = '{$compNum}' ";    
+            $query .= "WHERE script_group = '{$dealer_group}' ";    
             $query .= "AND script_type = '{$typeScrip}' ";
             $query .= "ORDER BY  script_order";
      
@@ -494,6 +507,11 @@ $Temp = "<td width = 6%>$script_template </td>";
     $place = 'Excitement';
     $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+
+    $place = 'Urgency';
+    $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+
     $place = 'Jokingly';
     $tone_arr[] = "\n<option value=\"$place\">$place</option>\n";
     
@@ -520,15 +538,33 @@ $Temp = "<td width = 6%>$script_template </td>";
                     $typeScrip_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
                 }
                
-            
+        
                 $place = 'sales';
                 $description = "New customer at dealership";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
-                
-                $place = 'incoming';
-                $description = "Incoming call";
+
+                $place = 'environmental';
+                $description = "Environmental Package";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
             
+                
+               // $place = 'incoming';
+               // $description = "Incoming call";
+               // $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+
+                 $place = 'phone';
+                $description = "Incoming phone call";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+
+                $place = 'orphan';
+                $description = "Cold call Orphan Customer";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+
+                $place = 'service';
+                $description = "Cold call Service Customer";
+                $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
+
+                
                 $place = 'price';
                 $description = "Callback left dealership because of price";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
@@ -563,6 +599,10 @@ $Temp = "<td width = 6%>$script_template </td>";
                 } else {
                     $recordType_arr[] = "\n<option value=\"$blank\">$blank</option>\n";
                 }
+
+                switch ($typeScrip) {
+
+                case "sales":
                 $place = 'None';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
@@ -575,7 +615,17 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'PrimaryRequest';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
             
-                $place = 'SecondaryReques';
+                $place = 'SecondaryRequest';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'Vehicle Driven';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+            break;
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+                case "incoming":
+
+                $place = 'None';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
                 $place = 'PhoneName';
@@ -587,8 +637,7 @@ $Temp = "<td width = 6%>$script_template </td>";
                  $place = 'PhoneRequest';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
                 
-                $place = 'Vehicle Driven';
-                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+               
 
                  $place = 'Phone Price';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
@@ -601,10 +650,149 @@ $Temp = "<td width = 6%>$script_template </td>";
                 
                 $place = 'Phone Know';
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
-            
-            
+            break;
+
+           /////////////////////////////////////////////////////////////////////////////////////// 
+
+                case "environmental":
+
+                $place = 'None';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-keep';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-long';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-fade';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+                $place = 'E-exterior';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-interior';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-corrosion';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-windshield';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'E-all';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+            break;
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+              case "phone":
+
+                $place = 'None';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-intro';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-vehicle';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+    
+                $place = 'P-customer';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-ad';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-city';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-check';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
                 
+                 $place = 'P-set';
+                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-appoint';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+/*
+                 $place = 'P-comparing';
+                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-currently';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-hold';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'P-set';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-email';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'P-pulling';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+*/
+
+            break;  
+        ///////////////////////////////////////////////////////////////////////////////////// 
+            case "orphan":
+ 
+                $place = 'None';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+              $place = 'O-customer';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+        
+               $place = 'O-introduction';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-conversation';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-replacing';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'O-another';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'O-keeping';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+               
+                $place = 'O-current';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-trade';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-week';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-AmPm';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'Vehicle Driven';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
    
+ /*
+                $place = 'O-miles';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-change';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'O-appraisal';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'O-before';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+                */
+            break;
+
+            default:
+               echo "Type of Scrip: it's not recognized";
+                }
+   /////////////////////////////////////////////////////////////////////////////////////////////////
 
             ?>
 

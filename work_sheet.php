@@ -14,7 +14,21 @@ Add Dealer to stock tag program
         <link rel="stylesheet" type="text/css" href="../stylesheets/main.css" /> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
+
     <body>
+        <style>
+.container {
+  display: flex;
+  background-color: DodgerBlue;
+}
+
+.container div {
+  background-color: #f1f1f1;
+  margin: 10px;
+  padding: 20px;
+  font-size: 24px;
+}
+</style>
         <div>
             <?php
             require("includes/connection.php");
@@ -56,7 +70,7 @@ Add Dealer to stock tag program
         
         $find = $_SESSION['find'];
 
-       
+       $saveType = '';
         
         $query = "SELECT * ";
         $query .= "FROM recording ";
@@ -74,6 +88,10 @@ Add Dealer to stock tag program
             $record_script = $row['record_script'];
             $record_vioce = $row['record_vioce'];
             $record_tone = $row['record_tone'];
+            $record_type = $row['record_type'];
+           if($saveType != $record_type){
+            $_SESSION['record_type'] = $record_type;
+           }
             $_SESSION['employee'] = $record_empl_name;
 
             
@@ -94,7 +112,14 @@ Add Dealer to stock tag program
 
             if(isset($_SESSION['employee'])){
             $employee = $_SESSION['employee'];
+            $record_type = $_SESSION['record_type'];
+            if($record_type == 'sales'){
+                $record_type = "floor " . $record_type;
+            }else{
+                $record_type = "phone " . $record_type;
+            }
             echo "<center><h1>For Employee: $record_empl_name</h1></center>";
+            echo "<center><h1>Type Of Sale: $record_type</h1></center>";
             }
 
             ////////////////////////////////////Submit//////////////////////////////////////////////////////////////////////////
@@ -102,46 +127,62 @@ Add Dealer to stock tag program
 
              if(isset($_POST['submit'])){
                     $scrip = '';
-                if(isset($_POST['scrip'])){
-                    $scrip .= replace_apostrophes($_POST['scrip']);
-                   // $scrip = replace_apostrophes($_POST['scrip']);
+          /*
+                if(isset($_POST['scrip'])){                   
+                   $scrip .= 'No other Improvements';              
                 }else{
-                    $scrip = 'No Improvements';
+                    $scrip .= replace_apostrophes($_POST['scrip']); 
+                                     
                 }
-
-                if(isset($_POST['seminar'])){
-                    $quantity = $_POST['seminar'];
-                    $scrip .= "<br> Went to sales seminar or training.";
+          
+                $quantity = 0;
+                if($_POST['seminar'] > 0){
+                    $quantity =  $_POST['seminar'] + $quantity ;
+                    $scrip .= " Went to sales seminar or training: " . $_POST['seminar'];
                 }else{
                     $quantity = 0;
                 }
 
-                 if(isset($_POST['book'])){
+                 if($_POST['book'] > 0){
                     $quantity = $_POST['book'] + $quantity;
-                    $scrip .= "<br> Reading books to inprove sales career.";
+                    $scrip .= " Reading books to inprove sales career: " . $_POST['book'];
                 }
 
-                 if(isset($_POST['day'])){
+                 if($_POST['day'] > 0){
                     $quantity = $_POST['day'] + $quantity;
-                    $scrip .= "<br> Did this program more then one time a day.";
+                    $scrip .= " Did this program more then one time a day: " . $_POST['day'];
                 }
 
-                 if(isset($_POST['voice'])){
+                 if($_POST['voice'] > 0){
                     $quantity = $_POST['voice'] + $quantity;
-                    $scrip .= "<br> Improved voice inflection.";
+                    $scrip .= " Improved voice inflection; " . $_POST['voice'];
                 }
 
-                  if(isset($_POST['product'])){
+                  if($_POST['product'] > 0){
                     $quantity = $_POST['product'] + $quantity;
-                    $scrip .= "<br> Improved product knowledge.";
+                    $scrip .= " Improved product knowledge: " . $_POST['product'];
                 }
 
-                 if(isset($_POST['other'])){
+                 if($_POST['vehicle'] > 0){
+                    $quantity = $_POST['vehicle'] + $quantity;
+                    $scrip .= " Good selection of vehicle: " . $_POST['vehicle'];
+                }
+
+                 if($_POST['drive'] > 0){
+                    $quantity = $_POST['Drive'] + $quantity;
+                    $scrip .= " Go on test drive with customer: " . $_POST['drive'];
+                    $scrip .= replace_apostrophes($_POST['scrip']);
+                 }
+
+                 if($_POST['other'] > 0){
                     $quantity = $_POST['other'] + $quantity;
-
+                    $scrip .= " Other points have been added: " . $_POST['other'];
+                    $scrip .= replace_apostrophes($_POST['scrip']);
+                }else{
+                     $scrip .= ' No other Improvements ';
                 }
-       
-
+      */
+        
         if (isset($errors)) {
 
        foreach ($errors as $value) {
@@ -179,6 +220,8 @@ Add Dealer to stock tag program
                 
                   $find = $_SESSION['find'];
                   $date = date("Y-m-d");
+
+               
             
                     $sql = "INSERT INTO employee_notes(notes_emp_num, notes_emp_name, notes_date, notes_manager_num, notes_manager_name, notes_improvement, notes_points, notes_find) 
               VALUES('$emp_id','$name','$date','$emp_assigned_man_num','$emp_assigned_man_name','$scrip','$quantity','$find')";
@@ -228,8 +271,83 @@ Add Dealer to stock tag program
 
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $rType = $_SESSION['record_type'];
+            if($rType == 'sales'){
+
+        $query = "SELECT * ";
+        $query .= "FROM selceted_vehicles ";
+        $query .= "WHERE sv_find = '{$find}' ";
+      
+        $result_set = mysqli_query($con, $query)
+                or die('Query failed: ' . mysql_error());
+
+        $row = mysqli_fetch_array($result_set);
+
+            $sv_stock = $row['sv_stock'];
+            $sv_year = $row['sv_year'];    
+            $sv_make = $row['sv_make'];
+            $sv_model = $row['sv_model'];
+            $sv_trim = $row['sv_trim'];
+            $sv_reason = $row['sv_reason'];
+            $sv_miles = $row['sv_miles'];
+            $vechicle1 = $sv_year . ' ' . $sv_make . ' ' . $sv_model . ' ' . $sv_trim ;
+               $sv_stock_sec = $row['sv_stock_sec'];
+            $sv_year_sec = $row['sv_year_sec'];    
+            $sv_make_sec = $row['sv_make_sec'];
+            $sv_model_sec = $row['sv_model_sec'];
+            $sv_trim_sec = $row['sv_trim_sec'];
+            $sv_reason_sec = $row['sv_reason_sec'];
+            $sv_miles_sec = $row['sv_miles_sec'];
+   
+             $vechicle2 = $sv_year_sec . ' ' . $sv_make_sec . ' ' . $sv_model_sec . ' ' . $sv_trim_sec ;
+
+             $query1 = "SELECT * ";
+             $query1 .= "FROM reason ";
+             $query1 .= "WHERE reason_find= '{$find}' ";
+      
+              $result_set1 = mysqli_query($con, $query1)
+                or die('Query failed: ' . mysql_error());
+
+             $row1 = mysqli_fetch_array($result_set1);
+
+            $reason_primary = $row1['reason_primary'];
+            $reason_secondary = $row1['reason_secondary'];    
+           
+    echo "<div class=container>";
+     
+         echo "<div>";
+               echo  "<h3>Primary Driver</h3>";
+               echo "<p>$reason_primary</p>";
+                echo  "<h3>Secondary Driver</h3>";
+                echo "<p>$reason_secondary</p>";
 
 
+         echo "</div>";
+         
+    echo "</div>";
+
+     echo "<div class=container>";
+     
+        echo "<div>";
+            echo "<h3>First Vehicle</h3>";
+            echo "<h4>Stock Number: $sv_stock</h4>";
+             echo "<h4>Vehicle: $vechicle1</h4>";
+            echo "<h4>Miles: $sv_miles</h4>";
+            echo "<h4>Reason: $sv_reason</h4>";
+        echo "</div>";
+
+        echo "<div>";
+         echo "<h3>Second Vehicle</h3>";
+           echo "<h4>Stock Number: $sv_stock_sec</h4>";
+             echo "<h4>Vehicle: $vechicle2</h4>";
+            echo "<h4>Miles: $sv_miles_sec</h4>";
+            echo "<h4>Reason: $sv_reason_sec</h4>";
+         echo "</div>";
+
+      
+         
+    echo "</div>";
+            }
 ?>
 
  
@@ -237,45 +355,20 @@ Add Dealer to stock tag program
 
 
  <center>
-            <h3>Enter anything the salesperson is doing to improve their career. </h3>
           
-        
-                        <textarea rows="6" cols="150" name="scrip" wrap="wrap " >
-                          <?php if (isset($_POST['scrip'])) echo $_POST['scrip'] ?>
-                        </textarea>
-                <br />
-                <br />
-                         <label for="quantity">Reading Books To Inprove Sales Career (between 0 and 3):</label>
-                         <input type="number" id="book" name="book" value=0 min="0" max="3">
-                          <br />
-                         <label for="quantity">Did this program more then one time a day (between 0 and 3):</label>
-                         <input type="number" id="day" name="day" value=0 min="0" max="3">
-                           <br />
-                         <label for="quantity">Went To Sales Seminar Or Training  (between 0 and 3):</label>
-                         <input type="number" id="seminar" name="seminar" value=0 min="0" max="3">
-                            <br />
-                         <label for="quantity">Improved Voice Inflection  (between 0 and 5):</label>
-                         <input type="number" id="voice" name="voice" value=0 min="0" max="5">
-                           <br />
-                         <label for="quantity">Improved Product Knowledge  (between 0 and 3):</label>
-                         <input type="number" id="product" name="product" value=0 min="0" max="3">
-
-                          <br />
-                         <label for="quantity">Other Writen In Description Above (between 0 and 3):</label>
-                         <input type="number" id="other" name="other" value=0 min="0" max="3">
+                        
           <br />
-                <br />
-                    <input type="submit" name="submit" value="Submit"/>
-                    <br />
+                
                      <br />
                 
                     <input type="submit" name="back" value="Back"/>
                     <br />
-</center>
+
+
+         
                    <?php
            
-          
-
+echo "</center>";
            echo "<h1>Recording</h1></center>";
 
                 $result = count($rows);

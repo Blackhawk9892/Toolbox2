@@ -76,7 +76,7 @@ Add Dealer to stock tag program
             $query = "SELECT * ";
             $query .= "FROM company ";
           
-            if($position == 'Manager'){
+            if($position == 'Manager' or $position == 'GM'){
             $query .= "WHERE comp_id    = '{$dealer_id}' ";
             }
 
@@ -107,7 +107,7 @@ Add Dealer to stock tag program
                 $userName = $_POST['userName'];
                 $first = ucwords($_POST['first']);
                 $last = ucwords($_POST['last']);
-                $email = ucwords($_POST['email']);
+
                 $position = $_POST['position'];
                 $manager = $_POST['manager'];
                 $password = $_POST['password'];
@@ -122,7 +122,7 @@ Add Dealer to stock tag program
                 $managerId = $d[0];
                 $managerName = $d[1];
 
-                $required_fields = array('dealer', 'userName', 'first', 'last', 'position','password', 'password2','email');
+                $required_fields = array('dealer', 'userName', 'first', 'last', 'position','password', 'password2');
 
                 foreach ($required_fields as $fieldname) {
 
@@ -173,8 +173,8 @@ Add Dealer to stock tag program
                     $today = date("Y-m-d");
                     $password = sha1(sha1($_POST['password']));
 
-                    $sql = "INSERT INTO employee(emp_dealer_id, emp_dealer_name, emp_user_name, emp_password, emp_first_name, emp_last_name, emp_position, emp_manage_num, emp_dealer_group, emp_assigned_man_num, emp_assigned_man_name, emp_evaluation_date, emp_email) 
-              VALUES('$id','$company','$userName','$password','$first','$last','$position','$emp_id','$comp_group','$managerId','$managerName','$today','$email')";
+                    $sql = "INSERT INTO employee(emp_dealer_id, emp_dealer_name, emp_user_name, emp_password, emp_first_name, emp_last_name, emp_position, emp_manage_num, emp_dealer_group, emp_assigned_man_num, emp_assigned_man_name, emp_evaluation_date, emp_evaluation_manager) 
+              VALUES('$id','$company','$userName','$password','$first','$last','$position','$emp_id','$comp_group','$managerId','$managerName','$today','None')";
 
 
                     if (!mysqli_query($con, $sql)) {
@@ -215,6 +215,9 @@ Add Dealer to stock tag program
             $place = 'Manager';
             $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+            $place = 'GM';
+            $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
             $place = 'Corporate';
             $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
            
@@ -250,6 +253,27 @@ Add Dealer to stock tag program
                 $manager = $emp_id . '-' . $emp_first_name . ' ' . $emp_last_name;
                 $manager_arr[] = "\n<option value=\"$manager\">$manager</option>\n";
             }
+
+             $empType = "GM";
+            $query = "SELECT * ";
+            $query .= "FROM employee "; 
+            $query .= "WHERE emp_dealer_id = '{$dealer_id}' ";
+            $query .= "AND emp_position = '{$empType}' ";
+            $query .= "ORDER BY emp_first_name, emp_last_name";
+
+            $result_set = mysqli_query($con, $query)
+                    or die('Query failed: ' . mysqli_error($con));
+
+            while ($row = mysqli_fetch_array($result_set)) {
+                $emp_id = $row['emp_id'];
+                $emp_first_name = $row['emp_first_name'];
+                $emp_last_name = $row['emp_last_name'];
+                $manager = $emp_id . '-' . $emp_first_name . ' ' . $emp_last_name;
+                $manager_arr[] = "\n<option value=\"$manager\">$manager</option>\n";
+            }
+                $manager = "999999-Corporate";
+                $manager_arr[] = "\n<option value=\"$manager\">$manager</option>\n";
+
             ?>
 
 
@@ -274,9 +298,7 @@ print_r($dealer_arr);
                         <tr><td>Last Name:</td><td>
                                 <input type="text" name="last" size="50" value="<?php if (isset($_POST['last'])) echo $_POST['last'] ?>"	/>
 
-                        <tr><td>Enter your email:</td><td>
-                        <input type="email" id="email" name="email" size="50" value="<?php if (isset($_POST['last'])) echo $_POST['last'] ?>"	/>
-
+                      
                         <tr><td>Position:</td><td>
                 
                             <select name="position">

@@ -29,7 +29,7 @@ Add Dealer to stock tag program
             exit;
         }
 
-         
+       
 
       ///////////////////////////////////////////////////////////////////////      
 
@@ -43,6 +43,8 @@ Add Dealer to stock tag program
                 $_SESSION['employeeName'] = $first . ' ' . $last;   
                 $position = $emp_arry[2];
                 $emp_id = $emp_arry[3];
+                $_SESSION['employeeNum'] = $emp_id;
+              
                 $dealer_id = $emp_arry[4];
                 $_SESSION['emp_id'] = $emp_id;     
             }
@@ -61,7 +63,26 @@ Add Dealer to stock tag program
            echo "<center><h1>$employeeName</h1></center>";
           $employee = $_SESSION['id'];
 
-           
+    /*      $d = strtotime("now");
+echo "Date is today" . date("Y-m-d", $d) . "<br>";
+
+$d = strtotime("-7 days");
+echo "Date is -5 " . date("Y-m-d", $d) . "<br>";
+           */
+if(empty($_POST['today'])){
+    $d = strtotime("now");
+    $_POST['today'] = date("Y-m-d", $d);
+    
+}
+
+if(empty($_POST['fromday'])){
+    $d = strtotime("-7 days");
+    $_POST['fromday'] = date("Y-m-d", $d);
+    $_POST['submit'] = "Submit" ;
+  
+   
+}
+
           $query = "SELECT * ";
         $query .= "FROM employee ";
         $query .= "WHERE emp_id = '{$employee}' ";
@@ -106,6 +127,7 @@ Add Dealer to stock tag program
           $employeeId = $_SESSION['id'];
            $totalPoints = 0; 
            $saveDay = '';
+           $saveType = '';
            $timesPoints = 0;
            $timesWithoutPoints = 0;
 
@@ -113,7 +135,7 @@ Add Dealer to stock tag program
         $query = "SELECT * ";
         $query .= "FROM customer_data ";
         $query .= "WHERE cust_salesperson_num = '{$employeeId}' ";
-        $query .= "ORDER BY cust_date";
+        $query .= "ORDER BY cust_date, cust_type";
 
        
         $result_set = mysqli_query($con, $query)
@@ -125,6 +147,8 @@ Add Dealer to stock tag program
             $cust_id = $row['cust_id'];
             $cust_points = $row['cust_points'];
             $cust_find = $row['cust_find'];
+            $cust_type = $row['cust_type'];
+
 
             
             
@@ -135,22 +159,23 @@ Add Dealer to stock tag program
 
 
 
-               if($fileDay <= $fromDate  or $fileDay >= $toDate ){
+               if($fileDay < $fromDate  or $fileDay > $toDate ){
                
                 continue;
 
                }
 
-              if($saveDay == $fileDay ){
+              if($saveDay == $fileDay and $saveType == $cust_type){
                  $bid_satus = 'photos';
                  $pointDoNotCount = 'Points Do Not Count for total points only first time for a day adds point ' . $cust_points;
-                  $rows[] = "\n<div id=\"$bid_satus\"><a href=work_sheet.php?find=$cust_find><table><tr><td width = 300px>$cust_date</td> <td>$pointDoNotCount</td></tr></table></a> </div>";
+                  $rows[] = "\n<div id=\"$bid_satus\"><a href=work_sheet.php?find=$cust_find><table><tr><td width = 300px>$cust_date</td> <td>$pointDoNotCount</td></tr><td> Point For: $cust_type</td></tr></table></a> </div>";
                   $timesWithoutPoints++;
               }else{
                  $saveDay = $fileDay;
+                 $saveType = $cust_type;
                  $bid_satus = 'sold';
                  $pointCount = 'Points Count for total points ' . $cust_points;
-                 $rows[] = "\n<div id=\"$bid_satus\"><a href=work_sheet.php?find=$cust_find><table><tr><td width = 300px>$cust_date</td> <td>$pointCount</td></tr></table></a> </div>";
+                 $rows[] = "\n<div id=\"$bid_satus\"><a href=work_sheet.php?find=$cust_find><table><tr><td width = 300px>$cust_date</td> <td>$pointCount</td></tr><td> Point For: $cust_type</td></tr></table></a> </div>";
                  $totalPoints = $totalPoints + $cust_points;
                  $timesPoints++;
               }
@@ -165,16 +190,7 @@ Add Dealer to stock tag program
             
            
             
-           if(!isset($_POST['fromday'])){
-                $d = strtotime("-30 days");
-                $_POST['fromday'] = date("m/d/Y", $d);
-               echo $_POST['fromday'];  
-           }
-
-           if(empty($_POST['today'])){
-            $_POST['today'] = date("m/d/Y");
-           }
-
+          
             ?>
 
 
@@ -203,6 +219,9 @@ Add Dealer to stock tag program
                 
                     <input type="submit" name="history" value="Employee History"/>
                     <br />
+ <br />
+                   
+       
        
                 <?php
            
@@ -213,7 +232,7 @@ Add Dealer to stock tag program
            $showPoints = "Number of time with points: " . $timesPoints . " Number of times without points: " . $timesWithoutPoints ;
 
            echo "<h1>$showPoints</h1></center>";
-
+            if(isset($rows)){
                 $result = count($rows);
                
                 $count = 0;
@@ -224,6 +243,9 @@ Add Dealer to stock tag program
 
                     $count++;
                 }
+            }else{
+                echo "<h1>None Found</h1>";
+            }
                 ?>
 
 

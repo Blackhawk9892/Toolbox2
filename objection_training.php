@@ -21,7 +21,7 @@ session_start();
 
  <?php
  
-require_once("includes/constants.php");
+//require("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
@@ -31,8 +31,8 @@ require("includes/functions.php");
 
 require("toolbar_sales.php");
 
-if(isset($_SESSION['type'])){
-   $type = $_SESSION['type'];
+if(isset($_SESSION['scriptType'])){
+   $scriptType = $_SESSION['scriptType'];
 }else{
   $save_type_script = "";
 $query = "SELECT * ";
@@ -50,8 +50,8 @@ while($row = mysqli_fetch_array($result_set)){
 }  
       $count = count($type_script_arry) - 1;
       $i = rand(0, $count);
-     $_SESSION['type'] = $type_script_arry[$i];
-     $type = $_SESSION['type'];
+     $_SESSION['scriptType'] = $type_script_arry[$i];
+     $scriptType = $_SESSION['scriptType'];
 }
     
 
@@ -82,7 +82,7 @@ if(isset($_POST['submit'])){
   if(isset($_SESSION['audioName'])){
     $audioName = $_SESSION['audioName'];
   }else{
-    $errors[] ='You submit without a recording. You now have new customers. Please get there names before moving on ';
+    $errors[] ='You submit without a recording.  ';
   
   }
   
@@ -202,7 +202,7 @@ $_SESSION['countLeave'] = 0;
 $query = "SELECT * ";
 $query .= "FROM objections ";
 $query .= "WHERE 	obj_corporate_number   = '{$comp_group}' ";
-$query .= "AND obj_type_script   = '{$type}' ";
+$query .= "AND obj_type_script   = '{$scriptType}' ";
 $query .= "ORDER BY obj_order ";
 
 
@@ -252,7 +252,7 @@ while($row = mysqli_fetch_array($result_set)){
      $index = $index_arry[$counter];
 
    
-    
+  /////////////////////////////////////////////////////////////////////////////////////////  
      $tone = $tone_arry[$counter];
      $_SESSION['tone'] = $tone;
 $useTone = 'Record using a voice inflection of: ' . $tone;
@@ -269,15 +269,18 @@ $useTone = 'Record using a voice inflection of: ' . $tone;
     echo $errorMassage;
   }
      
-echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
+//echo "<h1 style='background-color:White;'>Record the script</h1>";
   ?>
+  <h1>
  <button id="start-record-btn">Start Recording</button>
   <button id="stop-record-btn" disabled>Stop Recording</button>
   <audio id="audio-playback" controls></audio>
+</h1>
 <br>
 <br>
-<?php
 
+<?php
+ 
 
   echo " <img src=\"$cust_male_photo\" alt=$cust_id width=\"300\" height=\"300\">\n";
    echo "     \n";
@@ -293,9 +296,9 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
     $voice_type = $voice_type_arry[$counter];
 
     if($voice_type == 'Starting'){
-       echo "<h1 style='background-color:DodgerBlue;'>Prospect Objection</h1>";
+       echo "<h1 style='background-color:White; color:Red'>Listen to prospect objection before recording </h1>";
     }else{
-       echo "<h1 style='background-color:DodgerBlue;'>Answer To Question</h1>";
+       echo "<h1 style='background-color:White;'>Answer To Question</h1>";
     }
   echo " <audio controls>\n";
   echo "  <source src=\" $audio \" type=\"audio/mpeg\">\n";
@@ -309,7 +312,7 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
 
   if($voice_type == 'Starting'){
      $audio2 = $audio2_arry[$counter];
-  echo "<h1 style='background-color:DodgerBlue;'>Answer To Question</h1>";
+  echo "<h1 style='background-color:White;'>Answer To Question</h1>";
   echo " <audio controls>\n";
   echo "  <source src=\" $audio2 \" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n"; 
@@ -393,14 +396,14 @@ echo "<form action=\"objection_training.php?find=$find\" method=\"post\">";
 
 ?>
 
-<br />
-
-<input   type="submit" name="submit" value="Submit"/>
 
 
-<br />
+<h1><input type="submit" name="submit" value="Submit"/></h1>
+
+
+
  
-<h1 style="background-color: Red;">After listening to your recording press the submit button.
+<h1 style="background-color: #ff7c8c;">After listening to your recording press the submit button.
 If you do not listen to your recording you will not receive points. You may do as many recordings as you like. The only one that will be count is the one you submit.</h1>";
    
 </body>

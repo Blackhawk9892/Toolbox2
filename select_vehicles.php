@@ -17,7 +17,7 @@ Add Dealer to stock tag program
         <div>
             <?php
           
-         require_once("includes/constants.php");
+        // require_once("includes/constants.php");
          require("includes/connection.php");
          require("includes/database_rows.php");
          require("includes/functions.php");
@@ -32,7 +32,34 @@ Add Dealer to stock tag program
           
           $find = $_SESSION['find'];
 
-         
+        if(isset($_COOKIE["userId"])){
+  $userId = $_COOKIE["userId"];
+ 
+$emp_arry = Employee($userId);
+$first = $emp_arry[0];
+$last = $emp_arry[1];      
+$position = $emp_arry[2];
+$emp_id = $emp_arry[3];
+$dealer_id = $emp_arry[4];
+$name = $first . ' ' . $last;
+}
+
+
+$query = "SELECT * ";
+    $query .= "FROM company ";
+    $query .= "WHERE comp_id  = '{$dealer_id}' ";
+
+
+    $result_set = mysqli_query($con, $query)
+            or die('Query failed: ' . mysqli_error($con));
+
+    $row = mysqli_fetch_array($result_set);
+
+    $comp_webpage = $row['comp_webpage'];
+   
+      $comp_name = $row['comp_name'];
+   
+
 
 
 
@@ -177,8 +204,8 @@ Add Dealer to stock tag program
                   
                     //$testPage = '/toolbox/toolbox2/objection_training.php';   // For Test
                    // $testPage = '/home.php';  // For production
-
-                   $program = "objection_training.php";
+                   // $program = "objection_training.php";
+                   $program = "vehicle_worksheet.php";
                    $testPage =  test_production($program);
 
   $find = $_SESSION['find'];
@@ -187,7 +214,7 @@ Add Dealer to stock tag program
 
                 }
             }
-            
+            require("toolbar_sales.php");
             ?>
 
 <div style="padding-left: 37px; padding-right: 37px; ">
@@ -199,6 +226,15 @@ Add Dealer to stock tag program
 
 </h3>
 <h2 style="color:Tomato;"> DO NOT SELECT A VEHICLE FROM A DIFFERENT LOT.</h2>
+<?php 
+$tb_descrip = 'This link will open (' . $comp_name . ') webpage in a new window or tab';
+
+$tb_program = "<h2><a href=\"https://" . $comp_webpage . "/\" target=\"_blank\">" 
+            . $tb_descrip . 
+            "</a></h2>";
+
+echo $tb_program;
+?>
 
                 <h2>Primary Vehicle </h2>
                     <table>
@@ -256,7 +292,7 @@ Add Dealer to stock tag program
                 <br />			
 
                
-                    <input type="submit" name="submit" value="Submit"/>
+                   <h1> <input type="submit" name="submit" value="Submit"/> </h1>
                     
                     
                     </div> 

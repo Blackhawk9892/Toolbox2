@@ -20,9 +20,10 @@
 <body>
     <?php
 
-    require_once("includes/constants.php");
+    //require_once("includes/constants.php");
     require("includes/connection.php");
-  
+
+ 
 
     if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
@@ -43,23 +44,62 @@
     $position = $row['emp_position'];
     $emp_user_name = $row['emp_user_name'];
     $emp_dealer_group = $row['emp_dealer_group'];
-    $emp_email = $row['emp_email'];
+
     $name = $first . ' ' . $last;
 
 
 
 $_SESSION['name'] = $name;
 $_SESSION['emp_id'] = $emp_id;
+
+ $query = "SELECT * ";
+    $query .= "FROM dealer_group ";
+    $query .= "WHERE dg_id   = '{$emp_dealer_group}' ";
+
+
+    $result_set = mysqli_query($con, $query)
+            or die('Query failed: ' . mysqli_error($con));
+
+    $row = mysqli_fetch_array($result_set);
+ 
+
+    $_SESSION['dg_premium_pkg'] = $row['dg_premium_pkg'];
+}
+
+if(isset($_SESSION['dg_premium_pkg'])){
+    $dg_premium_pkg = $_SESSION['dg_premium_pkg'];
 }
   
 $department_array = array();
     $menu_array = array();
     $mantenance_array = array();
 
+$tb_program = 'totalPoints.php';
+$tb_descrip = 'Everyones Points';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+  
+
+     if($position == "Sales"){
+        $tb_descrip = 'Managers Training Evaluation';
+      
+ if($dg_premium_pkg == 'y'){
+    $tb_program = 'managers_evaluation.php';
+    $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+ }else{
+    $tb_program = 'premium_package.html' ;
+    $mantenance_array[] = "<li><a href=$tb_program  target=_blank>$tb_descrip </a></li>\n";
+ } 
+
+ 
+
+
+     }
+
    if($position == "PFD"){
   
-$tb_program = 'addDealerGroup.php';
-$tb_descrip = 'Add A Dealer Group';
+$tb_program = 'select_dealer_group.php';
+$tb_descrip = 'Dealer Group Maintenance';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
@@ -91,6 +131,11 @@ $tb_descrip = ' Upload Names';
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
+$tb_program = 'upload_vehicle.php';
+$tb_descrip = ' Upload Vehicle';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
 $tb_program = 'equipment_setup.php';
 $tb_descrip = 'Equipment Setup';
 
@@ -103,6 +148,19 @@ $tb_descrip = 'Objections script Setup';
 
 
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'reset_manager.php';
+$tb_descrip = 'Reset Manager';
+
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'vehicle_worksheet.php';
+$tb_descrip = 'Worksheet';
+ 
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
    }
 
    if($position == "PFD" or $position == "Manager"){
@@ -130,21 +188,61 @@ $tb_descrip = 'Corporate Points';
 $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
    }
 
+   if($position == "GM"){
+
+$tb_program = 'employee_points.php';
+$tb_descrip = 'Employee Points';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'new_password_manager.php';
+$tb_descrip = 'Change Employee Password';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+$tb_program = 'select_employee.php';
+$tb_descrip = 'Employee Maintenance';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+   }
+
+   if($position == "PFD" or $position == "Corporate"){
+$tb_program = 'corporate.php';
+$tb_descrip = 'Corporate Points';
+
+$mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+   }
+
 //###################################Sales Menu ########################################################################
 //$tb_program = 'interduction.php';
 $tb_program = 'interduction.php?type=sales';
-$tb_descrip = "New customer at dealership";
+$tb_descrip = "New customer";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
-
+/*
 $tb_program = 'phoneintro.php?type=incoming';
+$tb_descrip = "Incoming call";
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+*/
+
+$tb_program = 'incoming_interduction.php?type=phone';
 $tb_descrip = "Incoming call";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 
-$tb_program = 'phoneintro.php?type=cold';
-$tb_descrip = "Cold call";
+$tb_program = 'E_interduction.php?type=environmental';
+$tb_descrip = "Environmental Package";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+
+
+$tb_program = 'orphan_interduction.php?type=orphan';
+$tb_descrip = "Orphan Customer";
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
+/*
+
+
 
 
 $tb_program = 'phoneintro.php?type=price';
@@ -165,8 +263,33 @@ $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 $tb_program = 'phoneintro.php?type=know';
 $tb_descrip = "Callback don't know why they left the dealership";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+*/
 
+$tb_program = 'timesheet.php';
+$tb_descrip = "Time Sheet";
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+/*
+$tb_program = 'time_codes.php';
+$tb_descrip = "Time Codes";
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+*/
+$toolbar = 'yes';
+$tb_program = 'vehicle_worksheet.php';
+$tb_descrip = 'Worksheet';
+$sales_array[] = "<li><a href=$tb_program?toolbar=$toolbar>$tb_descrip</a></li>\n";
+/*
+$tb_program = 'research.php';
+$tb_descrip = "Load Research";
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
+$tb_program = 'vehicle_entry.php';
+ $tb_descrip = 'Vehicle Entry';
+    $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+*/
+
+$tb_program = 'stock_num.php';
+ $tb_descrip = 'Find Vehicle by Stock Number';
+    $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -220,7 +343,7 @@ $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
     print "</ul>\n";
 
 
-$dealer_name = "Sales Tool Box ";
+$dealer_name = "SALES TRAINING ";
     print "</ul>\n";
     print "\n";
     print "\n";

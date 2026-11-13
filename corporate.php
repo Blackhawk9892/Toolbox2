@@ -31,8 +31,9 @@ $_SESSION['page'] = 'select_employee.php';
 
         require("includes/security.php");
 
-        if(isset($_POST["back"])){
-            
+        if(isset($_POST["Points"])){
+             header("Location: training_activity.php");
+                exit;
         }
 
         $save_field_2 = '';
@@ -97,8 +98,13 @@ $_SESSION['page'] = 'select_employee.php';
         
 
         
-            <form action="employee_points.php" method="post">
-
+            <form action="corporate.php" method="post">
+ <br />
+                     <br />
+                    <input type="submit" name="back" value="Back"/>
+                    <br />
+                    <br />
+                    <input type="submit" name="Points" value="Points"/>
 
 <div id="content">
                 <?php

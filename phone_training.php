@@ -57,10 +57,15 @@ if(isset($_POST['submit'])){
   if(isset($_SESSION['audioName'])){
     $audioName = $_SESSION['audioName'];
   }else{
-    $errors[] ='You submit without a recording. You now have new customers. Please get there names before moving on ';
+   'You submit without a recording. You now have new customers. Please get there names before moving on ';
   
   }
   
+  if(isset($_SESSION['tone'])){
+    $tone = $_SESSION['tone'];
+  }else{
+     $errors[] = 'Tone is empty';
+  }
   
   if (!empty($errors)) {
 
@@ -87,8 +92,8 @@ if(isset($_POST['submit'])){
     }
      
 
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options')";
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options,record_tone,record_type) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options','$tone','$type')";
     
     
           if (!mysqli_query($con, $sql)) {
@@ -204,6 +209,7 @@ while($row = mysqli_fetch_array($result_set)){
      }                  
  
      $tone = $tone_arry[$cust_points];
+     $_SESSION['tone'] = $tone;
 $useTone = 'Record using a voice tone of: ' . $tone;
   echo "<h2 style='background-color:Orange;'>$useTone</h2>";
 

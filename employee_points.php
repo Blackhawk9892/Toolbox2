@@ -21,19 +21,29 @@ $_SESSION['page'] = 'select_employee.php';
 
 
         <?php
-        require_once("includes/constants.php");
+       // require_once("includes/constants.php");
         require("includes/connection.php");
         require("includes/database_rows.php");
-      
-        require("toolbar_sales.php");
+
+ if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
+      $_SESSION['message'] = "Not a valid employee";
+
+     header("Location: index.php");
+     exit;
+}
+        
 
       echo "<center><h1>Employee Points</h1></center>";
 
         require("includes/security.php");
 
         if(isset($_POST["back"])){
-            
+             header("Location: employee_points.php");
+            exit;
         }
+      require("toolbar_sales.php");
+
+
 
         $save_field_2 = '';
 
@@ -71,7 +81,7 @@ if(isset($_GET['company'])){
         $bid_satus = 'sold';
         $rows[] = "\n<table width='100%'><tr><td width = 200px>Employee</td><td width = 40px>Authorization</tr></table></div>\n";
 
-        $rows[] = "\n<div id=\"$bid_satus\"><table><tr><td width = 300px>Employee Name </td> <td width = 200px >Position </td>  <td width = 400px >Company</td>  <td  >Dealer Group</td></tr></table></div>\n";
+        $rows[] = "\n<div id=\"$bid_satus\"><table><tr><td width = 300px>Employee Name </td> <td width = 200px >Position </td>  <td width = 400px >Company</td>  <td width = 200px >Dealer Group</td> <td width = 200px >Manager</td> <td width = 200px >Last Evaluation date</td> <td width = 200px >Evaluation By</td></tr></table></div>\n";
         
 
         if(isset($dealer_id)){
@@ -80,9 +90,12 @@ if(isset($_GET['company'])){
         $query = "SELECT * ";
         $query .= "FROM employee ";
         $query .= "WHERE emp_dealer_id = '{$dealer_id}' ";
-       /* if($position != 'PFD'){
-            $query .= "WHERE emp_dealer_id = '{$dealer_id}' ";
-        } */       
+        if($position == 'Manager'){
+            $query .= "AND emp_assigned_man_num = '{$emp_id}' ";
+        }   
+              if($position == 'Sales'){
+            $query .= "AND emp_assigned_man_num = '{9999999}' ";
+        }        
         $query .= "ORDER BY emp_dealer_group, emp_first_name, emp_last_name";
 
 
@@ -97,9 +110,31 @@ if(isset($_GET['company'])){
             $emp_position = $row['emp_position'];
             $emp_dealer_name = $row['emp_dealer_name'];
             $emp_dealer_group = $row['emp_dealer_group'];
-            
+            $emp_assigned_man_name = $row['emp_assigned_man_name'];
+            $emp_evaluation_date = $row['emp_evaluation_date'];
+            $emp_evaluation_manager = $row['emp_evaluation_manager'];
+            $emp_emp_points = $row['emp_emp_points'];
+          
+            $d = strtotime($emp_evaluation_date);
+            $emp_evaluation_date = date("m/d/Y", $d);
 
             $name = $demp_first_name . ' ' .  $emp_last_name;
+
+            $query1 = "SELECT * ";
+    $query1 .= "FROM dealer_group ";
+    $query1 .= "WHERE dg_id   = '{$emp_dealer_group}' ";
+
+
+    $result_set1 = mysqli_query($con, $query1)
+            or die('Query failed: ' . mysqli_error($con));
+
+    $row1 = mysqli_fetch_array($result_set1);
+
+    $_SESSION['dg_premium_pkg'] = $row1['dg_premium_pkg'];
+
+    if(isset($_SESSION['dg_premium_pkg'])){
+    $dg_premium_pkg = $_SESSION['dg_premium_pkg'];
+}
 
            if($emp_position == 'Sales'){
             $bid_satus = 'offer';
@@ -107,9 +142,23 @@ if(isset($_GET['company'])){
             //$bid_satus = 'photos';
             continue;
            }
-           
-            $rows[] = "\n<div id=\"$bid_satus\"><a href=points.php?employee=$emp_id><table><tr><td width = 300px>$name</td> <td width = 200px>$emp_position</td> <td width = 400px>$emp_dealer_name</td> <td>$emp_dealer_group</td> </tr></table></a> </div>";
-           
+
+           if(empty($emp_temp_points)){
+            $bid_satus1 = 'white';
+             $valuePoints = "Add Points to: " . $name;
+           }else{
+             $bid_satus1 = 'red';
+             $valuePoints = "Adjust Points For: " . $name;       
+           }
+          
+            $rows[] = "\n<div id=\"$bid_satus\"><a href=points.php?employee=$emp_id><table><tr><td width = 300px>$name</td> <td width = 200px>$emp_position</td> <td width = 400px>$emp_dealer_name</td> <td width = 200px>$emp_dealer_group</td> <td width = 200px>$emp_assigned_man_name</td><td width = 200px>$emp_evaluation_date</td> <td width = 200px>$emp_evaluation_manager</td></tr></table></a> </div>";
+         
+           if($dg_premium_pkg == 'y'){
+    
+    $rows[] = "\n<div id=\"$bid_satus1\"><a href=point_sheet.php?employee=$emp_id ><table><tr><td width = 300px>$valuePoints</td></td></tr></table></a> </div>";
+ }else{
+     $rows[] = "\n<div id=\"$bid_satus1\"><a href=premium_package.html target=_blank ><table><tr><td width = 300px>$valuePoints</td></td></tr></table></a> </div>";
+ } 
        }
     }   
         ?>	

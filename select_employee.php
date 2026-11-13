@@ -82,7 +82,7 @@ $_SESSION['page'] = 'select_employee.php';
             $demp_first_name = $row['emp_first_name'];
             $emp_last_name = $row['emp_last_name'];
             $emp_position = $row['emp_position'];
-
+            $employee = $demp_first_name . ' ' . $emp_last_name;
 
            if($emp_position == 'Sales'){
             $bid_satus = 'offer';
@@ -90,7 +90,7 @@ $_SESSION['page'] = 'select_employee.php';
             $bid_satus = 'photos';
            }
            
-            $rows[] = "\n<div id=\"$bid_satus\"><a href=editEmployee.php?employee=$emp_id><table><tr><td width = 300px>$demp_first_name</td> <td>$emp_last_name</td></tr></table></a> </div>";
+            $rows[] = "\n<div id=\"$bid_satus\"><a href=editEmployee.php?employee=$emp_id><table><tr><td width = 300px>$employee</td> <td>$emp_position</td></tr></table></a> </div>";
            
        }
     }   

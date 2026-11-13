@@ -1,3 +1,5 @@
+
+text/x-generic training.php ( HTML document, ASCII text, with CRLF line terminators )
 <!DOCTYPE html>
 <?php
 // Start the session
@@ -21,11 +23,11 @@ session_start();
 
  <?php
  
-require_once("includes/constants.php");
+//require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
-require("toolbar_sales.php");
+
 
 $type = 'sales';
 
@@ -35,6 +37,9 @@ if($_GET['find']){
 }
 $find = $_SESSION['find'];
 
+if(isset($_SESSION["type"])){
+  $type = $_SESSION["type"];
+}
 /////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -80,8 +85,8 @@ if(isset($_POST['submit'])){
     }
      
 
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options,record_tone) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options','$tone')";
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_options,record_tone,record_type) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$options','$tone','$type')";
     
     
           if (!mysqli_query($con, $sql)) {
@@ -101,6 +106,7 @@ if(isset($_POST['submit'])){
     }
 
 /////////////////////////////////////////////////////////////////////////////////////
+require("toolbar_sales.php");
 
 if(isset($_COOKIE["userId"])){
   $userId = $_COOKIE["userId"];
@@ -113,6 +119,8 @@ $last = $emp_arry[1];
 $position = $emp_arry[2];
 $emp_id = $emp_arry[3];
 $dealer_id = $emp_arry[4];
+$dealer_group = $emp_arry[6];
+
 $name = $first . ' ' . $last;
 $_SESSION['name'] = $name;
 $_SESSION['emp_id'] = $emp_id;
@@ -168,7 +176,7 @@ $comp_product = $row['comp_product'];
 
 $query = "SELECT * ";
 $query .= "FROM script ";
-$query .= "WHERE script_group   = '{$comp_group}' ";
+$query .= "WHERE script_group   = '{$dealer_group}' ";
 $query .= "AND script_type   = '{$type}' ";
 $query .= "ORDER BY script_order ";
 
@@ -211,11 +219,13 @@ $useTone = 'Record using a voice inflection of: ' . $tone;
     echo $errorMassage;
   }
      
-echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
+//echo "<h1 style='background-color:White;'>Record the script</h1>";
   ?>
+  <h1>
  <button id="start-record-btn">Start Recording</button>
   <button id="stop-record-btn" disabled>Stop Recording</button>
   <audio id="audio-playback" controls></audio>
+</h1>
 <br>
 <br>
 <?php
@@ -247,7 +257,7 @@ echo "<h1 style='background-color:DodgerBlue;'>Record the script</h1>";
     $query .= "WHERE audio_group   = '{$comp_group}' ";
     $query .= "AND audio_vehicle_type   = '{$cust_vehicle}' ";
     $query .= "AND audio_drive_type   = '{$drive}' ";
-  
+
     $result_set = mysqli_query($con, $query)
     or die('Query failed scrip: ' . mysqli_error($con));
 
@@ -310,6 +320,8 @@ if($script_audio == 'PrimaryName'){
     $audio_drive_type = $row['audio_drive_type'];
     $audio_id = $row['audio_id'];
     $audio_gender  = $row['audio_gender'];
+   
+    //$_SESSION['prim_reply'] = $audio_reply;
 
     if($audio_drive_type == 'Primary Driver'){     
     if($audio_gender == $primary){
@@ -366,7 +378,7 @@ mysqli_query($con, "UPDATE customer_data SET cust_secondary = '$idSecondary'
 
 if($cust_primary_user == 1){
 
- echo "<h1 style='background-color:DodgerBlue;'>Primary driver</h1>";
+ echo "<h1 style='background-color:White;'>Primary driver</h1>";
   echo " <audio controls>\n";
   echo "  <source src=\" $cust_male_voice \" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -374,7 +386,7 @@ if($cust_primary_user == 1){
   
 
   }else{
- echo "<h1 style='background-color:DodgerBlue;'>Primary driver</h1>";
+ echo "<h1 style='background-color:White;'>Primary driver</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$cust_female_voice\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -400,9 +412,18 @@ $result_set = mysqli_query($con, $query)
 $row = mysqli_fetch_array($result_set);
   $audio_location = $row['audio_location'];
   $_SESSION['options'] = $row['audio_options'];
+  $audio_reply  = $row['audio_reply'];
 
+ 
+
+     $sql = "INSERT INTO reason(reason_find, reason_primary) 
+    VALUES('$find','$audio_reply')";
+
+      if (!mysqli_query($con, $sql)) {
+              die('Error training 64: ' . mysqli_error($con));
+          }
   
-  echo "<h1 style='background-color:DodgerBlue;'>What the primary driver would like</h1>";
+  echo "<h1 style='background-color:White;'>What the primary driver would like</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -412,7 +433,7 @@ $row = mysqli_fetch_array($result_set);
 
    //////////////////////////////////////////////////////////////////////////////////
 
-   
+
     if($script_audio == 'SecondaryRequest'){
 
 $query = "SELECT * ";
@@ -425,9 +446,16 @@ $result_set = mysqli_query($con, $query)
 $row = mysqli_fetch_array($result_set);
   $audio_location = $row['audio_location'];
   $_SESSION['options'] = $row['audio_options'];
+  $audio_reply  = $row['audio_reply'];
 
+   
+    mysqli_query($con, "UPDATE reason SET reason_secondary = '$audio_reply'
+              WHERE reason_find  = '$find' ");
+            
+    //$drive_reply = $_SESSION['drive_reply'];
+  //  echo $drive_reply;
   
-  echo "<h1 style='background-color:DodgerBlue;'>Anything the secondary drive would like</h1>";
+  echo "<h1 style='background-color:White;'>Anything the secondary drive would like</h1>";
   echo "    <audio controls>\n";
   echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
   echo "      Your browser does not support the audio element.\n";
@@ -450,7 +478,7 @@ $row = mysqli_fetch_array($result_set);
     $row = mysqli_fetch_array($result_set);
       $audio_location = $row['audio_location'];
 
-      echo "<h1 style='background-color:DodgerBlue;'>How the customers are going to the vehicle</h1>";
+      echo "<h1 style='background-color:White;'>How the customers are going to the vehicle</h1>";
       echo "    <audio controls>\n";
       echo "  <source src=\"$audio_location\" type=\"audio/mpeg\">\n";
       echo "      Your browser does not support the audio element.\n";
@@ -526,12 +554,12 @@ echo "<form action=\"training.php?find=$find\" method=\"post\">";
 
 <br />
 
-<input   type="submit" name="submit" value="Submit"/>
+<h1><input type="submit" name="submit" value="Submit"/></h1>
 
 
 <br />
  
-<h1 style="background-color: Red;">After listening to your recording press the submit button.
+<h1 style="background-color: #ff7c8c;">After listening to your recording press the submit button.
 If you do not listen to your recording you will not receive points. You may do as many recordings as you like. The only one that will be count is the one you submit.</h1>";
    
 </body>

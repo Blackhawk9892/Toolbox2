@@ -35,6 +35,7 @@ session_start();
         require_once("includes/connection.php");
         require("includes/security.php");
 
+        
         unset($_SESSION['first']);
 
         if(!isset($_SESSION['endTime'])){
@@ -45,14 +46,15 @@ session_start();
            }
 
      
-         
+      
         if (isset($_SESSION['message'])) {
             $message = $_SESSION['message'];
-            echo "<div class=\"errors\">$message</div>";
+            echo"<center><h4 style='color:red;'>$message </h4> </center>";
             unset($_SESSION['message']);
         }
 
         $missing = 0;
+        
         if (isset($_POST['sign'])) {
 
             if (empty($_POST['userName'])) {
@@ -246,7 +248,7 @@ session_start();
                     <div class="col-sm-3 text-warning" style="background-color:black;">
                         <br />
                         <br />
-                        <h2 style="color:yellow;"class="center">Sales Tool Box</h2>
+                        <h2 style="color:yellow;"class="center">SALES TRAINING</h2>
                         <br />
                         <br />
                         <h2 style="color:yellow;" class="center">Sign In</h2>

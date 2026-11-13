@@ -1,3 +1,5 @@
+
+text/x-generic interduction.php ( PHP script, ASCII text, with CRLF line terminators )
 <?php
 session_start();
 ?>
@@ -16,11 +18,18 @@ session_start();
 
 <?php
 
-require_once("includes/constants.php");
+//require_once("includes/constants.php");
 require("includes/connection.php");
 require("includes/database_rows.php");
 require("includes/functions.php");
-require("toolbar_sales.php");
+
+if(empty($_COOKIE["userId"]) or (!isset($_COOKIE["userId"]))){
+  $_SESSION['message'] = "Not a valid employee";
+
+ header("Location: index.php");
+  exit;
+}
+
 
 if(isset($_GET["type"])){
   $_SESSION["type"] = $_GET["type"];
@@ -39,6 +48,7 @@ $last = $emp_arry[1];
 $position = $emp_arry[2];
 $emp_id = $emp_arry[3];
 $dealer_id = $emp_arry[4];
+$dealer_group = $emp_arry[6];
 $name = $first . ' ' . $last;
 }
 
@@ -92,8 +102,8 @@ $comp_group = $_SESSION['comp_group'];
            die('Error customer _data 206: ' . mysqli_error($con));
        }
   
-    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_tone) 
-    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$tone')";
+    $sql = "INSERT INTO recording(record_empl_num,record_empl_name,	record_script,record_vioce,record_cust_data,record_tone,record_type) 
+    VALUES('$emp_id','$name','$script','$audioName','$custStamp','$tone','$type')";
     
     
           if (!mysqli_query($con, $sql)) {
@@ -112,10 +122,10 @@ $comp_group = $_SESSION['comp_group'];
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+require("toolbar_sales.php");
 $query = "SELECT * ";
 $query .= "FROM script ";
-$query .= "WHERE script_comp_num   = '{$dealer_id}' ";
+$query .= "WHERE script_group   = '{$dealer_group}' ";
 $query .= "AND script_type   = '{$type}' ";
 $query .= "ORDER BY script_order ";
 
@@ -143,12 +153,13 @@ $useTone = 'Record this script using a voice inflection of: ' . $tone ;
   echo "<h3>$script</h3>";
 
 
-echo "<h1 style='background-color:DodgerBlue;'>Record the script.  Learn the script's intent, then put it in your own words. The voice inflection is the important thing</h1>";
+//echo "<h1 style='background-color:DodgerBlue;'>Record the script.  Learn the script's intent, then put it in your own words. The voice inflection is the important thing</h1>";
   ?>
-
+<h1>
 <button id="start-record-btn">Start Recording</button>
   <button id="stop-record-btn" disabled>Stop Recording</button>
   <audio id="audio-playback" controls></audio>
+</h1>
   <br>
   <br>
 <?php
@@ -166,20 +177,27 @@ $comp_group = $row['comp_group'];
 $_SESSION['comp_group'] = $comp_group;
 
 ///////////////////////////////////////////////////////////////////////////////////
+$driveType = "Vehicle Driven";
 $veh_array = array();
 $query = "SELECT * ";
 $query .= "FROM audio ";
 $query .= "WHERE audio_group   = '{$comp_group}' ";
+$query .= "AND audio_drive_type   = '{$driveType}' ";
 
 
 $result_set = mysqli_query($con, $query)
         or die('Query failed emp: ' . mysqli_error($con));
 while($row = mysqli_fetch_array($result_set)){
   $audio_vehicle_type = $row['audio_vehicle_type'];
+
+          if($audio_vehicle_type == "Environmental Protection"){
+          continue;
+        }
   
        if(empty($audio_vehicle_type)){
         continue;
        }else{
+       
         $veh_array[] = $audio_vehicle_type;
        }
 
@@ -286,7 +304,7 @@ $_SESSION['voiceMale'] = $maleVoice;
 $_SESSION['voiceMaleName'] = $maleVoiceName;
 
 
-echo "<h1 style='background-color:DodgerBlue;'>Names of customers</h1>";
+echo "<h1 style='background-color:#ffffff;'>Names of customers</h1>";
 echo " <audio controls>\n";
 echo "        <source src=\"$maleVoice\" type=\"audio/mpeg\">\n";
 echo "      Your browser does not support the audio element.\n";
@@ -400,14 +418,14 @@ echo "      </audio>";
 echo "<form action=\"interduction.php\" method=\"post\">";
 
 ?>
-<br />
-
-<input   type="submit" name="submit" value="Submit"/>
 
 
+<h1><input   type="submit" name="submit" value="Submit"/></h1>
 
-<br />
-<h1 style="background-color: Red;">After listening to your recording press the submit button.
+
+
+
+<h1 style="background-color: #ff7c8c;">After listening to your recording press the submit button.
    If you do not listen to your recording you will not receive points. You may do as many recordings as you like. The only one that will be count is the one you submit.</h1>";
 </html>
  
