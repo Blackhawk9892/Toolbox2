@@ -1,20 +1,25 @@
+<?php
 
-	<?php 
-	require_once("constants.php");
+// Database connection settings
+$host = "localhost";
+$user = "root";
+$password = "";
+$database = "tools";
 
+// Connect to MySQL
+$con = mysqli_connect(
+    $host,
+    $user,
+    $password,
+    $database
+);
 
-	date_default_timezone_set('America/Chicago');
- $password = '';
- $database = 'toolbox';
- echo $database;
-	 $con = mysqli_connect(DB_SERVER_HOST,DB_USER,$password,$database);
-        // $con = mysqli_connect('localhost','root,);
-if (!$con)
-  {
-  die('Could not connect : ' . mysqli_error());
-  }
- 
+// Check connection
+if (!$con) {
+    die("Could not connect: " . mysqli_connect_error());
+}
 
+// Set character encoding
+mysqli_set_charset($con, "utf8mb4");
 
-  return $con
 ?>

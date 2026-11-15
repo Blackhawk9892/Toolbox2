@@ -161,7 +161,7 @@ if(isset($row)){
 
 echo '<form action="awards.php"
             method="POST"
-            target="_blank">';
+            >';
 
 echo '<input type="hidden"
              name="awards_json"
@@ -185,7 +185,7 @@ $vehicle_name = trim(
     $vehicle_model . ' ' .
     $vehicle_trim
 );
-
+ 
 // Get specifications from database
 $json = $row['spec_specif'] ?? '';
 
@@ -195,7 +195,7 @@ if (!empty($json)) {
     // Start form
     echo '<form action="specifications.php"
                 method="POST"
-                target="_blank">';
+                >';
 
     // Send vehicle name
     echo '<input type="hidden"
@@ -249,7 +249,7 @@ if (!empty($json)) {
 
     echo '<form action="top_5_copetition.php"
                 method="POST"
-                target="_blank">';
+                >';
 
     // Send selected vehicle name
     echo '<input type="hidden"
@@ -292,12 +292,13 @@ if (!empty($json)) {
                           "&model=" . urlencode($vehicle_model) .
                           "&trim=" . urlencode($vehicle_trim);
 
-                       echo'<a href="' . $url . '" target="_blank"><h2>Research Vehicle</h2></a>';
+                       echo'<a href="  $url <h2>Research Vehicle</h2></a>';
 
 }
 
+        
   ?>
 
-
+ 
 </div>
 </body>

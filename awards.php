@@ -1,5 +1,14 @@
 
 <?php
+
+session_start();
+
+
+ if(isset($_SESSION["stock"])){
+            $stock = $_SESSION["stock"];
+            }
+
+
 /*
  * Program: awards.php
  *
@@ -417,7 +426,10 @@ h2 {
 
 <h1>Vehicle Awards and Safety Ratings</h1>
 
-<?php if ($vehicle_name !== ''): ?>
+<?php 
+
+
+if ($vehicle_name !== ''): ?>
 
     <div class="vehicle-name">
         <?php echo safe($vehicle_name); ?>
@@ -603,6 +615,15 @@ h2 {
 </p>
 
 <?php endif; ?>
+
+<?php
+
+echo "<form action=\"show_vehicle.php?stock=$stock\" method=\"post\">";
+  echo "<br />";
+  echo "<input type=\"submit\" name=\"back\" value=\"Back\"/>";
+  echo "<br />";
+  echo "</form>";
+?>
 
 </div>
 

@@ -1,5 +1,13 @@
 
 <?php
+session_start();
+
+
+ if(isset($_SESSION["stock"])){
+            $stock = $_SESSION["stock"];
+            }
+
+
 /*
  * Program: specifications.php
  *
@@ -374,6 +382,13 @@ if (
     displaySpecifications($data);
 
 }
+
+
+echo "<form action=\"show_vehicle.php?stock=$stock\" method=\"post\">";
+  echo "<br />";
+  echo "<input type=\"submit\" name=\"back\" value=\"Back\"/>";
+  echo "<br />";
+  echo "</form>";
 
 ?>
 
