@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+
+
+ if(isset($_SESSION["stock"])){
+            $stock = $_SESSION["stock"];
+            }
+
+
 /*
 |--------------------------------------------------------------------------
 | VEHICLE RESEARCH
@@ -330,6 +338,13 @@ function escapeHtml(text) {
 }
 
 </script>
+<?php
 
+echo "<form action=\"show_vehicle.php?stock=$stock\" method=\"post\">";
+  echo "<br />";
+  echo "<input type=\"submit\" name=\"back\" value=\"Back\"/>";
+  echo "<br />";
+  echo "</form>";
+?>
 </body>
 </html>

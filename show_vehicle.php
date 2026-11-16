@@ -292,7 +292,7 @@ if (!empty($json)) {
                           "&model=" . urlencode($vehicle_model) .
                           "&trim=" . urlencode($vehicle_trim);
 
-                       echo'<a href="  $url <h2>Research Vehicle</h2></a>';
+                       echo'<a href="' . $url . '" "><h2>Research Vehicle</h2></a>';
 
 }
 
