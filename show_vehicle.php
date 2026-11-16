@@ -178,6 +178,7 @@ echo '<button type="submit">
       </button>';
 
 echo '</form>';
+echo "</br>";
 /////////////////////////////////////////Specifications Section
 $vehicle_name = trim(
     $vehicle_year . ' ' .
@@ -232,7 +233,7 @@ if (!empty($json)) {
 /////////////////////////////////////////////////
 // TOP 5 COMPETITION SECTION
 /////////////////////////////////////////////////
-
+echo "</br>";
 // Build selected vehicle name
 $vehicle_name = trim(
     $vehicle_year . ' ' .
