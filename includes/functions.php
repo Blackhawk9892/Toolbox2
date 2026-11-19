@@ -58,5 +58,16 @@ function points($total, $find) {  // Add points to date base
         return $testPage;
               
     }
+function replaceApostrophes($text) {
 
+    $apostrophes = [
+        "'",    // Straight apostrophe
+        "’",    // Right curly apostrophe
+        "‘",    // Left curly apostrophe
+        "ʼ",    // Modifier apostrophe
+        "＇"    // Fullwidth apostrophe
+    ];
+
+    return str_replace($apostrophes, '&#39;', $text);
+}
 ?>

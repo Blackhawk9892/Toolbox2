@@ -6,6 +6,11 @@ session_start();
  if(isset($_SESSION["stock"])){
             $stock = $_SESSION["stock"];
             }
+            echo "<form action=\"show_vehicle.php?stock=$stock\" method=\"post\">";
+  echo "<br />";
+  echo "<input type=\"submit\" name=\"back\" value=\"Back\"/>";
+  echo "<br />";
+  echo "</form>";
 
 /* top_5_copetition.php - PHP 7.3+ */
 $vehicle_name = $_POST['vehicle_name'] ?? '';

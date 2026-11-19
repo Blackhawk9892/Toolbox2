@@ -21,6 +21,7 @@ Add Dealer to stock tag program
           require("includes/connection.php");
           require("includes/database_rows.php");
           require("toolbar_sales.php");
+          require("includes/functions.php");
 
           if(isset($_COOKIE["userId"])){
            $userId = $_COOKIE["userId"];
@@ -82,6 +83,7 @@ Add Dealer to stock tag program
                 }else{
                      $engine = strtoupper($_POST['engine']);
                      $_POST['engine'] = $engine;
+                     $engine = replaceApostrophes($engine);
                 }
 
                   if(empty($_POST['drive'])){
@@ -96,27 +98,26 @@ Add Dealer to stock tag program
                 }else{
                      $exterior = strtoupper($_POST['exterior']);
                      $_POST['exterior'] = $exterior;
+                     $exterior = replaceApostrophes($exterior);
                 }
                 
                 if(empty($_POST['interior'])){
                         $interior = ' ';
                 }else{
-                        $interior = strtoupper($_POST['interior']);  
-                        $_POST['interior'] = $interior;
-                }
-                
                 if(empty($_POST['option1'])){
                        $option1 = ' ';
                 }else{
                         $option1 = strtoupper($_POST['option1']);
-                        $_POST['option1'] = $option1;
+                        $_POST['option1'] =   $option1; 
+                            $option1 =   replaceApostrophes($option1);                                                                                                                                                                         0;
                 }
 
                 if(empty($_POST['option2'])){
                        $option2 = ' ';
                 }else{
                         $option2 = strtoupper($_POST['option2']);
-                        $_POST['option2'] = $option2;
+                        $_POST['option2'] = $option2;                 
+                        $option2 = replaceApostrophes($option2);
                 }
 
                 if(empty($_POST['option3'])){
@@ -124,6 +125,7 @@ Add Dealer to stock tag program
                 }else{
                         $option3 = strtoupper($_POST['option3']);
                         $_POST['option3'] = $option3;
+                        $option3 = replaceApostrophes($option3);
                 }
 
                 if(empty($_POST['option4'])){
@@ -131,6 +133,7 @@ Add Dealer to stock tag program
                 }else{
                         $option4 = strtoupper($_POST['option4']);
                         $_POST['option4'] = $option4;
+                        $option4 = replaceApostrophes($option4);
                 }
 
                 if(empty($_POST['option5'])){
@@ -138,6 +141,7 @@ Add Dealer to stock tag program
                 }else{
                         $option5 = strtoupper($_POST['option5']);
                         $_POST['option5'] = $option5;
+                        $option5 = replaceApostrophes($option5);
                 }
 
                 if(empty($_POST['option6'])){
@@ -145,6 +149,7 @@ Add Dealer to stock tag program
                 }else{
                         $option6 = strtoupper($_POST['option6']);
                         $_POST['option6'] = $option6;
+                        $option6 = replaceApostrophes($option6);
                 }
 
                 if(empty($_POST['option7'])){
@@ -152,6 +157,7 @@ Add Dealer to stock tag program
                 }else{
                         $option7 = strtoupper($_POST['option7']);
                         $_POST['option7'] = $option7;
+                        $option7 = replaceApostrophes($option7);
                 }
 
                 if(empty($_POST['option8'])){
@@ -159,6 +165,7 @@ Add Dealer to stock tag program
                 }else{
                         $option8 = strtoupper($_POST['option8']);
                         $_POST['option8'] = $option8;
+                        $option8 = replaceApostrophes($option8);
                 }
 
                 if(empty($_POST['option9'])){
@@ -166,6 +173,7 @@ Add Dealer to stock tag program
                 }else{
                         $option9 = strtoupper($_POST['option9']);
                         $_POST['option9'] = $option9;
+                        $option9 = replaceApostrophes($option9);
                 }
 
                 if(empty($_POST['option10'])){
@@ -173,6 +181,7 @@ Add Dealer to stock tag program
                 }else{
                         $option10 = strtoupper($_POST['option10']);
                         $_POST['option10'] = $option10;
+                        $option10 = replaceApostrophes($option10);
                 }
 
                 if(empty($_POST['option11'])){
@@ -180,6 +189,7 @@ Add Dealer to stock tag program
                 }else{
                         $option11 = strtoupper($_POST['option11']);
                         $_POST['option11'] = $option11;
+                        $option11 = replaceApostrophes($option11);
                 }
 
                 if(empty($_POST['option12'])){
@@ -187,6 +197,7 @@ Add Dealer to stock tag program
                 }else{
                         $option12 = strtoupper($_POST['option12']);
                         $_POST['option12'] = $option12;
+                        $_POST['option12'] = replaceApostrophes($option12);
                 }
 
                 if(empty($_POST['option13'])){
@@ -194,6 +205,7 @@ Add Dealer to stock tag program
                 }else{
                         $option13 = strtoupper($_POST['option13']);
                         $_POST['option13'] = $option13;
+                        $option13 = replaceApostrophes($option13);
                 }
 
                 if(empty($_POST['option14'])){
@@ -201,6 +213,7 @@ Add Dealer to stock tag program
                 }else{
                         $option14 = strtoupper($_POST['option14']);
                         $_POST['option14'] = $option14;
+                        $option14 = replaceApostrophes($option14);
                 }
 
                 if(empty($_POST['option15'])){
@@ -208,6 +221,7 @@ Add Dealer to stock tag program
                 }else{
                         $option15 = strtoupper($_POST['option15']);
                         $_POST['option15'] = $option15;
+                        $option15 = replaceApostrophes($option15);
                 }
 
                 if(empty($_POST['option16'])){
@@ -215,6 +229,7 @@ Add Dealer to stock tag program
                 }else{
                         $option16 = strtoupper($_POST['option16']);
                         $_POST['option16'] = $option16;
+                        $option16 = replaceApostrophes($option16);
                 }
                 
                  
@@ -260,7 +275,7 @@ Add Dealer to stock tag program
                    
                 }
             }
-            
+            }   
 
 
 

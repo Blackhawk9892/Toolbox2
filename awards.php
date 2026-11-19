@@ -8,7 +8,11 @@ session_start();
             $stock = $_SESSION["stock"];
             }
 
-
+echo "<form action=\"show_vehicle.php?stock=$stock\" method=\"post\">";
+  echo "<br />";
+  echo "<input type=\"submit\" name=\"back\" value=\"Back\"/>";
+  echo "<br />";
+  echo "</form>";
 /*
  * Program: awards.php
  *
