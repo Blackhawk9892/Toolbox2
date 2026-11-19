@@ -291,6 +291,10 @@ $tb_program = 'stock_num.php';
  $tb_descrip = 'Find Vehicle by Stock Number';
     $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
+$tb_program = 'phone_salespeople.php';
+ $tb_descrip = 'Sales rotation update';
+    $mantenance_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
