@@ -19,7 +19,7 @@ session_start();
                 background-size: cover;
                 position: relative;
             }
-            <style>
+          
 .center {
   margin: auto;
  width: 10%;
@@ -143,17 +143,42 @@ echo "<h2> Vehicle Options:</h2>\n";
 
 }
 
-       $query = "SELECT * ";
-$query .= "FROM specifications ";
-$query .= "WHERE spec_year   = '{$vehicle_year}' ";
-$query .= "AND spec_make   = '{$vehicle_make}' ";
-$query .= "AND spec_model   = '{$vehicle_model}' ";
-$query .= "AND spec_trim   = '{$vehicle_trim}' ";
+ 
+$query = "SELECT
+            spec_year,
+            spec_make,
+            spec_model,
+            spec_trim,
+            spec_awards,
+            spec_specif,
+            spec_competition
+          FROM specifications
+          WHERE spec_year = ?
+          AND spec_make = ?
+          AND spec_model = ?
+          AND spec_trim = ?
+          LIMIT 1";
+
+$stmt = $con->prepare($query);
+
+$stmt->bind_param(
+    "ssss",
+    $vehicle_year,
+    $vehicle_make,
+    $vehicle_model,
+    $vehicle_trim
+);
+
+$stmt->execute();
+
+$result_set = $stmt->get_result();
+
+$row = $result_set->fetch_assoc();
+
+$stmt->close();
 
 
-$result_set = mysqli_query($con, $query)
-        or die('Query failed emp: ' . mysqli_error($con));
-$row = mysqli_fetch_array($result_set);
+
 if(isset($row)){
  
 ////////////////////////////////////////Awards Section
@@ -189,6 +214,7 @@ $vehicle_name = trim(
  
 // Get specifications from database
 $json = $row['spec_specif'] ?? '';
+
 
 // Only display button if specifications exist
 if (!empty($json)) {

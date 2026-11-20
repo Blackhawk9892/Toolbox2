@@ -17,6 +17,7 @@ if (!$con)
   {
   die('Could not connect: ' . mysqli_error());
   }
+  mysqli_set_charset($con, 'utf8mb4');
 
 mysqli_select_db($con,'stocktaginfo');
 
