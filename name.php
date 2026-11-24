@@ -175,8 +175,8 @@ if (isset($_POST['submit'])) {
  
     foreach ($errors as $value) {
         $_SESSION['errors'] = "<div class=\"errors\">$value</div>";
-       // $testPage = '/name.php';    // This is for Production
-        $testPage = '/toolbox/toolbox2/name.php'; // This is for Testing
+        $testPage = '/name.php';    // This is for Production
+        //$testPage = '/toolbox/toolbox2/name.php'; // This is for Testing
         $find = $_SESSION['find'];
        header("Location: $testPage?find=$find");
        exit;
