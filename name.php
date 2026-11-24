@@ -211,10 +211,15 @@ if (isset($_POST['submit'])) {
   mysqli_query($con, "UPDATE customer_data SET cust_points = '$total'
                   WHERE cust_id  = '$cust_id' ");
 
+           //////// FOR PRODUCTION ONLY//////////       
 
+$testPage =   "select_vehicles.php";
+/*
+     /////FOR TESTING PURPOSES ONLY//////
+     
       $program = "select_vehicles.php";
       $testPage =  test_production($program);
-
+*/
 
 $find = $_SESSION['find'];
 header("Location: $testPage?find=$find");

@@ -21,7 +21,7 @@ Add Dealer to stock tag program
          require("includes/connection.php");
          require("includes/database_rows.php");
          require("includes/functions.php");
-         require("toolbar_sales.php");
+         //require("toolbar_sales.php");
 
           $_SESSION['counter'] = 0;
 
@@ -205,8 +205,15 @@ $query = "SELECT * ";
                     //$testPage = '/toolbox/toolbox2/objection_training.php';   // For Test
                    // $testPage = '/home.php';  // For production
                    // $program = "objection_training.php";
-                   $program = "vehicle_worksheet.php";
-                   $testPage =  test_production($program);
+
+                   //////// FOR PRODUCTION ONLY//////////
+
+                   $testPage= "vehicle_worksheet.php";
+
+                   ///////FOR TESTING PURPOSES ONLY//////
+
+                  // $program = "vehicle_worksheet.php";
+                  // $testPage =  test_production($program);
 
   $find = $_SESSION['find'];
   header("Location: $testPage?find=$find");

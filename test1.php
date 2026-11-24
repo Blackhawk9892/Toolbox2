@@ -538,11 +538,11 @@ $testOpt = count($result2);
                   mysqli_query($con, "UPDATE customer_data SET cust_points = '$total'
                   WHERE cust_id  = '$cust_id' ");
 
-   // $testPage = '/name.php'; //For Production
+    $testPage = '/name.php'; //For Production
    //$testPage = '/toolbox/toolbox2/name.php'; //For Test
 
-    $program = "name.php";
-    $testPage =  test_production($program);
+   // $program = "name.php";
+   // $testPage =  test_production($program);
 
 
   $find = $_SESSION['find'];
@@ -602,7 +602,7 @@ $testOpt = count($result2);
 if($find == "setup"){
     echo "<center><h1>Setup For Reply Recording</h1></center>";
  }else{
-    echo "<center><h1>Vehicle Test </h1></center>";
+   
  }
  if(empty($_POST['price'])){
   $_POST['price'] = 0;

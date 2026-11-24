@@ -224,10 +224,14 @@ while($row = mysqli_fetch_array($result_set)){
         
       $_SESSION['message'] = "Your points for today have been recorded. You may train as many times as you want, but only your first time counts for points.";
     
+      /////Production only//////
+    $testPage = "home.php";
 
+////////This is for production only/////////
+/*
       $program = "home.php";
       $testPage =  test_production($program);
-
+*/
       header("Location: $testPage");
       exit;
    }

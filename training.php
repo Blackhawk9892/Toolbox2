@@ -193,11 +193,14 @@ while($row = mysqli_fetch_array($result_set)){
    
     $cName =  $comp_product; 
 
-  
-    
-     $program = "test1.php";
-    $testPage =  test_production($program);
+  $testPage = "test1.php";
 
+/*
+         FOR TESTING PURPOSES ONLY
+         
+    // $program = "test1.php";
+   // $testPage =  test_production($program);
+*/
      if($cust_points  > $count ){
       $find = $_SESSION['find'];
       header("Location: $testPage?find=$find");
