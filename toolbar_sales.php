@@ -240,6 +240,11 @@ $tb_program = 'orphan_interduction.php?type=orphan';
 $tb_descrip = "Orphan Customer";
 $sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
 
+
+$tb_program = 'service_interduction.php?type=service';
+$tb_descrip = "Service Customer";
+$sales_array[] = "<li><a href=$tb_program>$tb_descrip</a></li>\n";
+
 /*
 
 

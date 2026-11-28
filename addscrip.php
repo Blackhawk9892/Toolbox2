@@ -429,7 +429,7 @@ if(isset($_COOKIE["userId"])){
             $place = 'Sales Tool Box';
             $position_arr[] = "\n<option value=\"$place\">$place</option>\n";
             }
-           
+            
             
             if(isset($_POST['dealer'])){
                 $dealer = $_POST['dealer'];
@@ -557,14 +557,14 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
 
                 $place = 'orphan';
-                $description = "Cold call Orphan Customer";
+                $description = " Orphan Customer";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
 
                 $place = 'service';
-                $description = "Cold call Service Customer";
+                $description = "Service Customer";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
 
-                
+               /* 
                 $place = 'price';
                 $description = "Callback left dealership because of price";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
@@ -580,7 +580,7 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $place = 'know';
                 $description = "Callback don't know why they left the dealership";
                 $typeScrip_arr[] = "\n<option value=\"$place\">$description</option>\n";
-                
+                */
                 
                 
                 
@@ -788,6 +788,49 @@ $Temp = "<td width = 6%>$script_template </td>";
                 $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
                 */
             break;
+
+                 ///////////////////////////////////////////////////////////////////////////////////// 
+            case "service":
+ 
+                $place = 'None';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+              $place = 'S-customer';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+        
+               $place = 'S-introduction';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'S-conversation';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'S-replacing';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'S-another';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'S-keeping';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+               
+                $place = 'S-current';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'S-trade';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'S-week';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'S-AmPm';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                
+   
+ 
+            break;
+
 
             default:
                echo "Type of Scrip: it's not recognized";

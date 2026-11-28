@@ -28,6 +28,7 @@ session_start();
   require("includes/functions.php");
 
 ////////////////////////////Employee Info////////////////////////////////////
+ 
 // 
 if(isset($_COOKIE["userId"])){
     $userId = $_COOKIE["userId"];
@@ -236,6 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
+
     $blank = '';
     if (isset($_POST['typeDriver'])) {
         $type = $_POST['typeDriver'];
@@ -381,6 +383,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     /////////////////////////////////////////////////////////////////////////////////
+   
+                $place = 'None';
+                $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+              $place = 'S-customer';
+                $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+        
+               $place = 'S-introduction';
+                $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'S-conversation';
+                $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'S-replacing';
+                $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'S-another';
+                $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                 $place = 'S-keeping';
+                $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+               
+                $place = 'S-current';
+                $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'S-trade';
+                $recordType_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'S-week';
+                $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+                $place = 'S-AmPm';
+                $typeDriver_arr[] = "\n<option value=\"$place\">$place</option>\n";
+
+    /////////////////////////////////////////////////////////////////////////////////
     $blank = '';
     if (isset($_POST['gender'])) {
         $gender = $_POST['gender'];
@@ -443,9 +481,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $place = 'Orphan Customer';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
-    $place = 'Incoming Call';
+    $place = 'Service Customer';
     $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
+    $place = 'Incoming Call';
+    $typeVehicle_arr[] = "\n<option value=\"$place\">$place</option>\n";
 
 
 
